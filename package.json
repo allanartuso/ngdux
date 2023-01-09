@@ -29,7 +29,8 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "publish:ngdux/form": "npm publish dist/libs/ngdux/data-model/common && npm publish dist/libs/ngdux/util/store/common && npm publish dist/libs/ngdux/util/store/form && npm publish dist/libs/ngdux/util/store/list"
+    "ngdux:build": "nx build ngdux-util-store-form && nx build ngdux-util-store-list",
+    "ngdux:publish": "npm publish dist/libs/ngdux/data-model/common && npm publish dist/libs/ngdux/util/store/common && npm publish dist/libs/ngdux/util/store/form && npm publish dist/libs/ngdux/util/store/list"
   },
   "private": true,
   "dependencies": {
