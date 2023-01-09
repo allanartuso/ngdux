@@ -1,14 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { createTestResource, featureKey, TestResource } from '@demo/ngdux/util/store/common/test';
 import { RequestState } from '@ngdux/data-model-common';
+import { createTestResource, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
-import { formActions, TestFormEffects, TestFormService } from '../models/form.fixture';
+import { featureKey, formActions, TestFormEffects, TestFormService } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
 
 describe('TestEffects', () => {

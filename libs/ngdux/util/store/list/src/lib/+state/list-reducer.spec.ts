@@ -1,12 +1,8 @@
-jest.mock('../../utils/action-handlers', () => {
-  const actualModule = jest.requireActual('../../utils/action-handlers');
-
-  return {
-    ...actualModule,
-    createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
-    createRequestStateActionHandlers: jest.fn().mockReturnValue([])
-  };
-});
+jest.mock('@ngdux/store-common', () => ({
+  getLastPageNumber: jest.fn().mockReturnValue(undefined),
+  createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
+  createRequestStateActionHandlers: jest.fn().mockReturnValue([])
+}));
 
 import {
   DEFAULT_REQUEST_OPTIONS,
@@ -312,37 +308,6 @@ describe('createListReducer', () => {
         })
       );
     });
-
-    it('sets the last page if the resources length is smaller than page size', () => {
-      const lastPageNumber = 4;
-      const testResources = createTestResources();
-      const testAction = testListActions.loadPageSuccess({
-        resources: testResources,
-        pagingOptions: {
-          page: lastPageNumber,
-          pageSize: 10
-        }
-      });
-
-      const state = testReducer(testInitialState, testAction);
-
-      expect(state).toStrictEqual(testEntityAdapter.addMany(testResources, { ...testInitialState, lastPageNumber }));
-    });
-
-    it('sets the last page to the previous page if the resources is empty', () => {
-      const lastPageNumber = 4;
-      const testAction = testListActions.loadPageSuccess({
-        resources: [],
-        pagingOptions: {
-          page: lastPageNumber + 1,
-          pageSize: 10
-        }
-      });
-
-      const state = testReducer(testInitialState, testAction);
-
-      expect(state).toStrictEqual({ ...testInitialState, lastPageNumber });
-    });
   });
 
   it('adds the loading state action handlers to the reducer', () => {
@@ -350,7 +315,7 @@ describe('createListReducer', () => {
 
     testReducer(testInitialState, testAction);
 
-    expect(createLoadingStateActionHandlers).toHaveBeenCalledTimes(2);
+    expect(createLoadingStateActionHandlers).toHaveBeenCalledTimes(1);
     expect(createLoadingStateActionHandlers).toHaveBeenCalledWith(
       testListActions.loadPage,
       testListActions.loadPageSuccess,

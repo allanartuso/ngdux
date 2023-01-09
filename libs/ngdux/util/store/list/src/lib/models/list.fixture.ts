@@ -22,13 +22,13 @@ export const listSelectors = createListSelectors<TestResource, TestErrors>(
 
 @Injectable()
 export class TestListService implements ListService<TestResource> {
-  queryResources = jest.fn();
+  loadResources = jest.fn();
   patchResources = jest.fn();
   deleteResources = jest.fn();
 }
 
 const mockSnackBar = { open: jest.fn() } as unknown as MatSnackBar;
-const mockDialog: ListNotificationService<TestErrors> = { openConfirmationDialog: jest.fn(), onErrors: jest.fn() };
+const mockDialog: ListNotificationService<TestErrors> = { openConfirmationDialog: jest.fn(), onListErrors: jest.fn() };
 
 @Injectable()
 export class TestListEffects extends AbstractListEffects<TestResource, TestErrors> {

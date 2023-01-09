@@ -65,7 +65,7 @@ describe('TestEffects', () => {
 
     effects = TestBed.inject(TestListEffects);
     resourcesService = TestBed.inject(TestListService);
-    resourcesService.queryResources = jest.fn().mockImplementation(() => of(resources));
+    resourcesService.loadResources = jest.fn().mockImplementation(() => of(resources));
     resourcesService.patchResources = jest.fn().mockImplementation(() => of(resources));
     resourcesService.deleteResources = jest.fn().mockImplementation(() => of(resources));
     store = TestBed.inject(MockStore);
@@ -95,7 +95,7 @@ describe('TestEffects', () => {
     });
 
     it('should emit failure when an error is thrown', () => {
-      resourcesService.queryResources = jest.fn().mockImplementation(() => throwError(testErrors));
+      resourcesService.loadResources = jest.fn().mockImplementation(() => throwError(testErrors));
       actions$ = hot('a', { a: listActions.loadPage({ pageNumber: 3 }) });
       const expected = hot('a', {
         a: listActions.loadPageFailure({ errors: testErrors })

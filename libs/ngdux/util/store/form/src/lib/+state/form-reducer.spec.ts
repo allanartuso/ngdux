@@ -1,6 +1,6 @@
-import { createTestResource, TestResource } from '@demo/ngdux/util/store/common/test';
 import { RequestState } from '@ngdux/data-model-common';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
+import { createTestResource, TestResource } from '@ngdux/store-common/test';
 import { FormState } from '../models/form.model';
 import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';

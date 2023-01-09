@@ -30,10 +30,11 @@ describe('formState', () => {
 
   it('create form actions', () => {
     expect(createFormActions).toHaveBeenCalledWith(featureName);
+    expect(actions).toBe(mockActions);
   });
 
   it('create form reducer', () => {
-    expect(createFormReducer).toHaveBeenCalledWith(actions);
+    expect(createFormReducer).toHaveBeenCalledWith(mockActions);
     expect(reducer(undefined, { type: '' })).toBe(mockReducer);
   });
 
