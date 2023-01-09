@@ -22,6 +22,6 @@ export interface FormService<T> {
 }
 
 export interface FormNotificationService<E> {
-  onErrors: (errors: E) => void;
+  onFormErrors: (errors: E) => void;
   onDelete: (id: string) => void;
 }

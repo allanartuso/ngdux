@@ -1,16 +1,20 @@
 import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@ngdux/data-model-common';
+import { createTestResources, TestResource } from '@ngdux/store-common/test';
 import { createFeatureSelector } from '@ngrx/store';
-import { createTestResources, TestResource } from '../../models/store.fixture';
+import { TestErrors } from '../models/list.fixture';
 import { ListState } from '../models/list.model';
 import { createListEntityAdapter } from './list-reducer';
 import { createListSelectors } from './list-selectors';
 
 describe('list selectors', () => {
-  let state: ListState<TestResource>;
+  let state: ListState<TestResource, TestErrors>;
   let resources: TestResource[];
 
   const testEntityAdapter = createListEntityAdapter<TestResource>();
-  const listSelectors = createListSelectors(testEntityAdapter, createFeatureSelector('testFeature'));
+  const listSelectors = createListSelectors<TestResource, TestErrors>(
+    testEntityAdapter,
+    createFeatureSelector('testFeature')
+  );
   const initialState = testEntityAdapter.getInitialState({
     ...DEFAULT_REQUEST_OPTIONS,
     lastPageNumber: undefined,
@@ -18,7 +22,7 @@ describe('list selectors', () => {
     selectedResourceIds: [],
     loadingState: RequestState.IDLE,
     requestState: RequestState.IDLE,
-    error: undefined
+    errors: undefined
   });
 
   beforeEach(() => {

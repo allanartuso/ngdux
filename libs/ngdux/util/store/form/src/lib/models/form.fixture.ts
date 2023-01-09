@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TestResource } from '@demo/ngdux/util/store/common/test';
 import { FormNotificationService, FormService } from '@ngdux/data-model-common';
+import { TestResource } from '@ngdux/store-common/test';
 import { Actions } from '@ngrx/effects';
 import { createFeatureSelector, Store } from '@ngrx/store';
 import { AbstractFormEffects } from '../+state/abstract-form-effects';

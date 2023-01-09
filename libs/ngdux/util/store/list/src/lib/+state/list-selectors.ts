@@ -4,10 +4,10 @@ import { EntityAdapter } from '@ngrx/entity';
 import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
 import { ListSelectors, ListState } from '../models/list.model';
 
-export function createListSelectors<T>(
+export function createListSelectors<T, E>(
   entityAdapter: EntityAdapter<T>,
-  getListState: MemoizedSelector<object, ListState<T>, DefaultProjectorFn<ListState<T>>>
-): ListSelectors<T> {
+  getListState: MemoizedSelector<object, ListState<T, E>, DefaultProjectorFn<ListState<T, E>>>
+): ListSelectors<T, E> {
   const getAll = createSelector(getListState, entityAdapter.getSelectors().selectAll);
 
   const getPagingOptions = createSelector(getListState, state => state.pagingOptions);
@@ -66,7 +66,7 @@ export function createListSelectors<T>(
 
   const getRequestState = createSelector(getListState, state => state.requestState);
 
-  const getErrors = createSelector(getListState, state => state.error);
+  const getErrors = createSelector(getListState, state => state.errors);
 
   const isReady = createSelector(
     getAll,

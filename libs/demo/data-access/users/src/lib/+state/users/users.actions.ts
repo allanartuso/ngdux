@@ -1,4 +1,5 @@
 import { UserDto } from '@demo/demo/data-model/users';
-import { createListActions } from '@demo/shared/util-store';
+import { ErrorDto } from '@ngdux/data-model-common';
+import { createListActions } from '@ngdux/list';
 
-export const listActions = createListActions<UserDto>('Users');
+export const listActions = createListActions<UserDto, ErrorDto>('Users');

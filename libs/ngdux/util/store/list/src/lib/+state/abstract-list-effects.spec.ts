@@ -1,18 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DEFAULT_REQUEST_OPTIONS, ErrorDto, ListService, RequestState } from '@ngdux/data-model-common';
-import { errorFixture } from '@ngdux/data-model-common/test';
+import { DEFAULT_REQUEST_OPTIONS, ListService, RequestState } from '@ngdux/data-model-common';
+import { createTestResources, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { Observable, of, throwError } from 'rxjs';
-import { createTestResources, TestResource } from '../../models/store.fixture';
 import {
+  createTestErrors,
   listActions,
   listSelectors,
   testEntityAdapter,
+  TestErrors,
   TestListEffects,
   TestListService
 } from '../models/list.fixture';
@@ -24,11 +25,11 @@ describe('TestEffects', () => {
   let resourcesService: ListService<TestResource>;
   let store: MockStore;
   let resources: TestResource[];
-  let initialState: ListState<TestResource>;
+  let initialState: ListState<TestResource, TestErrors>;
   let router: Router;
 
   const tenantId = 2;
-  const errorDto: ErrorDto = errorFixture.createErrorDto();
+  const testErrors: TestErrors = createTestErrors();
 
   beforeEach(() => {
     resources = createTestResources(tenantId);
@@ -36,11 +37,10 @@ describe('TestEffects', () => {
     initialState = testEntityAdapter.getInitialState({
       ...DEFAULT_REQUEST_OPTIONS,
       lastPageNumber: undefined,
-      currentResourceId: undefined,
       selectedResourceIds: [],
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      error: undefined
+      errors: undefined
     });
     initialState = testEntityAdapter.addMany(resources, initialState);
 
@@ -95,10 +95,10 @@ describe('TestEffects', () => {
     });
 
     it('should emit failure when an error is thrown', () => {
-      resourcesService.queryResources = jest.fn().mockImplementation(() => throwError(errorDto));
+      resourcesService.queryResources = jest.fn().mockImplementation(() => throwError(testErrors));
       actions$ = hot('a', { a: listActions.loadPage({ pageNumber: 3 }) });
       const expected = hot('a', {
-        a: listActions.loadPageFailure({ error: errorDto })
+        a: listActions.loadPageFailure({ errors: testErrors })
       });
 
       expect(effects.loadPage$).toBeObservable(expected);
@@ -173,9 +173,9 @@ describe('TestEffects', () => {
 
     it('should emit failure when error is thrown without any successes.', () => {
       store.overrideSelector(listSelectors.getSelected, resources);
-      resourcesService.deleteResources = jest.fn().mockImplementation(() => throwError(errorDto));
+      resourcesService.deleteResources = jest.fn().mockImplementation(() => throwError(testErrors));
       const expected = hot('a', {
-        a: listActions.deleteFailure({ error: errorDto })
+        a: listActions.deleteFailure({ errors: testErrors })
       });
       actions$ = hot('a', { a: listActions.delete({ resourceIds }) });
 
@@ -194,47 +194,6 @@ describe('TestEffects', () => {
       actions$ = hot('a', { a: listActions.refresh() });
 
       expect(effects.refresh$).toBeObservable(expected);
-    });
-  });
-
-  describe('loadSelected$', () => {
-    let resourceId: string;
-    beforeEach(() => {
-      resourceId = resources[0].id;
-    });
-
-    it('should emit success when the api respond successfully', () => {
-      store.overrideSelector(listSelectors.getSelectionRecord, {});
-      actions$ = hot('a', { a: listActions.loadSelected({ selectedResourceIds: [resourceId] }) });
-      const expected = hot('a', {
-        a: listActions.loadSelectedSuccess({
-          resources: resources
-        })
-      });
-
-      expect(effects.loadSelected$).toBeObservable(expected);
-    });
-
-    it('should emit failure when an error is thrown', () => {
-      resourcesService.queryResources = jest.fn().mockImplementation(() => throwError(errorDto));
-      actions$ = hot('a', { a: listActions.loadSelected({ selectedResourceIds: [resourceId] }) });
-      const expected = hot('a', {
-        a: listActions.loadSelectedFailure({ error: errorDto })
-      });
-
-      expect(effects.loadSelected$).toBeObservable(expected);
-    });
-
-    it('emits empty success action if the resource summary is already loaded', () => {
-      store.overrideSelector(listSelectors.getSelectionRecord, {
-        [resourceId]: resources[0]
-      });
-      actions$ = hot('a', { a: listActions.loadSelected({ selectedResourceIds: [resourceId] }) });
-      const expected = hot('a', {
-        a: listActions.loadSelectedSuccess({ resources: [] })
-      });
-
-      expect(effects.loadSelected$).toBeObservable(expected);
     });
   });
 
@@ -278,16 +237,6 @@ describe('TestEffects', () => {
 
       expect(effects.patch$).toBeObservable(expectedActions);
       expect(resourcesService.patchResources).toHaveBeenCalledWith(resourceIds, resource);
-    });
-
-    it('adds arguments when failing', () => {
-      jest.spyOn(effects, 'addGeneralErrorsArguments$');
-      resourcesService.patchResources = jest.fn().mockImplementation(() => throwError(errorDto));
-      actions$ = hot('a', { a: listActions.patch({ resourceIds, resource }) });
-      const expected = hot('a', { a: listActions.patchFailure({ error: errorDto }) });
-
-      expect(effects.patch$).toBeObservable(expected);
-      expect(effects.addGeneralErrorsArguments$).toHaveBeenCalled();
     });
   });
 });

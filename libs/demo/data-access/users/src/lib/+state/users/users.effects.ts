@@ -3,7 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserDto } from '@demo/demo/data-model/users';
 import { NotificationService } from '@demo/shared/util-notification';
-import { AbstractListEffects } from '@demo/shared/util-store';
+import { ErrorDto } from '@ngdux/data-model-common';
+import { AbstractListEffects } from '@ngdux/list';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { UserService } from '../../services/user.service';
@@ -11,7 +12,7 @@ import { listActions } from './users.actions';
 import { listSelectors } from './users.selectors';
 
 @Injectable()
-export class UsersEffects extends AbstractListEffects<UserDto> {
+export class UsersEffects extends AbstractListEffects<UserDto, ErrorDto> {
   override texts = {
     deleteConfirmationTitle: 'Delete users',
     deleteConfirmationMessage: 'Are you sure to delete the selected users?',

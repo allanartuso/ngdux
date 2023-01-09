@@ -1,8 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
-  DEFAULT_PAGE_SIZE,
-  ErrorDto,
   FilteringOptions,
   ListNotificationService,
   ListService,
@@ -10,15 +8,13 @@ import {
   SortingOptions
 } from '@ngdux/data-model-common';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ActionCreator, createAction, select, Store } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
-import { Observable, of } from 'rxjs';
+import { createAction, select, Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { handleFailureEffect } from '../../utils/effects-handle-failure';
-import { createFilteringByResourceIds } from '../../utils/filtering-options.util';
+
 import { ListActions, ListSelectors } from '../models/list.model';
 
-export abstract class AbstractListEffects<T, S = T> {
+export abstract class AbstractListEffects<T, E, S = T> {
   texts = {
     deleteConfirmationTitle: 'Delete resources',
     deleteConfirmationMessage: 'Are you sure to delete the selected resources?',
@@ -131,7 +127,7 @@ export abstract class AbstractListEffects<T, S = T> {
                   pagingOptions
                 })
               ),
-              catchError((error: ErrorDto) => of(this.listActions.loadPageFailure({ error })))
+              catchError((errors: E) => of(this.listActions.loadPageFailure({ errors })))
             );
         }
       )
@@ -144,7 +140,7 @@ export abstract class AbstractListEffects<T, S = T> {
       exhaustMap(action =>
         this.service.patchResources(action.resourceIds, action.resource).pipe(
           switchMap(resources => [this.listActions.patchSuccess({ resources }), this.listActions.refresh()]),
-          catchError((error: ErrorDto) => this.addGeneralErrorsArguments$(error, this.listActions.patchFailure))
+          catchError((errors: E) => of(this.listActions.patchFailure({ errors })))
         )
       )
     )
@@ -171,7 +167,7 @@ export abstract class AbstractListEffects<T, S = T> {
       exhaustMap(({ resourceIds }) =>
         this.service.deleteResources(resourceIds).pipe(
           switchMap(() => [this.listActions.deleteSuccess({ resourceIds }), this.listActions.refresh()]),
-          catchError((error: ErrorDto) => this.addGeneralErrorsArguments$(error, this.listActions.deleteFailure))
+          catchError((errors: E) => of(this.listActions.deleteFailure({ errors })))
         )
       )
     )
@@ -186,35 +182,6 @@ export abstract class AbstractListEffects<T, S = T> {
         })
       ),
     { dispatch: false }
-  );
-
-  loadSelected$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(this.listActions.loadSelected),
-      withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectionRecord))),
-      switchMap(([{ selectedResourceIds }, selected]) => {
-        const areAlreadyLoaded = selectedResourceIds.every(resourceId => !!selected[resourceId]);
-        if (areAlreadyLoaded) {
-          return of(this.listActions.loadSelectedSuccess({ resources: [] }));
-        }
-
-        const missingResourceIds = selectedResourceIds.filter(resourceId => !selected[resourceId]);
-
-        return this.service
-          .queryResources({
-            pagingOptions: {
-              page: 1,
-              pageSize: DEFAULT_PAGE_SIZE
-            },
-            sortingOptions: {},
-            filteringOptions: createFilteringByResourceIds(missingResourceIds)
-          })
-          .pipe(
-            map(resources => this.listActions.loadSelectedSuccess({ resources })),
-            catchError((error: ErrorDto) => of(this.listActions.loadSelectedFailure({ error })))
-          );
-      })
-    )
   );
 
   copySelected$ = createEffect(
@@ -240,13 +207,15 @@ export abstract class AbstractListEffects<T, S = T> {
     { dispatch: false }
   );
 
-  handleFailure$ = handleFailureEffect(
-    this.snackBar,
-    this.actions$,
-    this.listActions.loadPageFailure,
-    this.listActions.deleteFailure,
-    this.listActions.loadSelectedFailure,
-    this.listActions.patchFailure
+  errorsHandler$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(this.listActions.loadPageFailure, this.listActions.deleteFailure, this.listActions.patchFailure),
+        tap(({ errors }) => {
+          this.notificationService.onListErrors(errors);
+        })
+      ),
+    { dispatch: false }
   );
 
   protected constructor(
@@ -255,15 +224,8 @@ export abstract class AbstractListEffects<T, S = T> {
     protected readonly store: Store,
     protected readonly snackBar: MatSnackBar,
     private readonly service: ListService<T, S>,
-    private readonly listActions: ListActions<T, S>,
-    private readonly listSelectors: ListSelectors<S>,
-    private readonly notificationService: ListNotificationService
+    private readonly listActions: ListActions<T, E, S>,
+    private readonly listSelectors: ListSelectors<S, E>,
+    private readonly notificationService: ListNotificationService<E>
   ) {}
-
-  protected addGeneralErrorsArguments$(
-    errors: ErrorDto,
-    failureAction: ActionCreator<string, ({ error }: { error: ErrorDto }) => TypedAction<string>>
-  ): Observable<TypedAction<string>> {
-    return of(failureAction({ error: errors }));
-  }
 }

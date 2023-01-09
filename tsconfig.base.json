@@ -34,6 +34,7 @@
       "@ngdux/data-model-common": ["libs/ngdux/data-model/common/src/index.ts"],
       "@ngdux/data-model-common/test": ["libs/ngdux/data-model/common/test/src/index.ts"],
       "@ngdux/form": ["libs/ngdux/util/store/form/src/index.ts"],
+      "@ngdux/list": ["libs/ngdux/util/store/list/src/index.ts"],
       "@ngdux/store-common": ["libs/ngdux/util/store/common/src/index.ts"],
       "@ngdux/store-common/test": ["libs/ngdux/util/store/common/test/src/index.ts"]
     }

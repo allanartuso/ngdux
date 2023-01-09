@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ErrorDto, ListNotificationService, ListService } from '@ngdux/data-model-common';
+import { ListNotificationService, ListService } from '@ngdux/data-model-common';
+import { TestResource } from '@ngdux/store-common/test';
 import { Actions } from '@ngrx/effects';
-import { ActionCreator, createFeatureSelector, Store } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
-import { Observable } from 'rxjs';
+import { createFeatureSelector, Store } from '@ngrx/store';
 import { AbstractListEffects } from '../+state/abstract-list-effects';
 import { createListActions } from '../+state/list-actions';
 import { createListEntityAdapter } from '../+state/list-reducer';
 import { createListSelectors } from '../+state/list-selectors';
-import { TestResource } from '../../models/store.fixture';
+
+export type TestErrors = string[];
 
 export const featureKey = 'testFeature';
-export const listActions = createListActions<TestResource>(featureKey);
+export const listActions = createListActions<TestResource, TestErrors>(featureKey);
 export const testEntityAdapter = createListEntityAdapter<TestResource>();
-export const listSelectors = createListSelectors<TestResource>(testEntityAdapter, createFeatureSelector(featureKey));
+export const listSelectors = createListSelectors<TestResource, TestErrors>(
+  testEntityAdapter,
+  createFeatureSelector(featureKey)
+);
 
 @Injectable()
 export class TestListService implements ListService<TestResource> {
@@ -25,18 +28,15 @@ export class TestListService implements ListService<TestResource> {
 }
 
 const mockSnackBar = { open: jest.fn() } as unknown as MatSnackBar;
-const mockDialog: ListNotificationService = { openConfirmationDialog: jest.fn() };
+const mockDialog: ListNotificationService<TestErrors> = { openConfirmationDialog: jest.fn(), onErrors: jest.fn() };
 
 @Injectable()
-export class TestListEffects extends AbstractListEffects<TestResource> {
+export class TestListEffects extends AbstractListEffects<TestResource, TestErrors> {
   constructor(router: Router, actions$: Actions, store: Store, testService: TestListService) {
     super(router, actions$, store, mockSnackBar, testService, listActions, listSelectors, mockDialog);
   }
+}
 
-  override addGeneralErrorsArguments$(
-    errors: ErrorDto,
-    failureAction: ActionCreator<string, ({ error }: { error: ErrorDto }) => TypedAction<string>>
-  ): Observable<TypedAction<string>> {
-    return super.addGeneralErrorsArguments$(errors, failureAction);
-  }
+export function createTestErrors(): TestErrors {
+  return ['test message'];
 }

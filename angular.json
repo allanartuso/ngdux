@@ -11,6 +11,7 @@
     "ngdux-data-model-common": "libs/ngdux/data-model/common",
     "ngdux-util-store-common": "libs/ngdux/util/store/common",
     "ngdux-util-store-form": "libs/ngdux/util/store/form",
+    "ngdux-util-store-list": "libs/ngdux/util/store/list",
     "shared-data-access": "libs/shared/data-access",
     "shared-ui-form": "libs/shared/ui-form",
     "shared-ui-list": "libs/shared/ui-list",
