@@ -1,0 +1,17 @@
+{
+  "name": "@ngdux/form",
+  "version": "0.1.5",
+  "peerDependencies": {
+    "@angular/common": "^14.2.0",
+    "@angular/core": "^14.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:allanartuso/ngdux.git",
+    "directory": "/libs/ngdux/util/store/form"
+  },
+  "homepage": "https://github.com/allanartuso/ngdux/tree/master/libs/ngdux/util/store/form#readme"
+}

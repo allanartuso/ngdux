@@ -8,15 +8,15 @@
     "demo-feature-sidebar": "libs/demo/feature/sidebar",
     "demo-feature-users": "libs/demo/feature/users",
     "demo-ui-users": "libs/demo/ui/users",
+    "ngdux-data-model-common": "libs/ngdux/data-model/common",
+    "ngdux-util-store-common": "libs/ngdux/util/store/common",
+    "ngdux-util-store-form": "libs/ngdux/util/store/form",
     "shared-data-access": "libs/shared/data-access",
-    "shared-data-model-common": "libs/shared/data-model/common",
     "shared-ui-form": "libs/shared/ui-form",
     "shared-ui-list": "libs/shared/ui-list",
     "shared-ui-sidebar": "libs/shared/ui-sidebar",
     "shared-util-configuration": "libs/shared/util-configuration",
     "shared-util-notification": "libs/shared/util-notification",
-    "shared-util-store": "libs/shared/util-store",
-    "shared-util-store-common": "libs/shared/util-store-common",
-    "shared-util-store-form": "libs/shared/util-store-form"
+    "shared-util-store": "libs/shared/util-store"
   }
 }
