@@ -101,29 +101,6 @@ describe('TestEffects', () => {
 
       expect(effects.create$).toBeObservable(expected);
     });
-
-    // it('should navigate when creating successfully', () => {
-    //   actions = hot('a', {
-    //     a: formActions.createSuccess({ resource })
-    //   });
-    //   const expected = hot('a', {
-    //     a: navigateToAction({ path: getResourcesRoutePath(resource.id) })
-    //   });
-
-    //   expect(effects.createSuccess$).toBeObservable(expected);
-    // });
-
-    // it('should navigate and reset when navigating to the create page', () => {
-    //   actions = hot('a', {
-    //     a: formActions.navigateToCreate()
-    //   });
-    //   const expected = hot('(ab)', {
-    //     a: navigateToAction({ path: `${getResourcesRoutePath(resource.id)}/create` }),
-    //     b: formActions.reset()
-    //   });
-
-    //   expect(effects.navigateToCreateResource$).toBeObservable(expected);
-    // });
   });
 
   describe('update$', () => {
@@ -171,18 +148,6 @@ describe('TestEffects', () => {
 
       expect(effects.delete$).toBeObservable(expected);
     });
-
-    // it('should display a notification and navigate when deleting successfully', () => {
-    //   actions = hot('a', {
-    //     a: formActions.deleteSuccess({ id: resource.id })
-    //   });
-    //   const expected = hot('(ab)', {
-    //     a: displaySuccessNotification(i18nScope, 'resourceRemovedSuccessfully'),
-    //     b: navigateToAction({ path: getResourcesRoutePath(resource.id) })
-    //   });
-
-    //   expect(effects.deleteSuccess$).toBeObservable(expected);
-    // });
   });
 
   describe('copySelected$', () => {

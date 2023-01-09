@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorDto } from '@ngdux/data-model-common';
-import { FormNotificationService } from '@ngdux/form';
-import { ListNotificationService } from '@ngdux/list';
+import { ErrorDto, FormNotificationService, ListNotificationService } from '@ngdux/data-model-common';
 import { Observable } from 'rxjs';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 
@@ -15,12 +13,16 @@ export class NotificationService implements FormNotificationService<ErrorDto>, L
     this.snackBar.open(errors.message);
   }
 
+  onFormDelete(id: string): void {
+    this.snackBar.open(`Resource ${id} has been deleted.`);
+  }
+
   onListErrors(errors: ErrorDto): void {
     this.snackBar.open(errors.message);
   }
 
-  onDelete(id: string): void {
-    this.snackBar.open(`Resource ${id} has been deleted.`);
+  onListDelete(ids: string[]): void {
+    this.snackBar.open(`Resources ${ids.join(', ')} have been deleted.`);
   }
 
   openConfirmationDialog(data: { message: string; title: string }): Observable<boolean> {

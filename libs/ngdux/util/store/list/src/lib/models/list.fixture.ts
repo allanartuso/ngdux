@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { TestResource } from '@ngdux/store-common/test';
@@ -27,13 +26,16 @@ export class TestListService implements ListService<TestResource> {
   deleteResources = jest.fn();
 }
 
-const mockSnackBar = { open: jest.fn() } as unknown as MatSnackBar;
-const mockDialog: ListNotificationService<TestErrors> = { openConfirmationDialog: jest.fn(), onListErrors: jest.fn() };
+const mockNotificationService: ListNotificationService<TestErrors> = {
+  openConfirmationDialog: jest.fn(),
+  onListErrors: jest.fn(),
+  onListDelete: jest.fn()
+};
 
 @Injectable()
 export class TestListEffects extends AbstractListEffects<TestResource, TestErrors> {
   constructor(router: Router, actions$: Actions, store: Store, testService: TestListService) {
-    super(router, actions$, store, mockSnackBar, testService, listActions, listSelectors, mockDialog);
+    super(actions$, store, testService, listActions, listSelectors, mockNotificationService);
   }
 }
 

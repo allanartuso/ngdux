@@ -139,7 +139,7 @@ export class FormNotificationService implements FormNotificationService<Error> {
     this.snackBar.open(errors.message);
   }
 
-  onDelete(id: string): void {
+  onFormDelete(id: string): void {
     this.snackBar.open(`Resource ${id} has been deleted.`);
   }
 }

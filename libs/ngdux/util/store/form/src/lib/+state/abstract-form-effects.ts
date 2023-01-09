@@ -59,7 +59,7 @@ export abstract class AbstractFormEffects<T, E> {
     this.actions$.pipe(
       ofType(this.formActions.deleteSuccess),
       tap(({ id }) => {
-        this.notificationService.onDelete(id);
+        this.notificationService.onFormDelete(id);
         this.router.navigate(['..']);
       })
     )

@@ -61,11 +61,6 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
   );
   const patchFailure = createAction(`[${featureName} Page] Patch ${featureName} Failure`, props<{ errors: E }>());
   const resetRequestState = createAction(`[${featureName} Page] Reset ${featureName} Request State`);
-  const copySelected = createAction(`[${featureName} Page] Copy Selected ${featureName}`);
-  const navigateToSelected = createAction(
-    `[${featureName} Page] Navigate to selected ${featureName}`,
-    props<{ resourceId: string }>()
-  );
 
   const showRemovalsConfirmation = createAction(`[${featureName} Page] Show ${featureName} Removal Confirmation`);
 
@@ -91,8 +86,6 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
     patchSuccess,
     patchFailure,
     resetRequestState,
-    copySelected,
-    navigateToSelected,
     changePagingOptions,
     showRemovalsConfirmation
   };

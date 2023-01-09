@@ -1,6 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { DEFAULT_REQUEST_OPTIONS, ListService, RequestState } from '@ngdux/data-model-common';
 import { createTestResources, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -26,7 +24,6 @@ describe('TestEffects', () => {
   let store: MockStore;
   let resources: TestResource[];
   let initialState: ListState<TestResource, TestErrors>;
-  let router: Router;
 
   const tenantId = 2;
   const testErrors: TestErrors = createTestErrors();
@@ -45,13 +42,11 @@ describe('TestEffects', () => {
     initialState = testEntityAdapter.addMany(resources, initialState);
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
       providers: [
         TestListEffects,
         TestListService,
         provideMockActions(() => actions$),
         provideMockStore({
-          // initialState: { [featureKey]: initialState },
           selectors: [
             { selector: listSelectors.isLastPage, value: false },
             { selector: listSelectors.getCurrentPageNumber, value: DEFAULT_REQUEST_OPTIONS.pagingOptions.page },
@@ -69,7 +64,6 @@ describe('TestEffects', () => {
     resourcesService.patchResources = jest.fn().mockImplementation(() => of(resources));
     resourcesService.deleteResources = jest.fn().mockImplementation(() => of(resources));
     store = TestBed.inject(MockStore);
-    router = TestBed.inject(Router);
   });
 
   describe('initialize$', () => {
@@ -194,21 +188,6 @@ describe('TestEffects', () => {
       actions$ = hot('a', { a: listActions.refresh() });
 
       expect(effects.refresh$).toBeObservable(expected);
-    });
-  });
-
-  describe('copySelected$', () => {
-    it('navigates to the create User route without cleaning the current User data from the store', () => {
-      jest.spyOn(router, 'navigate');
-      const selectedResourceIds = ['testId1'];
-      store.overrideSelector(listSelectors.getSelectedResourceIds, selectedResourceIds);
-      const expected = hot('a', { a: [listActions.copySelected(), selectedResourceIds] });
-      actions$ = hot('a', { a: listActions.copySelected() });
-
-      expect(effects.copySelected$).toBeObservable(expected);
-      expect(router.navigate).toHaveBeenCalledWith([selectedResourceIds[0]], {
-        state: { selectedResourceId: selectedResourceIds[0] }
-      });
     });
   });
 

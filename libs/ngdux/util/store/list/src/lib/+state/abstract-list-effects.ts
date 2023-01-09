@@ -1,5 +1,3 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import {
   FilteringOptions,
   ListNotificationService,
@@ -17,8 +15,7 @@ import { ListActions, ListSelectors } from '../models/list.model';
 export abstract class AbstractListEffects<T, E, S = T> {
   texts = {
     deleteConfirmationTitle: 'Delete resources',
-    deleteConfirmationMessage: 'Are you sure to delete the selected resources?',
-    deletedMessage: 'The resources were deleted successfully.'
+    deleteConfirmationMessage: 'Are you sure to delete the selected resources?'
   };
 
   initialize$ = createEffect(() =>
@@ -177,31 +174,8 @@ export abstract class AbstractListEffects<T, E, S = T> {
     () =>
       this.actions$.pipe(
         ofType(this.listActions.deleteSuccess),
-        tap(() => {
-          this.snackBar.open(this.texts.deletedMessage, 'Ok');
-        })
-      ),
-    { dispatch: false }
-  );
-
-  copySelected$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(this.listActions.copySelected),
-        withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectedResourceIds))),
-        tap(([, resourceIds]) => {
-          this.router.navigate([resourceIds[0]], { state: { selectedResourceId: resourceIds[0] } });
-        })
-      ),
-    { dispatch: false }
-  );
-
-  navigateToSelected$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(this.listActions.navigateToSelected),
-        tap(action => {
-          this.router.navigate([action.resourceId]);
+        tap(({ resourceIds }) => {
+          this.notificationService.onListDelete(resourceIds);
         })
       ),
     { dispatch: false }
@@ -219,10 +193,8 @@ export abstract class AbstractListEffects<T, E, S = T> {
   );
 
   protected constructor(
-    protected readonly router: Router,
     protected readonly actions$: Actions,
     protected readonly store: Store,
-    protected readonly snackBar: MatSnackBar,
     private readonly service: ListService<T, S>,
     private readonly listActions: ListActions<T, E, S>,
     private readonly listSelectors: ListSelectors<S, E>,

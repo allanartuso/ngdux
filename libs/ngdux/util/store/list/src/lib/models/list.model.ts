@@ -95,10 +95,5 @@ export interface ListActions<T, E, S = T> {
   loadPreviousPage: ActionCreator<string, () => TypedAction<string>>;
   loadFirstPage: ActionCreator<string, () => TypedAction<string>>;
   resetRequestState: ActionCreator<string, () => TypedAction<string>>;
-  copySelected: ActionCreator<string, () => TypedAction<string>>;
-  navigateToSelected: ActionCreator<
-    string,
-    (props: { resourceId: string }) => { resourceId: string } & TypedAction<string>
-  >;
   showRemovalsConfirmation: ActionCreator<string, () => TypedAction<string>>;
 }

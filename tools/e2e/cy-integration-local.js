@@ -16,12 +16,11 @@ const glob = require('glob');
 const path = require('path');
 const root = path.join(__dirname, '../../apps/demo-e2e/src');
 
-glob(`${root}/integration/**/*.spec.ts`, (err, files) => {
+glob(`${root}/integration/**/*.cy.ts`, (err, files) => {
   let code = '';
   files.forEach(file => {
     code += `require('${file.replace(root, '..')}');\n`;
   });
 
-  fs.writeFileSync(`${root}\\integration-local\\main.spec.ts`, code);
+  fs.writeFileSync(`${root}\\integration-local\\main.cy.ts`, code);
 });
-

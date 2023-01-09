@@ -68,8 +68,6 @@ export const listSelectors = createListSelectors(entityAdapter, getState);
 
 ```
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { NotificationService } from '@demo/shared/util-notification';
 import { AbstractListEffects } from '@ngdux/list';
 import { Actions } from '@ngrx/effects';
@@ -88,14 +86,12 @@ export class UsersEffects extends AbstractListEffects<User, Error> {
   };
 
   constructor(
-    router: Router,
     actions$: Actions,
     store: Store,
-    snackBar: MatSnackBar,
     usersService: UserService,
     notificationService: NotificationService
   ) {
-    super(router, actions$, store, snackBar, usersService, listActions, listSelectors, notificationService);
+    super(actions$, store, usersService, listActions, listSelectors, notificationService);
   }
 }
 ```
@@ -151,6 +147,10 @@ export class NotificationService implements ListNotificationService<Error> {
 
   onListErrors(errors: Error): void {
     this.snackBar.open(errors.message);
+  }
+
+  onListDelete(ids: string[]): void {
+    this.snackBar.open(`Resources ${ids.join(', ')} have been deleted.`);
   }
 
   openConfirmationDialog(data: { message: string; title: string }): Observable<boolean> {

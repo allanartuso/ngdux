@@ -18,4 +18,5 @@ export interface ListService<T, S = T> {
 export interface ListNotificationService<E> {
   openConfirmationDialog: (data: { message: string; title: string }) => Observable<boolean>;
   onListErrors: (errors: E) => void;
+  onListDelete: (ids: string[]) => void;
 }

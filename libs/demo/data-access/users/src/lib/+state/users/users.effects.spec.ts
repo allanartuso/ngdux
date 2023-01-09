@@ -1,4 +1,4 @@
-import { AbstractListEffects } from '@demo/shared/util-store';
+import { AbstractListEffects } from '@ngdux/list';
 import { UsersEffects } from './users.effects';
 
 describe('UsersEffects', () => {

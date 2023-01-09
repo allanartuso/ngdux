@@ -13,8 +13,8 @@ export const featureKey = 'testFeature';
 export const formActions = createFormActions<TestResource, string[]>(featureKey);
 export const formSelectors = createFormSelectors<TestResource, string[]>(createFeatureSelector(featureKey));
 const mockNotificationService: FormNotificationService<string[]> = {
-  onErrors: jest.fn(),
-  onDelete: jest.fn()
+  onFormErrors: jest.fn(),
+  onFormDelete: jest.fn()
 };
 
 @Injectable()

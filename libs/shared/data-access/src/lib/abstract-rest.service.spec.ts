@@ -349,7 +349,6 @@ describe('AbstractRestService', () => {
   describe('deleteResource', () => {
     let expectedResourcePath: string;
     let expectedResource: TestResource;
-    const requestMethod = 'delete';
 
     beforeEach(() => {
       expectedResourcePath = '7/tests/77';
@@ -358,7 +357,7 @@ describe('AbstractRestService', () => {
         name: 'name62',
         value: 62
       };
-      httpMock.request = jest.fn().mockReturnValue(of(expectedResource));
+      httpMock.delete = jest.fn().mockReturnValue(of(expectedResource));
     });
 
     it('deletes the given resource at the correct URL when a resource path is provided', () => {
@@ -367,7 +366,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.deleteResource(expectedResourcePath);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.request).toHaveBeenCalledWith(requestMethod, `${TEST_API_BASE_URL}/${expectedResourcePath}`);
+      expect(httpMock.delete).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`);
     });
 
     it('deletes the given resource at the correct URL when no resource path is provided', () => {
@@ -376,7 +375,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.deleteResource();
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.request).toHaveBeenCalledWith(requestMethod, `${TEST_API_BASE_URL}/`);
+      expect(httpMock.delete).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`);
     });
   });
 

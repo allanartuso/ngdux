@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { UserDto } from '@demo/demo/data-model/users';
 import { NotificationService } from '@demo/shared/util-notification';
 import { ErrorDto } from '@ngdux/data-model-common';
@@ -15,18 +13,10 @@ import { listSelectors } from './users.selectors';
 export class UsersEffects extends AbstractListEffects<UserDto, ErrorDto> {
   override texts = {
     deleteConfirmationTitle: 'Delete users',
-    deleteConfirmationMessage: 'Are you sure to delete the selected users?',
-    deletedMessage: 'The users were deleted successfully.'
+    deleteConfirmationMessage: 'Are you sure to delete the selected users?'
   };
 
-  constructor(
-    router: Router,
-    actions$: Actions,
-    store: Store,
-    snackBar: MatSnackBar,
-    usersService: UserService,
-    notificationService: NotificationService
-  ) {
-    super(router, actions$, store, snackBar, usersService, listActions, listSelectors, notificationService);
+  constructor(actions$: Actions, store: Store, usersService: UserService, notificationService: NotificationService) {
+    super(actions$, store, usersService, listActions, listSelectors, notificationService);
   }
 }

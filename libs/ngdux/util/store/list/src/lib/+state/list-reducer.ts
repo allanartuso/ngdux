@@ -146,11 +146,6 @@ function createListActionHandlers<T, E, S>(
       ...state,
       selectedResourceIds: [] as string[]
     })),
-    on(actions.navigateToSelected, (state: ListState<S, E>, { resourceId }) => ({
-      ...state,
-      currentResourceId: resourceId
-    })),
-
     ...createLoadingStateActionHandlers<ListState<S, E>>(
       actions.loadPage,
       actions.loadPageSuccess,

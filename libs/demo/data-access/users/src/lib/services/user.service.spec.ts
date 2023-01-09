@@ -78,7 +78,7 @@ describe('UsersService', () => {
     };
     const expected = cold('(u|)', { u: users });
 
-    const actual = service.queryResources(options);
+    const actual = service.loadResources(options);
 
     expect(actual).toBeObservable(expected);
     expect(mockRestService.queryResources).toHaveBeenCalledTimes(1);

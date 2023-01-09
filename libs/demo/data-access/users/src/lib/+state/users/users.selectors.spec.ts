@@ -1,11 +1,11 @@
-jest.mock('@demo/shared/util-store', () => ({
+jest.mock('@ngdux/list', () => ({
   createListEntityAdapter: jest.fn(),
   createListActions: jest.fn(),
   createListSelectors: jest.fn().mockReturnValue([]),
   createListReducer: jest.fn()
 }));
 
-import { createListSelectors } from '@demo/shared/util-store';
+import { createListSelectors } from '@ngdux/list';
 import { listSelectors } from './users.selectors';
 
 describe('list selectors', () => {

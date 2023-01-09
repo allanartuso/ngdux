@@ -1,12 +1,13 @@
 const mockReducerFunction = jest.fn();
-jest.mock('@demo/shared/util-store', () => ({
+jest.mock('@ngdux/list', () => ({
   createListEntityAdapter: jest.fn(),
   createListActions: jest.fn(),
   createListReducer: jest.fn().mockReturnValue(mockReducerFunction)
 }));
 
 import { UserDto } from '@demo/demo/data-model/users';
-import { createListActions, createListEntityAdapter, createListReducer, ListState } from '@demo/shared/util-store';
+import { ErrorDto } from '@ngdux/data-model-common';
+import { createListActions, createListEntityAdapter, createListReducer, ListState } from '@ngdux/list';
 import { Action } from '@ngrx/store';
 import { usersReducer } from './users.reducer';
 
@@ -16,7 +17,7 @@ describe('UsersReducer', () => {
   });
 
   it('creates the user reducer function correctly', () => {
-    const testListState = {} as ListState<UserDto>;
+    const testListState = {} as ListState<UserDto, ErrorDto>;
     const testAction = {} as Action;
 
     usersReducer(testListState, testAction);
