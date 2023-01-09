@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { TestResource } from '@ngdux/store-common/test';
 import { Actions } from '@ngrx/effects';
@@ -34,7 +33,7 @@ const mockNotificationService: ListNotificationService<TestErrors> = {
 
 @Injectable()
 export class TestListEffects extends AbstractListEffects<TestResource, TestErrors> {
-  constructor(router: Router, actions$: Actions, store: Store, testService: TestListService) {
+  constructor(actions$: Actions, store: Store, testService: TestListService) {
     super(actions$, store, testService, listActions, listSelectors, mockNotificationService);
   }
 }
