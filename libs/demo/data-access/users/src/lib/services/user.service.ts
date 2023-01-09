@@ -27,7 +27,7 @@ export class UserService implements FormService<UserDto>, ListService<UserDto> {
     return this.restService.deleteResource(`${USERS_RESOURCE_BASE_PATH}/${id}`);
   }
 
-  queryResources(options: RequestOptions): Observable<UserDto[]> {
+  loadResources(options: RequestOptions): Observable<UserDto[]> {
     return this.restService.queryResources(USERS_RESOURCE_BASE_PATH, options);
   }
 

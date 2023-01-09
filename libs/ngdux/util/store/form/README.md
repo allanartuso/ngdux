@@ -135,7 +135,7 @@ import { Error } from '.../models';
 export class FormNotificationService implements FormNotificationService<Error> {
   constructor(private readonly snackBar: MatSnackBar) {}
 
-  onErrors(errors: Error): void {
+  onFormErrors(errors: Error): void {
     this.snackBar.open(errors.message);
   }
 

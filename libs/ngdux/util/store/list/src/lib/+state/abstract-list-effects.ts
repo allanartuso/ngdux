@@ -115,7 +115,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
           };
 
           return this.service
-            .queryResources({
+            .loadResources({
               pagingOptions,
               sortingOptions,
               filteringOptions

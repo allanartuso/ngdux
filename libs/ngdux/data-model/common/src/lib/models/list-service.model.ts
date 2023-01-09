@@ -8,9 +8,9 @@ export interface BulkOperationSuccess {
 }
 
 export interface ListService<T, S = T> {
-  queryResources(options: RequestOptions): Observable<S[]>;
+  loadResources(options: RequestOptions): Observable<S[]>;
 
-  deleteResources(resourceIds: string[]): Observable<Array<T | ErrorDto>>;
+  deleteResources?(resourceIds: string[]): Observable<Array<T | ErrorDto>>;
 
   patchResources?(resourceIds: string[], resource: Partial<T>): Observable<Array<T | ErrorDto>>;
 }

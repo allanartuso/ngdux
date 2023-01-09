@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorDto, FormNotificationService, ListNotificationService } from '@ngdux/data-model-common';
+import { ErrorDto } from '@ngdux/data-model-common';
+import { FormNotificationService } from '@ngdux/form';
+import { ListNotificationService } from '@ngdux/list';
 import { Observable } from 'rxjs';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 
