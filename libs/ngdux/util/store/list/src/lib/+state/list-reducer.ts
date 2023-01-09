@@ -5,14 +5,15 @@ import {
   RequestState,
   SortingDirection
 } from '@ngdux/data-model-common';
-import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { ActionReducer, createReducer, on, ReducerTypes } from '@ngrx/store';
-import { ActionCreator } from '@ngrx/store/src/models';
 import {
   createLoadingStateActionHandlers,
   createRequestStateActionHandlers,
   getLastPageNumber
-} from '../../utils/action-handlers';
+} from '@ngdux/store-common';
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
+import { ActionReducer, createReducer, on, ReducerTypes } from '@ngrx/store';
+import { ActionCreator } from '@ngrx/store/src/models';
+
 import { ListActions, ListState } from '../models/list.model';
 
 export function createListEntityAdapter<T extends { [key: string]: any }>(idKey = 'id'): EntityAdapter<T> {
@@ -21,39 +22,39 @@ export function createListEntityAdapter<T extends { [key: string]: any }>(idKey 
   });
 }
 
-export function createListReducer<T, S = T>(
+export function createListReducer<T, E, S = T>(
   entityAdapter: EntityAdapter<S>,
-  actions: ListActions<T, S>,
-  actionHandlers?: ReducerTypes<ListState<S>, ActionCreator[]>[],
+  actions: ListActions<T, E, S>,
+  actionHandlers?: ReducerTypes<ListState<S, E>, ActionCreator[]>[],
   initialListState?: { [key: string]: unknown }
-): ActionReducer<ListState<S>> {
-  const initialState: ListState<S> = { ...createInitialListState<S>(entityAdapter), ...initialListState };
-  return createReducer<ListState<S>>(
+): ActionReducer<ListState<S, E>> {
+  const initialState: ListState<S, E> = { ...createInitialListState<S, E>(entityAdapter), ...initialListState };
+  return createReducer<ListState<S, E>>(
     initialState,
-    ...createListActionHandlers<T, S>(initialState, entityAdapter, actions),
+    ...createListActionHandlers<T, E, S>(initialState, entityAdapter, actions),
     ...(actionHandlers || [])
   );
 }
 
-function createInitialListState<T>(entityAdapter: EntityAdapter<T>): ListState<T> {
+function createInitialListState<T, E>(entityAdapter: EntityAdapter<T>): ListState<T, E> {
   return entityAdapter.getInitialState({
     ...DEFAULT_REQUEST_OPTIONS,
     lastPageNumber: undefined,
     selectedResourceIds: [],
     loadingState: RequestState.IDLE,
     requestState: RequestState.IDLE,
-    error: undefined
+    errors: undefined
   });
 }
 
-function createListActionHandlers<T, S>(
-  initialListState: ListState<S>,
+function createListActionHandlers<T, E, S>(
+  initialListState: ListState<S, E>,
   entityAdapter: EntityAdapter<S>,
-  actions: ListActions<T, S>
-): ReducerTypes<ListState<S>, ActionCreator[]>[] {
+  actions: ListActions<T, E, S>
+): ReducerTypes<ListState<S, E>, ActionCreator[]>[] {
   return [
     on(actions.reinitialize, () => initialListState),
-    on(actions.initialize, (state: ListState<S>) =>
+    on(actions.initialize, (state: ListState<S, E>) =>
       entityAdapter.removeAll({
         ...state,
         selectedResourceIds: [],
@@ -63,19 +64,19 @@ function createListActionHandlers<T, S>(
         }
       })
     ),
-    on(actions.refresh, (state: ListState<S>) => {
+    on(actions.refresh, (state: ListState<S, E>) => {
       const currentPageStartIndex = (state.pagingOptions.page - 1) * state.pagingOptions.pageSize;
       const resourceIds = state.ids.slice(currentPageStartIndex) as string[];
 
       return entityAdapter.removeMany(resourceIds, state);
     }),
 
-    on(actions.changePageSize, (state: ListState<S>, { pageSize }) => ({
+    on(actions.changePageSize, (state: ListState<S, E>, { pageSize }) => ({
       ...state,
       pagingOptions: { ...state.pagingOptions, pageSize },
       lastPageNumber: undefined
     })),
-    on(actions.changeSorting, (state: ListState<S>, { sortingField }) => {
+    on(actions.changeSorting, (state: ListState<S, E>, { sortingField }) => {
       const sortingOptions = { ...state.sortingOptions };
       if (sortingField.direction === SortingDirection.NONE) {
         delete sortingOptions[sortingField.field];
@@ -87,20 +88,20 @@ function createListActionHandlers<T, S>(
         sortingOptions
       };
     }),
-    on(actions.changeFiltering, (state: ListState<S>, { filteringOptions }) => ({
+    on(actions.changeFiltering, (state: ListState<S, E>, { filteringOptions }) => ({
       ...state,
       filteringOptions,
       lastPageNumber: undefined
     })),
-    on(actions.changeSelected, actions.loadSelected, (state: ListState<S>, { selectedResourceIds }) => ({
+    on(actions.changeSelected, (state: ListState<S, E>, { selectedResourceIds }) => ({
       ...state,
       selectedResourceIds
     })),
-    on(actions.loadFirstPage, (state: ListState<S>) => ({
+    on(actions.loadFirstPage, (state: ListState<S, E>) => ({
       ...state,
       pagingOptions: { ...state.pagingOptions, page: 1 }
     })),
-    on(actions.loadNextPage, (state: ListState<S>) => {
+    on(actions.loadNextPage, (state: ListState<S, E>) => {
       if (state.pagingOptions.page === state.lastPageNumber) {
         return { ...state };
       }
@@ -121,7 +122,7 @@ function createListActionHandlers<T, S>(
         }
       };
     }),
-    on(actions.loadPreviousPage, (state: ListState<S>) => {
+    on(actions.loadPreviousPage, (state: ListState<S, E>) => {
       if (state.pagingOptions.page === 1) {
         return { ...state };
       }
@@ -134,40 +135,34 @@ function createListActionHandlers<T, S>(
         }
       };
     }),
-    on(actions.loadPageSuccess, (state: ListState<S>, { resources, pagingOptions }) => {
+    on(actions.loadPageSuccess, (state: ListState<S, E>, { resources, pagingOptions }) => {
       if (pagingOptions.page < state.pagingOptions.page) {
         return createPreviousPageSuccessState(entityAdapter, state, resources);
       }
 
       return createNextPageSuccessState(entityAdapter, state, pagingOptions, resources);
     }),
-    on(actions.loadSelectedSuccess, (state: ListState<S>, { resources }) => entityAdapter.addMany(resources, state)),
-    on(actions.deleteSuccess, (state: ListState<S>) => ({
+    on(actions.deleteSuccess, (state: ListState<S, E>) => ({
       ...state,
       selectedResourceIds: [] as string[]
     })),
-    on(actions.navigateToSelected, (state: ListState<S>, { resourceId }) => ({
+    on(actions.navigateToSelected, (state: ListState<S, E>, { resourceId }) => ({
       ...state,
       currentResourceId: resourceId
     })),
 
-    ...createLoadingStateActionHandlers<ListState<S>>(
+    ...createLoadingStateActionHandlers<ListState<S, E>>(
       actions.loadPage,
       actions.loadPageSuccess,
       actions.loadPageFailure
     ),
-    ...createLoadingStateActionHandlers<ListState<S>>(
-      actions.loadSelected,
-      actions.loadSelectedSuccess,
-      actions.loadSelectedFailure
-    ),
-    ...createRequestStateActionHandlers<ListState<S>>(
+    ...createRequestStateActionHandlers<ListState<S, E>, E>(
       undefined,
       actions.delete,
       actions.deleteSuccess,
       actions.deleteFailure
     ),
-    ...createRequestStateActionHandlers<ListState<S>>(
+    ...createRequestStateActionHandlers<ListState<S, E>, E>(
       actions.resetRequestState,
       actions.patch,
       actions.patchSuccess,
@@ -176,11 +171,11 @@ function createListActionHandlers<T, S>(
   ];
 }
 
-function createPreviousPageSuccessState<T>(
+function createPreviousPageSuccessState<T, E>(
   entityAdapter: EntityAdapter<T>,
-  state: ListState<T>,
+  state: ListState<T, E>,
   resources: T[]
-): ListState<T> {
+): ListState<T, E> {
   const resourceIds: string[] = state.ids.slice(
     0,
     (DEFAULT_STORED_PAGES - 1) * state.pagingOptions.pageSize
@@ -192,12 +187,12 @@ function createPreviousPageSuccessState<T>(
   });
 }
 
-function createNextPageSuccessState<T>(
+function createNextPageSuccessState<T, E>(
   entityAdapter: EntityAdapter<T>,
-  state: ListState<T>,
+  state: ListState<T, E>,
   pagingOptions: PagingOptions,
   resources: T[]
-): ListState<T> {
+): ListState<T, E> {
   let resourceIds: string[] = [];
   const lastPageNumber = getLastPageNumber(resources, pagingOptions) || state.lastPageNumber;
 

@@ -112,7 +112,7 @@ export abstract class AbstractFormEffects<T, E> {
           this.formActions.createFailure
         ),
         tap(({ errors }) => {
-          this.notificationService.onErrors(errors);
+          this.notificationService.onFormErrors(errors);
         })
       ),
     { dispatch: false }

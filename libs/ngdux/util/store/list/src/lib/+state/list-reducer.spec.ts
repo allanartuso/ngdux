@@ -18,10 +18,11 @@ import {
   SortingDirection,
   SortingField
 } from '@ngdux/data-model-common';
+import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
+import { createTestResource, createTestResources, TestResource } from '@ngdux/store-common/test';
 import { EntityAdapter } from '@ngrx/entity';
 import { ActionReducer } from '@ngrx/store';
-import { createTestResource, createTestResources, TestResource } from '../../models/store.fixture';
-import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '../../utils/action-handlers';
+import { TestErrors } from '../models/list.fixture';
 import { ListActions, ListState } from '../models/list.model';
 import { createListActions } from './list-actions';
 import { createListEntityAdapter, createListReducer } from './list-reducer';
@@ -45,9 +46,9 @@ describe('createEntityAdapter', () => {
 
 describe('createListReducer', () => {
   let testEntityAdapter: EntityAdapter<TestResource>;
-  let testListActions: ListActions<TestResource>;
-  let testInitialState: ListState<TestResource>;
-  let testReducer: ActionReducer<ListState<TestResource>>;
+  let testListActions: ListActions<TestResource, TestErrors>;
+  let testInitialState: ListState<TestResource, TestErrors>;
+  let testReducer: ActionReducer<ListState<TestResource, TestErrors>>;
 
   beforeEach(() => {
     (createLoadingStateActionHandlers as jest.Mock).mockClear();
@@ -61,9 +62,9 @@ describe('createListReducer', () => {
       selectedResourceIds: [],
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      error: undefined
+      errors: undefined
     });
-    testReducer = createListReducer<TestResource>(testEntityAdapter, testListActions);
+    testReducer = createListReducer<TestResource, TestErrors>(testEntityAdapter, testListActions);
   });
 
   it('reinitialize the state to the initial state', () => {
@@ -102,7 +103,7 @@ describe('createListReducer', () => {
 
   it('refresh removes all the resources from the second page', () => {
     const testResources = createTestResources();
-    const testState: ListState<TestResource> = testEntityAdapter.addMany(testResources, {
+    const testState: ListState<TestResource, TestErrors> = testEntityAdapter.addMany(testResources, {
       ...testInitialState,
       pagingOptions: {
         page: 2,
@@ -344,15 +345,6 @@ describe('createListReducer', () => {
     });
   });
 
-  it('loadSelectedSuccess sets the loaded resources', () => {
-    const testResources = createTestResources();
-    const testAction = testListActions.loadSelectedSuccess({ resources: testResources });
-
-    const state = testReducer(testInitialState, testAction);
-
-    expect(state).toStrictEqual(testEntityAdapter.setAll(testResources, { ...testInitialState }));
-  });
-
   it('adds the loading state action handlers to the reducer', () => {
     const testAction = testListActions.loadPage({ pageNumber: 1 });
 
@@ -363,11 +355,6 @@ describe('createListReducer', () => {
       testListActions.loadPage,
       testListActions.loadPageSuccess,
       testListActions.loadPageFailure
-    );
-    expect(createLoadingStateActionHandlers).toHaveBeenCalledWith(
-      testListActions.loadSelected,
-      testListActions.loadSelectedSuccess,
-      testListActions.loadSelectedFailure
     );
   });
 

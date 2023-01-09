@@ -5,13 +5,15 @@ import { ErrorDto, FormNotificationService, ListNotificationService } from '@ngd
 import { Observable } from 'rxjs';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class NotificationService implements FormNotificationService<ErrorDto>, ListNotificationService {
+@Injectable()
+export class NotificationService implements FormNotificationService<ErrorDto>, ListNotificationService<ErrorDto> {
   constructor(private readonly snackBar: MatSnackBar, private readonly dialog: MatDialog) {}
 
-  onErrors(errors: ErrorDto): void {
+  onFormErrors(errors: ErrorDto): void {
+    this.snackBar.open(errors.message);
+  }
+
+  onListErrors(errors: ErrorDto): void {
     this.snackBar.open(errors.message);
   }
 

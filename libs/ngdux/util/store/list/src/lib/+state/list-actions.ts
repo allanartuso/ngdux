@@ -2,7 +2,7 @@ import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@ngdux/
 import { createAction, props } from '@ngrx/store';
 import { ListActions } from '../models/list.model';
 
-export function createListActions<T, S = T>(featureName: string): ListActions<T, S> {
+export function createListActions<T, E, S = T>(featureName: string): ListActions<T, E, S> {
   const initializeRequestOptions = createAction(`[${featureName} Page] Initialize ${featureName} Request Options`);
   const refresh = createAction(`[${featureName} Page] Refresh ${featureName}`);
   const initialize = createAction(`[${featureName} Page] Initialize ${featureName}`);
@@ -34,19 +34,6 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
     props<{ selectedResourceIds: string[] }>()
   );
 
-  const loadSelected = createAction(
-    `[${featureName} Page] Load Selected ${featureName}`,
-    props<{ selectedResourceIds: string[] }>()
-  );
-  const loadSelectedSuccess = createAction(
-    `[${featureName} Page] Load Selected ${featureName} Success`,
-    props<{ resources: S[] }>()
-  );
-  const loadSelectedFailure = createAction(
-    `[${featureName} Page] Load Selected ${featureName} Failure`,
-    props<{ error: ErrorDto }>()
-  );
-
   const loadPage = createAction(`[${featureName} Page] Load ${featureName} Page`, props<{ pageNumber: number }>());
   const loadPageSuccess = createAction(
     `[${featureName} Page] Load ${featureName} Page Success`,
@@ -54,7 +41,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
   );
   const loadPageFailure = createAction(
     `[${featureName} Page] Load ${featureName} Page Failure`,
-    props<{ error: ErrorDto }>()
+    props<{ errors: E }>()
   );
 
   const deleteAction = createAction(`[${featureName} Page] Delete ${featureName}`, props<{ resourceIds: string[] }>());
@@ -62,10 +49,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
     `[${featureName} Page] Delete ${featureName} Success`,
     props<{ resourceIds: string[] }>()
   );
-  const deleteFailure = createAction(
-    `[${featureName} Page] Delete ${featureName} Failure`,
-    props<{ error: ErrorDto }>()
-  );
+  const deleteFailure = createAction(`[${featureName} Page] Delete ${featureName} Failure`, props<{ errors: E }>());
 
   const patch = createAction(
     `[${featureName} Page] Patch ${featureName}`,
@@ -75,7 +59,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
     `[${featureName} Page] Patch ${featureName} Success`,
     props<{ resources: (T | ErrorDto)[] }>()
   );
-  const patchFailure = createAction(`[${featureName} Page] Patch ${featureName} Failure`, props<{ error: ErrorDto }>());
+  const patchFailure = createAction(`[${featureName} Page] Patch ${featureName} Failure`, props<{ errors: E }>());
   const resetRequestState = createAction(`[${featureName} Page] Reset ${featureName} Request State`);
   const copySelected = createAction(`[${featureName} Page] Copy Selected ${featureName}`);
   const navigateToSelected = createAction(
@@ -98,9 +82,6 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
     loadPreviousPage,
     loadFirstPage,
     changeSelected,
-    loadSelected,
-    loadSelectedSuccess,
-    loadSelectedFailure,
     loadPageSuccess,
     loadPageFailure,
     delete: deleteAction,

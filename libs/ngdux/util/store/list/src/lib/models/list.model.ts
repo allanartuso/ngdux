@@ -8,17 +8,17 @@ import {
   SortingField,
   SortingOptions
 } from '@ngdux/data-model-common';
+import { ApiRequestState, LoadingState } from '@ngdux/store-common';
 import { EntityState } from '@ngrx/entity';
 import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
-import { ApiRequestState, LoadingState } from '../../utils/action-handlers';
 
-export interface ListState<T> extends EntityState<T>, RequestOptions, ApiRequestState, LoadingState {
+export interface ListState<T, E> extends EntityState<T>, RequestOptions, ApiRequestState<E>, LoadingState {
   selectedResourceIds: string[];
   lastPageNumber: number;
 }
 
-export interface ListSelectors<T> {
+export interface ListSelectors<T, E> {
   getAll: MemoizedSelector<object, T[]>;
   getRequestOptions: MemoizedSelector<object, RequestOptions>;
   isLastPage: MemoizedSelector<object, boolean>;
@@ -33,7 +33,7 @@ export interface ListSelectors<T> {
   getSelected: MemoizedSelector<object, T[]>;
   getSelectionRecord: MemoizedSelector<object, Record<string, T>>;
   getRequestState: MemoizedSelector<object, RequestState>;
-  getErrors: MemoizedSelector<object, ErrorDto>;
+  getErrors: MemoizedSelector<object, E>;
   areSelectedReady: MemoizedSelector<object, boolean>;
   isReady: MemoizedSelector<object, boolean>;
   isDeleteDisabled: MemoizedSelector<object, boolean>;
@@ -41,7 +41,7 @@ export interface ListSelectors<T> {
   getTotalCount: MemoizedSelector<object, number>;
 }
 
-export interface ListActions<T, S = T> {
+export interface ListActions<T, E, S = T> {
   initializeRequestOptions: ActionCreator<string, () => TypedAction<string>>;
   changePagingOptions: ActionCreator<
     string,
@@ -61,12 +61,6 @@ export interface ListActions<T, S = T> {
     string,
     (props: { selectedResourceIds: string[] }) => { selectedResourceIds: string[] } & TypedAction<string>
   >;
-  loadSelected: ActionCreator<
-    string,
-    (props: { selectedResourceIds: string[] }) => { selectedResourceIds: string[] } & TypedAction<string>
-  >;
-  loadSelectedSuccess: ActionCreator<string, (props: { resources: S[] }) => { resources: S[] } & TypedAction<string>>;
-  loadSelectedFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
   loadPage: ActionCreator<string, (props: { pageNumber: number }) => { pageNumber: number } & TypedAction<string>>;
   loadPageSuccess: ActionCreator<
     string,
@@ -75,13 +69,13 @@ export interface ListActions<T, S = T> {
       pagingOptions: PagingOptions;
     }) => { resources: S[]; pagingOptions: PagingOptions } & TypedAction<string>
   >;
-  loadPageFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
+  loadPageFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
   delete: ActionCreator<string, (props: { resourceIds: string[] }) => { resourceIds: string[] } & TypedAction<string>>;
   deleteSuccess: ActionCreator<
     string,
     (props: { resourceIds: string[] }) => { resourceIds: string[] } & TypedAction<string>
   >;
-  deleteFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
+  deleteFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
   patch: ActionCreator<
     string,
     (props: {
@@ -93,7 +87,7 @@ export interface ListActions<T, S = T> {
     string,
     (props: { resources: (T | ErrorDto)[] }) => { resources: (T | ErrorDto)[] } & TypedAction<string>
   >;
-  patchFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
+  patchFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
   loadNextPage: ActionCreator<string, () => TypedAction<string>>;
   refresh: ActionCreator<string, () => TypedAction<string>>;
   initialize: ActionCreator<string, () => TypedAction<string>>;
