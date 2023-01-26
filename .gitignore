@@ -43,3 +43,4 @@ Thumbs.db
 **/integration-local/*
 
 .angular
+*.txt

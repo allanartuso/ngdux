@@ -64,7 +64,6 @@ export const formSelectors = createFormSelectors(getState);
 
 ```
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { AbstractFormEffects } from '@ngdux/form';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -76,13 +75,12 @@ import { formActions } from './user.actions';
 @Injectable()
 export class UserEffects extends AbstractFormEffects<User, Error> {
   constructor(
-  router: Router,
-  actions$: Actions,
+      actions$: Actions,
       store: Store,
       userService: UserService,
       formNotificationService: FormNotificationService
     ) {
-      super(router, actions$, store, userService, formActions, formNotificationService);
+      super(actions$, store, userService, formActions, formNotificationService);
   }
 }
 ```

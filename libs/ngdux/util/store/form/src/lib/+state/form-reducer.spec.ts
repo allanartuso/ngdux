@@ -115,25 +115,4 @@ describe('createFormReducer', () => {
       expect(state).toStrictEqual(testInitialState);
     });
   });
-
-  describe(testFormActions.copy.type, () => {
-    it('sets loading state and request state to idle', () => {
-      const action = testFormActions.copy();
-
-      const state: FormState<TestResource, string[]> = testReducer(
-        {
-          ...testInitialState,
-          loadingState: RequestState.SUCCESS,
-          requestState: RequestState.SUCCESS
-        },
-        action
-      );
-
-      expect(state).toStrictEqual({
-        ...testInitialState,
-        loadingState: RequestState.IDLE,
-        requestState: RequestState.IDLE
-      });
-    });
-  });
 });

@@ -44,14 +44,6 @@ function createFormActionHandlers<T, E>(
         resource: undefined
       })
     ),
-    on(
-      actions.copy,
-      (state: FormState<T, E>): FormState<T, E> => ({
-        ...state,
-        loadingState: RequestState.IDLE,
-        requestState: RequestState.IDLE
-      })
-    ),
     ...createRequestStateActionHandlers<FormState<T, E>, E>(
       actions.load,
       actions.save,

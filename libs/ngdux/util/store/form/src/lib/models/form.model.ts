@@ -28,13 +28,9 @@ export interface FormActions<T, E> {
   deleteSuccess: ActionCreator<string, (props: { id: string }) => { id: string } & TypedAction<string>>;
   deleteFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
 
-  navigateToCreate: ActionCreator<string, () => TypedAction<string>>;
   create: ActionCreator<string, (props: { resource: T }) => { resource: T } & TypedAction<string>>;
   createSuccess: ActionCreator<string, (props: { resource: T }) => { resource: T } & TypedAction<string>>;
   createFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
 
   reset: ActionCreator<string, () => TypedAction<string>>;
-
-  copy: ActionCreator<string, () => TypedAction<string>>;
-  copySelected: ActionCreator<string, (props: { id: string }) => { id: string } & TypedAction<string>>;
 }

@@ -14,15 +14,11 @@ export function createFormActions<T, E>(featureName: string): FormActions<T, E> 
   const deleteSuccess = createAction(`[${featureName} API] Delete ${featureName} Success`, props<{ id: string }>());
   const deleteFailure = createAction(`[${featureName} API] Delete ${featureName} Failure`, props<{ errors: E }>());
 
-  const navigateToCreate = createAction(`[${featureName} Page] Navigate to Create ${featureName}`);
   const create = createAction(`[${featureName} API] Create ${featureName}`, props<{ resource: T }>());
   const createSuccess = createAction(`[${featureName} API] Create ${featureName} Success`, props<{ resource: T }>());
   const createFailure = createAction(`[${featureName} API] Create ${featureName} Failure`, props<{ errors: E }>());
 
   const reset = createAction(`[${featureName} API] Reset ${featureName}`);
-
-  const copy = createAction(`[${featureName} Page] Copy ${featureName}`);
-  const copySelected = createAction(`[${featureName} Page] Copy Selected ${featureName}`, props<{ id: string }>());
 
   return {
     load,
@@ -34,12 +30,9 @@ export function createFormActions<T, E>(featureName: string): FormActions<T, E> 
     delete: deleteAction,
     deleteSuccess,
     deleteFailure,
-    navigateToCreate,
     create,
     createSuccess,
     createFailure,
-    reset,
-    copy,
-    copySelected
+    reset
   };
 }

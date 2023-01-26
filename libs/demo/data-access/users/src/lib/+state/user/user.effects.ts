@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserDto } from '@demo/demo/data-model/users';
 import { NotificationService } from '@demo/shared/util-notification';
 import { ErrorDto } from '@ngdux/data-model-common';
@@ -11,13 +10,7 @@ import { userActions } from './user.state';
 
 @Injectable()
 export class UserEffects extends AbstractFormEffects<UserDto, ErrorDto> {
-  constructor(
-    router: Router,
-    actions$: Actions,
-    store: Store,
-    userService: UserService,
-    formNotificationService: NotificationService
-  ) {
-    super(router, actions$, store, userService, userActions, formNotificationService);
+  constructor(actions$: Actions, store: Store, userService: UserService, formNotificationService: NotificationService) {
+    super(actions$, store, userService, userActions, formNotificationService);
   }
 }
