@@ -1,6 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { RequestState } from '@ngdux/data-model-common';
 import { createTestResource, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -36,7 +35,6 @@ describe('TestEffects', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         TestFormEffects,
@@ -147,17 +145,6 @@ describe('TestEffects', () => {
       });
 
       expect(effects.delete$).toBeObservable(expected);
-    });
-  });
-
-  describe('copySelected$', () => {
-    it('should load the resource', () => {
-      actions = hot('a', { a: formActions.copySelected({ id: resource.id }) });
-      const expected = hot('a', {
-        a: formActions.load({ id: resource.id })
-      });
-
-      expect(effects.copySelected$).toBeObservable(expected);
     });
   });
 });

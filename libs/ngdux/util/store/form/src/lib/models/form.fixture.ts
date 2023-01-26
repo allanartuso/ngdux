@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormNotificationService, FormService } from '@ngdux/data-model-common';
 import { TestResource } from '@ngdux/store-common/test';
 import { Actions } from '@ngrx/effects';
@@ -27,7 +26,7 @@ export class TestFormService implements FormService<TestResource> {
 
 @Injectable()
 export class TestFormEffects extends AbstractFormEffects<TestResource, string[]> {
-  constructor(router: Router, actions$: Actions, store: Store, testService: TestFormService) {
-    super(router, actions$, store, testService, formActions, mockNotificationService);
+  constructor(actions$: Actions, store: Store, testService: TestFormService) {
+    super(actions$, store, testService, formActions, mockNotificationService);
   }
 }
