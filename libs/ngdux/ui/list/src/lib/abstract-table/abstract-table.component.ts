@@ -1,33 +1,14 @@
-import { Directive, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
-import { TableComponent } from '../table/table.component';
 
 @Directive()
 export abstract class AbstractTableComponent<T> {
-  @ViewChild('table') table: TableComponent<T>;
-
   @Input() totalCount: number;
   @Input() sortingOptions: SortingOptions;
   @Input() filteringOptions: FilteringOptions;
   @Input() pagingOptions: PagingOptions;
-
-  @Input() set gridData(gridData: T[]) {
-    this._gridData = gridData;
-    this.table?.clearSelection();
-  }
-  get gridData() {
-    return this._gridData;
-  }
-  private _gridData: T[] = [];
-
-  @Input() set selectedItems(selectedItems: T[]) {
-    this._selectedItems = selectedItems;
-    this.table?.selectItems(this.selectedItems);
-  }
-  get selectedItems() {
-    return this._selectedItems;
-  }
-  private _selectedItems: T[] = [];
+  @Input() gridData: T[];
+  @Input() selectedItems: T[];
 
   @Output() sortingChanged = new EventEmitter<SortingOptions>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();

@@ -1,0 +1,11 @@
+{
+  "name": "@ngdux/ui-form",
+  "version": "0.1.9",
+  "peerDependencies": {
+    "@angular/common": "^14.2.0",
+    "@angular/core": "^14.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

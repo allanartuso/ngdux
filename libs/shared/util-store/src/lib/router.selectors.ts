@@ -1,10 +1,9 @@
 import * as fromRouterStore from '@ngrx/router-store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AppState, CustomRouterStateSnapshot } from './models/store.model';
+import { CustomRouterStateSnapshot } from './models/store.model';
 
-export const selectRouterState = createFeatureSelector<
-  fromRouterStore.RouterReducerState<CustomRouterStateSnapshot>
->('router');
+export const selectRouterState =
+  createFeatureSelector<fromRouterStore.RouterReducerState<CustomRouterStateSnapshot>>('router');
 
 export const {
   selectQueryParam, // factory function to select a query param

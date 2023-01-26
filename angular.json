@@ -9,6 +9,8 @@
     "demo-feature-users": "libs/demo/feature/users",
     "demo-ui-users": "libs/demo/ui/users",
     "ngdux-data-model-common": "libs/ngdux/data-model/common",
+    "ngdux-ui-form": "libs/ngdux/ui/form",
+    "ngdux-ui-list": "libs/ngdux/ui/list",
     "ngdux-util-store-common": "libs/ngdux/util/store/common",
     "ngdux-util-store-form": "libs/ngdux/util/store/form",
     "ngdux-util-store-list": "libs/ngdux/util/store/list",
