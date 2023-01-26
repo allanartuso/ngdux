@@ -29,7 +29,7 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "ngdux:build": "nx build ngdux-util-store-form && nx build ngdux-util-store-list",
+    "ngdux:build": "nx build ngdux-util-store-form --configuration=production && nx build ngdux-util-store-list --configuration=production",
     "ngdux:publish": "npm publish dist/libs/ngdux/data-model/common && npm publish dist/libs/ngdux/util/store/common && npm publish dist/libs/ngdux/util/store/form && npm publish dist/libs/ngdux/util/store/list"
   },
   "private": true,
@@ -84,7 +84,7 @@
     "jest-environment-jsdom": "28.1.1",
     "jest-preset-angular": "12.2.2",
     "ng-packagr": "~14.2.0",
-    "nx": "14.8.6",
+    "nx": "^14.8.6",
     "postcss": "^8.4.5",
     "postcss-import": "~14.1.0",
     "postcss-preset-env": "~7.5.0",
