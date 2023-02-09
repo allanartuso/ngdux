@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserDto } from '@demo/demo/data-model/users';
-import { AbstractFormComponent } from '@demo/shared/ui-form';
+import { AbstractFormComponent } from '@ngil/ui-form';
 
 @Component({
   selector: 'demo-user-form',

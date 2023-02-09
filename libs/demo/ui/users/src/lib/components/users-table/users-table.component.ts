@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UserDto } from '@demo/demo/data-model/users';
-import { AbstractTableComponent, TableColumn } from '@demo/shared/ui-list';
+import { TableColumn } from '@demo/shared/ui-list';
+import { AbstractTableComponent } from '@ngil/ui-list';
 
 @Component({
   selector: 'demo-users-table',

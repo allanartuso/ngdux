@@ -18,7 +18,11 @@ export abstract class AbstractTableComponent<T> {
   @Output() deleteSelected = new EventEmitter<void>();
 
   onSortingChanged(sortingField: SortingField): void {
-    this.sortingChanged.emit({ [sortingField.field]: sortingField });
+    if (sortingField.direction) {
+      this.sortingChanged.emit({ [sortingField.field]: sortingField });
+    } else {
+      this.sortingChanged.emit({});
+    }
   }
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {

@@ -5,7 +5,6 @@ import {
   PagingOptions,
   RequestOptions,
   RequestState,
-  SortingField,
   SortingOptions
 } from '@ngdux/data-model-common';
 import { ApiRequestState, LoadingState } from '@ngdux/store-common';
@@ -50,7 +49,7 @@ export interface ListActions<T, E, S = T> {
   changePageSize: ActionCreator<string, (props: { pageSize: number }) => { pageSize: number } & TypedAction<string>>;
   changeSorting: ActionCreator<
     string,
-    (props: { sortingField: SortingField }) => { sortingField: SortingField } & TypedAction<string>
+    (props: { sortingOptions: SortingOptions }) => { sortingOptions: SortingOptions } & TypedAction<string>
   >;
   changeFiltering: ActionCreator<
     string,

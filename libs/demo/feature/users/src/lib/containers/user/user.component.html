@@ -1,6 +1,1 @@
-<demo-user-form
-  #userProfileForm
-  [formViewModel]="user$ | async"
-  [formRequestState]="requestState$ | async"
-  (submitted)="onUserSaved($event)"
-></demo-user-form>
+<demo-user-form #userProfileForm [formViewModel]="user$ | async" (submitted)="onUserSaved($event)"></demo-user-form>

@@ -1,4 +1,4 @@
-import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
+import { ErrorDto, FilteringOptions, PagingOptions, SortingOptions } from '@ngdux/data-model-common';
 import { createAction, props } from '@ngrx/store';
 import { ListActions } from '../models/list.model';
 
@@ -23,7 +23,7 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
   );
   const changeSorting = createAction(
     `[${featureName} Page] Change ${featureName} Sorting`,
-    props<{ sortingField: SortingField }>()
+    props<{ sortingOptions: SortingOptions }>()
   );
   const changeFiltering = createAction(
     `[${featureName} Page] Change ${featureName} Filtering`,

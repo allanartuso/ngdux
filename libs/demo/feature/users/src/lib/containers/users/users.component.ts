@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { listActions, listSelectors } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
-import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
+import { FilteringOptions, PagingOptions, SortingOptions } from '@ngdux/data-model-common';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -26,8 +26,8 @@ export class UsersComponent {
     this.store.dispatch(listActions.changeFiltering({ filteringOptions }));
   }
 
-  onSortingChanged(sortingField: SortingField): void {
-    this.store.dispatch(listActions.changeSorting({ sortingField }));
+  onSortingChanged(sortingOptions: SortingOptions): void {
+    this.store.dispatch(listActions.changeSorting({ sortingOptions }));
   }
 
   onPageOptionsChanged(pagingOptions: PagingOptions): void {

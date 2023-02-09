@@ -1,10 +1,4 @@
-import {
-  DEFAULT_REQUEST_OPTIONS,
-  DEFAULT_STORED_PAGES,
-  PagingOptions,
-  RequestState,
-  SortingDirection
-} from '@ngdux/data-model-common';
+import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, PagingOptions, RequestState } from '@ngdux/data-model-common';
 import {
   createLoadingStateActionHandlers,
   createRequestStateActionHandlers,
@@ -76,18 +70,10 @@ function createListActionHandlers<T, E, S>(
       pagingOptions: { ...state.pagingOptions, pageSize },
       lastPageNumber: undefined
     })),
-    on(actions.changeSorting, (state: ListState<S, E>, { sortingField }) => {
-      const sortingOptions = { ...state.sortingOptions };
-      if (sortingField.direction === SortingDirection.NONE) {
-        delete sortingOptions[sortingField.field];
-      } else {
-        sortingOptions[sortingField.field] = sortingField;
-      }
-      return {
-        ...state,
-        sortingOptions
-      };
-    }),
+    on(actions.changeSorting, (state: ListState<S, E>, { sortingOptions }) => ({
+      ...state,
+      sortingOptions
+    })),
     on(actions.changeFiltering, (state: ListState<S, E>, { filteringOptions }) => ({
       ...state,
       filteringOptions,

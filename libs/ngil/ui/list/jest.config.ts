@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'ngdux-ui-list',
+  displayName: 'ngil-ui-list',
   preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$'
     }
   },
-  coverageDirectory: '../../../../coverage/libs/ngdux/ui/list',
+  coverageDirectory: '../../../../coverage/libs/ngil/ui/list',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular'
   },
