@@ -1,0 +1,19 @@
+<div class="ngil-input" [class.ngil-input--error]="!!errorMessage">
+  <label class="ngil-input__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
+  <!-- <ng-content select="[inputTemplate]"></ng-content>
+
+  <ng-container *ngIf="inputTemplate">
+    <ng-container *ngTemplateOutlet="inputTemplate;; context: { $implicit: display }"></ng-container>
+  </ng-container> -->
+  <input
+    class="ngil-input__input"
+    [id]="formControlName"
+    [required]="required"
+    [readonly]="readonly"
+    [type]="type"
+    [value]="value"
+    (blur)="onBlur()"
+    (keyup)="onChangeInput($event)"
+  />
+  <small class="ngil-input__error-message">{{ errorMessage }}</small>
+</div>
