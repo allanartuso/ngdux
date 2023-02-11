@@ -1,3 +1,4 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -8,7 +9,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, SharedUiFormModule, SharedUiListModule, NgilUiFormModule],
+  imports: [CommonModule, ReactiveFormsModule, SharedUiFormModule, SharedUiListModule, NgilUiFormModule, OverlayModule],
   declarations: [UserFormComponent, UsersTableComponent],
   exports: [UserFormComponent, UsersTableComponent]
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserDto } from '@demo/demo/data-model/users';
-import { AbstractFormComponent } from '@ngil/ui-form';
+import { AbstractFormComponent, TimePickerValue } from '@ngil/ui-form';
 
 @Component({
   selector: 'demo-user-form',
@@ -28,5 +28,9 @@ export class UserFormComponent extends AbstractFormComponent<UserDto> {
       firstName: user?.firstName,
       lastName: user?.lastName
     };
+  }
+
+  onTimeChange(value: TimePickerValue): void {
+    console.log(value);
   }
 }

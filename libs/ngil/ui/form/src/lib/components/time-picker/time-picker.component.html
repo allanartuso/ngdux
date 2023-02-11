@@ -1,0 +1,33 @@
+<form [formGroup]="formGroup" class="ngil-time-picker">
+  <div class="ngil-time-picker__field">
+    <button #hourButtonUp class="ngil-time-picker__button">^</button>
+    <input
+      ngilNumberRotation
+      class="ngil-time-picker__input"
+      formControlName="hour"
+      [buttonUp]="hourButtonUp"
+      [buttonDown]="hourButtonDown"
+      [max]="23"
+      [min]="0"
+      (blur)="onBlur()"
+    />
+    <button #hourButtonDown class="ngil-time-picker__button">v</button>
+  </div>
+
+  <span>:</span>
+
+  <div class="ngil-time-picker__field">
+    <button #minuteButtonUp class="ngil-time-picker__button">^</button>
+    <input
+      ngilNumberRotation
+      class="ngil-time-picker__input"
+      formControlName="minute"
+      [buttonUp]="minuteButtonUp"
+      [buttonDown]="minuteButtonDown"
+      [max]="59"
+      [min]="0"
+      (blur)="onBlur()"
+    />
+    <button #minuteButtonDown class="ngil-time-picker__button">v</button>
+  </div>
+</form>
