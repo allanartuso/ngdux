@@ -1,5 +1,6 @@
 {
   "name": "demo-data-model-users",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/demo/data-model/users/src",
   "projectType": "library",
   "targets": {
@@ -12,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/demo/data-model/users"],
+      "outputs": ["{workspaceRoot}/coverage/libs/demo/data-model/users"],
       "options": {
         "jestConfig": "libs/demo/data-model/users/jest.config.ts",
         "passWithNoTests": true

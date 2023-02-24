@@ -7,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/demo/feature/sidebar"],
+      "outputs": ["{workspaceRoot}/coverage/libs/demo/feature/sidebar"],
       "options": {
         "jestConfig": "libs/demo/feature/sidebar/jest.config.ts",
         "passWithNoTests": true

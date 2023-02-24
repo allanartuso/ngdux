@@ -4,7 +4,7 @@ import { createTestResources, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { hot } from 'jasmine-marbles';
+import { hot } from 'jest-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import {
   createTestErrors,
@@ -215,7 +215,9 @@ describe('TestEffects', () => {
       });
 
       expect(effects.patch$).toBeObservable(expectedActions);
-      expect(resourcesService.patchResources).toHaveBeenCalledWith(resourceIds, resource);
+      expect(effects.patch$).toSatisfyOnFlush(() => {
+        expect(resourcesService.patchResources).toHaveBeenCalledWith(resourceIds, resource);
+      });
     });
   });
 });

@@ -1,6 +1,6 @@
 import { AfterViewInit, Directive, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, ControlContainer, ControlValueAccessor } from '@angular/forms';
-import { MatInput } from '@angular/material/input';
+import { MatLegacyInput as MatInput } from '@angular/material/legacy-input';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DemoFormControl } from './form.model';

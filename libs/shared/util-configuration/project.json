@@ -1,12 +1,13 @@
 {
   "name": "shared-util-configuration",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/shared/util-configuration/src",
   "prefix": "demo",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/util-configuration"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util-configuration"],
       "options": {
         "jestConfig": "libs/shared/util-configuration/jest.config.ts",
         "passWithNoTests": true

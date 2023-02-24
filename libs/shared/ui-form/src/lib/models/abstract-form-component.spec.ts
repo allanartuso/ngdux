@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RequestState } from '@ngdux/data-model-common';
-import { cold } from 'jasmine-marbles';
+import { cold } from 'jest-marbles';
 import { AbstractFormComponent } from './abstract-form-component';
 
 interface TestFormModel {

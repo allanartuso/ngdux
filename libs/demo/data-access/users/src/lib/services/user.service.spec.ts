@@ -4,7 +4,7 @@ import { createPersistentUser, createPersistentUsers, createTransientUser } from
 import { RestService } from '@demo/shared/data-access';
 import { restServiceFixture } from '@demo/shared/data-access/test';
 import { RequestOptions } from '@ngdux/data-model-common';
-import { cold } from 'jasmine-marbles';
+import { cold } from 'jest-marbles';
 import { UserService } from './user.service';
 
 describe('UsersService', () => {

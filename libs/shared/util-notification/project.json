@@ -7,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/util-notification"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/util-notification"],
       "options": {
         "jestConfig": "libs/shared/util-notification/jest.config.ts",
         "passWithNoTests": true

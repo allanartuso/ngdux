@@ -13,7 +13,7 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingField
+  SortingOptions
 } from '@ngdux/data-model-common';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { UsersComponent } from './users.component';
@@ -90,11 +90,11 @@ describe('UsersComponent', () => {
   });
 
   it('emits change users sorting action when sorting', () => {
-    const sortingField: SortingField = { field: 'email', direction: SortingDirection.DESCENDING };
+    const sortingOptions: SortingOptions = { name: { field: 'email', direction: SortingDirection.DESCENDING } };
 
-    component.onSortingChanged(sortingField);
+    component.onSortingChanged(sortingOptions);
 
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.changeSorting({ sortingField }));
+    expect(store.dispatch).toHaveBeenCalledWith(listActions.changeSorting({ sortingOptions }));
   });
 
   it('emits change selected users action when selecting rows', () => {

@@ -13,8 +13,7 @@
 
 const fs = require('fs');
 const glob = require('glob');
-const path = require('path');
-const root = path.join(__dirname, '../../apps/demo-e2e/src');
+const root = './apps/demo-e2e/src';
 
 glob(`${root}/integration/**/*.cy.ts`, (err, files) => {
   let code = '';
@@ -22,5 +21,5 @@ glob(`${root}/integration/**/*.cy.ts`, (err, files) => {
     code += `require('${file.replace(root, '..')}');\n`;
   });
 
-  fs.writeFileSync(`${root}\\integration-local\\main.cy.ts`, code);
+  fs.writeFileSync(`${root}/integration-local/main.cy.ts`, code);
 });

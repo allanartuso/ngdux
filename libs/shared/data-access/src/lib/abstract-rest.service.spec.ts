@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RequestOptions } from '@ngdux/data-model-common';
-import { cold } from 'jasmine-marbles';
+import { cold } from 'jest-marbles';
 import { of } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';
 

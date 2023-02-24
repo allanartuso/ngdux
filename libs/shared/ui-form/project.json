@@ -1,12 +1,13 @@
 {
   "name": "shared-ui-form",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/shared/ui-form/src",
   "prefix": "demo",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/ui-form"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/ui-form"],
       "options": {
         "jestConfig": "libs/shared/ui-form/jest.config.ts",
         "passWithNoTests": true

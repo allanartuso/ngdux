@@ -7,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/ngdux/data-model/common"],
+      "outputs": ["{workspaceRoot}/dist/libs/ngdux/data-model/common"],
       "options": {
         "project": "libs/ngdux/data-model/common/ng-package.json"
       },
@@ -23,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ngdux/data-model/common"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ngdux/data-model/common"],
       "options": {
         "jestConfig": "libs/ngdux/data-model/common/jest.config.ts",
         "passWithNoTests": true

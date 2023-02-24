@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { UserDto } from '@demo/demo/data-model/users';
 import { createPersistentUser } from '@demo/demo/data-model/users/test';
-import { DemoInputComponent, FormControlInjectorDirective } from '@demo/shared/ui-form';
+import { NgilInputComponent } from '@ngil/ui-form';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {
@@ -17,7 +17,7 @@ describe('UserFormComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, NoopAnimationsModule],
-      declarations: [UserFormComponent, DemoInputComponent, FormControlInjectorDirective],
+      declarations: [UserFormComponent, NgilInputComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

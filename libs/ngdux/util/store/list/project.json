@@ -7,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/ngdux/util/store/list"],
+      "outputs": ["{workspaceRoot}/dist/libs/ngdux/util/store/list"],
       "options": {
         "project": "libs/ngdux/util/store/list/ng-package.json"
       },
@@ -23,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ngdux/util/store/list"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ngdux/util/store/list"],
       "options": {
         "jestConfig": "libs/ngdux/util/store/list/jest.config.ts",
         "passWithNoTests": true

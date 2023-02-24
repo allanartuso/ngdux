@@ -1,13 +1,13 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "ngil-ui-list",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/ngil/ui/list/src",
   "prefix": "demo",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/ngil/ui/list"],
+      "outputs": ["{workspaceRoot}/dist/libs/ngil/ui/list"],
       "options": {
         "project": "libs/ngil/ui/list/ng-package.json"
       },
@@ -23,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ngil/ui/list"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ngil/ui/list"],
       "options": {
         "jestConfig": "libs/ngil/ui/list/jest.config.ts",
         "passWithNoTests": true

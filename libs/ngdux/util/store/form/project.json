@@ -7,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/ngdux/util/store/form"],
+      "outputs": ["{workspaceRoot}/dist/libs/ngdux/util/store/form"],
       "options": {
         "project": "libs/ngdux/util/store/form/ng-package.json"
       },
@@ -23,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ngdux/util/store/form"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ngdux/util/store/form"],
       "options": {
         "jestConfig": "libs/ngdux/util/store/form/jest.config.ts",
         "passWithNoTests": true

@@ -5,7 +5,7 @@ import { createTestResource, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { hot } from 'jasmine-marbles';
+import { hot } from 'jest-marbles';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { featureKey, formActions, TestFormEffects, TestFormService } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
@@ -87,7 +87,9 @@ describe('TestEffects', () => {
       });
 
       expect(effects.create$).toBeObservable(expected);
-      expect(testService.createResource).toHaveBeenCalledWith(resource);
+      expect(effects.create$).toSatisfyOnFlush(() => {
+        expect(testService.createResource).toHaveBeenCalledWith(resource);
+      });
     });
 
     it('should emit failure when error is thrown', () => {
@@ -109,7 +111,9 @@ describe('TestEffects', () => {
       });
 
       expect(effects.update$).toBeObservable(expected);
-      expect(testService.saveResource).toHaveBeenCalledWith(resource);
+      expect(effects.update$).toSatisfyOnFlush(() => {
+        expect(testService.saveResource).toHaveBeenCalledWith(resource);
+      });
     });
 
     it('should emit failure when error is thrown', () => {
