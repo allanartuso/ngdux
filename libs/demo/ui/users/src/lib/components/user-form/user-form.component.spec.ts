@@ -43,7 +43,7 @@ describe('UserFormComponent', () => {
 
   it('creates an empty form when the form model is undefined', () => {
     fixture.detectChanges();
-    const expectedFormValue: UserDto = { email: null, firstName: null, lastName: null };
+    const expectedFormValue: UserDto = { email: null, firstName: null, lastName: null, birthTime: null };
 
     expect(component.form).toBeTruthy();
     expect(component.form.value).toStrictEqual(expectedFormValue);

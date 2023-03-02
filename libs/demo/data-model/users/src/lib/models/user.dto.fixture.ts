@@ -21,10 +21,12 @@ export function createPersistentUser(id: string = commonFixture.getAlphaNumeric(
 export function createTransientUser(): UserDto {
   const firstName = commonFixture.getFirstName();
   const lastName = commonFixture.getLastName();
+  const birthTime = commonFixture.getTime();
 
   return {
     email: commonFixture.getEmail(firstName, lastName),
     firstName,
-    lastName
+    lastName,
+    birthTime
   };
 }

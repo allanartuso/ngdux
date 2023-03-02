@@ -67,14 +67,8 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
     this.isOpen = false;
   }
 
-  setValue(inputText: string) {
-    const split = inputText.split(':');
-
-    this.value = {
-      hour: +split[0],
-      minute: +split[1] || 0,
-      second: +split[2] || 0
-    };
+  setValue(value: TimePickerValue): void {
+    this.value = value;
 
     if (this.componentInstance) {
       this.componentInstance.writeValue(this.value);

@@ -1,4 +1,4 @@
-import { UserDto } from '@demo/demo/feature/users/test';
+import { UserDto } from '@demo/demo/data-model/users';
 import { formSelectors } from '../../support/form/form';
 import { stubGetUser, stubUpdateUser, userFormRoutes, userFormSelectors } from '../../support/users/user-form';
 
@@ -15,6 +15,7 @@ describe('User form', () => {
     cy.get(userFormSelectors.emailInput).updateInputValue(updatedUser.email);
     cy.get(userFormSelectors.firstNameInput).updateInputValue(updatedUser.firstName);
     cy.get(userFormSelectors.lastNameInput).updateInputValue(updatedUser.lastName);
+    cy.get(userFormSelectors.birthTimeInput).updateInputValue(updatedUser.birthTime);
     cy.get(formSelectors.submitButton).click();
 
     cy.wait(`@${userFormRoutes.updateUser}`).its('request.body').should('deep.equal', updatedUser);

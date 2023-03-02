@@ -169,7 +169,12 @@ export function getLocale(): string {
 }
 
 export function getIso8601Date(): string {
-  return (faker.date.recent() as Date).toISOString();
+  return faker.date.recent().toISOString();
+}
+
+export function getTime(): string {
+  const date = faker.date.recent();
+  return [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
 }
 
 export function getRecentDate(days = 1, refDate = new Date()): Date {

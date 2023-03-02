@@ -5,4 +5,5 @@ export interface UserDto {
   email: string;
   firstName?: string;
   lastName?: string;
+  birthTime?: string;
 }

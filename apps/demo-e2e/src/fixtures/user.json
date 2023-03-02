@@ -2,5 +2,6 @@
   "id": "1",
   "email": "allan.artuso@gmail.com",
   "firstName": "Allan",
-  "lastName": "Artuso"
+  "lastName": "Artuso",
+  "birthTime": "12:13:14"
 }
