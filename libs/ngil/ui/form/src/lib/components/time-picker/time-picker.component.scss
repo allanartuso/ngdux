@@ -1,5 +1,36 @@
-.ngil-time-picker{
-  &__field{}
-  &__button{}
-  &__input{}
+.ngil-time-picker {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #000;
+  gap: 0.5rem;
+  padding: 0.5rem;
+
+  &__field {
+    width: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__input {
+    width: calc(100% - 1px - 6px);
+    padding: 3px;
+    text-align: center;
+  }
+
+  &__button {
+    background: none;
+    border: none;
+    position: relative;
+    display: flex;
+  }
+
+  &__arrow {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
 }

@@ -1,9 +1,10 @@
-import { UserDto } from '@demo/demo/feature/users/test';
+import { UserDto } from '@demo/demo/data-model/users';
 
 export const userFormSelectors = {
   emailInput: '[label="Email"] input',
   firstNameInput: '[label="First name"] input',
-  lastNameInput: '[label="Last name"] input'
+  lastNameInput: '[label="Last name"] input',
+  birthTimeInput: '[label="Birth time"] input'
 };
 
 export const userFormRoutes = {
@@ -18,7 +19,13 @@ export function stubGetUser(): void {
 }
 
 export function stubUpdateUser(): UserDto {
-  const updatedUser = { id: '1', email: 'artuso@gmail.com', firstName: 'Allan', lastName: 'Artuso' };
+  const updatedUser = {
+    id: '1',
+    email: 'artuso@gmail.com',
+    firstName: 'Allan',
+    lastName: 'Artuso',
+    birthTime: '13:14:15'
+  };
 
   cy.intercept('PUT', '/api/users/1', req => {
     expect(req.body).to.deep.equal(updatedUser);

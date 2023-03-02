@@ -9,8 +9,11 @@
   <ngil-input label="First name" formControlName="firstName"></ngil-input>
   <ngil-input label="Last name" formControlName="lastName" maxLength="40"></ngil-input>
 
-  <ngil-picker-toggle [picker]="picker"></ngil-picker-toggle>
-  <ngil-input label="Birth time" ngilTimePicker [picker]="picker" (changed)="onTimeChange($event)"></ngil-input>
+  <ngil-input label="Birth time" formControlName="birthTime" ngilTimePicker [picker]="picker">
+    <div suffix>
+      <ngil-picker-toggle [picker]="picker"></ngil-picker-toggle>
+    </div>
+  </ngil-input>
 
   <ngil-time-picker-overlay #picker></ngil-time-picker-overlay>
 </demo-form>

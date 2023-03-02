@@ -1,10 +1,10 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: 'input[ngilNumberRotation]'
 })
-export class NumberRotationDirective implements AfterViewInit, OnDestroy {
+export class NumberRotationDirective implements AfterViewInit, OnDestroy, OnInit {
   @Input() min: number;
   @Input() max: number;
   @Input() buttonUp: HTMLElement;
@@ -21,10 +21,18 @@ export class NumberRotationDirective implements AfterViewInit, OnDestroy {
 
   @HostListener('input', ['$event'])
   onInput = (event: InputEvent): void => {
-    this.setControlValue(+(event.target as HTMLInputElement).value);
+    let value = (event.target as HTMLInputElement).value;
+    if (+value > this.max) {
+      value = value.slice(this.length);
+    }
+    this.setValue(+value);
   };
 
   constructor(private readonly elementRef: ElementRef<HTMLInputElement>, private readonly ngControl: NgControl) {}
+
+  ngOnInit(): void {
+    this.elementRef.nativeElement.value = this.elementRef.nativeElement.value.toString().padStart(this.length, '0');
+  }
 
   ngAfterViewInit(): void {
     this.buttonUp.addEventListener('click', this.onUp);
@@ -58,22 +66,27 @@ export class NumberRotationDirective implements AfterViewInit, OnDestroy {
 
   private onUp = (): void => {
     const value = +this.elementRef.nativeElement.value;
-    this.setControlValue(value + 1);
+    this.setValue(value + 1);
   };
 
   private onDown = (): void => {
     const value = +this.elementRef.nativeElement.value;
-    this.setControlValue(value - 1);
+    this.setValue(value - 1);
   };
 
-  private setControlValue(value: number): void {
+  private setValue(value: number): void {
     if (value < this.min) {
-      this.ngControl.control.setValue(this.max);
+      this.setInputValue(this.max);
     } else if (value > this.max) {
-      this.ngControl.control.setValue(this.min);
+      this.setInputValue(this.min);
     } else {
-      this.ngControl.control.setValue(value);
+      this.setInputValue(value);
     }
+  }
+
+  private setInputValue(value: number) {
+    this.ngControl.control.setValue(value);
+    this.elementRef.nativeElement.value = value.toString().padStart(this.length, '0');
   }
 
   ngOnDestroy(): void {
