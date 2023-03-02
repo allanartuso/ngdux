@@ -5,15 +5,19 @@
   <ng-container *ngIf="inputTemplate">
     <ng-container *ngTemplateOutlet="inputTemplate;; context: { $implicit: display }"></ng-container>
   </ng-container> -->
-  <input
-    class="ngil-input__input"
-    [id]="formControlName"
-    [required]="required"
-    [readonly]="readonly"
-    [type]="type"
-    [value]="value"
-    (blur)="onBlur()"
-    (keyup)="onChangeInput($event)"
-  />
+  <div class="ngil-input__field">
+    <input
+      class="ngil-input__input"
+      [id]="formControlName"
+      [required]="required"
+      [readonly]="readonly"
+      [type]="type"
+      [value]="value"
+      (blur)="onBlur()"
+      (keyup)="onChangeInput($event)"
+    />
+    <ng-content select="[suffix]"></ng-content>
+  </div>
+
   <small class="ngil-input__error-message">{{ errorMessage }}</small>
 </div>

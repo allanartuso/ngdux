@@ -42,7 +42,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy {
     this.picker.valueChanges$.pipe(takeUntil(this.destroy$)).subscribe(value => {
       this.changed.emit(value);
       this.ngControl?.control.setValue(value);
-      const text = `${value.hour}:${value.minute}`;
+      const text = `${value.hour.toString().padStart(2, '0')}:${value.minute.toString().padStart(2, '0')}`;
       if (this.inputComponent) {
         this.inputComponent.value = text;
       }
