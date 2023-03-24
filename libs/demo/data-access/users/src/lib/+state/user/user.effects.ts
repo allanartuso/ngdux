@@ -6,11 +6,17 @@ import { AbstractFormEffects } from '@ngdux/form';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { UserService } from '../../services/user.service';
-import { userActions } from './user.state';
+import { UserReducerManager } from './user-state.service';
 
 @Injectable()
 export class UserEffects extends AbstractFormEffects<UserDto, ErrorDto> {
-  constructor(actions$: Actions, store: Store, userService: UserService, formNotificationService: NotificationService) {
-    super(actions$, store, userService, userActions, formNotificationService);
+  constructor(
+    actions$: Actions,
+    store: Store,
+    userService: UserService,
+    formNotificationService: NotificationService,
+    userReducerManager: UserReducerManager
+  ) {
+    super(actions$, store, userService, userReducerManager.actions, formNotificationService);
   }
 }

@@ -1,16 +1,16 @@
-import { AfterViewInit, Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Directive, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive()
-export abstract class AbstractFormComponent<T> implements ControlValueAccessor, OnDestroy, OnInit, AfterViewInit {
+export abstract class AbstractFormComponent<T> implements ControlValueAccessor, OnDestroy, AfterViewInit {
   @Input() formControlName: string;
   @Input() formViewModel: T;
 
   @Output() submitted: EventEmitter<T> = new EventEmitter();
 
-  form: FormGroup;
+  abstract form: FormGroup;
 
   protected readonly destroy$ = new Subject<void>();
   protected onChange: (value: T) => void;
@@ -20,14 +20,8 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
     return !this.form?.valid || this.form?.pristine;
   }
 
-  protected abstract createForm(model?: T): FormGroup;
-
   protected getFormDefaultValue(model?: T): T {
     return model;
-  }
-
-  ngOnInit(): void {
-    this.form = this.createForm(this.getFormDefaultValue(this.formViewModel));
   }
 
   ngAfterViewInit(): void {
@@ -73,9 +67,9 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
     const formValue = this.getFormDefaultValue(model);
 
     if (model) {
-      this.form.patchValue(formValue);
+      this.form.patchValue(formValue, { emitEvent: false });
     } else {
-      this.form.reset(formValue || undefined);
+      this.form.reset(formValue || undefined, { emitEvent: false });
     }
   }
 

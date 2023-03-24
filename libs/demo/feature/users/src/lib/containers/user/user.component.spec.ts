@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { userActions, userSelectors } from '@demo/demo/data-access/users';
+import { UserReducerManager } from '@demo/demo/data-access/users';
 import { UserDto } from '@demo/demo/data-model/users';
 import { createPersistentUser, createTransientUser } from '@demo/demo/data-model/users/test';
 import { RequestState } from '@ngdux/data-model-common';
@@ -13,19 +13,31 @@ describe('UserComponent', () => {
   let fixture: ComponentFixture<UserComponent>;
   let store: MockStore;
   let user: UserDto;
+  let mockReducerManager: Partial<UserReducerManager>;
 
   beforeEach(waitForAsync(() => {
     user = createPersistentUser();
+    mockReducerManager = {
+      actions: {
+        create: jest.fn().mockReturnValue({ type: 'create' }),
+        save: jest.fn().mockReturnValue({ type: 'save' })
+      },
+      selectors: {
+        getResource: 'getRequestState',
+        getRequestState: 'getRequestState'
+      }
+    } as any;
 
     TestBed.configureTestingModule({
       declarations: [UserComponent],
       providers: [
         provideMockStore({
           selectors: [
-            { selector: userSelectors.getResource, value: user },
-            { selector: userSelectors.getRequestState, value: RequestState.IDLE }
+            { selector: mockReducerManager.selectors.getResource, value: user },
+            { selector: mockReducerManager.selectors.getRequestState, value: RequestState.IDLE }
           ]
-        })
+        }),
+        { provide: UserReducerManager, useValue: mockReducerManager }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -48,7 +60,7 @@ describe('UserComponent', () => {
     component.onUserSaved(user);
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
-    expect(store.dispatch).toHaveBeenCalledWith(userActions.save({ resource: user }));
+    expect(store.dispatch).toHaveBeenCalledWith(mockReducerManager.actions.save({ resource: user }));
   });
 
   it('saves the user', () => {
@@ -57,6 +69,6 @@ describe('UserComponent', () => {
     component.onUserSaved(newUser);
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
-    expect(store.dispatch).toHaveBeenCalledWith(userActions.create({ resource: newUser }));
+    expect(store.dispatch).toHaveBeenCalledWith(mockReducerManager.actions.create({ resource: newUser }));
   });
 });

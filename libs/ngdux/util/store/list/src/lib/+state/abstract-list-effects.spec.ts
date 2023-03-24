@@ -8,11 +8,11 @@ import { hot } from 'jest-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import {
   createTestErrors,
-  listActions,
-  listSelectors,
   testEntityAdapter,
   TestErrors,
+  testListActions,
   TestListEffects,
+  testListSelectors,
   TestListService
 } from '../models/list.fixture';
 import { ListState } from '../models/list.model';
@@ -48,11 +48,11 @@ describe('TestEffects', () => {
         provideMockActions(() => actions$),
         provideMockStore({
           selectors: [
-            { selector: listSelectors.isLastPage, value: false },
-            { selector: listSelectors.getCurrentPageNumber, value: DEFAULT_REQUEST_OPTIONS.pagingOptions.page },
-            { selector: listSelectors.getPagingOptions, value: DEFAULT_REQUEST_OPTIONS.pagingOptions },
-            { selector: listSelectors.getSortingOptions, value: DEFAULT_REQUEST_OPTIONS.sortingOptions },
-            { selector: listSelectors.getFilteringOptions, value: DEFAULT_REQUEST_OPTIONS.filteringOptions }
+            { selector: testListSelectors.isLastPage, value: false },
+            { selector: testListSelectors.getCurrentPageNumber, value: DEFAULT_REQUEST_OPTIONS.pagingOptions.page },
+            { selector: testListSelectors.getPagingOptions, value: DEFAULT_REQUEST_OPTIONS.pagingOptions },
+            { selector: testListSelectors.getSortingOptions, value: DEFAULT_REQUEST_OPTIONS.sortingOptions },
+            { selector: testListSelectors.getFilteringOptions, value: DEFAULT_REQUEST_OPTIONS.filteringOptions }
           ]
         })
       ]
@@ -68,10 +68,10 @@ describe('TestEffects', () => {
 
   describe('initialize$', () => {
     it('emits load page action to the pages 1 and 2', () => {
-      actions$ = hot('a', { a: listActions.initialize() });
+      actions$ = hot('a', { a: testListActions.initialize() });
       const expected = hot('(ab)', {
-        a: listActions.loadPage({ pageNumber: 1 }),
-        b: listActions.loadPage({ pageNumber: 2 })
+        a: testListActions.loadPage({ pageNumber: 1 }),
+        b: testListActions.loadPage({ pageNumber: 2 })
       });
 
       expect(effects.initialize$).toBeObservable(expected);
@@ -82,17 +82,17 @@ describe('TestEffects', () => {
     it('should emit success when the api respond successfully', () => {
       const pageNumber = 3;
       const pagingOptions = { ...initialState.pagingOptions, page: pageNumber };
-      actions$ = hot('a', { a: listActions.loadPage({ pageNumber }) });
-      const expected = hot('a', { a: listActions.loadPageSuccess({ resources, pagingOptions }) });
+      actions$ = hot('a', { a: testListActions.loadPage({ pageNumber }) });
+      const expected = hot('a', { a: testListActions.loadPageSuccess({ resources, pagingOptions }) });
 
       expect(effects.loadPage$).toBeObservable(expected);
     });
 
     it('should emit failure when an error is thrown', () => {
       resourcesService.loadResources = jest.fn().mockImplementation(() => throwError(testErrors));
-      actions$ = hot('a', { a: listActions.loadPage({ pageNumber: 3 }) });
+      actions$ = hot('a', { a: testListActions.loadPage({ pageNumber: 3 }) });
       const expected = hot('a', {
-        a: listActions.loadPageFailure({ errors: testErrors })
+        a: testListActions.loadPageFailure({ errors: testErrors })
       });
 
       expect(effects.loadPage$).toBeObservable(expected);
@@ -102,12 +102,12 @@ describe('TestEffects', () => {
   describe('loadPreviousPage$', () => {
     it('emits load page action to the previous page', () => {
       const currentPageNumber = 2;
-      store.overrideSelector(listSelectors.getCurrentPageNumber, currentPageNumber);
+      store.overrideSelector(testListSelectors.getCurrentPageNumber, currentPageNumber);
       actions$ = hot('a', {
-        a: listActions.loadPreviousPage()
+        a: testListActions.loadPreviousPage()
       });
       const expected = hot('a', {
-        a: listActions.loadPage({
+        a: testListActions.loadPage({
           pageNumber: currentPageNumber - 1
         })
       });
@@ -116,7 +116,7 @@ describe('TestEffects', () => {
     });
     it('does not emit load page action to the previous page if the current page is the first page', () => {
       actions$ = hot('a', {
-        a: listActions.loadPreviousPage()
+        a: testListActions.loadPreviousPage()
       });
       const expected = hot('-');
 
@@ -127,10 +127,10 @@ describe('TestEffects', () => {
   describe('loadNextPage$', () => {
     it('emits load page action to the next page', () => {
       actions$ = hot('a', {
-        a: listActions.loadNextPage()
+        a: testListActions.loadNextPage()
       });
       const expected = hot('a', {
-        a: listActions.loadPage({
+        a: testListActions.loadPage({
           pageNumber: initialState.pagingOptions.page + 1
         })
       });
@@ -141,8 +141,8 @@ describe('TestEffects', () => {
 
   describe('changeRequestOptions$', () => {
     it('emits remove all and initialize actions', () => {
-      actions$ = hot('a', { a: listActions.changePageSize({ pageSize: 10 }) });
-      const expected = hot('a', { a: listActions.initialize() });
+      actions$ = hot('a', { a: testListActions.changePageSize({ pageSize: 10 }) });
+      const expected = hot('a', { a: testListActions.initialize() });
 
       expect(effects.changeRequestOptions$).toBeObservable(expected);
     });
@@ -157,21 +157,21 @@ describe('TestEffects', () => {
 
     it('should emit success and refresh the list when service call is successful', () => {
       const expected = hot('(ab)', {
-        a: listActions.deleteSuccess({ resourceIds }),
-        b: listActions.refresh()
+        a: testListActions.deleteSuccess({ resourceIds }),
+        b: testListActions.refresh()
       });
-      actions$ = hot('a', { a: listActions.delete({ resourceIds }) });
+      actions$ = hot('a', { a: testListActions.delete({ resourceIds }) });
 
       expect(effects.delete$).toBeObservable(expected);
     });
 
     it('should emit failure when error is thrown without any successes.', () => {
-      store.overrideSelector(listSelectors.getSelected, resources);
+      store.overrideSelector(testListSelectors.getSelected, resources);
       resourcesService.deleteResources = jest.fn().mockImplementation(() => throwError(testErrors));
       const expected = hot('a', {
-        a: listActions.deleteFailure({ errors: testErrors })
+        a: testListActions.deleteFailure({ errors: testErrors })
       });
-      actions$ = hot('a', { a: listActions.delete({ resourceIds }) });
+      actions$ = hot('a', { a: testListActions.delete({ resourceIds }) });
 
       expect(effects.delete$).toBeObservable(expected);
     });
@@ -180,12 +180,12 @@ describe('TestEffects', () => {
   describe('refresh$', () => {
     it('reloads the current and next page.', () => {
       const currentPageNumber = 2;
-      store.overrideSelector(listSelectors.getCurrentPageNumber, currentPageNumber);
+      store.overrideSelector(testListSelectors.getCurrentPageNumber, currentPageNumber);
       const expected = hot('(ab)', {
-        a: listActions.loadPage({ pageNumber: currentPageNumber }),
-        b: listActions.loadPage({ pageNumber: currentPageNumber + 1 })
+        a: testListActions.loadPage({ pageNumber: currentPageNumber }),
+        b: testListActions.loadPage({ pageNumber: currentPageNumber + 1 })
       });
-      actions$ = hot('a', { a: listActions.refresh() });
+      actions$ = hot('a', { a: testListActions.refresh() });
 
       expect(effects.refresh$).toBeObservable(expected);
     });
@@ -204,11 +204,11 @@ describe('TestEffects', () => {
 
     it('emits an info notification when receiving patch success action', () => {
       const expectedActions = hot('(ab)', {
-        a: listActions.patchSuccess({ resources }),
-        b: listActions.refresh()
+        a: testListActions.patchSuccess({ resources }),
+        b: testListActions.refresh()
       });
       actions$ = hot('a', {
-        a: listActions.patch({
+        a: testListActions.patch({
           resourceIds,
           resource
         })

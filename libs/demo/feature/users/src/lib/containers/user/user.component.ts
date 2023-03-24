@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { userActions, userSelectors } from '@demo/demo/data-access/users';
+import { UserFacade } from '@demo/demo/data-access/users';
 import { UserDto } from '@demo/demo/data-model/users';
 import { RequestState } from '@ngdux/data-model-common';
-import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,16 +10,16 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-  user$: Observable<UserDto> = this.store.pipe(select(userSelectors.getResource));
-  requestState$: Observable<RequestState> = this.store.pipe(select(userSelectors.getRequestState));
+  user$: Observable<UserDto> = this.userFacade.resource$;
+  requestState$: Observable<RequestState> = this.userFacade.requestState$;
 
-  constructor(private readonly store: Store) {}
+  constructor(private readonly userFacade: UserFacade) {}
 
   onUserSaved(user: UserDto): void {
     if (user.id) {
-      this.store.dispatch(userActions.save({ resource: user }));
+      this.userFacade.save({ resource: user });
     } else {
-      this.store.dispatch(userActions.create({ resource: user }));
+      this.userFacade.create({ resource: user });
     }
   }
 }

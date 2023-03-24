@@ -22,25 +22,22 @@ interface TestFormModel {
 })
 class MockFormComponent extends AbstractFormComponent<TestFormModel> {
   i18nScope = 'testI18nScope';
+  form = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    jobTitle: [''],
+    address: this.fb.group({
+      city: [
+        '',
+        {
+          validators: [Validators.required],
+          updateOn: 'blur'
+        }
+      ]
+    })
+  });
 
   constructor(private readonly fb: FormBuilder) {
     super();
-  }
-
-  createForm(model: TestFormModel) {
-    return this.fb.group({
-      name: [model.name, [Validators.required, Validators.minLength(3)]],
-      jobTitle: [model.jobTitle],
-      address: this.fb.group({
-        city: [
-          model.address.city,
-          {
-            validators: [Validators.required],
-            updateOn: 'blur'
-          }
-        ]
-      })
-    });
   }
 }
 
@@ -72,13 +69,6 @@ describe('AbstractFormComponent', () => {
     component.registerOnTouched(onTouchedMock);
 
     fixture.detectChanges();
-  });
-
-  describe('ngOnInit', () => {
-    it('creates the form', () => {
-      expect(component.form).toBeDefined();
-      expect(component.form.value).toStrictEqual(testFormValues);
-    });
   });
 
   describe('submit', () => {

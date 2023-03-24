@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AbstractInputComponent } from '../../models/abstract-input-component';
+import { AbstractInputComponent } from '@ngil/ui-form';
 
 @Component({
   selector: 'demo-select',

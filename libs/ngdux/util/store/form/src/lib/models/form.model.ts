@@ -1,7 +1,10 @@
+import { InjectionToken } from '@angular/core';
 import { RequestState } from '@ngdux/data-model-common';
 import { ApiRequestState, LoadingState } from '@ngdux/store-common';
 import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
+
+export const FORM_FEATURE_KEY = new InjectionToken<string>('FORM_FEATURE_KEY');
 
 export interface FormState<T, E> extends ApiRequestState<E>, LoadingState {
   resource: T;

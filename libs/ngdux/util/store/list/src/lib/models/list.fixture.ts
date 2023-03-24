@@ -11,9 +11,9 @@ import { createListSelectors } from '../+state/list-selectors';
 export type TestErrors = string[];
 
 export const featureKey = 'testFeature';
-export const listActions = createListActions<TestResource, TestErrors>(featureKey);
+export const testListActions = createListActions<TestResource, TestErrors>(featureKey);
 export const testEntityAdapter = createListEntityAdapter<TestResource>();
-export const listSelectors = createListSelectors<TestResource, TestErrors>(
+export const testListSelectors = createListSelectors<TestResource, TestErrors>(
   testEntityAdapter,
   createFeatureSelector(featureKey)
 );
@@ -34,7 +34,7 @@ const mockNotificationService: ListNotificationService<TestErrors> = {
 @Injectable()
 export class TestListEffects extends AbstractListEffects<TestResource, TestErrors> {
   constructor(actions$: Actions, store: Store, testService: TestListService) {
-    super(actions$, store, testService, listActions, listSelectors, mockNotificationService);
+    super(actions$, store, testService, testListActions, testListSelectors, mockNotificationService);
   }
 }
 

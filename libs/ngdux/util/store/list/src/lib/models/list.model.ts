@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { InjectionToken } from '@angular/core';
 import {
   ErrorDto,
   FilteringOptions,
@@ -11,6 +12,8 @@ import { ApiRequestState, LoadingState } from '@ngdux/store-common';
 import { EntityState } from '@ngrx/entity';
 import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
+
+export const LIST_FEATURE_KEY = new InjectionToken<string>('LIST_FEATURE_KEY');
 
 export interface ListState<T, E> extends EntityState<T>, RequestOptions, ApiRequestState<E>, LoadingState {
   selectedResourceIds: string[];

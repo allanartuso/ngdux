@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { DemoDataAccessUsersModule } from '@demo/demo/data-access/users';
 import { DemoUiUsersModule } from '@demo/demo/ui/users';
@@ -43,11 +42,11 @@ export const usersRoutes: Routes = [
     RouterModule.forChild(usersRoutes),
     SharedUiFormModule,
     SharedUiListModule,
-    MatDialogModule,
     SharedUtilNotificationModule,
-    DemoDataAccessUsersModule,
+    DemoDataAccessUsersModule.config('myCustomKey'),
     DemoUiUsersModule
   ],
-  declarations: [UserComponent, UsersComponent]
+  declarations: [UserComponent, UsersComponent],
+  providers: [UserResolver]
 })
 export class DemoFeatureUsersModule {}

@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AbstractInputComponent } from '../../models/abstract-input-component';
+import { AbstractInputComponent } from '@ngil/ui-form';
 
 @Component({
   selector: 'demo-input',
@@ -26,7 +26,7 @@ export class DemoInputComponent extends AbstractInputComponent {
   onChangeInput(event: Event): void {
     const input = event.target as HTMLInputElement;
 
-    if (input.value || this.control.value !== input.value) {
+    if (input.value || this.parentControl.value !== input.value) {
       this.value = input.value;
       this.onChange(input.value);
     }

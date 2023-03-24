@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserDto } from '@demo/demo/data-model/users';
 import { AbstractFormComponent } from '@ngil/ui-form';
+
+interface UserForm {
+  email: FormControl<string>;
+  firstName: FormControl<string>;
+  lastName: FormControl<string>;
+  birthTime: FormControl<string>;
+}
 
 @Component({
   selector: 'demo-user-form',
@@ -9,25 +16,10 @@ import { AbstractFormComponent } from '@ngil/ui-form';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent extends AbstractFormComponent<UserDto> {
-  constructor(private readonly formBuilder: UntypedFormBuilder) {
-    super();
-  }
-
-  protected createForm(user: UserDto): UntypedFormGroup {
-    return this.formBuilder.group({
-      email: [user.email, [Validators.required, Validators.email]],
-      firstName: [user.firstName],
-      lastName: [user.lastName, [Validators.maxLength(40)]],
-      birthTime: [user.birthTime]
-    });
-  }
-
-  protected override getFormDefaultValue(user?: UserDto): UserDto {
-    return {
-      ...super.getFormDefaultValue(user),
-      email: user?.email,
-      firstName: user?.firstName,
-      lastName: user?.lastName
-    };
-  }
+  form: FormGroup<UserForm> = new FormGroup<UserForm>({
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    firstName: new FormControl(null),
+    lastName: new FormControl(null, [Validators.maxLength(40)]),
+    birthTime: new FormControl(null)
+  });
 }

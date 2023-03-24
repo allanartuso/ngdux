@@ -9,8 +9,8 @@ import { createFormSelectors } from '../+state/form-selectors';
 
 export const featureKey = 'testFeature';
 
-export const formActions = createFormActions<TestResource, string[]>(featureKey);
-export const formSelectors = createFormSelectors<TestResource, string[]>(createFeatureSelector(featureKey));
+export const testFormActions = createFormActions<TestResource, string[]>(featureKey);
+export const testFormSelectors = createFormSelectors<TestResource, string[]>(createFeatureSelector(featureKey));
 const mockNotificationService: FormNotificationService<string[]> = {
   onFormErrors: jest.fn(),
   onFormDelete: jest.fn()
@@ -27,6 +27,6 @@ export class TestFormService implements FormService<TestResource> {
 @Injectable()
 export class TestFormEffects extends AbstractFormEffects<TestResource, string[]> {
   constructor(actions$: Actions, store: Store, testService: TestFormService) {
-    super(actions$, store, testService, formActions, mockNotificationService);
+    super(actions$, store, testService, testFormActions, mockNotificationService);
   }
 }
