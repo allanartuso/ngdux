@@ -42,5 +42,5 @@ Cypress.Commands.add('login', (email, password) => {
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('updateInputValue', { prevSubject: 'element' }, (element, options) =>
-  cy.wrap(element).should('be.visible').clear().invoke('val', options).trigger('keyup')
+  cy.wrap(element).should('be.visible').clear().type(options.toString())
 );

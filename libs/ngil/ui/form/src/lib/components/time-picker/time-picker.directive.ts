@@ -109,7 +109,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
       ':'
     );
     if (this.inputComponent) {
-      this.inputComponent.value = text;
+      this.inputComponent.control.setValue(text);
     }
     this.elementRef.nativeElement.value = text;
     this.ngControl?.control.setValue(text);

@@ -15,7 +15,9 @@ export abstract class AbstractListFacade<T, E, S = T> {
   readonly lastPageNumber$ = this.store.pipe(select(this.listSelectors.getLastPageNumber));
   readonly pagingOptions$ = this.store.pipe(select(this.listSelectors.getPagingOptions));
   readonly requestOptions$ = this.store.pipe(select(this.listSelectors.getRequestOptions));
-  readonly selected$ = this.store.pipe(select(this.listSelectors.getSelected));
+  readonly sortingOptions$ = this.store.pipe(select(this.listSelectors.getSortingOptions));
+  readonly selectedItems$ = this.store.pipe(select(this.listSelectors.getSelected));
+  readonly totalCount$ = this.store.pipe(select(this.listSelectors.getTotalCount));
 
   constructor(
     protected readonly store: Store,

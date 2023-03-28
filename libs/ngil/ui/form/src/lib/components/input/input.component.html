@@ -12,9 +12,8 @@
       [required]="required"
       [readonly]="readonly"
       [type]="type"
-      [value]="value"
+      [formControl]="control"
       (blur)="onBlur()"
-      (keyup)="onChangeInput($event)"
     />
     <ng-content select="[suffix]"></ng-content>
   </div>

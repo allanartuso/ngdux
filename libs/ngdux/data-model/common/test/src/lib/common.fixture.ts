@@ -172,6 +172,10 @@ export function getIso8601Date(): string {
   return faker.date.recent().toISOString();
 }
 
+export function getFutureIso8601Date(): string {
+  return faker.date.future().toISOString();
+}
+
 export function getTime(): string {
   const date = faker.date.recent();
   return [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
@@ -219,4 +223,16 @@ export function getFinanceAmount(): number {
 
 export function getSentence(): string {
   return faker.lorem.sentence();
+}
+
+export function getParagraph(): string {
+  return faker.lorem.paragraph();
+}
+
+export function getTag(): string {
+  return faker.word.adjective();
+}
+
+export function getTags(n = getNumberInRange(1, 6)): string[] {
+  return [...Array(n)].map(() => getTag());
 }

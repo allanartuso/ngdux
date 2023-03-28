@@ -25,5 +25,25 @@ export const BODY_ITEMS: MenuItem[] = [
         link: '/users/create'
       }
     ]
+  },
+  {
+    name: 'Properties',
+    icon: 'apartment',
+    display: true,
+    link: '/properties',
+    children: [
+      {
+        name: 'Properties',
+        icon: 'contact_mail',
+        display: true,
+        link: '/properties'
+      },
+      {
+        name: 'Create User',
+        icon: 'contact_mail',
+        display: true,
+        link: '/properties/create'
+      }
+    ]
   }
 ];

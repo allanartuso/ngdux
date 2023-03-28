@@ -1,10 +1,10 @@
-import { AfterViewInit, Directive, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { AfterViewInit, Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive()
-export abstract class AbstractFormComponent<T> implements ControlValueAccessor, OnDestroy, AfterViewInit {
+export abstract class AbstractFormComponent<T> implements ControlValueAccessor, OnDestroy, AfterViewInit, OnInit {
   @Input() formControlName: string;
   @Input() formViewModel: T;
 
@@ -24,6 +24,10 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
     return model;
   }
 
+  ngOnInit(): void {
+    this.form.patchValue(this.formViewModel, { emitEvent: false });
+  }
+
   ngAfterViewInit(): void {
     this.listenValueChanges();
   }
@@ -37,6 +41,7 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
   }
 
   submit(): void {
+    console.log(' submit', this.form);
     if (this.form.valid && this.form.dirty) {
       this.submitted.emit({
         ...this.formViewModel,

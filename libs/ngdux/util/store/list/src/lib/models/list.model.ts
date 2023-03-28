@@ -32,7 +32,7 @@ export interface ListSelectors<T, E> {
   getLastPageNumber: MemoizedSelector<object, number>;
   getLoadingState: MemoizedSelector<object, RequestState>;
   getSelectedResourceIds: MemoizedSelector<object, string[]>;
-  getSelected: MemoizedSelector<object, T[]>;
+  getSelected: MemoizedSelector<object, T[]>; // TODO: rename to getSelectedItems
   getSelectionRecord: MemoizedSelector<object, Record<string, T>>;
   getRequestState: MemoizedSelector<object, RequestState>;
   getErrors: MemoizedSelector<object, E>;

@@ -1,1 +1,2 @@
-export * from './lib/demo-data-model-properties.module';
+export * from './lib/address.dto';
+export * from './lib/property.dto';

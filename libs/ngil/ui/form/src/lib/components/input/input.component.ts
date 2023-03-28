@@ -1,5 +1,6 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterViewInit, Component, forwardRef, Input } from '@angular/core';
+import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
 import { AbstractInputComponent } from '../../models/abstract-input-component';
 
 @Component({
@@ -14,25 +15,29 @@ import { AbstractInputComponent } from '../../models/abstract-input-component';
     }
   ]
 })
-export class NgilInputComponent extends AbstractInputComponent {
+export class NgilInputComponent extends AbstractInputComponent<string | number> implements AfterViewInit {
   @Input() type = 'text';
   // @Input() inputTemplate: TemplateRef<any>;
 
   // @ContentChild('contentParagraph', {static: true}) paragraph : ElementRef;
-  value = '';
+  control = new FormControl();
 
-  writeValue(value: string): void {
-    this.value = value;
+  ngAfterViewInit() {
+    this.control.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(value => {
+      this.onChangeInput(value);
+    });
   }
 
-  onChangeInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
+  writeValue(value: string | number): void {
+    this.control.setValue(value);
+  }
 
-    if (input.value || this.parentControl.value !== input.value) {
-      this.value = input.value;
-      if (this.onChange) {
-        this.onChange(input.value);
-      }
+  onChangeInput(value: string | number): void {
+    if (this.type === 'number') {
+      value = +value;
+    }
+    if (this.onChange) {
+      this.onChange(value);
     }
   }
 }

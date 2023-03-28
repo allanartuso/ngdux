@@ -1,0 +1,5 @@
+<demo-property-form
+  #propertyProfileForm
+  [formViewModel]="property$ | async"
+  (submitted)="onSaved($event)"
+></demo-property-form>

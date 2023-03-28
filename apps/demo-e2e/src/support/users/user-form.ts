@@ -19,7 +19,7 @@ export function stubGetUser(): void {
 }
 
 export function stubUpdateUser(): UserDto {
-  const updatedUser = {
+  const updatedUser: UserDto = {
     id: '1',
     email: 'artuso@gmail.com',
     firstName: 'Allan',
