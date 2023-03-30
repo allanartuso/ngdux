@@ -1,12 +1,7 @@
 import { PropertyDto } from '@demo/demo/data-model/properties';
 import { SortingDirection, SortingField } from '@ngdux/data-model-common';
-import {
-  assertCorrectQueryRequested,
-  propertiesListRoutes,
-  propertiesListSelectors,
-  stubDeleteProperties,
-  stubProperties
-} from '../../support/properties/properties-list';
+import { assertCorrectQueryRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
+import { propertiesListRoutes, stubDeleteProperties, stubProperties } from '../../support/properties/properties-list';
 
 describe('Properties list', () => {
   let properties: PropertyDto[];
@@ -15,45 +10,17 @@ describe('Properties list', () => {
     properties = stubProperties();
 
     cy.visit('/properties');
-    assertCorrectQueryRequested(1);
-    assertCorrectQueryRequested(2);
+    assertCorrectQueryRequested(propertiesListRoutes.getProperties, 1);
   });
 
   it('paging through the table', () => {
-    cy.get(propertiesListSelectors.firstPageButton).should('be.disabled');
-    cy.get(propertiesListSelectors.previousPageButton).should('be.disabled');
-
-    cy.get(propertiesListSelectors.nextPageButton).click();
-    assertCorrectQueryRequested(3);
-
-    cy.get(propertiesListSelectors.firstPageButton).should('be.enabled');
-    cy.get(propertiesListSelectors.previousPageButton).should('be.enabled');
-
-    cy.get(propertiesListSelectors.nextPageButton).click();
-    assertCorrectQueryRequested(4);
-
-    cy.get(propertiesListSelectors.nextPageButton).click();
-
-    cy.get(propertiesListSelectors.nextPageButton).should('be.disabled');
-
-    cy.get(propertiesListSelectors.previousPageButton).click();
-    assertCorrectQueryRequested(2);
-
-    cy.get(propertiesListSelectors.nextPageButton).should('be.enabled');
-
-    cy.get(propertiesListSelectors.firstPageButton).click();
-    assertCorrectQueryRequested(1);
-    assertCorrectQueryRequested(2);
-
-    cy.get(propertiesListSelectors.firstPageButton).should('be.disabled');
-    cy.get(propertiesListSelectors.previousPageButton).should('be.disabled');
+    assertPagingCorrectly(propertiesListRoutes.getProperties);
   });
 
   it('request sort', () => {
-    cy.get(propertiesListSelectors.columnHeader).contains('Size').click();
+    cy.get(listSelectors.columnHeader).contains('Size').click();
     const sort: SortingField[] = [{ field: 'size', direction: SortingDirection.ASCENDING }];
-    assertCorrectQueryRequested(1, sort);
-    assertCorrectQueryRequested(2, sort);
+    assertCorrectQueryRequested(propertiesListRoutes.getProperties, 1, sort);
   });
 
   it('delete properties', () => {

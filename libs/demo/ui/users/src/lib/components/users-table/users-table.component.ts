@@ -12,6 +12,7 @@ export class UsersTableComponent extends AbstractTableComponent<UserDto> {
   @Output() cellSelected = new EventEmitter<string>();
 
   columns: TableColumn[] = [
+    { key: 'id', name: 'ID' },
     { key: 'email', name: 'Email' },
     { key: 'firstName', name: 'First Name' },
     { key: 'lastName', name: 'Last Name' }

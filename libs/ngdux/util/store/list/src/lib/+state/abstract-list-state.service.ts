@@ -7,7 +7,7 @@ import { createListEntityAdapter, createListReducer } from './list-reducer';
 import { createListSelectors } from './list-selectors';
 
 @Injectable()
-export abstract class AbstractListReducerManager<T, E, S> {
+export abstract class AbstractListReducerManager<T, E, S = T> {
   actions: ListActions<T, E, S>;
   selectors: ListSelectors<S, E>;
   private entityAdapter: EntityAdapter<S>;
@@ -25,14 +25,14 @@ export abstract class AbstractListReducerManager<T, E, S> {
     this.actions = createListActions<T, E, S>(this.featureKey);
   }
 
-  protected setSelectors() {
-    const getState = createFeatureSelector<ListState<S, E>>(this.featureKey);
-    this.selectors = createListSelectors(this.entityAdapter, getState);
-  }
-
   protected addReducer() {
     this.entityAdapter = createListEntityAdapter<S>();
     const reducer = createListReducer<T, E, S>(this.entityAdapter, this.actions);
     this.reducerManager.addReducer(this.featureKey, reducer);
+  }
+
+  protected setSelectors() {
+    const getState = createFeatureSelector<ListState<S, E>>(this.featureKey);
+    this.selectors = createListSelectors(this.entityAdapter, getState);
   }
 }

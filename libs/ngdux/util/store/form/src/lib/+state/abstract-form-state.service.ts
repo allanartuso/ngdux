@@ -23,13 +23,13 @@ export abstract class AbstractFormReducerManager<T, E> {
     this.actions = createFormActions<T, E>(this.featureKey);
   }
 
-  protected setSelectors() {
-    const getState = createFeatureSelector<FormState<T, E>>(this.featureKey);
-    this.selectors = createFormSelectors(getState);
-  }
-
   protected addReducer() {
     const reducer = createFormReducer(this.actions);
     this.reducerManager.addReducer(this.featureKey, reducer);
+  }
+
+  protected setSelectors() {
+    const getState = createFeatureSelector<FormState<T, E>>(this.featureKey);
+    this.selectors = createFormSelectors(getState);
   }
 }

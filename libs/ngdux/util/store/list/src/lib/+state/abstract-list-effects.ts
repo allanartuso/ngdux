@@ -1,12 +1,6 @@
-import {
-  FilteringOptions,
-  ListNotificationService,
-  ListService,
-  PagingOptions,
-  SortingOptions
-} from '@ngdux/data-model-common';
+import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createAction, select, Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -18,12 +12,26 @@ export abstract class AbstractListEffects<T, E, S = T> {
     deleteConfirmationMessage: 'Are you sure to delete the selected resources?'
   };
 
-  initialize$ = createEffect(() =>
+  reload$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(this.listActions.initialize, this.listActions.reinitialize),
-      switchMap(() => {
-        return [this.listActions.loadPage({ pageNumber: 1 }), this.listActions.loadPage({ pageNumber: 2 })];
-      })
+      ofType(
+        this.listActions.changePageSize,
+        this.listActions.changeSorting,
+        this.listActions.changeFiltering,
+        this.listActions.initialize,
+        this.listActions.reset,
+        this.listActions.changePageNumber,
+        this.listActions.patchSuccess,
+        this.listActions.deleteSuccess
+      ),
+      map(() => this.listActions.loadPage())
+    )
+  );
+
+  loadFirstPage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(this.listActions.loadFirstPage),
+      map(() => this.listActions.changePageNumber({ pageNumber: 1 }))
     )
   );
 
@@ -32,7 +40,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
       ofType(this.listActions.loadPreviousPage),
       withLatestFrom(this.store.pipe(select(this.listSelectors.getCurrentPageNumber))),
       filter(([, currentPageNumber]) => currentPageNumber > 1),
-      map(([, currentPageNumber]) => this.listActions.loadPage({ pageNumber: currentPageNumber - 1 }))
+      map(([, currentPageNumber]) => this.listActions.changePageNumber({ pageNumber: currentPageNumber - 1 }))
     )
   );
 
@@ -44,18 +52,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
         this.store.pipe(select(this.listSelectors.getCurrentPageNumber))
       ),
       filter(([, isLastPage]) => !isLastPage),
-      map(([, , currentPageNumber]) => this.listActions.loadPage({ pageNumber: currentPageNumber + 1 }))
-    )
-  );
-
-  refresh$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(this.listActions.refresh),
-      withLatestFrom(this.store.pipe(select(this.listSelectors.getCurrentPageNumber))),
-      switchMap(([, currentPageNumber]) => [
-        this.listActions.loadPage({ pageNumber: currentPageNumber }),
-        this.listActions.loadPage({ pageNumber: currentPageNumber + 1 })
-      ])
+      map(([, , currentPageNumber]) => this.listActions.changePageNumber({ pageNumber: currentPageNumber + 1 }))
     )
   );
 
@@ -66,28 +63,10 @@ export abstract class AbstractListEffects<T, E, S = T> {
       map(([action, pagingOptions]) => {
         if (action.pagingOptions.pageSize !== pagingOptions.pageSize) {
           return this.listActions.changePageSize({ pageSize: action.pagingOptions.pageSize });
-        } else if (action.pagingOptions.page === pagingOptions.page + 1) {
-          return this.listActions.loadNextPage();
-        } else if (action.pagingOptions.page === pagingOptions.page - 1) {
-          return this.listActions.loadPreviousPage();
-        } else if (action.pagingOptions.page === 1) {
-          return this.listActions.loadFirstPage();
+        } else {
+          return this.listActions.changePageNumber({ pageNumber: action.pagingOptions.page });
         }
-
-        return createAction('Not implement page options action');
       })
-    )
-  );
-
-  changeRequestOptions$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(
-        this.listActions.changePageSize,
-        this.listActions.changeSorting,
-        this.listActions.changeFiltering,
-        this.listActions.loadFirstPage
-      ),
-      map(() => this.listActions.initialize())
     )
   );
 
@@ -99,35 +78,23 @@ export abstract class AbstractListEffects<T, E, S = T> {
         this.store.pipe(select(this.listSelectors.getSortingOptions)),
         this.store.pipe(select(this.listSelectors.getFilteringOptions))
       ),
-      concatMap(
-        ([{ pageNumber }, pagingOptions, sortingOptions, filteringOptions]: [
-          { pageNumber: number },
-          PagingOptions,
-          SortingOptions,
-          FilteringOptions
-        ]) => {
-          pagingOptions = {
-            page: pageNumber,
-            pageSize: pagingOptions.pageSize
-          };
-
-          return this.service
-            .loadResources({
-              pagingOptions,
-              sortingOptions,
-              filteringOptions
-            })
-            .pipe(
-              map(resources =>
-                this.listActions.loadPageSuccess({
-                  resources,
-                  pagingOptions
-                })
-              ),
-              catchError((errors: E) => of(this.listActions.loadPageFailure({ errors })))
-            );
-        }
-      )
+      concatMap(([, pagingOptions, sortingOptions, filteringOptions]) => {
+        return this.service
+          .loadResources({
+            pagingOptions,
+            sortingOptions,
+            filteringOptions
+          })
+          .pipe(
+            map(resources =>
+              this.listActions.loadPageSuccess({
+                resources,
+                pagingOptions
+              })
+            ),
+            catchError((errors: E) => of(this.listActions.loadPageFailure({ errors })))
+          );
+      })
     )
   );
 
@@ -136,7 +103,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
       ofType(this.listActions.patch),
       exhaustMap(action =>
         this.service.patchResources(action.resourceIds, action.resource).pipe(
-          switchMap(resources => [this.listActions.patchSuccess({ resources }), this.listActions.refresh()]),
+          map(resources => this.listActions.patchSuccess({ resources })),
           catchError((errors: E) => of(this.listActions.patchFailure({ errors })))
         )
       )
@@ -163,7 +130,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
       ofType(this.listActions.delete),
       exhaustMap(({ resourceIds }) =>
         this.service.deleteResources(resourceIds).pipe(
-          switchMap(() => [this.listActions.deleteSuccess({ resourceIds }), this.listActions.refresh()]),
+          map(() => this.listActions.deleteSuccess({ resourceIds })),
           catchError((errors: E) => of(this.listActions.deleteFailure({ errors })))
         )
       )

@@ -67,7 +67,7 @@ describe('UsersComponent', () => {
     component.onRefreshPageSelected();
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.refresh());
+    expect(store.dispatch).toHaveBeenCalledWith(listActions.loadPage());
   });
 
   it('emits set users page size action when setting the page size', () => {
@@ -102,7 +102,7 @@ describe('UsersComponent', () => {
 
     component.onRowSelected(users);
 
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.changeSelected({ selectedResourceIds }));
+    expect(store.dispatch).toHaveBeenCalledWith(listActions.changeSelectedResources({ selectedResourceIds }));
   });
 
   it('emits navigate action when clicking a cell', () => {

@@ -1,12 +1,7 @@
 import { UserDto } from '@demo/demo/data-model/users';
 import { SortingDirection, SortingField } from '@ngdux/data-model-common';
-import {
-  assertCorrectQueryRequested,
-  stubDeleteUsers,
-  stubUsers,
-  usersListRoutes,
-  usersListSelectors
-} from '../../support/users/users-list';
+import { assertCorrectQueryRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
+import { stubDeleteUsers, stubUsers, usersListRoutes } from '../../support/users/users-list';
 
 describe('Users list', () => {
   let users: UserDto[];
@@ -15,45 +10,17 @@ describe('Users list', () => {
     users = stubUsers();
 
     cy.visit('/users');
-    assertCorrectQueryRequested(1);
-    assertCorrectQueryRequested(2);
+    assertCorrectQueryRequested(usersListRoutes.getUsers, 1);
   });
 
   it('paging through the table', () => {
-    cy.get(usersListSelectors.firstPageButton).should('be.disabled');
-    cy.get(usersListSelectors.previousPageButton).should('be.disabled');
-
-    cy.get(usersListSelectors.nextPageButton).click();
-    assertCorrectQueryRequested(3);
-
-    cy.get(usersListSelectors.firstPageButton).should('be.enabled');
-    cy.get(usersListSelectors.previousPageButton).should('be.enabled');
-
-    cy.get(usersListSelectors.nextPageButton).click();
-    assertCorrectQueryRequested(4);
-
-    cy.get(usersListSelectors.nextPageButton).click();
-
-    cy.get(usersListSelectors.nextPageButton).should('be.disabled');
-
-    cy.get(usersListSelectors.previousPageButton).click();
-    assertCorrectQueryRequested(2);
-
-    cy.get(usersListSelectors.nextPageButton).should('be.enabled');
-
-    cy.get(usersListSelectors.firstPageButton).click();
-    assertCorrectQueryRequested(1);
-    assertCorrectQueryRequested(2);
-
-    cy.get(usersListSelectors.firstPageButton).should('be.disabled');
-    cy.get(usersListSelectors.previousPageButton).should('be.disabled');
+    assertPagingCorrectly(usersListRoutes.getUsers);
   });
 
   it('request sort', () => {
-    cy.get(usersListSelectors.columnHeader).contains('Email').click();
+    cy.get(listSelectors.columnHeader).contains('Email').click();
     const sort: SortingField[] = [{ field: 'email', direction: SortingDirection.ASCENDING }];
-    assertCorrectQueryRequested(1, sort);
-    assertCorrectQueryRequested(2, sort);
+    assertCorrectQueryRequested(usersListRoutes.getUsers, 1, sort);
   });
 
   it('delete users', () => {

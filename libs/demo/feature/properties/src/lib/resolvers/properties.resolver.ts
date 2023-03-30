@@ -9,7 +9,6 @@ export class PropertiesResolver implements Resolve<boolean> {
   constructor(private readonly propertiesFacade: PropertiesFacade) {}
 
   resolve(): Observable<boolean> {
-    this.propertiesFacade.initializeRequestOptions();
     this.propertiesFacade.initialize();
 
     return this.propertiesFacade.isReady$.pipe(first(isReady => isReady));

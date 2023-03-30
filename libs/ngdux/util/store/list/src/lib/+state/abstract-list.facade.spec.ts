@@ -83,14 +83,6 @@ describe('TestListFacade', () => {
     expect(store.dispatch).toHaveBeenCalledWith(testListActions.changeFiltering({ filteringOptions }));
   });
 
-  it('triggers changePageSize action', () => {
-    const pageSize = commonFixture.getNumberInRange(0, 100);
-
-    facade.changePageSize({ pageSize });
-
-    expect(store.dispatch).toHaveBeenCalledWith(testListActions.changePageSize({ pageSize }));
-  });
-
   it('triggers changePagingOptions action', () => {
     const pagingOptions: PagingOptions = {
       page: commonFixture.getNumberInRange(0, 100),
@@ -102,12 +94,28 @@ describe('TestListFacade', () => {
     expect(store.dispatch).toHaveBeenCalledWith(testListActions.changePagingOptions({ pagingOptions }));
   });
 
+  it('triggers changePageSize action', () => {
+    const pageSize = commonFixture.getNumberInRange(0, 100);
+
+    facade.changePageSize({ pageSize });
+
+    expect(store.dispatch).toHaveBeenCalledWith(testListActions.changePageSize({ pageSize }));
+  });
+
+  it('triggers changePageNumber action', () => {
+    const pageNumber = commonFixture.getNumberInRange(0, 100);
+
+    facade.changePageNumber({ pageNumber });
+
+    expect(store.dispatch).toHaveBeenCalledWith(testListActions.changePageNumber({ pageNumber }));
+  });
+
   it('triggers changeSelected action', () => {
     const selectedResourceIds = createTestResources().map(r => r.id);
 
-    facade.changeSelected({ selectedResourceIds });
+    facade.changeSelectedResources({ selectedResourceIds });
 
-    expect(store.dispatch).toHaveBeenCalledWith(testListActions.changeSelected({ selectedResourceIds }));
+    expect(store.dispatch).toHaveBeenCalledWith(testListActions.changeSelectedResources({ selectedResourceIds }));
   });
 
   it('triggers changeSorting action', () => {
@@ -122,12 +130,6 @@ describe('TestListFacade', () => {
     facade.initialize();
 
     expect(store.dispatch).toHaveBeenCalledWith(testListActions.initialize());
-  });
-
-  it('triggers initializeRequestOptions action', () => {
-    facade.initializeRequestOptions();
-
-    expect(store.dispatch).toHaveBeenCalledWith(testListActions.initializeRequestOptions());
   });
 
   it('triggers loadFirstPage action', () => {
@@ -149,11 +151,9 @@ describe('TestListFacade', () => {
   });
 
   it('triggers loadPage action', () => {
-    const pageNumber = commonFixture.getNumberInRange(0, 100);
+    facade.loadPage();
 
-    facade.loadPage({ pageNumber });
-
-    expect(store.dispatch).toHaveBeenCalledWith(testListActions.loadPage({ pageNumber }));
+    expect(store.dispatch).toHaveBeenCalledWith(testListActions.loadPage());
   });
 
   it('triggers patch action', () => {
@@ -165,16 +165,10 @@ describe('TestListFacade', () => {
     expect(store.dispatch).toHaveBeenCalledWith(testListActions.patch({ resourceIds, resource }));
   });
 
-  it('triggers refresh action', () => {
-    facade.refresh();
-
-    expect(store.dispatch).toHaveBeenCalledWith(testListActions.refresh());
-  });
-
   it('triggers reinitialize action', () => {
     facade.reinitialize();
 
-    expect(store.dispatch).toHaveBeenCalledWith(testListActions.reinitialize());
+    expect(store.dispatch).toHaveBeenCalledWith(testListActions.reset());
   });
 
   it('triggers resetRequestState action', () => {

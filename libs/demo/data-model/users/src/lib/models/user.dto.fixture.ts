@@ -5,7 +5,7 @@ export function createPersistentUsers(n = 3): UserDto[] {
   const result: UserDto[] = [];
 
   for (let i = 0; i < n; i++) {
-    result.push(createPersistentUser());
+    result.push(createPersistentUser(i.toString()));
   }
 
   return result;

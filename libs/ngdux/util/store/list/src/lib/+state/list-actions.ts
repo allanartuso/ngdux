@@ -3,10 +3,9 @@ import { createAction, props } from '@ngrx/store';
 import { ListActions } from '../models/list.model';
 
 export function createListActions<T, E, S = T>(featureName: string): ListActions<T, E, S> {
-  const initializeRequestOptions = createAction(`[${featureName} Page] Initialize ${featureName} Request Options`);
-  const refresh = createAction(`[${featureName} Page] Refresh ${featureName}`);
+  const resetRequestState = createAction(`[${featureName} Page] Reset ${featureName} Request State`);
   const initialize = createAction(`[${featureName} Page] Initialize ${featureName}`);
-  const reinitialize = createAction(`[Organization ${featureName} Page] Reinitialize ${featureName}`);
+  const reset = createAction(`[Organization ${featureName} Page] Reset ${featureName}`);
 
   const loadNextPage = createAction(`[${featureName} Page] Load Next ${featureName} Page`);
   const loadPreviousPage = createAction(`[${featureName} Page] Load Previous ${featureName} Page`);
@@ -15,6 +14,11 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
   const changePageSize = createAction(
     `[${featureName} Page] Change ${featureName} Page Size`,
     props<{ pageSize: number }>()
+  );
+
+  const changePageNumber = createAction(
+    `[${featureName} Page] Change ${featureName} Page Number`,
+    props<{ pageNumber: number }>()
   );
 
   const changePagingOptions = createAction(
@@ -29,12 +33,12 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
     `[${featureName} Page] Change ${featureName} Filtering`,
     props<{ filteringOptions: FilteringOptions }>()
   );
-  const changeSelected = createAction(
-    `[${featureName} Page] Change Selected ${featureName}`,
+  const changeSelectedResources = createAction(
+    `[${featureName} Page] Change Selected Resources ${featureName}`,
     props<{ selectedResourceIds: string[] }>()
   );
 
-  const loadPage = createAction(`[${featureName} Page] Load ${featureName} Page`, props<{ pageNumber: number }>());
+  const loadPage = createAction(`[${featureName} Page] Load ${featureName} Page`);
   const loadPageSuccess = createAction(
     `[${featureName} Page] Load ${featureName} Page Success`,
     props<{ resources: S[]; pagingOptions: PagingOptions }>()
@@ -60,23 +64,22 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
     props<{ resources: (T | ErrorDto)[] }>()
   );
   const patchFailure = createAction(`[${featureName} Page] Patch ${featureName} Failure`, props<{ errors: E }>());
-  const resetRequestState = createAction(`[${featureName} Page] Reset ${featureName} Request State`);
 
   const showRemovalsConfirmation = createAction(`[${featureName} Page] Show ${featureName} Removal Confirmation`);
 
   return {
-    initializeRequestOptions,
+    initialize,
+    reset,
     changePageSize,
+    changePageNumber,
+    changePagingOptions,
     changeSorting,
     changeFiltering,
-    loadNextPage,
-    loadPage,
-    refresh,
-    initialize,
-    reinitialize,
     loadPreviousPage,
+    loadNextPage,
     loadFirstPage,
-    changeSelected,
+    changeSelectedResources,
+    loadPage,
     loadPageSuccess,
     loadPageFailure,
     delete: deleteAction,
@@ -86,7 +89,6 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
     patchSuccess,
     patchFailure,
     resetRequestState,
-    changePagingOptions,
     showRemovalsConfirmation
   };
 }

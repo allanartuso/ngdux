@@ -33,11 +33,11 @@ export class PropertiesComponent {
   }
 
   onRefreshPageSelected(): void {
-    this.propertiesFacade.refresh();
+    this.propertiesFacade.loadPage();
   }
 
   onRowSelected(properties: PropertyDto[]): void {
-    this.propertiesFacade.changeSelected({ selectedResourceIds: properties.map(user => user.id) });
+    this.propertiesFacade.changeSelectedResources({ selectedResourceIds: properties.map(user => user.id) });
   }
 
   onCellSelected(resourceId: string): void {

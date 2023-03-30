@@ -44,26 +44,45 @@ export interface ListSelectors<T, E> {
 }
 
 export interface ListActions<T, E, S = T> {
-  initializeRequestOptions: ActionCreator<string, () => TypedAction<string>>;
+  /**
+   * Change the paging options and reload the list
+   */
   changePagingOptions: ActionCreator<
     string,
     (props: { pagingOptions: PagingOptions }) => { pagingOptions: PagingOptions } & TypedAction<string>
   >;
+
+  /**
+   * Change the page number and reload the list
+   */
+  changePageNumber: ActionCreator<
+    string,
+    (props: { pageNumber: number }) => { pageNumber: number } & TypedAction<string>
+  >;
+  /**
+   * Change the page size and reload the list
+   */
   changePageSize: ActionCreator<string, (props: { pageSize: number }) => { pageSize: number } & TypedAction<string>>;
+  /**
+   * Change the sorting options and reload the list
+   */
   changeSorting: ActionCreator<
     string,
     (props: { sortingOptions: SortingOptions }) => { sortingOptions: SortingOptions } & TypedAction<string>
   >;
+  /**
+   * Change the filtering options and reload the list
+   */
   changeFiltering: ActionCreator<
     string,
     (props: { filteringOptions: FilteringOptions }) => { filteringOptions: FilteringOptions } & TypedAction<string>
   >;
 
-  changeSelected: ActionCreator<
+  changeSelectedResources: ActionCreator<
     string,
     (props: { selectedResourceIds: string[] }) => { selectedResourceIds: string[] } & TypedAction<string>
   >;
-  loadPage: ActionCreator<string, (props: { pageNumber: number }) => { pageNumber: number } & TypedAction<string>>;
+  loadPage: ActionCreator<string, () => TypedAction<string>>;
   loadPageSuccess: ActionCreator<
     string,
     (props: {
@@ -91,11 +110,21 @@ export interface ListActions<T, E, S = T> {
   >;
   patchFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
   loadNextPage: ActionCreator<string, () => TypedAction<string>>;
-  refresh: ActionCreator<string, () => TypedAction<string>>;
+
+  /**
+   * Remove the current data, set the page number to 1 and deselect resources.
+   * Keep all the rest, like filteringOptions and sortingOptions
+   */
   initialize: ActionCreator<string, () => TypedAction<string>>;
-  reinitialize: ActionCreator<string, () => TypedAction<string>>;
+  /**
+   * Reset to the initial state
+   */
+  reset: ActionCreator<string, () => TypedAction<string>>;
   loadPreviousPage: ActionCreator<string, () => TypedAction<string>>;
   loadFirstPage: ActionCreator<string, () => TypedAction<string>>;
+  /**
+   * Reset the request state to idle
+   */
   resetRequestState: ActionCreator<string, () => TypedAction<string>>;
   showRemovalsConfirmation: ActionCreator<string, () => TypedAction<string>>;
 }

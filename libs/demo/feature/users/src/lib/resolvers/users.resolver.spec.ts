@@ -22,7 +22,6 @@ describe('UsersResolver', () => {
   it('should dispatch initial actions', () => {
     resolver.resolve().subscribe();
 
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.initializeRequestOptions());
     expect(store.dispatch).toHaveBeenCalledWith(listActions.initialize());
   });
 

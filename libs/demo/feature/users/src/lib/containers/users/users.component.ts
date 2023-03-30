@@ -5,7 +5,6 @@ import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
 import { FilteringOptions, PagingOptions, SortingOptions } from '@ngdux/data-model-common';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'demo-users',
@@ -15,9 +14,9 @@ import { first } from 'rxjs/operators';
 export class UsersComponent {
   users$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getCurrentPageData));
   totalCount$: Observable<number> = this.store.pipe(select(listSelectors.getTotalCount));
-  pagingOptions$: Observable<PagingOptions> = this.store.pipe(select(listSelectors.getPagingOptions), first());
-  sortingOptions$: Observable<SortingOptions> = this.store.pipe(select(listSelectors.getSortingOptions), first());
-  filteringOptions$: Observable<FilteringOptions> = this.store.pipe(select(listSelectors.getFilteringOptions), first());
+  pagingOptions$: Observable<PagingOptions> = this.store.pipe(select(listSelectors.getPagingOptions));
+  sortingOptions$: Observable<SortingOptions> = this.store.pipe(select(listSelectors.getSortingOptions));
+  filteringOptions$: Observable<FilteringOptions> = this.store.pipe(select(listSelectors.getFilteringOptions));
   selectedItems$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getSelected));
 
   constructor(private readonly router: Router, private readonly store: Store) {}
@@ -35,11 +34,11 @@ export class UsersComponent {
   }
 
   onRefreshPageSelected(): void {
-    this.store.dispatch(listActions.refresh());
+    this.store.dispatch(listActions.loadPage());
   }
 
   onRowSelected(users: UserDto[]): void {
-    this.store.dispatch(listActions.changeSelected({ selectedResourceIds: users.map(user => user.id) }));
+    this.store.dispatch(listActions.changeSelectedResources({ selectedResourceIds: users.map(user => user.id) }));
   }
 
   onCellSelected(resourceId: string): void {

@@ -25,32 +25,32 @@ export abstract class AbstractListFacade<T, E, S = T> {
     private readonly listSelectors: ListSelectors<S, E>
   ) {}
 
-  initializeRequestOptions(): void {
-    this.store.dispatch(this.listActions.initializeRequestOptions());
-  }
-
   changeFiltering(props: ActionPayload<ListActions<T, E>['changeFiltering']>): void {
     this.store.dispatch(this.listActions.changeFiltering(props));
-  }
-
-  changePageSize(props: ActionPayload<ListActions<T, E>['changePageSize']>): void {
-    this.store.dispatch(this.listActions.changePageSize(props));
   }
 
   changePagingOptions(props: ActionPayload<ListActions<T, E>['changePagingOptions']>): void {
     this.store.dispatch(this.listActions.changePagingOptions(props));
   }
 
-  changeSelected(props: ActionPayload<ListActions<T, E>['changeSelected']>): void {
-    this.store.dispatch(this.listActions.changeSelected(props));
+  changePageSize(props: ActionPayload<ListActions<T, E>['changePageSize']>): void {
+    this.store.dispatch(this.listActions.changePageSize(props));
+  }
+
+  changePageNumber(props: ActionPayload<ListActions<T, E>['changePageNumber']>): void {
+    this.store.dispatch(this.listActions.changePageNumber(props));
+  }
+
+  changeSelectedResources(props: ActionPayload<ListActions<T, E>['changeSelectedResources']>): void {
+    this.store.dispatch(this.listActions.changeSelectedResources(props));
   }
 
   changeSorting(props: ActionPayload<ListActions<T, E>['changeSorting']>): void {
     this.store.dispatch(this.listActions.changeSorting(props));
   }
 
-  loadPage(props: ActionPayload<ListActions<T, E>['loadPage']>): void {
-    this.store.dispatch(this.listActions.loadPage(props));
+  loadPage(): void {
+    this.store.dispatch(this.listActions.loadPage());
   }
 
   loadFirstPage(): void {
@@ -73,16 +73,12 @@ export abstract class AbstractListFacade<T, E, S = T> {
     this.store.dispatch(this.listActions.delete(props));
   }
 
-  refresh(): void {
-    this.store.dispatch(this.listActions.refresh());
-  }
-
   initialize(): void {
     this.store.dispatch(this.listActions.initialize());
   }
 
   reinitialize(): void {
-    this.store.dispatch(this.listActions.reinitialize());
+    this.store.dispatch(this.listActions.reset());
   }
 
   resetRequestState(): void {

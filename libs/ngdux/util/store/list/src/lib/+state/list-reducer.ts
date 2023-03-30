@@ -1,4 +1,4 @@
-import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, PagingOptions, RequestState } from '@ngdux/data-model-common';
+import { DEFAULT_PAGE, DEFAULT_REQUEST_OPTIONS, RequestState } from '@ngdux/data-model-common';
 import {
   createLoadingStateActionHandlers,
   createRequestStateActionHandlers,
@@ -47,39 +47,39 @@ function createListActionHandlers<T, E, S>(
   actions: ListActions<T, E, S>
 ): ReducerTypes<ListState<S, E>, ActionCreator[]>[] {
   return [
-    on(actions.reinitialize, () => initialListState),
+    on(actions.reset, () => initialListState),
     on(actions.initialize, (state: ListState<S, E>) =>
       entityAdapter.removeAll({
         ...state,
         selectedResourceIds: [],
         pagingOptions: {
           ...state.pagingOptions,
-          page: 1
-        }
+          page: DEFAULT_PAGE
+        },
+        requestState: RequestState.IDLE
       })
     ),
-    on(actions.refresh, (state: ListState<S, E>) => {
-      const currentPageStartIndex = (state.pagingOptions.page - 1) * state.pagingOptions.pageSize;
-      const resourceIds = state.ids.slice(currentPageStartIndex) as string[];
-
-      return entityAdapter.removeMany(resourceIds, state);
-    }),
-
     on(actions.changePageSize, (state: ListState<S, E>, { pageSize }) => ({
       ...state,
-      pagingOptions: { ...state.pagingOptions, pageSize },
+      pagingOptions: { page: DEFAULT_PAGE, pageSize },
       lastPageNumber: undefined
+    })),
+    on(actions.changePageNumber, (state: ListState<S, E>, { pageNumber }) => ({
+      ...state,
+      pagingOptions: { ...state.pagingOptions, page: pageNumber }
     })),
     on(actions.changeSorting, (state: ListState<S, E>, { sortingOptions }) => ({
       ...state,
-      sortingOptions
+      sortingOptions,
+      pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE }
     })),
     on(actions.changeFiltering, (state: ListState<S, E>, { filteringOptions }) => ({
       ...state,
       filteringOptions,
+      pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE },
       lastPageNumber: undefined
     })),
-    on(actions.changeSelected, (state: ListState<S, E>, { selectedResourceIds }) => ({
+    on(actions.changeSelectedResources, (state: ListState<S, E>, { selectedResourceIds }) => ({
       ...state,
       selectedResourceIds
     })),
@@ -87,46 +87,25 @@ function createListActionHandlers<T, E, S>(
       ...state,
       pagingOptions: { ...state.pagingOptions, page: 1 }
     })),
-    on(actions.loadNextPage, (state: ListState<S, E>) => {
-      if (state.pagingOptions.page === state.lastPageNumber) {
-        return { ...state };
-      }
-
-      if (
-        state.pagingOptions.page + 1 === state.lastPageNumber &&
-        state.pagingOptions.page + 1 > (DEFAULT_STORED_PAGES + 1) / 2
-      ) {
-        const resourceIds = state.ids.slice(0, state.pagingOptions.pageSize) as string[];
-        state = entityAdapter.removeMany(resourceIds, { ...state });
-      }
-
-      return {
-        ...state,
-        pagingOptions: {
-          ...state.pagingOptions,
-          page: state.pagingOptions.page + 1
-        }
-      };
-    }),
-    on(actions.loadPreviousPage, (state: ListState<S, E>) => {
-      if (state.pagingOptions.page === 1) {
-        return { ...state };
-      }
-
-      return {
-        ...state,
-        pagingOptions: {
-          ...state.pagingOptions,
-          page: state.pagingOptions.page - 1
-        }
-      };
-    }),
     on(actions.loadPageSuccess, (state: ListState<S, E>, { resources, pagingOptions }) => {
-      if (pagingOptions.page < state.pagingOptions.page) {
-        return createPreviousPageSuccessState(entityAdapter, state, resources);
+      const lastPageNumber = getLastPageNumber(resources, pagingOptions) || state.lastPageNumber;
+      if (pagingOptions.page > lastPageNumber) {
+        return {
+          ...state,
+          pagingOptions: {
+            ...state.pagingOptions,
+            page: lastPageNumber
+          },
+          lastPageNumber,
+          selectedResourceIds: []
+        };
       }
 
-      return createNextPageSuccessState(entityAdapter, state, pagingOptions, resources);
+      return entityAdapter.setAll(resources, {
+        ...state,
+        lastPageNumber,
+        selectedResourceIds: []
+      });
     }),
     on(actions.deleteSuccess, (state: ListState<S, E>) => ({
       ...state,
@@ -150,41 +129,4 @@ function createListActionHandlers<T, E, S>(
       actions.patchFailure
     )
   ];
-}
-
-function createPreviousPageSuccessState<T, E>(
-  entityAdapter: EntityAdapter<T>,
-  state: ListState<T, E>,
-  resources: T[]
-): ListState<T, E> {
-  const resourceIds: string[] = state.ids.slice(
-    0,
-    (DEFAULT_STORED_PAGES - 1) * state.pagingOptions.pageSize
-  ) as string[];
-
-  return entityAdapter.setAll([...resources, ...resourceIds.map(resourceId => state.entities[resourceId])], {
-    ...state,
-    selectedResourceIds: []
-  });
-}
-
-function createNextPageSuccessState<T, E>(
-  entityAdapter: EntityAdapter<T>,
-  state: ListState<T, E>,
-  pagingOptions: PagingOptions,
-  resources: T[]
-): ListState<T, E> {
-  let resourceIds: string[] = [];
-  const lastPageNumber = getLastPageNumber(resources, pagingOptions) || state.lastPageNumber;
-
-  if (pagingOptions.page > DEFAULT_STORED_PAGES && lastPageNumber !== state.pagingOptions.page) {
-    resourceIds = state.ids.slice(0, state.pagingOptions.pageSize) as string[];
-    state = entityAdapter.removeMany(resourceIds, { ...state });
-  }
-
-  return entityAdapter.addMany(resources, {
-    ...state,
-    lastPageNumber,
-    selectedResourceIds: []
-  });
 }

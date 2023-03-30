@@ -66,7 +66,7 @@ describe('createListReducer', () => {
   it('reinitialize the state to the initial state', () => {
     const expectedState = testInitialState;
 
-    const state = testReducer(undefined, testListActions.reinitialize);
+    const state = testReducer(undefined, testListActions.reset);
 
     expect(state).toStrictEqual(expectedState);
   });
@@ -83,32 +83,6 @@ describe('createListReducer', () => {
     const expectedState = testInitialState;
 
     const state = testReducer(testState, testListActions.initialize);
-
-    expect(state).toStrictEqual(expectedState);
-  });
-
-  it('refresh removes all the resources from the first page', () => {
-    const testResources = createTestResources();
-    const testState = testEntityAdapter.addMany(testResources, { ...testInitialState });
-    const expectedState = testInitialState;
-
-    const state = testReducer(testState, testListActions.refresh);
-
-    expect(state).toStrictEqual(expectedState);
-  });
-
-  it('refresh removes all the resources from the second page', () => {
-    const testResources = createTestResources();
-    const testState: ListState<TestResource, TestErrors> = testEntityAdapter.addMany(testResources, {
-      ...testInitialState,
-      pagingOptions: {
-        page: 2,
-        pageSize: 2
-      }
-    });
-    const expectedState = testEntityAdapter.removeOne(testResources[2].id, testState);
-
-    const state = testReducer(testState, testListActions.refresh);
 
     expect(state).toStrictEqual(expectedState);
   });
@@ -165,7 +139,7 @@ describe('createListReducer', () => {
 
   it('sets a single selected resource id', () => {
     const selectedResourceIds: string[] = ['testId'];
-    const testAction = testListActions.changeSelected({ selectedResourceIds });
+    const testAction = testListActions.changeSelectedResources({ selectedResourceIds });
 
     const state = testReducer(undefined, testAction);
 
@@ -177,7 +151,7 @@ describe('createListReducer', () => {
 
   it('sets multiple selected resource ids', () => {
     const selectedResourceIds: string[] = ['testId1', 'testId2'];
-    const testAction = testListActions.changeSelected({ selectedResourceIds });
+    const testAction = testListActions.changeSelectedResources({ selectedResourceIds });
 
     const state = testReducer(undefined, testAction);
 
@@ -311,7 +285,7 @@ describe('createListReducer', () => {
   });
 
   it('adds the loading state action handlers to the reducer', () => {
-    const testAction = testListActions.loadPage({ pageNumber: 1 });
+    const testAction = testListActions.loadPage();
 
     testReducer(testInitialState, testAction);
 
@@ -324,7 +298,7 @@ describe('createListReducer', () => {
   });
 
   it('adds the request state action handlers to the reducer', () => {
-    const testAction = testListActions.loadPage({ pageNumber: 1 });
+    const testAction = testListActions.loadPage();
     testReducer(testInitialState, testAction);
 
     expect(createRequestStateActionHandlers).toHaveBeenCalledTimes(2);

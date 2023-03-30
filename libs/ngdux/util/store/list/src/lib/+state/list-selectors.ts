@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { DEFAULT_STORED_PAGES, RequestOptions, RequestState } from '@ngdux/data-model-common';
+import { RequestOptions, RequestState } from '@ngdux/data-model-common';
 import { EntityAdapter } from '@ngrx/entity';
 import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
 import { ListSelectors, ListState } from '../models/list.model';
@@ -27,14 +27,8 @@ export function createListSelectors<T, E>(
     return lastPageNumber <= page;
   });
 
-  const getCurrentPageData = createSelector(getPagingOptions, getAll, ({ page, pageSize }, resources) => {
-    const defaultStoredPageIndex = (DEFAULT_STORED_PAGES + 1) / 2;
-
-    if (page < defaultStoredPageIndex) {
-      return resources.slice((page - 1) * pageSize, page * pageSize);
-    }
-
-    return resources.slice((defaultStoredPageIndex - 1) * pageSize, defaultStoredPageIndex * pageSize);
+  const getCurrentPageData = createSelector(getAll, resources => {
+    return resources;
   });
 
   const getSortingOptions = createSelector(getListState, state => state.sortingOptions);
