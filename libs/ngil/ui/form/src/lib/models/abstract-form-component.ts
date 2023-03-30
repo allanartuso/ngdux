@@ -41,7 +41,6 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
   }
 
   submit(): void {
-    console.log(' submit', this.form);
     if (this.form.valid && this.form.dirty) {
       this.submitted.emit({
         ...this.formViewModel,

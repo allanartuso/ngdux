@@ -1,17 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { userActions, userSelectors } from '@demo/demo/data-access/users';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { UserFacade } from '@demo/demo/data-access/users';
+import { RequestState } from '@ngdux/data-model-common';
+import { provideMockStore } from '@ngrx/store/testing';
+import { of } from 'rxjs';
 import { UserResolver } from './user.resolver';
 
 describe('UserResolver', () => {
   let resolver: UserResolver;
-  let store: MockStore;
+  let facade: Partial<UserFacade>;
 
   const id = 'testId';
   const mockRouteSnapshot = { params: { id } } as unknown as ActivatedRouteSnapshot;
 
   beforeEach(() => {
+    facade = {
+      requestState$: of(RequestState.IDLE),
+      isReady$: of(true),
+      load: jest.fn()
+    };
+
     TestBed.configureTestingModule({
       providers: [
         UserResolver,
@@ -19,21 +27,21 @@ describe('UserResolver', () => {
         {
           provide: ActivatedRouteSnapshot,
           useValue: mockRouteSnapshot
+        },
+        {
+          provide: UserFacade,
+          useValue: facade
         }
       ]
     });
 
     resolver = TestBed.inject(UserResolver);
-    store = TestBed.inject(MockStore);
-
-    jest.spyOn(store, 'dispatch');
-    store.overrideSelector(userSelectors.isReady, true);
   });
 
   it('should dispatch initial actions', () => {
     resolver.resolve(mockRouteSnapshot).subscribe();
 
-    expect(store.dispatch).toHaveBeenCalledWith(userActions.load({ id }));
+    expect(facade.load).toHaveBeenCalledWith({ id });
   });
 
   it('should emit true if the users are already loaded', done => {
@@ -44,7 +52,7 @@ describe('UserResolver', () => {
   });
 
   it('should wait until the loading state is loaded', () => {
-    store.overrideSelector(userSelectors.isReady, false);
+    (facade as any).isReady$ = of(false);
     let emitted = false;
 
     resolver.resolve(mockRouteSnapshot).subscribe(() => {

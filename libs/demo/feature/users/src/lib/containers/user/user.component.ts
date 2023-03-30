@@ -15,7 +15,7 @@ export class UserComponent {
 
   constructor(private readonly userFacade: UserFacade) {}
 
-  onUserSaved(user: UserDto): void {
+  onSaved(user: UserDto): void {
     if (user.id) {
       this.userFacade.save({ resource: user });
     } else {

@@ -1,53 +1,37 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UserReducerManager } from '@demo/demo/data-access/users';
-import { UserDto } from '@demo/demo/data-model/users';
-import { createPersistentUser, createTransientUser } from '@demo/demo/data-model/users/test';
+import { PropertyFacade } from '@demo/demo/data-access/properties';
+import { PropertyDto } from '@demo/demo/data-model/properties';
+import { createPersistentProperty, createTransientProperty } from '@demo/demo/data-model/properties/test';
 import { RequestState } from '@ngdux/data-model-common';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { of } from 'rxjs';
+import { PropertyComponent } from './property.component';
 
-import { UserComponent } from './property.component';
-
-describe('UserComponent', () => {
-  let component: UserComponent;
-  let fixture: ComponentFixture<UserComponent>;
-  let store: MockStore;
-  let user: UserDto;
-  let mockReducerManager: Partial<UserReducerManager>;
+describe('PropertyComponent', () => {
+  let component: PropertyComponent;
+  let fixture: ComponentFixture<PropertyComponent>;
+  let property: PropertyDto;
+  let facade: Partial<PropertyFacade>;
 
   beforeEach(waitForAsync(() => {
-    user = createPersistentUser();
-    mockReducerManager = {
-      actions: {
-        create: jest.fn().mockReturnValue({ type: 'create' }),
-        save: jest.fn().mockReturnValue({ type: 'save' })
-      },
-      selectors: {
-        getResource: 'getRequestState',
-        getRequestState: 'getRequestState'
-      }
-    } as any;
+    property = createPersistentProperty();
+    facade = {
+      resource$: of(property),
+      requestState$: of(RequestState.IDLE),
+      save: jest.fn(),
+      create: jest.fn()
+    };
 
     TestBed.configureTestingModule({
-      declarations: [UserComponent],
-      providers: [
-        provideMockStore({
-          selectors: [
-            { selector: mockReducerManager.selectors.getResource, value: user },
-            { selector: mockReducerManager.selectors.getRequestState, value: RequestState.IDLE }
-          ]
-        }),
-        { provide: UserReducerManager, useValue: mockReducerManager }
-      ],
+      declarations: [PropertyComponent],
+      providers: [{ provide: PropertyFacade, useValue: facade }],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserComponent);
+    fixture = TestBed.createComponent(PropertyComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject(MockStore);
-    jest.spyOn(store, 'dispatch');
 
     fixture.detectChanges();
   });
@@ -56,19 +40,19 @@ describe('UserComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('creates a user', () => {
-    component.onUserSaved(user);
+  it('creates a property', () => {
+    component.onSaved(property);
 
-    expect(store.dispatch).toHaveBeenCalledTimes(1);
-    expect(store.dispatch).toHaveBeenCalledWith(mockReducerManager.actions.save({ resource: user }));
+    expect(facade.save).toHaveBeenCalledTimes(1);
+    expect(facade.save).toHaveBeenCalledWith({ resource: property });
   });
 
-  it('saves the user', () => {
-    const newUser = createTransientUser();
+  it('saves the property', () => {
+    const newProperty = createTransientProperty();
 
-    component.onUserSaved(newUser);
+    component.onSaved(newProperty);
 
-    expect(store.dispatch).toHaveBeenCalledTimes(1);
-    expect(store.dispatch).toHaveBeenCalledWith(mockReducerManager.actions.create({ resource: newUser }));
+    expect(facade.create).toHaveBeenCalledTimes(1);
+    expect(facade.create).toHaveBeenCalledWith({ resource: newProperty });
   });
 });

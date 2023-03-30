@@ -1,33 +1,46 @@
 import { TestBed } from '@angular/core/testing';
-import { listActions, listSelectors } from '@demo/demo/data-access/users';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { UsersResolver } from './properties.resolver';
+import { PropertiesFacade } from '@demo/demo/data-access/properties';
+import { RequestState } from '@ngdux/data-model-common';
+import { commonFixture } from '@ngdux/data-model-common/test';
+import { provideMockStore } from '@ngrx/store/testing';
+import { of } from 'rxjs';
+import { PropertiesResolver } from './properties.resolver';
 
-describe('UsersResolver', () => {
-  let resolver: UsersResolver;
-  let store: MockStore;
+describe('PropertiesResolver', () => {
+  let resolver: PropertiesResolver;
+  let facade: Partial<commonFixture.RemoveReadonly<PropertiesFacade>>;
 
   beforeEach(() => {
+    facade = {
+      requestState$: of(RequestState.IDLE),
+      isReady$: of(true),
+      initializeRequestOptions: jest.fn(),
+      initialize: jest.fn()
+    };
+
     TestBed.configureTestingModule({
-      providers: [UsersResolver, provideMockStore()]
+      providers: [
+        PropertiesResolver,
+        provideMockStore(),
+        {
+          provide: PropertiesFacade,
+          useValue: facade
+        }
+      ]
     });
 
-    resolver = TestBed.inject(UsersResolver);
-    store = TestBed.inject(MockStore);
-
-    jest.spyOn(store, 'dispatch');
-    store.overrideSelector(listSelectors.isReady, true);
+    resolver = TestBed.inject(PropertiesResolver);
   });
 
   it('should dispatch initial actions', () => {
     resolver.resolve().subscribe();
 
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.initializeRequestOptions());
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.initialize());
+    expect(facade.initializeRequestOptions).toHaveBeenCalledWith();
+    expect(facade.initialize).toHaveBeenCalledWith();
   });
 
-  it('should emit true if the users are already loaded', done => {
-    store.overrideSelector(listSelectors.isReady, true);
+  it('should emit true if the properties are already loaded', done => {
+    facade.isReady$ = of(true);
 
     resolver.resolve().subscribe(canActivate => {
       expect(canActivate).toBe(true);
@@ -36,7 +49,7 @@ describe('UsersResolver', () => {
   });
 
   it('should wait until the loading state is loaded', () => {
-    store.overrideSelector(listSelectors.isReady, false);
+    facade.isReady$ = of(false);
     let emitted = false;
 
     resolver.resolve().subscribe(() => {

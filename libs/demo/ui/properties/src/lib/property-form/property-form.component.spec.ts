@@ -1,40 +1,30 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { UserDto } from '@demo/demo/data-model/users';
-import { createPersistentUser } from '@demo/demo/data-model/users/test';
-import { NgilInputComponent } from '@ngil/ui-form';
-import { UserFormComponent } from './user-form.component';
+import { PropertyDto } from '@demo/demo/data-model/properties';
+import { createPersistentProperty } from '@demo/demo/data-model/properties/test';
+import { PropertyFormComponent } from './property-form.component';
 
-describe('UserFormComponent', () => {
-  let component: UserFormComponent;
-  let fixture: ComponentFixture<UserFormComponent>;
-  let testUser: UserDto;
+describe('PropertyFormComponent', () => {
+  let component: PropertyFormComponent;
+  let testProperty: PropertyDto;
   const onChangeMock = jest.fn();
   const onTouchedMock = jest.fn();
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
-      declarations: [UserFormComponent, NgilInputComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
-  }));
-
   beforeEach(() => {
-    testUser = createPersistentUser();
+    testProperty = createPersistentProperty();
 
-    fixture = TestBed.createComponent(UserFormComponent);
-    component = fixture.componentInstance;
+    component = new PropertyFormComponent();
     component.registerOnChange(onChangeMock);
     component.registerOnTouched(onTouchedMock);
   });
 
+  afterEach(() => {
+    component.ngOnDestroy();
+  });
+
   it('creates the form', () => {
-    component.formViewModel = testUser;
-    fixture.detectChanges();
-    const expectedFormValue = { ...testUser };
+    component.formViewModel = testProperty;
+    component.ngOnInit();
+    component.ngAfterViewInit();
+    const expectedFormValue = { ...testProperty };
     delete expectedFormValue.id;
 
     expect(component.form).toBeTruthy();
@@ -42,8 +32,17 @@ describe('UserFormComponent', () => {
   });
 
   it('creates an empty form when the form model is undefined', () => {
-    fixture.detectChanges();
-    const expectedFormValue: UserDto = { email: null, firstName: null, lastName: null, birthTime: null };
+    component.ngOnInit();
+    component.ngAfterViewInit();
+    const expectedFormValue: PropertyDto = {
+      price: null,
+      size: null,
+      address: null,
+      availableFrom: null,
+      features: null,
+      description: null,
+      contact: null
+    };
 
     expect(component.form).toBeTruthy();
     expect(component.form.value).toStrictEqual(expectedFormValue);

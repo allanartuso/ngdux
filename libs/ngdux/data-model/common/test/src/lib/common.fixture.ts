@@ -1,5 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { faker } from '@faker-js/faker';
+
+export type RemoveReadonly<T> = {
+  -readonly [P in keyof T]: T[P];
+};
 
 export const DEFAULT_RESOURCE_COLLECTION_SIZE = 50;
 

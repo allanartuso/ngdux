@@ -50,10 +50,10 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ngControl.control.setValidators([this.timValidator()]);
+    this.ngControl.control.setValidators([this.timeValidator()]);
   }
 
-  timValidator(): ValidatorFn {
+  private timeValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = this.getTimePickerValue(control.value);
       if (this.itemHasError(value.hour, 23)) {
@@ -104,13 +104,11 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  setInputText(value: TimePickerValue): void {
+  private setInputText(value: TimePickerValue): void {
     const text = [this.getItemText(value.hour), this.getItemText(value.minute), this.getItemText(value.second)].join(
       ':'
     );
-    if (this.inputComponent) {
-      this.inputComponent.control.setValue(text);
-    }
+    this.inputComponent?.control.setValue(text);
     this.elementRef.nativeElement.value = text;
     this.ngControl?.control.setValue(text);
   }

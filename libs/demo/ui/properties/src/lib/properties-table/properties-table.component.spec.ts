@@ -1,33 +1,33 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { createPersistentUser } from '@demo/demo/data-model/users/test';
-import { UsersTableComponent } from './properties-table.component';
+import { createPersistentProperty } from '@demo/demo/data-model/properties/test';
+import { PropertiesTableComponent } from './properties-table.component';
 
-describe('UsersListComponent', () => {
-  let component: UsersTableComponent;
-  let fixture: ComponentFixture<UsersTableComponent>;
+describe('PropertiesListComponent', () => {
+  let component: PropertiesTableComponent;
+  let fixture: ComponentFixture<PropertiesTableComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UsersTableComponent],
+      declarations: [PropertiesTableComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UsersTableComponent);
+    fixture = TestBed.createComponent(PropertiesTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   describe('cell selection', () => {
-    it('emits userSelected event when selecting a cell from the name column', () => {
+    it('emits propertySelected event when selecting a cell from the name column', () => {
       jest.spyOn(component.cellSelected, 'emit');
-      const user = createPersistentUser();
+      const property = createPersistentProperty();
 
-      component.onCellSelected(user);
+      component.onCellSelected(property);
 
-      expect(component.cellSelected.emit).toHaveBeenCalledWith(user.id);
+      expect(component.cellSelected.emit).toHaveBeenCalledWith(property.id);
     });
   });
 });
