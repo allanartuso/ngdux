@@ -1,4 +1,4 @@
-import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@ngdux/data-model-common';
+import { DEFAULT_REQUEST_OPTIONS, RequestState } from '@ngdux/data-model-common';
 import { createTestResources, TestResource } from '@ngdux/store-common/test';
 import { createFeatureSelector } from '@ngrx/store';
 import { TestErrors } from '../models/list.fixture';
@@ -70,7 +70,6 @@ describe('list selectors', () => {
   });
 
   describe('getCurrentPageData', () => {
-    const defaultStoredPages = DEFAULT_STORED_PAGES;
     const pageSize = 2;
 
     beforeEach(() => {
@@ -79,22 +78,10 @@ describe('list selectors', () => {
       state.pagingOptions.pageSize = pageSize;
     });
 
-    it('when current page is smaller than the default stored page index', () => {
+    it('returns current page data', () => {
       const allResources = testEntityAdapter.getSelectors().selectAll(state);
 
-      expect(listSelectors.getCurrentPageData.projector(state.pagingOptions, allResources)).toStrictEqual(
-        allResources.slice(0, state.pagingOptions.page * state.pagingOptions.pageSize)
-      );
-    });
-
-    it('when current page is greater than the default stored page index', () => {
-      const allResources = testEntityAdapter.getSelectors().selectAll(state);
-      const defaultStoredPageIndex = (defaultStoredPages + 1) / 2;
-      state.pagingOptions.page = defaultStoredPageIndex;
-
-      expect(listSelectors.getCurrentPageData.projector(state.pagingOptions, allResources)).toStrictEqual(
-        resources.slice((defaultStoredPageIndex - 1) * pageSize, defaultStoredPageIndex * pageSize)
-      );
+      expect(listSelectors.getCurrentPageData.projector(state.pagingOptions, allResources)).toStrictEqual(allResources);
     });
   });
 
