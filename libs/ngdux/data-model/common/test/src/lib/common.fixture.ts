@@ -92,7 +92,7 @@ export function getElementFromEnum<T>(enumeration: Record<string, T>): T {
 
 export function getElementsFromEnum<T>(
   enumeration: Record<string, T>,
-  nbOfElements: number = Object.keys(enumeration).length
+  nbOfElements: number = getNumberInRange(1, Object.keys(enumeration).length)
 ): T[] {
   const elements: Set<T> = new Set();
   const enumerationKeys = Object.keys(enumeration);

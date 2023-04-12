@@ -88,11 +88,35 @@ describe('list selectors', () => {
   describe('getTotalCount', () => {
     beforeEach(() => {
       resources = createTestResources();
-      state = testEntityAdapter.addMany(resources, { ...initialState });
+      state = testEntityAdapter.setAll(resources, { ...initialState });
     });
 
-    it('gets the total count', () => {
-      expect(listSelectors.getTotalCount.projector(state.pagingOptions, resources)).toStrictEqual(resources.length);
+    it('gets the total count if it is not last page', () => {
+      state.pagingOptions.pageSize = resources.length;
+
+      expect(listSelectors.getTotalCount.projector(state.pagingOptions, false, resources)).toStrictEqual(
+        resources.length * 2
+      );
+    });
+
+    it('gets the total count if is the last page', () => {
+      const pageSize = 5;
+      state.pagingOptions.pageSize = pageSize;
+
+      expect(listSelectors.getTotalCount.projector(state.pagingOptions, true, resources)).toStrictEqual(
+        resources.length
+      );
+    });
+
+    it('gets the total count if is the last page and it is not the first page', () => {
+      const pageSize = 5;
+      const page = 2;
+      state.pagingOptions.pageSize = pageSize;
+      state.pagingOptions.page = page;
+
+      expect(listSelectors.getTotalCount.projector(state.pagingOptions, true, resources)).toStrictEqual(
+        resources.length + pageSize
+      );
     });
   });
 
@@ -121,7 +145,7 @@ describe('list selectors', () => {
   it('getSelected', () => {
     const allResources = testEntityAdapter.getSelectors().selectEntities(state);
 
-    expect(listSelectors.getSelected.projector(state.selectedResourceIds, allResources)).toStrictEqual(
+    expect(listSelectors.getSelectedItems.projector(state.selectedResourceIds, allResources)).toStrictEqual(
       resources.slice(0, 2)
     );
   });

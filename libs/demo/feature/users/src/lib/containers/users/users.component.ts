@@ -17,7 +17,7 @@ export class UsersComponent {
   pagingOptions$: Observable<PagingOptions> = this.store.pipe(select(listSelectors.getPagingOptions));
   sortingOptions$: Observable<SortingOptions> = this.store.pipe(select(listSelectors.getSortingOptions));
   filteringOptions$: Observable<FilteringOptions> = this.store.pipe(select(listSelectors.getFilteringOptions));
-  selectedItems$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getSelected));
+  selectedItems$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getSelectedItems));
 
   constructor(private readonly router: Router, private readonly store: Store) {}
 

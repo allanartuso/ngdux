@@ -10,6 +10,7 @@ import { SharedUiListModule } from '@demo/shared/ui-list';
 import { NgilUiFormModule } from '@ngil/ui-form';
 import { PropertiesTableComponent } from './properties-table/properties-table.component';
 import { PropertyFormComponent } from './property-form/property-form.component';
+import { AddressFormComponent } from './address-form/address-form.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { PropertyFormComponent } from './property-form/property-form.component';
     TextFieldModule,
     MatInputModule
   ],
-  declarations: [PropertyFormComponent, PropertiesTableComponent],
+  declarations: [PropertyFormComponent, PropertiesTableComponent, AddressFormComponent],
   exports: [PropertyFormComponent, PropertiesTableComponent]
 })
 export class DemoUiPropertiesModule {}

@@ -41,7 +41,7 @@ export function createListSelectors<T, E>(
 
   const getLoadingState = createSelector(getListState, state => state.loadingState);
 
-  const getSelected = createSelector(
+  const getSelectedItems = createSelector(
     getSelectedResourceIds,
     createSelector(getListState, entityAdapter.getSelectors().selectEntities),
     (selectedResourceIds, resources): T[] =>
@@ -51,16 +51,11 @@ export function createListSelectors<T, E>(
   const getSelectionRecord = createSelector(
     getSelectedResourceIds,
     createSelector(getListState, entityAdapter.getSelectors().selectEntities),
-    (selectedResourceIds, resources): Record<string, T> => {
-      console.log(selectedResourceIds);
-      console.log(resources);
-      const res = selectedResourceIds.reduce((selected, selectedResourceId) => {
+    (selectedResourceIds, resources): Record<string, T> =>
+      selectedResourceIds.reduce((selected, selectedResourceId) => {
         selected[selectedResourceId] = resources[selectedResourceId];
         return selected;
-      }, {} as Record<string, T>);
-      console.log(res);
-      return res;
-    }
+      }, {} as Record<string, T>)
   );
 
   const getRequestState = createSelector(getListState, state => state.requestState);
@@ -89,9 +84,17 @@ export function createListSelectors<T, E>(
     selectedResourceIds => selectedResourceIds.length !== 1
   );
 
-  const getTotalCount = createSelector(getPagingOptions, getCurrentPageData, (pagingOptions, currentPageData) => {
-    return (pagingOptions.page - 1) * pagingOptions.pageSize + currentPageData.length;
-  });
+  const getTotalCount = createSelector(
+    getPagingOptions,
+    isLastPage,
+    getCurrentPageData,
+    (pagingOptions, isLastPage, currentPageData) => {
+      if (isLastPage) {
+        return (pagingOptions.page - 1) * pagingOptions.pageSize + currentPageData.length;
+      }
+      return (pagingOptions.page + 1) * pagingOptions.pageSize;
+    }
+  );
 
   return {
     getAll,
@@ -105,7 +108,7 @@ export function createListSelectors<T, E>(
     getLastPageNumber,
     getLoadingState,
     getSelectedResourceIds,
-    getSelected,
+    getSelectedItems,
     getSelectionRecord,
     getRequestState,
     getErrors,

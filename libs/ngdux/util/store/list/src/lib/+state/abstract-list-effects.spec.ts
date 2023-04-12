@@ -173,7 +173,7 @@ describe('TestEffects', () => {
     });
 
     it('should emit failure when error is thrown without any successes.', () => {
-      store.overrideSelector(testListSelectors.getSelected, resources);
+      store.overrideSelector(testListSelectors.getSelectedItems, resources);
       resourcesService.deleteResources = jest.fn().mockImplementation(() => throwError(testErrors));
       const expected = hot('a', {
         a: testListActions.deleteFailure({ errors: testErrors })

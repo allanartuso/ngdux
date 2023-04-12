@@ -1,0 +1,33 @@
+<div class="ngil-select" [class.ngil-select--error]="!!errorMessage">
+  <label class="ngil-select__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
+
+  <div class="ngil-select__field">
+    <ng-container *ngIf="readonly">
+      <input
+        class="ngil-select__input"
+        [id]="formControlName"
+        [required]="required"
+        [readonly]="readonly"
+        [formControl]="control"
+      />
+    </ng-container>
+    <ng-container *ngIf="!readonly">
+      <select
+        class="ngil-select__input"
+        [id]="formControlName"
+        [required]="required"
+        [formControl]="control"
+        [multiple]="multiple"
+        (blur)="onBlur()"
+      >
+        <ng-container *ngFor="let item of items">
+          <option [value]="item">{{ displayKey ? item[displayKey] : item }}</option>
+        </ng-container>
+      </select>
+
+      <ng-content select="[suffix]"></ng-content>
+    </ng-container>
+  </div>
+
+  <small class="ngil-select__error-message">{{ errorMessage }}</small>
+</div>

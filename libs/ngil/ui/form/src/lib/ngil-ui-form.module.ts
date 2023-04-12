@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgilInputComponent } from './components/input/input.component';
+import { NgilSelectComponent } from './components/select/select.component';
+import { NgilTextareaComponent } from './components/textarea/textarea.component';
 import { PickerToggleComponent } from './components/time-picker-overlay/picker-toggle';
 import { NgilTimePickerOverlayComponent } from './components/time-picker-overlay/time-picker-overlay.component';
 import { NgilTimePickerComponent } from './components/time-picker/time-picker.component';
@@ -17,10 +19,14 @@ import { NumberRotationDirective } from './pipes/number-rotation.directive';
     NgilTimePickerOverlayComponent,
     PickerToggleComponent,
     NumberRotationDirective,
-    TimePickerDirective
+    TimePickerDirective,
+    NgilSelectComponent,
+    NgilTextareaComponent
   ],
   exports: [
     NgilInputComponent,
+    NgilSelectComponent,
+    NgilTextareaComponent,
     NgilTimePickerComponent,
     NgilTimePickerOverlayComponent,
     PickerToggleComponent,

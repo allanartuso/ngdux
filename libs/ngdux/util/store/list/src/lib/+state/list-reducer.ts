@@ -59,7 +59,7 @@ function createListActionHandlers<T, E, S>(
         requestState: RequestState.IDLE
       })
     ),
-    on(actions.changePageSize, (state: ListState<S, E>, { pageSize }) => ({
+    on(actions.changePageSize, actions.setPageSize, (state: ListState<S, E>, { pageSize }) => ({
       ...state,
       pagingOptions: { page: DEFAULT_PAGE, pageSize },
       lastPageNumber: undefined
@@ -68,12 +68,12 @@ function createListActionHandlers<T, E, S>(
       ...state,
       pagingOptions: { ...state.pagingOptions, page: pageNumber }
     })),
-    on(actions.changeSorting, (state: ListState<S, E>, { sortingOptions }) => ({
+    on(actions.changeSorting, actions.setSorting, (state: ListState<S, E>, { sortingOptions }) => ({
       ...state,
       sortingOptions,
       pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE }
     })),
-    on(actions.changeFiltering, (state: ListState<S, E>, { filteringOptions }) => ({
+    on(actions.changeFiltering, actions.setFiltering, (state: ListState<S, E>, { filteringOptions }) => ({
       ...state,
       filteringOptions,
       pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE },

@@ -16,7 +16,7 @@ export abstract class AbstractListFacade<T, E, S = T> {
   readonly pagingOptions$ = this.store.pipe(select(this.listSelectors.getPagingOptions));
   readonly requestOptions$ = this.store.pipe(select(this.listSelectors.getRequestOptions));
   readonly sortingOptions$ = this.store.pipe(select(this.listSelectors.getSortingOptions));
-  readonly selectedItems$ = this.store.pipe(select(this.listSelectors.getSelected));
+  readonly selectedItems$ = this.store.pipe(select(this.listSelectors.getSelectedItems));
   readonly totalCount$ = this.store.pipe(select(this.listSelectors.getTotalCount));
 
   constructor(
@@ -24,6 +24,18 @@ export abstract class AbstractListFacade<T, E, S = T> {
     private readonly listActions: ListActions<T, E, S>,
     private readonly listSelectors: ListSelectors<S, E>
   ) {}
+
+  setPageSize(props: ActionPayload<ListActions<T, E>['setPageSize']>): void {
+    this.store.dispatch(this.listActions.setPageSize(props));
+  }
+
+  setFiltering(props: ActionPayload<ListActions<T, E>['setFiltering']>): void {
+    this.store.dispatch(this.listActions.setFiltering(props));
+  }
+
+  setSorting(props: ActionPayload<ListActions<T, E>['setSorting']>): void {
+    this.store.dispatch(this.listActions.setSorting(props));
+  }
 
   changeFiltering(props: ActionPayload<ListActions<T, E>['changeFiltering']>): void {
     this.store.dispatch(this.listActions.changeFiltering(props));

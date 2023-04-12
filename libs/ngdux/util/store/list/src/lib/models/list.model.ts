@@ -32,7 +32,7 @@ export interface ListSelectors<T, E> {
   getLastPageNumber: MemoizedSelector<object, number>;
   getLoadingState: MemoizedSelector<object, RequestState>;
   getSelectedResourceIds: MemoizedSelector<object, string[]>;
-  getSelected: MemoizedSelector<object, T[]>; // TODO: rename to getSelectedItems
+  getSelectedItems: MemoizedSelector<object, T[]>;
   getSelectionRecord: MemoizedSelector<object, Record<string, T>>;
   getRequestState: MemoizedSelector<object, RequestState>;
   getErrors: MemoizedSelector<object, E>;
@@ -44,6 +44,25 @@ export interface ListSelectors<T, E> {
 }
 
 export interface ListActions<T, E, S = T> {
+  /**
+   * Set the page size without reloading the list
+   */
+  setPageSize: ActionCreator<string, (props: { pageSize: number }) => { pageSize: number } & TypedAction<string>>;
+  /**
+   * Set the sorting options without reloading the list
+   */
+  setSorting: ActionCreator<
+    string,
+    (props: { sortingOptions: SortingOptions }) => { sortingOptions: SortingOptions } & TypedAction<string>
+  >;
+  /**
+   * Set the filtering options without reloading the list
+   */
+  setFiltering: ActionCreator<
+    string,
+    (props: { filteringOptions: FilteringOptions }) => { filteringOptions: FilteringOptions } & TypedAction<string>
+  >;
+
   /**
    * Change the paging options and reload the list
    */

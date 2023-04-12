@@ -1,7 +1,7 @@
 import { createPersistentUser } from '@demo/demo/data-model/users/test';
 import { commonFixture } from '@ngdux/data-model-common/test';
 import { createPersistentAddress } from './address.dto.fixture';
-import { PropertyDto } from './property.dto';
+import { PropertyDto, PropertyFeatureDto } from './property.dto';
 
 export function createPersistentProperties(n = 3): PropertyDto[] {
   const result: PropertyDto[] = [];
@@ -13,21 +13,23 @@ export function createPersistentProperties(n = 3): PropertyDto[] {
   return result;
 }
 
-export function createPersistentProperty(id: string = commonFixture.getAlphaNumeric()): PropertyDto {
+export function createPersistentProperty(overwrites: Partial<PropertyDto> = {}): PropertyDto {
   return {
-    id,
-    ...createTransientProperty()
+    id: commonFixture.getAlphaNumeric(),
+    ...createTransientProperty(),
+    ...overwrites
   };
 }
 
-export function createTransientProperty(): PropertyDto {
+export function createTransientProperty(overwrites: Partial<PropertyDto> = {}): PropertyDto {
   return {
     price: commonFixture.getNumberInRange(800, 4000),
     size: commonFixture.getNumberInRange(1, 12),
     address: createPersistentAddress(),
     availableFrom: commonFixture.getFutureIso8601Date(),
-    features: commonFixture.getTags(),
+    features: commonFixture.getElementsFromEnum(PropertyFeatureDto),
     description: commonFixture.getParagraph(),
-    contact: createPersistentUser()
+    contact: createPersistentUser(),
+    ...overwrites
   };
 }

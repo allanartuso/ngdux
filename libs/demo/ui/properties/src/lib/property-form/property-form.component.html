@@ -5,43 +5,13 @@
   (submitted)="submit()"
   (cancelled)="cancel()"
 >
+  <ngil-input label="Available from" formControlName="availableFrom"></ngil-input>
   <ngil-input label="Price" formControlName="price" type="number"></ngil-input>
   <ngil-input label="Size" formControlName="size" type="number"></ngil-input>
-  <ngil-input label="Available from" formControlName="availableFrom"></ngil-input>
+  <demo-address-form label="Address" formControlName="address"></demo-address-form>
 
-  <mat-form-field>
-    <mat-label>Features</mat-label>
-    <mat-select formControlName="features" multiple>
-      <mat-option>Balcony / Terrace</mat-option>
-      <mat-option>View</mat-option>
-      <mat-option>Parking space</mat-option>
-      <mat-option>Elevator</mat-option>
-      <mat-option>Washing machine</mat-option>
-      <mat-option>Wheelchair access</mat-option>
-      <mat-option>Garage</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <ngil-select label="Features" formControlName="features" [items]="features" [multiple]="true"></ngil-select>
+  <ngil-select label="Contact" formControlName="contact" [items]="users" displayKey="email"></ngil-select>
 
-  <mat-form-field>
-    <mat-label for="description">Description</mat-label>
-    <textarea
-      matInput
-      formControlName="description"
-      cdkTextareaAutosize
-      #autosize="cdkTextareaAutosize"
-      cdkAutosizeMinRows="1"
-      cdkAutosizeMaxRows="5"
-    ></textarea>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Contact</mat-label>
-    <mat-select formControlName="contact">
-      <mat-option>1</mat-option>
-      <mat-option>2</mat-option>
-      <mat-option>3</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <ngil-textarea label="Description" formControlName="description"></ngil-textarea>
 </demo-form>
-
-address: new FormControl(null, [Validators.maxLength(40)]),

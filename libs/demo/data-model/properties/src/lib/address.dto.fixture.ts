@@ -11,19 +11,21 @@ export function createPersistentAddresses(n = 3): AddressDto[] {
   return result;
 }
 
-export function createPersistentAddress(id: string = commonFixture.getAlphaNumeric()): AddressDto {
+export function createPersistentAddress(overwrites: Partial<AddressDto> = {}): AddressDto {
   return {
-    id,
-    ...createTransientAddress()
+    id: commonFixture.getAlphaNumeric(),
+    ...createTransientAddress(),
+    ...overwrites
   };
 }
 
-export function createTransientAddress(): AddressDto {
+export function createTransientAddress(overwrites: Partial<AddressDto> = {}): AddressDto {
   return {
     country: commonFixture.getCountryCode(),
     city: commonFixture.getCity(),
     street: commonFixture.getStreetName(),
     streetNumber: commonFixture.getNumberInRange(100, 3000) + commonFixture.getAlpha(1, 'upper'),
-    zipCode: commonFixture.getAlphaNumeric()
+    zipCode: commonFixture.getAlphaNumeric(),
+    ...overwrites
   };
 }

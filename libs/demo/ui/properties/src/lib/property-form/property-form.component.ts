@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AddressDto, PropertyDto } from '@demo/demo/data-model/properties';
+import { AddressDto, PropertyDto, PropertyFeatureDto } from '@demo/demo/data-model/properties';
 import { UserDto } from '@demo/demo/data-model/users';
 import { AbstractFormComponent } from '@ngil/ui-form';
 
@@ -20,6 +20,10 @@ interface PropertyForm {
   styleUrls: ['./property-form.component.scss']
 })
 export class PropertyFormComponent extends AbstractFormComponent<PropertyDto> {
+  @Input() users: UserDto[] = [];
+
+  features = Object.keys(PropertyFeatureDto);
+
   form: FormGroup<PropertyForm> = new FormGroup<PropertyForm>({
     price: new FormControl(null),
     size: new FormControl(null),

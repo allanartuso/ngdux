@@ -33,7 +33,7 @@ describe('UsersComponent', () => {
         provideMockStore({
           selectors: [
             { selector: listSelectors.getCurrentPageData, value: [] },
-            { selector: listSelectors.getSelected, value: [] },
+            { selector: listSelectors.getSelectedItems, value: [] },
             { selector: listSelectors.getTotalCount, value: 5 },
             { selector: listSelectors.getPagingOptions, value: { page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE } },
             {

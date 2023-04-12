@@ -1,6 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
+import { UsersFacade } from '@demo/demo/data-access/users';
 import { PropertyDto } from '@demo/demo/data-model/properties';
 import { createPersistentProperty, createTransientProperty } from '@demo/demo/data-model/properties/test';
 import { RequestState } from '@ngdux/data-model-common';
@@ -11,20 +12,28 @@ describe('PropertyComponent', () => {
   let component: PropertyComponent;
   let fixture: ComponentFixture<PropertyComponent>;
   let property: PropertyDto;
-  let facade: Partial<PropertyFacade>;
+  let propertyFacade: Partial<PropertyFacade>;
+  let usersFacade: Partial<UsersFacade>;
 
   beforeEach(waitForAsync(() => {
     property = createPersistentProperty();
-    facade = {
+    propertyFacade = {
       resource$: of(property),
       requestState$: of(RequestState.IDLE),
       save: jest.fn(),
       create: jest.fn()
     };
 
+    usersFacade = {
+      resources$: of([])
+    };
+
     TestBed.configureTestingModule({
       declarations: [PropertyComponent],
-      providers: [{ provide: PropertyFacade, useValue: facade }],
+      providers: [
+        { provide: PropertyFacade, useValue: propertyFacade },
+        { provide: UsersFacade, useValue: usersFacade }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -43,8 +52,8 @@ describe('PropertyComponent', () => {
   it('creates a property', () => {
     component.onSaved(property);
 
-    expect(facade.save).toHaveBeenCalledTimes(1);
-    expect(facade.save).toHaveBeenCalledWith({ resource: property });
+    expect(propertyFacade.save).toHaveBeenCalledTimes(1);
+    expect(propertyFacade.save).toHaveBeenCalledWith({ resource: property });
   });
 
   it('saves the property', () => {
@@ -52,7 +61,7 @@ describe('PropertyComponent', () => {
 
     component.onSaved(newProperty);
 
-    expect(facade.create).toHaveBeenCalledTimes(1);
-    expect(facade.create).toHaveBeenCalledWith({ resource: newProperty });
+    expect(propertyFacade.create).toHaveBeenCalledTimes(1);
+    expect(propertyFacade.create).toHaveBeenCalledWith({ resource: newProperty });
   });
 });

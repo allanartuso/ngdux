@@ -1,0 +1,18 @@
+<div class="ngil-textarea" [class.ngil-textarea--error]="!!errorMessage">
+  <label class="ngil-textarea__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
+
+  <div class="ngil-textarea__field">
+    <textarea
+      class="ngil-textarea__input"
+      [id]="formControlName"
+      [required]="required"
+      [readonly]="readonly"
+      [formControl]="control"
+      (blur)="onBlur()"
+    >
+    </textarea>
+    <ng-content select="[suffix]"></ng-content>
+  </div>
+
+  <small class="ngil-textarea__error-message">{{ errorMessage }}</small>
+</div>

@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: 0.25rem 0 2rem;
+  min-width: 200px;
+
+  .ngil-textarea {
+    flex-grow: 1;
+    position: relative;
+
+    &--error {
+      color: red;
+
+      .ngil-textarea__input {
+        border-color: red;
+      }
+    }
+
+    &__label {
+      display: block;
+    }
+
+    &__input {
+      width: 100%;
+      outline: none;
+      border: 1px solid black;
+      border-radius: 3px;
+      padding: 0.25rem;
+      height: 4rem;
+    }
+
+    &__field {
+      display: flex;
+    }
+
+    &__error-message {
+      position: absolute;
+      margin: 0.1rem 0;
+      height: 1rem;
+      font-size: 85%;
+    }
+  }
+}

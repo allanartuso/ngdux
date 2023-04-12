@@ -8,7 +8,17 @@ export interface PropertyDto {
   size: number;
   address: AddressDto;
   availableFrom: string;
-  features: string[];
+  features: PropertyFeatureDto[];
   description: string;
   contact: UserDto;
+}
+
+export enum PropertyFeatureDto {
+  BALCONY_TERRACE = 'BALCONY_TERRACE',
+  ELEVATOR = 'ELEVATOR',
+  GARAGE = 'GARAGE',
+  PARKING_SPACE = 'PARKING_SPACE',
+  VIEW = 'VIEW',
+  WASHING_MACHINE = 'WASHING_MACHINE',
+  WHEELCHAIR_ACCESS = 'WHEELCHAIR_ACCESS'
 }

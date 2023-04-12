@@ -11,6 +11,16 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
   const loadPreviousPage = createAction(`[${featureName} Page] Load Previous ${featureName} Page`);
   const loadFirstPage = createAction(`[${featureName} Page] Load First ${featureName} Page`);
 
+  const setPageSize = createAction(`[${featureName} Page] Set ${featureName} Page Size`, props<{ pageSize: number }>());
+  const setSorting = createAction(
+    `[${featureName} Page] Set ${featureName} Sorting`,
+    props<{ sortingOptions: SortingOptions }>()
+  );
+  const setFiltering = createAction(
+    `[${featureName} Page] Set ${featureName} Filtering`,
+    props<{ filteringOptions: FilteringOptions }>()
+  );
+
   const changePageSize = createAction(
     `[${featureName} Page] Change ${featureName} Page Size`,
     props<{ pageSize: number }>()
@@ -70,6 +80,9 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
   return {
     initialize,
     reset,
+    setPageSize,
+    setSorting,
+    setFiltering,
     changePageSize,
     changePageNumber,
     changePagingOptions,

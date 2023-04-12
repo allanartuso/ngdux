@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
+import { UsersFacade } from '@demo/demo/data-access/users';
 import { PropertyDto } from '@demo/demo/data-model/properties';
-import { RequestState } from '@ngdux/data-model-common';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'demo-property',
@@ -10,10 +9,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./property.component.scss']
 })
 export class PropertyComponent {
-  property$: Observable<PropertyDto> = this.propertyFacade.resource$;
-  requestState$: Observable<RequestState> = this.propertyFacade.requestState$;
+  property$ = this.propertyFacade.resource$;
+  requestState$ = this.propertyFacade.requestState$;
+  users$ = this.usersFacade.resources$;
 
-  constructor(private readonly propertyFacade: PropertyFacade) {}
+  constructor(private readonly propertyFacade: PropertyFacade, private readonly usersFacade: UsersFacade) {}
 
   onSaved(property: PropertyDto): void {
     if (property.id) {

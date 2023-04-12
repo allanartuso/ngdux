@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { DemoDataAccessPropertiesModule } from '@demo/demo/data-access/properties';
+import { DemoDataAccessUsersModule } from '@demo/demo/data-access/users';
 import { DemoUiPropertiesModule } from '@demo/demo/ui/properties';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
@@ -43,6 +44,7 @@ export const usersRoutes: Routes = [
     SharedUiListModule,
     SharedUtilNotificationModule,
     DemoDataAccessPropertiesModule,
+    DemoDataAccessUsersModule,
     DemoUiPropertiesModule
   ],
   declarations: [PropertyComponent, PropertiesComponent],
