@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker';
+import { Casing, faker } from '@faker-js/faker';
 
 export type RemoveReadonly<T> = {
   -readonly [P in keyof T]: T[P];
@@ -140,7 +140,7 @@ export function getLongitude(): number {
 }
 
 export function getStreetName(): string {
-  return faker.address.streetName();
+  return faker.address.street();
 }
 
 export function getZipCode(): string {
@@ -208,8 +208,8 @@ export function getUuid(): string {
   return faker.datatype.uuid();
 }
 
-export function getAlpha(count: number, upperCase: boolean) {
-  return faker.random.alpha({ count, upcase: upperCase });
+export function getAlpha(count: number, casing: Casing = 'lower') {
+  return faker.random.alpha({ count, casing });
 }
 
 export function getAlphaNumeric(nOfCharacters = 8): string {

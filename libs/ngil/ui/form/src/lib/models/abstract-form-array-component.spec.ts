@@ -1,42 +1,35 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FieldError, FieldErrorCode } from '@arviem/shared/acm/data-access/common';
-import { RequestState } from '@arviem/shared/data-access';
-import { cold } from '@nrwl/angular/testing';
-import { BehaviorSubject } from 'rxjs';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AbstractFormArrayComponent } from './abstract-form-array-component';
-import { ArviemFormControl } from './form.model';
+import { FlatFormControlsOf } from './form.model';
 
 interface TestFormModel {
-  name: string;
+  firstName: string;
+  lastName: string;
 }
 
 @Component({
   template: `
-    <form [formGroup]="form">
+    <form [formGroup]="formGroup">
       <div formArrayName="formArray">
         <div formGroupName="0">
-          <input formControlName="name" label="Name" />
+          <input formControlName="firstName" label="First Name" />
+          <input formControlName="lastName" label="Last Name" />
         </div>
       </div>
     </form>
   `
 })
-class MockFormArrayComponent extends AbstractFormArrayComponent<TestFormModel> {
-  requestState$ = new BehaviorSubject<RequestState>(RequestState.IDLE);
-
-  constructor(private readonly fb: FormBuilder) {
-    super();
+class MockFormArrayComponent extends AbstractFormArrayComponent<FormGroup<FlatFormControlsOf<TestFormModel>>> {
+  protected createFormArray(): FormArray<FormGroup<FlatFormControlsOf<TestFormModel>>> {
+    return new FormArray<FormGroup<FlatFormControlsOf<TestFormModel>>>([]);
   }
 
-  protected createFormArray(models: TestFormModel[]): FormArray {
-    return this.fb.array((models || []).map(model => this.createInternalFormGroup(model)));
-  }
-
-  protected createInternalFormGroup(model?: TestFormModel): FormGroup {
-    return this.fb.group({
-      name: [model.name]
+  protected createFormArrayItem(model?: TestFormModel) {
+    return new FormGroup<FlatFormControlsOf<TestFormModel>>({
+      firstName: new FormControl(model.firstName, [Validators.required]),
+      lastName: new FormControl(model.firstName)
     });
   }
 }
@@ -48,23 +41,24 @@ describe('AbstractFormArrayComponent', () => {
   const onChangeMock = jest.fn();
   const onTouchedMock = jest.fn();
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [ReactiveFormsModule],
-        declarations: [MockFormArrayComponent]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule],
+      declarations: [MockFormArrayComponent]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MockFormArrayComponent);
     component = fixture.componentInstance;
 
-    testFormValues = [{ name: 'testName1' }, { name: 'testName2' }];
-    component.formArrayViewModel = { formArray: testFormValues };
+    testFormValues = [
+      { firstName: 'testFirstName1', lastName: 'testLastName1' },
+      { firstName: 'testFirstName2', lastName: 'testLastName2' }
+    ];
     component.registerOnChange(onChangeMock);
     component.registerOnTouched(onTouchedMock);
+    component.writeValue(testFormValues);
     component.ngAfterViewInit();
 
     fixture.detectChanges();
@@ -72,14 +66,14 @@ describe('AbstractFormArrayComponent', () => {
 
   describe('ngOnInit', () => {
     it('creates the form', () => {
-      expect(component.form).toBeDefined();
+      expect(component.formGroup).toBeDefined();
       expect(component.formArray.value).toStrictEqual(testFormValues);
     });
   });
 
   describe('write value', () => {
     it('adds form controls to the form array when writing value', () => {
-      const newFormValues = [...testFormValues, { name: 'testName3' }];
+      const newFormValues = [...testFormValues, { firstName: 'testFirstName3', lastName: 'testLastName3' }];
       component.writeValue(newFormValues);
 
       expect(component.formArray.value).toStrictEqual(newFormValues);
@@ -87,104 +81,45 @@ describe('AbstractFormArrayComponent', () => {
 
     it('removes form controls from the form array when if necessary', () => {
       const newFormValues = [testFormValues[0]];
-      component.writeValue(testFormValues);
 
       component.writeValue(newFormValues);
 
       expect(component.formArray.value).toStrictEqual(newFormValues);
     });
-  });
 
-  describe('submit', () => {
-    it('emit form submitted event when submitting a valid form.', () => {
-      jest.spyOn(component.submitted, 'emit');
-      const formValues = [{ name: 'newTestName' }];
-      component.writeValue(formValues);
-      (component.formArray.at(0) as FormGroup).markAsDirty();
+    it('removes all form controls from the form array when writing null', () => {
+      component.writeValue(null);
 
-      component.submit();
-
-      expect(component.submitted.emit).toHaveBeenCalledWith(formValues);
+      expect(component.formArray.value).toStrictEqual([]);
     });
   });
 
-  describe('cancel', () => {
-    it('path the received form model values to the form when cancel the current changes', () => {
-      component.writeValue(testFormValues);
-      component.formArray.at(0).get('name').setValue('newTestValue');
-      expect(component.formArray.value[0].name).not.toBe(testFormValues[0].name);
+  describe('set disable', () => {
+    it('disables the control', () => {
+      component.setDisabledState(true);
 
-      component.cancel();
+      expect(component.formArray.disabled).toBe(true);
+    });
 
-      expect(component.formArray.value).toStrictEqual(testFormValues);
-      expect(component.formArray.pristine).toBe(true);
-      expect(component.formArray.untouched).toBe(true);
-      expect(component.form.pristine).toBe(true);
-      expect(component.form.untouched).toBe(true);
+    it('enables the control', () => {
+      component.setDisabledState(false);
+
+      expect(component.formArray.enabled).toBe(true);
     });
   });
 
-  describe('setFormRequestState', () => {
-    it('updates form values when receiving success', () => {
-      const newFormValues = [{ name: 'newTestName' }];
-      component.formArrayViewModel = { formArray: newFormValues };
+  describe('validates', () => {
+    it('set CVA as invalid if the formArray is invalid', () => {
+      component.formArray.at(0).controls.firstName.setValue(undefined);
 
-      component.setFormRequestState = RequestState.SUCCESS;
-
-      expect(component.formArray.value).toStrictEqual(newFormValues);
-    });
-
-    it('emits new value to the request state observable', () => {
-      const requestState = RequestState.SUCCESS;
-      component.setFormRequestState = requestState;
-      const expected = cold('a', { a: requestState });
-
-      expect(component.requestState$).toBeObservable(expected);
-    });
-  });
-
-  describe('server errors', () => {
-    const fieldIndex = 0;
-    const fieldName = 'name';
-    const invalidValue = 'ws0s9661';
-    const errorCode = FieldErrorCode.PROPERTY_VALUE_NOT_UNIQUE;
-    const fieldError = getFieldError(fieldIndex, fieldName, invalidValue, errorCode);
-    const expected = fieldError.fieldErrors[fieldName];
-
-    function getFieldError(index: number, name: string, value: string, code: FieldErrorCode): FieldError {
-      return {
-        fieldIndex: index,
-        errors: {},
-        fieldErrors: {
-          [name]: [
-            {
-              fieldName: name,
-              errors: {
-                [code]: true
-              }
-            }
-          ]
-        }
-      };
-    }
-
-    beforeEach(() => {
-      testFormValues[fieldIndex].name = invalidValue;
-      component.writeValue(testFormValues);
-
-      component.formArray.controls.forEach((formGroup: FormGroup) => {
-        Object.values(formGroup.controls).forEach((formControl: ArviemFormControl) => {
-          formControl.applyServerErrors = jest.fn();
-        });
+      expect(component.formArray.at(0).controls.firstName.errors).toStrictEqual({ required: true });
+      expect(component.validate()).toStrictEqual({
+        invalidFormArray: true
       });
-
-      component.serverFieldArrayErrors = [fieldError];
     });
 
-    it('applies the server errors', () => {
-      const control = component.formArray.at(fieldIndex).get(fieldName) as ArviemFormControl;
-
-      expect(control.applyServerErrors).toHaveBeenCalledWith(expected);
+    it('set CVA as valid if the formArray is valid', () => {
+      expect(component.validate()).toStrictEqual(null);
     });
   });
 });

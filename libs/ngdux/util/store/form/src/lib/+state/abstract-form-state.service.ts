@@ -24,7 +24,8 @@ export abstract class AbstractFormReducerManager<T, E> {
   }
 
   protected addReducer() {
-    if (!Object.keys(this.reducerManager.currentReducers).includes(this.featureKey)) {
+    const currentReducers: string[] = Object.keys(this.reducerManager.currentReducers || {});
+    if (!currentReducers.includes(this.featureKey)) {
       const reducer = createFormReducer(this.actions);
       this.reducerManager.addReducer(this.featureKey, reducer);
     }

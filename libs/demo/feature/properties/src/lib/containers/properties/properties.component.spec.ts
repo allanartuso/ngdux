@@ -33,11 +33,11 @@ describe('PropertiesComponent', () => {
       pagingOptions$: of({ page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE }),
       sortingOptions$: of({ name: { field: 'name', direction: DEFAULT_SORTING_ORDER } }),
       filteringOptions$: of({ logic: DEFAULT_FILTERING_LOGIC, filters: [] }),
-      refresh: jest.fn(),
+      loadPage: jest.fn(),
       changePagingOptions: jest.fn(),
       changeFiltering: jest.fn(),
       changeSorting: jest.fn(),
-      changeSelected: jest.fn(),
+      changeSelectedResources: jest.fn(),
       showRemovalsConfirmation: jest.fn()
     };
 
@@ -65,8 +65,8 @@ describe('PropertiesComponent', () => {
   it('emits load properties page action two times when refreshing the page', () => {
     component.onRefreshPageSelected();
 
-    expect(facade.refresh).toHaveBeenCalledTimes(1);
-    expect(facade.refresh).toHaveBeenCalledWith();
+    expect(facade.loadPage).toHaveBeenCalledTimes(1);
+    expect(facade.loadPage).toHaveBeenCalledWith();
   });
 
   it('emits set properties page size action when setting the page size', () => {
@@ -101,7 +101,7 @@ describe('PropertiesComponent', () => {
 
     component.onRowSelected(properties);
 
-    expect(facade.changeSelected).toHaveBeenCalledWith({ selectedResourceIds });
+    expect(facade.changeSelectedResources).toHaveBeenCalledWith({ selectedResourceIds });
   });
 
   it('emits navigate action when clicking a cell', () => {

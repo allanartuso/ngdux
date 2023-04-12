@@ -14,7 +14,6 @@ describe('PropertiesResolver', () => {
     facade = {
       requestState$: of(RequestState.IDLE),
       isReady$: of(true),
-      initializeRequestOptions: jest.fn(),
       initialize: jest.fn()
     };
 
@@ -35,7 +34,6 @@ describe('PropertiesResolver', () => {
   it('should dispatch initial actions', () => {
     resolver.resolve().subscribe();
 
-    expect(facade.initializeRequestOptions).toHaveBeenCalledWith();
     expect(facade.initialize).toHaveBeenCalledWith();
   });
 

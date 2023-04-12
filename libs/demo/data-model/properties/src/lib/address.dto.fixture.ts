@@ -23,7 +23,7 @@ export function createTransientAddress(): AddressDto {
     country: commonFixture.getCountryCode(),
     city: commonFixture.getCity(),
     street: commonFixture.getStreetName(),
-    streetNumber: commonFixture.getNumberInRange(100, 3000) + commonFixture.getAlpha(1, true),
+    streetNumber: commonFixture.getNumberInRange(100, 3000) + commonFixture.getAlpha(1, 'upper'),
     zipCode: commonFixture.getAlphaNumeric()
   };
 }

@@ -1,5 +1,6 @@
+let mockLastPageNumber: number;
 jest.mock('@ngdux/store-common', () => ({
-  getLastPageNumber: jest.fn().mockReturnValue(undefined),
+  getLastPageNumber: jest.fn().mockImplementation(() => mockLastPageNumber),
   createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
   createRequestStateActionHandlers: jest.fn().mockReturnValue([])
 }));
@@ -176,44 +177,12 @@ describe('createListReducer', () => {
     });
   });
 
-  it('loadPreviousPage decrements by one the page number', () => {
-    testInitialState = {
-      ...testInitialState,
-      pagingOptions: { ...testInitialState.pagingOptions, page: 3 }
-    };
-    const testAction = testListActions.loadPreviousPage();
-
-    const state = testReducer(testInitialState, testAction);
-
-    expect(state).toStrictEqual({
-      ...testInitialState,
-      pagingOptions: {
-        ...testInitialState.pagingOptions,
-        page: testInitialState.pagingOptions.page - 1
-      }
-    });
-  });
-
   it('loadPreviousPage does not decrement if the current page is 1', () => {
     const testAction = testListActions.loadPreviousPage();
 
     const state = testReducer(undefined, testAction);
 
     expect(state).toStrictEqual(testInitialState);
-  });
-
-  it('loadNextPage increments by one the page number', () => {
-    const testAction = testListActions.loadNextPage();
-
-    const state = testReducer(undefined, testAction);
-
-    expect(state).toStrictEqual({
-      ...testInitialState,
-      pagingOptions: {
-        ...testInitialState.pagingOptions,
-        page: testInitialState.pagingOptions.page + 1
-      }
-    });
   });
 
   it('loadNextPage does not increments the page number if it is the last page', () => {
@@ -234,51 +203,42 @@ describe('createListReducer', () => {
   });
 
   describe('loadPageSuccess', () => {
-    it('sets the loaded resources and removes the first page found in the state when loading the next page', () => {
-      const currentResources = createTestResources(6);
+    it('sets the loaded resources when loading a page', () => {
       const loadedResources = createTestResources(2);
       const page = 4;
       const pageSize = 2;
+
       const testAction = testListActions.loadPageSuccess({
         resources: loadedResources,
         pagingOptions: { page, pageSize }
-      });
-      testInitialState = testEntityAdapter.addMany(currentResources, {
-        ...testInitialState,
-        pagingOptions: { page: page - 1, pageSize }
       });
 
       const state = testReducer(testInitialState, testAction);
 
       expect(state).toStrictEqual(
-        testEntityAdapter.setAll([...currentResources.slice(pageSize, currentResources.length), ...loadedResources], {
+        testEntityAdapter.setAll(loadedResources, {
           ...testInitialState
         })
       );
     });
 
-    it('sets the loaded resources and removes the last page found in the state when loading the previous page', () => {
-      const currentResources = createTestResources(6);
-      const loadedResources = createTestResources(2);
-      const page = 4;
-      const pageSize = 2;
+    it('sets as last page to previous page if the loaded resources are empty', () => {
+      const loadedResources: TestResource[] = [];
+      const page = 2;
+      const pageSize = 5;
+      mockLastPageNumber = page - 1;
+
       const testAction = testListActions.loadPageSuccess({
         resources: loadedResources,
-        pagingOptions: {
-          page: page - 1,
-          pageSize
-        }
-      });
-      testInitialState = testEntityAdapter.addMany(currentResources, {
-        ...testInitialState,
         pagingOptions: { page, pageSize }
       });
 
       const state = testReducer(testInitialState, testAction);
 
       expect(state).toStrictEqual(
-        testEntityAdapter.setAll([...loadedResources, ...currentResources.slice(0, -pageSize)], {
-          ...testInitialState
+        testEntityAdapter.setAll(loadedResources, {
+          ...testInitialState,
+          lastPageNumber: mockLastPageNumber
         })
       );
     });

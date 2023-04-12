@@ -81,7 +81,36 @@ describe('list selectors', () => {
     it('returns current page data', () => {
       const allResources = testEntityAdapter.getSelectors().selectAll(state);
 
-      expect(listSelectors.getCurrentPageData.projector(state.pagingOptions, allResources)).toStrictEqual(allResources);
+      expect(listSelectors.getCurrentPageData.projector(allResources)).toStrictEqual(allResources);
+    });
+  });
+
+  describe('getTotalCount', () => {
+    beforeEach(() => {
+      resources = createTestResources();
+      state = testEntityAdapter.addMany(resources, { ...initialState });
+    });
+
+    it('gets the total count', () => {
+      expect(listSelectors.getTotalCount.projector(state.pagingOptions, resources)).toStrictEqual(resources.length);
+    });
+  });
+
+  describe('getSelectionRecord', () => {
+    let selectedResourceIds: string[];
+    beforeEach(() => {
+      resources = createTestResources();
+      state = testEntityAdapter.addMany(resources, { ...initialState });
+      selectedResourceIds = [resources[0].id, resources[2].id];
+      state.selectedResourceIds = selectedResourceIds;
+    });
+
+    it('gets the selected resources', () => {
+      const record = testEntityAdapter.getSelectors().selectEntities(state);
+      expect(listSelectors.getSelectionRecord.projector(selectedResourceIds, record)).toStrictEqual({
+        [selectedResourceIds[0]]: resources[0],
+        [selectedResourceIds[1]]: resources[2]
+      });
     });
   });
 
