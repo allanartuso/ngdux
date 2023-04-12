@@ -27,8 +27,11 @@ export abstract class AbstractListReducerManager<T, E, S = T> {
 
   protected addReducer() {
     this.entityAdapter = createListEntityAdapter<S>();
-    const reducer = createListReducer<T, E, S>(this.entityAdapter, this.actions);
-    this.reducerManager.addReducer(this.featureKey, reducer);
+
+    if (!Object.keys(this.reducerManager.currentReducers).includes(this.featureKey)) {
+      const reducer = createListReducer<T, E, S>(this.entityAdapter, this.actions);
+      this.reducerManager.addReducer(this.featureKey, reducer);
+    }
   }
 
   protected setSelectors() {

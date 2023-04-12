@@ -24,8 +24,10 @@ export abstract class AbstractFormReducerManager<T, E> {
   }
 
   protected addReducer() {
-    const reducer = createFormReducer(this.actions);
-    this.reducerManager.addReducer(this.featureKey, reducer);
+    if (!Object.keys(this.reducerManager.currentReducers).includes(this.featureKey)) {
+      const reducer = createFormReducer(this.actions);
+      this.reducerManager.addReducer(this.featureKey, reducer);
+    }
   }
 
   protected setSelectors() {
