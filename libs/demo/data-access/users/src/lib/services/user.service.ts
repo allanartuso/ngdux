@@ -28,7 +28,7 @@ export class UserService implements FormService<UserDto>, ListService<UserDto> {
   }
 
   loadResources(options: RequestOptions): Observable<UserDto[]> {
-    return this.restService.queryResources(USERS_RESOURCE_BASE_PATH, options);
+    return this.restService.loadResources(USERS_RESOURCE_BASE_PATH, options);
   }
 
   deleteResources(ids: string[]): Observable<Array<ErrorDto>> {

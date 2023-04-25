@@ -48,19 +48,26 @@ export class RestService extends AbstractRestService {
   }
 
   private getSortingParameters(options: SortingOptions): Record<string, string> {
-    const sortingParameters: Record<string, string> = {};
+    const fieldNames: string[] = [];
+    const orders: string[] = [];
 
     if (options) {
-      const fieldNames = Object.keys(options)
-        .filter(fieldName => options[fieldName].direction !== SortingDirection.NONE)
-        .map(fieldName => (options[fieldName].direction === SortingDirection.DESCENDING ? `-${fieldName}` : fieldName));
-
-      if (fieldNames.length > 0) {
-        sortingParameters['sort'] = fieldNames.join();
-      }
+      Object.keys(options).forEach(fieldName => {
+        if (options[fieldName].direction !== SortingDirection.NONE) {
+          fieldNames.push(fieldName);
+          orders.push(options[fieldName].direction);
+        }
+      });
     }
 
-    return sortingParameters;
+    if (!fieldNames.length) {
+      return {};
+    }
+
+    return {
+      _sort: fieldNames.join(','),
+      _order: orders.join(',')
+    };
   }
 
   private getFilteringParameters(options: FilteringOptions): Record<string, string> {

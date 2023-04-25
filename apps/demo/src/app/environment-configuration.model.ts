@@ -3,7 +3,7 @@ import { environment } from '../environments/environment';
 
 const ENVIRONMENT_CONFIGURATION: EnvironmentConfiguration = {
   local: {
-    apiBaseUrl: 'http://localhost:8080/api'
+    apiBaseUrl: 'http://localhost:3000/api'
   },
   production: {
     apiBaseUrl: ''

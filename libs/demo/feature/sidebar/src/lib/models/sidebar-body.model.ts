@@ -14,15 +14,15 @@ export const BODY_ITEMS: MenuItem[] = [
     children: [
       {
         name: 'Users',
-        icon: 'contact_mail',
+        icon: 'list',
         display: true,
         link: '/users'
       },
       {
         name: 'Create User',
-        icon: 'contact_mail',
+        icon: 'add',
         display: true,
-        link: '/users/create'
+        link: '/users/new'
       }
     ]
   },
@@ -34,15 +34,15 @@ export const BODY_ITEMS: MenuItem[] = [
     children: [
       {
         name: 'Properties',
-        icon: 'contact_mail',
+        icon: 'list',
         display: true,
         link: '/properties'
       },
       {
         name: 'Create User',
-        icon: 'contact_mail',
+        icon: 'add',
         display: true,
-        link: '/properties/create'
+        link: '/properties/new'
       }
     ]
   }

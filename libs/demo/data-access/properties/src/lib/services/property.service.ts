@@ -28,7 +28,7 @@ export class PropertyService implements FormService<PropertyDto>, ListService<Pr
   }
 
   loadResources(options: RequestOptions): Observable<PropertyDto[]> {
-    return this.restService.queryResources(PROPERTIES_RESOURCE_BASE_PATH, options);
+    return this.restService.loadResources(PROPERTIES_RESOURCE_BASE_PATH, options);
   }
 
   deleteResources(ids: string[]): Observable<Array<ErrorDto>> {
