@@ -30,7 +30,8 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "ngdux:build": "nx build ngdux-util-store-form --configuration=production && nx build ngdux-util-store-list --configuration=production",
-    "ngdux:publish": "npm publish dist/libs/ngdux/data-model/common && npm publish dist/libs/ngdux/util/store/common && npm publish dist/libs/ngdux/util/store/form && npm publish dist/libs/ngdux/util/store/list"
+    "ngdux:publish": "npm publish dist/libs/ngdux/data-model/common && npm publish dist/libs/ngdux/util/store/common && npm publish dist/libs/ngdux/util/store/form && npm publish dist/libs/ngdux/util/store/list",
+    "generate:db": "ts-node -P tools/tsconfig.json tools/generators/db-json.ts"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,2608 @@
+{
+  "properties": [
+    {
+      "id": "xpjih9uj",
+      "price": 3449,
+      "size": 10,
+      "address": {
+        "id": "rsc5x1h9",
+        "country": "MD",
+        "city": "Dollyton",
+        "street": "Greg Freeway",
+        "streetNumber": "2189K",
+        "zipCode": "wilk7zs4"
+      },
+      "availableFrom": "2023-12-23T21:19:43.164Z",
+      "features": [
+        "GARAGE",
+        "PARKING_SPACE",
+        "WASHING_MACHINE",
+        "WHEELCHAIR_ACCESS",
+        "BALCONY_TERRACE",
+        "VIEW",
+        "ELEVATOR"
+      ],
+      "description": "Eveniet molestiae ut totam esse quo. Itaque numquam totam quos. Similique distinctio praesentium est vitae.",
+      "contact": {
+        "id": "egirff3s",
+        "email": "ned.hammes@yahoo.com",
+        "firstName": "Ned",
+        "lastName": "Hammes",
+        "birthTime": "0:50:13"
+      }
+    },
+    {
+      "id": "ufvx3em0",
+      "price": 2816,
+      "size": 2,
+      "address": {
+        "id": "m8h4tzci",
+        "country": "IQ",
+        "city": "Browncester",
+        "street": "Cristobal Plaza",
+        "streetNumber": "951W",
+        "zipCode": "499bctpr"
+      },
+      "availableFrom": "2023-07-04T18:03:40.937Z",
+      "features": ["WHEELCHAIR_ACCESS", "GARAGE", "WASHING_MACHINE", "VIEW"],
+      "description": "Doloremque sequi accusantium dicta eos expedita est deserunt delectus quaerat. Temporibus dolore sunt doloribus occaecati dolorem. Exercitationem inventore sequi nostrum doloremque.",
+      "contact": {
+        "id": "ba94sf8h",
+        "email": "melba_williamson@hotmail.com",
+        "firstName": "Melba",
+        "lastName": "Williamson",
+        "birthTime": "19:7:46"
+      }
+    },
+    {
+      "id": "qhwjwo6m",
+      "price": 1792,
+      "size": 3,
+      "address": {
+        "id": "sk1s97vv",
+        "country": "LI",
+        "city": "Bayerport",
+        "street": "Sydney View",
+        "streetNumber": "797E",
+        "zipCode": "pki21315"
+      },
+      "availableFrom": "2023-11-23T21:55:47.622Z",
+      "features": ["WASHING_MACHINE", "PARKING_SPACE", "WHEELCHAIR_ACCESS", "ELEVATOR", "GARAGE", "BALCONY_TERRACE"],
+      "description": "Quo dicta assumenda doloremque perferendis atque molestiae debitis culpa. Ab explicabo omnis veritatis culpa incidunt minus et fuga. Autem ipsam cupiditate a veritatis. Facere tempora qui ea neque. Tempore facere amet officia non quod commodi magnam ipsam.",
+      "contact": {
+        "id": "zh1um6wy",
+        "email": "simeon.dibbert@gmail.com",
+        "firstName": "Simeon",
+        "lastName": "Dibbert",
+        "birthTime": "22:13:22"
+      }
+    },
+    {
+      "id": "roxtcwrq",
+      "price": 3051,
+      "size": 6,
+      "address": {
+        "id": "hwzug6bg",
+        "country": "SN",
+        "city": "Schowalterbury",
+        "street": "Trace Flats",
+        "streetNumber": "2133V",
+        "zipCode": "osc0c078"
+      },
+      "availableFrom": "2023-09-03T11:51:45.067Z",
+      "features": ["ELEVATOR"],
+      "description": "Ipsa ducimus dicta perspiciatis quis at repudiandae id temporibus. Dignissimos numquam tempore repellendus eos quae. Cum nesciunt alias. Blanditiis non quidem ipsa.",
+      "contact": {
+        "id": "mb0ja8xt",
+        "email": "anais87@hotmail.com",
+        "firstName": "Anais",
+        "lastName": "Hagenes",
+        "birthTime": "23:21:58"
+      }
+    },
+    {
+      "id": "jwte29g1",
+      "price": 1678,
+      "size": 12,
+      "address": {
+        "id": "cvzjx4mp",
+        "country": "CU",
+        "city": "St. Joseph",
+        "street": "Shirley Camp",
+        "streetNumber": "2736V",
+        "zipCode": "1ezgsgca"
+      },
+      "availableFrom": "2023-11-01T19:58:10.741Z",
+      "features": ["WASHING_MACHINE", "ELEVATOR", "BALCONY_TERRACE", "WHEELCHAIR_ACCESS", "VIEW", "PARKING_SPACE"],
+      "description": "Eos hic ea omnis in aliquid sit enim odit. Quisquam perferendis libero corrupti earum. Minus beatae sapiente itaque necessitatibus totam maiores doloremque expedita. Dolor voluptate non natus minima. Fugit esse veniam fugiat sed rerum. Eligendi ex sunt est laudantium ipsa quia sunt nobis ratione.",
+      "contact": {
+        "id": "isqfgzc4",
+        "email": "shad.koss53@hotmail.com",
+        "firstName": "Shad",
+        "lastName": "Koss",
+        "birthTime": "6:24:9"
+      }
+    },
+    {
+      "id": "pmpn9pph",
+      "price": 813,
+      "size": 3,
+      "address": {
+        "id": "amojsp31",
+        "country": "CU",
+        "city": "Fort Colton",
+        "street": "Lexus Unions",
+        "streetNumber": "2103I",
+        "zipCode": "360u191u"
+      },
+      "availableFrom": "2023-06-04T02:13:55.048Z",
+      "features": [
+        "WHEELCHAIR_ACCESS",
+        "WASHING_MACHINE",
+        "BALCONY_TERRACE",
+        "ELEVATOR",
+        "VIEW",
+        "PARKING_SPACE",
+        "GARAGE"
+      ],
+      "description": "Minima at molestiae quia. Quis ducimus et consectetur eum reprehenderit. A dolore modi magni.",
+      "contact": {
+        "id": "wm8yb20h",
+        "email": "cole.keebler@yahoo.com",
+        "firstName": "Cole",
+        "lastName": "Keebler",
+        "birthTime": "8:32:2"
+      }
+    },
+    {
+      "id": "wiggkn9l",
+      "price": 1295,
+      "size": 5,
+      "address": {
+        "id": "92nniosd",
+        "country": "MT",
+        "city": "Great Falls",
+        "street": "Joey Roads",
+        "streetNumber": "1806D",
+        "zipCode": "tocv089l"
+      },
+      "availableFrom": "2024-01-15T22:13:38.143Z",
+      "features": ["VIEW", "WHEELCHAIR_ACCESS"],
+      "description": "Similique quis laborum voluptatibus odio quisquam aspernatur sit eum. Commodi rerum quam doloremque exercitationem quas tempore. Aspernatur enim maxime ex ratione odio tempore praesentium. Placeat aliquam odit aspernatur. Possimus labore deserunt.",
+      "contact": {
+        "id": "xrhtaz7l",
+        "email": "janae48@gmail.com",
+        "firstName": "Janae",
+        "lastName": "Prohaska",
+        "birthTime": "19:36:35"
+      }
+    },
+    {
+      "id": "8f38s5qj",
+      "price": 2426,
+      "size": 9,
+      "address": {
+        "id": "3d89u35e",
+        "country": "SE",
+        "city": "Fayfurt",
+        "street": "West Station",
+        "streetNumber": "459R",
+        "zipCode": "hi7p6kbi"
+      },
+      "availableFrom": "2024-02-02T14:39:32.205Z",
+      "features": [
+        "WASHING_MACHINE",
+        "GARAGE",
+        "ELEVATOR",
+        "BALCONY_TERRACE",
+        "PARKING_SPACE",
+        "WHEELCHAIR_ACCESS",
+        "VIEW"
+      ],
+      "description": "Corporis eum provident doloremque dolore commodi ut id neque. Magnam numquam ipsa mollitia doloremque quaerat. Iusto veritatis fuga explicabo ratione ducimus dolore perspiciatis. Nemo recusandae asperiores perspiciatis. Voluptatibus ab necessitatibus nisi dignissimos quasi.",
+      "contact": {
+        "id": "ywx8tr4t",
+        "email": "ambrose24@gmail.com",
+        "firstName": "Ambrose",
+        "lastName": "Pagac",
+        "birthTime": "15:27:28"
+      }
+    },
+    {
+      "id": "wq49e2e5",
+      "price": 1878,
+      "size": 10,
+      "address": {
+        "id": "5wu5r8u1",
+        "country": "FK",
+        "city": "East Wellingtonfurt",
+        "street": "Deion Glens",
+        "streetNumber": "1098U",
+        "zipCode": "d9dfaoqs"
+      },
+      "availableFrom": "2024-04-12T08:35:42.210Z",
+      "features": ["WASHING_MACHINE", "VIEW"],
+      "description": "Placeat quod accusamus qui distinctio beatae quod laudantium. Numquam pariatur asperiores earum non. Voluptate placeat hic architecto cupiditate error eum assumenda ex.",
+      "contact": {
+        "id": "4z43gu64",
+        "email": "wendy.streich@hotmail.com",
+        "firstName": "Wendy",
+        "lastName": "Streich",
+        "birthTime": "6:57:37"
+      }
+    },
+    {
+      "id": "lf5ylsaz",
+      "price": 2936,
+      "size": 9,
+      "address": {
+        "id": "oe6kemga",
+        "country": "RU",
+        "city": "Port Meghan",
+        "street": "Martin Forges",
+        "streetNumber": "753J",
+        "zipCode": "dh7s3klh"
+      },
+      "availableFrom": "2023-11-16T07:15:00.872Z",
+      "features": ["WASHING_MACHINE", "GARAGE", "VIEW", "PARKING_SPACE", "BALCONY_TERRACE"],
+      "description": "Odit quibusdam exercitationem numquam nesciunt. Vel error dolor soluta ipsam consequatur sed. Iusto facilis commodi culpa quia. Tenetur debitis iste. Porro atque fugiat quam consequatur sint. Aliquam quidem ipsam dolorum.",
+      "contact": {
+        "id": "fom4c0kp",
+        "email": "demond_bednar@hotmail.com",
+        "firstName": "Demond",
+        "lastName": "Bednar",
+        "birthTime": "0:48:8"
+      }
+    },
+    {
+      "id": "1te6wqh9",
+      "price": 1130,
+      "size": 9,
+      "address": {
+        "id": "i142wl2v",
+        "country": "GT",
+        "city": "Kleinboro",
+        "street": "Huel Camp",
+        "streetNumber": "2633G",
+        "zipCode": "ea4ukpw5"
+      },
+      "availableFrom": "2023-11-25T02:48:14.967Z",
+      "features": ["ELEVATOR", "VIEW", "WASHING_MACHINE", "BALCONY_TERRACE"],
+      "description": "Voluptatibus suscipit odio adipisci consectetur. Saepe aspernatur sunt explicabo maiores. Dolorum labore soluta unde nobis voluptatem quasi. Ut tempora debitis dolor.",
+      "contact": {
+        "id": "pehatf2o",
+        "email": "aiyana4@gmail.com",
+        "firstName": "Aiyana",
+        "lastName": "Bergstrom",
+        "birthTime": "13:28:8"
+      }
+    },
+    {
+      "id": "xnh22w7y",
+      "price": 1651,
+      "size": 7,
+      "address": {
+        "id": "i7c9eaq6",
+        "country": "SX",
+        "city": "Fort Andrewborough",
+        "street": "Frami Ways",
+        "streetNumber": "2917R",
+        "zipCode": "t2tscz0e"
+      },
+      "availableFrom": "2023-10-21T11:22:34.489Z",
+      "features": ["BALCONY_TERRACE", "PARKING_SPACE", "WHEELCHAIR_ACCESS", "WASHING_MACHINE"],
+      "description": "Reprehenderit eveniet architecto molestiae possimus. Minus animi cupiditate repudiandae placeat. Aspernatur praesentium illo dignissimos consequuntur officia consectetur dicta deserunt. Beatae sint dicta qui voluptas odit tempora reprehenderit dolore quo.",
+      "contact": {
+        "id": "ot1j4586",
+        "email": "albin80@yahoo.com",
+        "firstName": "Albin",
+        "lastName": "Ratke",
+        "birthTime": "7:41:2"
+      }
+    },
+    {
+      "id": "y7vp0lg5",
+      "price": 3285,
+      "size": 3,
+      "address": {
+        "id": "mipo9xjr",
+        "country": "MV",
+        "city": "Arnoldoworth",
+        "street": "Gunnar Glen",
+        "streetNumber": "1919O",
+        "zipCode": "7vqvp072"
+      },
+      "availableFrom": "2023-12-15T15:06:11.311Z",
+      "features": ["BALCONY_TERRACE", "WASHING_MACHINE", "PARKING_SPACE", "VIEW", "ELEVATOR"],
+      "description": "Quis ipsa sapiente. Nisi reiciendis porro maxime magnam in iure cupiditate. Perferendis eveniet quos magnam commodi quae.",
+      "contact": {
+        "id": "jo3n4fom",
+        "email": "bria_huel2@yahoo.com",
+        "firstName": "Bria",
+        "lastName": "Huel",
+        "birthTime": "11:16:21"
+      }
+    },
+    {
+      "id": "5ocd772m",
+      "price": 1255,
+      "size": 12,
+      "address": {
+        "id": "55mo3xiv",
+        "country": "SO",
+        "city": "South Furmanfield",
+        "street": "Jacobs Fields",
+        "streetNumber": "1993W",
+        "zipCode": "meapdwv4"
+      },
+      "availableFrom": "2023-08-18T23:36:41.055Z",
+      "features": ["BALCONY_TERRACE", "GARAGE", "WHEELCHAIR_ACCESS", "ELEVATOR"],
+      "description": "Suscipit harum veritatis corrupti corporis modi vero aperiam sint quo. Nobis velit omnis assumenda. Modi deserunt maxime commodi incidunt quas expedita. Voluptatibus adipisci aliquid alias atque numquam. Error iusto dolores dolor harum neque iusto omnis laborum aut.",
+      "contact": {
+        "id": "pqlix58k",
+        "email": "easter28@hotmail.com",
+        "firstName": "Easter",
+        "lastName": "Spinka",
+        "birthTime": "16:45:5"
+      }
+    },
+    {
+      "id": "0omm5c71",
+      "price": 1960,
+      "size": 3,
+      "address": {
+        "id": "cnlb4va9",
+        "country": "GG",
+        "city": "Millcreek",
+        "street": "Doyle Oval",
+        "streetNumber": "169G",
+        "zipCode": "k72vskug"
+      },
+      "availableFrom": "2023-07-02T12:09:12.468Z",
+      "features": ["PARKING_SPACE", "BALCONY_TERRACE", "ELEVATOR"],
+      "description": "Excepturi quas sapiente ad vitae quos. Soluta veniam ratione et maxime. Amet consequatur repellat. Ipsum sapiente earum molestias illum occaecati modi.",
+      "contact": {
+        "id": "132yl4f2",
+        "email": "alexandre_klein8@hotmail.com",
+        "firstName": "Alexandre",
+        "lastName": "Klein",
+        "birthTime": "23:26:56"
+      }
+    },
+    {
+      "id": "2p542l1t",
+      "price": 2857,
+      "size": 3,
+      "address": {
+        "id": "6nccackl",
+        "country": "SY",
+        "city": "Gavinstad",
+        "street": "Enrique Creek",
+        "streetNumber": "1436Q",
+        "zipCode": "sfekz807"
+      },
+      "availableFrom": "2023-06-07T14:00:31.482Z",
+      "features": ["GARAGE", "VIEW"],
+      "description": "Omnis aperiam libero dignissimos incidunt amet nostrum aliquid. Numquam odio culpa laborum dolore. Dicta quo dolorum facilis eos deserunt. Asperiores cum dolores quisquam dicta quaerat minus suscipit. Est eius quibusdam asperiores aspernatur quod.",
+      "contact": {
+        "id": "q5c3c2bx",
+        "email": "chadrick.vonrueden@yahoo.com",
+        "firstName": "Chadrick",
+        "lastName": "VonRueden",
+        "birthTime": "0:20:57"
+      }
+    },
+    {
+      "id": "xwc9s45u",
+      "price": 2506,
+      "size": 11,
+      "address": {
+        "id": "0jmcxq45",
+        "country": "TC",
+        "city": "Hackettchester",
+        "street": "Leatha Burg",
+        "streetNumber": "1975Q",
+        "zipCode": "0cmirfd8"
+      },
+      "availableFrom": "2024-02-12T03:16:04.359Z",
+      "features": ["GARAGE", "ELEVATOR"],
+      "description": "Voluptatum sunt reiciendis quis error tempore eaque numquam. In hic officia illum molestias iste provident minima minima accusantium. Recusandae a aspernatur dolorum veniam quidem. Sapiente repudiandae fuga impedit atque esse exercitationem porro.",
+      "contact": {
+        "id": "0w77y2oo",
+        "email": "lolita_cartwright@yahoo.com",
+        "firstName": "Lolita",
+        "lastName": "Cartwright",
+        "birthTime": "19:53:22"
+      }
+    },
+    {
+      "id": "j9fc93bk",
+      "price": 1068,
+      "size": 12,
+      "address": {
+        "id": "x6dzimn4",
+        "country": "CF",
+        "city": "Sacramento",
+        "street": "Dock Knoll",
+        "streetNumber": "2178J",
+        "zipCode": "ch7lvhel"
+      },
+      "availableFrom": "2024-01-26T13:46:16.311Z",
+      "features": ["WASHING_MACHINE", "ELEVATOR", "BALCONY_TERRACE", "WHEELCHAIR_ACCESS"],
+      "description": "Necessitatibus cupiditate suscipit. Aut eius voluptatum nemo sequi alias possimus voluptatum. Dolores cumque porro ex officia praesentium incidunt inventore. Ipsum non dolorem sapiente sed.",
+      "contact": {
+        "id": "y1rovj8v",
+        "email": "emile.dubuque@yahoo.com",
+        "firstName": "Emile",
+        "lastName": "DuBuque",
+        "birthTime": "9:16:37"
+      }
+    },
+    {
+      "id": "yi65jvcq",
+      "price": 3543,
+      "size": 9,
+      "address": {
+        "id": "f338esai",
+        "country": "MW",
+        "city": "Ornhaven",
+        "street": "Barton Parks",
+        "streetNumber": "242U",
+        "zipCode": "sra14sjx"
+      },
+      "availableFrom": "2023-08-04T01:51:41.091Z",
+      "features": ["VIEW", "WHEELCHAIR_ACCESS", "ELEVATOR", "GARAGE"],
+      "description": "Deserunt optio officia at nemo iure quam. Error excepturi possimus dolores fuga similique nisi nostrum odit. Harum maxime consectetur numquam maiores atque iusto provident quod. Fugit nihil enim occaecati alias dolorum corporis vel rem vel.",
+      "contact": {
+        "id": "j2pq0w2o",
+        "email": "darrel24@gmail.com",
+        "firstName": "Darrel",
+        "lastName": "Powlowski",
+        "birthTime": "1:19:12"
+      }
+    },
+    {
+      "id": "2rvoa2hc",
+      "price": 1122,
+      "size": 5,
+      "address": {
+        "id": "af0gkm1d",
+        "country": "KP",
+        "city": "Ruthland",
+        "street": "Leannon Coves",
+        "streetNumber": "2525L",
+        "zipCode": "8jzvkmsr"
+      },
+      "availableFrom": "2024-04-08T01:34:46.490Z",
+      "features": [
+        "PARKING_SPACE",
+        "GARAGE",
+        "WASHING_MACHINE",
+        "ELEVATOR",
+        "BALCONY_TERRACE",
+        "WHEELCHAIR_ACCESS",
+        "VIEW"
+      ],
+      "description": "Corporis laborum asperiores labore suscipit hic suscipit ab officia minima. Dolores rem laudantium alias labore. Perferendis tempore unde porro recusandae voluptas itaque nulla maxime repudiandae.",
+      "contact": {
+        "id": "uy5o0qch",
+        "email": "agnes54@hotmail.com",
+        "firstName": "Agnes",
+        "lastName": "Feil",
+        "birthTime": "12:26:37"
+      }
+    },
+    {
+      "id": "cq4vwbau",
+      "price": 2881,
+      "size": 5,
+      "address": {
+        "id": "jplkjb3o",
+        "country": "RS",
+        "city": "Deckowton",
+        "street": "Tania Garden",
+        "streetNumber": "2139U",
+        "zipCode": "07jaeuos"
+      },
+      "availableFrom": "2023-05-11T15:30:03.794Z",
+      "features": [
+        "ELEVATOR",
+        "BALCONY_TERRACE",
+        "WHEELCHAIR_ACCESS",
+        "PARKING_SPACE",
+        "WASHING_MACHINE",
+        "VIEW",
+        "GARAGE"
+      ],
+      "description": "Ratione asperiores beatae sint laudantium. Adipisci vel quaerat accusantium non cum corporis nisi tempora aliquam. Deserunt hic laborum error.",
+      "contact": {
+        "id": "34iluo7s",
+        "email": "kevon22@yahoo.com",
+        "firstName": "Kevon",
+        "lastName": "Senger",
+        "birthTime": "11:36:19"
+      }
+    },
+    {
+      "id": "4trezths",
+      "price": 2449,
+      "size": 9,
+      "address": {
+        "id": "arx8723u",
+        "country": "GE",
+        "city": "Lakeland",
+        "street": "Murazik Freeway",
+        "streetNumber": "2908O",
+        "zipCode": "fk8mpck6"
+      },
+      "availableFrom": "2023-09-07T14:06:34.245Z",
+      "features": ["GARAGE", "WASHING_MACHINE", "VIEW", "ELEVATOR"],
+      "description": "Fugit aliquam incidunt doloribus soluta at delectus. Unde doloremque consequuntur. Possimus beatae iste est sapiente et. Earum quo deserunt.",
+      "contact": {
+        "id": "416n98p4",
+        "email": "emelie49@gmail.com",
+        "firstName": "Emelie",
+        "lastName": "Doyle",
+        "birthTime": "1:0:11"
+      }
+    },
+    {
+      "id": "r8rin1rq",
+      "price": 1412,
+      "size": 6,
+      "address": {
+        "id": "9ijonexn",
+        "country": "TZ",
+        "city": "West Hartford",
+        "street": "Trystan Lakes",
+        "streetNumber": "1534I",
+        "zipCode": "rhpm41ep"
+      },
+      "availableFrom": "2023-06-09T01:45:53.256Z",
+      "features": ["GARAGE", "WASHING_MACHINE", "BALCONY_TERRACE"],
+      "description": "Esse quae recusandae esse nam perspiciatis. Nobis nostrum commodi consectetur. Voluptatum perspiciatis vel veniam veniam perspiciatis quas iure ea necessitatibus. Ipsam esse possimus debitis. Fugiat quas iure similique quos praesentium porro incidunt modi velit. Deserunt cumque veritatis sequi architecto perferendis autem accusantium eaque.",
+      "contact": {
+        "id": "jiss1zdt",
+        "email": "danial34@yahoo.com",
+        "firstName": "Danial",
+        "lastName": "Kertzmann",
+        "birthTime": "0:58:12"
+      }
+    },
+    {
+      "id": "zkikc3p8",
+      "price": 3613,
+      "size": 6,
+      "address": {
+        "id": "p8hysurq",
+        "country": "TM",
+        "city": "Fort Talon",
+        "street": "Kilback Motorway",
+        "streetNumber": "2260M",
+        "zipCode": "tmsm82c8"
+      },
+      "availableFrom": "2024-03-19T15:52:11.747Z",
+      "features": ["ELEVATOR", "VIEW", "WHEELCHAIR_ACCESS", "GARAGE", "PARKING_SPACE"],
+      "description": "Rerum occaecati quos ipsam doloribus. Aliquid dignissimos ut. Recusandae maxime a ad fugit ea. Veniam aspernatur laborum debitis rerum. Fugit eos animi repellat earum. Veniam consequuntur fuga tempore veniam ipsam ea quia atque dolore.",
+      "contact": {
+        "id": "qghl4uwc",
+        "email": "arnaldo.romaguera@hotmail.com",
+        "firstName": "Arnaldo",
+        "lastName": "Romaguera",
+        "birthTime": "23:31:52"
+      }
+    },
+    {
+      "id": "kvx18mdm",
+      "price": 2241,
+      "size": 4,
+      "address": {
+        "id": "0oburdq2",
+        "country": "VI",
+        "city": "Antonettehaven",
+        "street": "Mohr Branch",
+        "streetNumber": "1725O",
+        "zipCode": "gchi35dg"
+      },
+      "availableFrom": "2024-01-18T05:23:57.143Z",
+      "features": ["WASHING_MACHINE", "VIEW", "BALCONY_TERRACE", "WHEELCHAIR_ACCESS", "GARAGE"],
+      "description": "Eveniet similique aperiam cumque eius nulla nihil quo enim quo. Cum necessitatibus numquam reiciendis nihil ad atque rerum quia soluta. Omnis unde impedit voluptas labore maxime quos quas rem laborum.",
+      "contact": {
+        "id": "r3uwxgmh",
+        "email": "roger86@yahoo.com",
+        "firstName": "Roger",
+        "lastName": "Hintz",
+        "birthTime": "7:50:36"
+      }
+    },
+    {
+      "id": "qt0s7bpw",
+      "price": 1055,
+      "size": 2,
+      "address": {
+        "id": "39je866g",
+        "country": "CW",
+        "city": "Boulder",
+        "street": "Sipes Union",
+        "streetNumber": "321L",
+        "zipCode": "y59bupap"
+      },
+      "availableFrom": "2023-06-17T21:09:08.053Z",
+      "features": ["BALCONY_TERRACE"],
+      "description": "Neque amet rem. Repellat sed earum odit totam corporis laudantium asperiores. Id exercitationem ratione hic natus exercitationem. Numquam facilis voluptatem in voluptatum commodi debitis natus at. Aperiam doloribus sunt repellendus quis hic perspiciatis magnam cumque iusto.",
+      "contact": {
+        "id": "b22wmpj4",
+        "email": "adelle.rutherford@gmail.com",
+        "firstName": "Adelle",
+        "lastName": "Rutherford",
+        "birthTime": "12:25:36"
+      }
+    },
+    {
+      "id": "yoy82hyv",
+      "price": 1465,
+      "size": 11,
+      "address": {
+        "id": "filqztht",
+        "country": "SI",
+        "city": "Fort Mitchelstead",
+        "street": "Annabelle Alley",
+        "streetNumber": "367S",
+        "zipCode": "2rimiemg"
+      },
+      "availableFrom": "2023-12-30T02:51:52.450Z",
+      "features": ["WASHING_MACHINE", "GARAGE", "BALCONY_TERRACE", "WHEELCHAIR_ACCESS", "ELEVATOR", "PARKING_SPACE"],
+      "description": "Ducimus dolor recusandae est perferendis nobis fugit aspernatur accusamus nam. Nemo eligendi molestiae quasi. Consectetur praesentium quaerat accusantium aperiam unde dolore quae asperiores.",
+      "contact": {
+        "id": "3wrapvhl",
+        "email": "mitchel34@hotmail.com",
+        "firstName": "Mitchel",
+        "lastName": "Mohr",
+        "birthTime": "8:12:4"
+      }
+    },
+    {
+      "id": "bg4vnlmb",
+      "price": 3629,
+      "size": 7,
+      "address": {
+        "id": "9146j7iw",
+        "country": "KP",
+        "city": "Medhursttown",
+        "street": "Selmer Branch",
+        "streetNumber": "1199E",
+        "zipCode": "17h63yeb"
+      },
+      "availableFrom": "2024-04-18T00:23:09.628Z",
+      "features": ["WASHING_MACHINE"],
+      "description": "Iste nobis totam exercitationem facilis quis quibusdam nobis voluptatibus harum. Doloribus provident eveniet porro at a consequatur explicabo. Similique culpa quasi laudantium odit fugit vel veniam repudiandae sint. Porro consequatur rerum quisquam laboriosam. Beatae nisi vitae accusantium odio sunt doloremque dolor occaecati.",
+      "contact": {
+        "id": "yz49ttm0",
+        "email": "jewell79@yahoo.com",
+        "firstName": "Jewell",
+        "lastName": "Kutch",
+        "birthTime": "23:20:33"
+      }
+    },
+    {
+      "id": "gtyoh7bm",
+      "price": 1788,
+      "size": 7,
+      "address": {
+        "id": "lwlh2fuy",
+        "country": "AS",
+        "city": "Rancho Cordova",
+        "street": "Nickolas Skyway",
+        "streetNumber": "921B",
+        "zipCode": "9b7p3e6l"
+      },
+      "availableFrom": "2023-07-15T19:37:06.975Z",
+      "features": ["BALCONY_TERRACE", "GARAGE"],
+      "description": "Hic quod rerum. Ut ad repellendus. Aspernatur aspernatur ducimus aperiam laudantium debitis laudantium reprehenderit ut alias. Temporibus exercitationem hic quasi. Porro magnam blanditiis eum sunt occaecati labore atque.",
+      "contact": {
+        "id": "yzhugrsq",
+        "email": "pearline.leuschke4@yahoo.com",
+        "firstName": "Pearline",
+        "lastName": "Leuschke",
+        "birthTime": "5:18:41"
+      }
+    },
+    {
+      "id": "ssvsr8yc",
+      "price": 2815,
+      "size": 4,
+      "address": {
+        "id": "eky4hzv4",
+        "country": "BQ",
+        "city": "Donnyhaven",
+        "street": "Kamryn Flats",
+        "streetNumber": "1562B",
+        "zipCode": "8hdtfbmu"
+      },
+      "availableFrom": "2023-11-14T09:44:33.706Z",
+      "features": ["BALCONY_TERRACE", "WHEELCHAIR_ACCESS"],
+      "description": "Enim dolorum quibusdam consequatur officiis eligendi at facilis. Soluta nobis vel dolorem quia dicta voluptatibus fugit at. Repudiandae aperiam fuga. Totam labore distinctio est ab. Dignissimos cum illum eveniet magnam illo cumque sequi incidunt.",
+      "contact": {
+        "id": "fmotr2qt",
+        "email": "christop_reichel70@yahoo.com",
+        "firstName": "Christop",
+        "lastName": "Reichel",
+        "birthTime": "8:59:29"
+      }
+    },
+    {
+      "id": "xcsdybqs",
+      "price": 2896,
+      "size": 2,
+      "address": {
+        "id": "noh94vsg",
+        "country": "PF",
+        "city": "Stokesland",
+        "street": "Greenfelder Cliffs",
+        "streetNumber": "2369R",
+        "zipCode": "72qdxg01"
+      },
+      "availableFrom": "2023-12-14T14:25:34.171Z",
+      "features": [
+        "ELEVATOR",
+        "PARKING_SPACE",
+        "WHEELCHAIR_ACCESS",
+        "VIEW",
+        "BALCONY_TERRACE",
+        "WASHING_MACHINE",
+        "GARAGE"
+      ],
+      "description": "Facere architecto commodi perferendis soluta molestias odio. Animi tempora quas quo. Tempore similique sit cum cum dolorem sunt nostrum quo recusandae. Minima tenetur odio id itaque laudantium enim perspiciatis nesciunt.",
+      "contact": {
+        "id": "8bc80wvw",
+        "email": "charles.sauer50@gmail.com",
+        "firstName": "Charles",
+        "lastName": "Sauer",
+        "birthTime": "3:13:32"
+      }
+    },
+    {
+      "id": "z7fm0w70",
+      "price": 2284,
+      "size": 1,
+      "address": {
+        "id": "w1ucfq8u",
+        "country": "VU",
+        "city": "East Nat",
+        "street": "Cummerata Ridges",
+        "streetNumber": "1389Q",
+        "zipCode": "saz7bdi7"
+      },
+      "availableFrom": "2024-03-08T17:42:59.423Z",
+      "features": [
+        "WASHING_MACHINE",
+        "ELEVATOR",
+        "PARKING_SPACE",
+        "GARAGE",
+        "VIEW",
+        "BALCONY_TERRACE",
+        "WHEELCHAIR_ACCESS"
+      ],
+      "description": "Corrupti odit possimus aperiam impedit dolorum. Ullam maxime quod. Reprehenderit minus eum voluptate deleniti.",
+      "contact": {
+        "id": "mxjjztlc",
+        "email": "rollin88@gmail.com",
+        "firstName": "Rollin",
+        "lastName": "Braun",
+        "birthTime": "23:8:12"
+      }
+    },
+    {
+      "id": "y2xr0llm",
+      "price": 1052,
+      "size": 3,
+      "address": {
+        "id": "kedny63z",
+        "country": "AE",
+        "city": "Ignatiusfield",
+        "street": "Okey Springs",
+        "streetNumber": "1614K",
+        "zipCode": "262yjz15"
+      },
+      "availableFrom": "2023-04-30T04:30:38.516Z",
+      "features": [
+        "PARKING_SPACE",
+        "WHEELCHAIR_ACCESS",
+        "WASHING_MACHINE",
+        "VIEW",
+        "ELEVATOR",
+        "BALCONY_TERRACE",
+        "GARAGE"
+      ],
+      "description": "Nam porro animi a veniam voluptas harum rerum. Quisquam ad laborum tempora reprehenderit debitis numquam consequuntur nihil facere. Beatae quibusdam omnis. Reiciendis impedit sint corrupti explicabo perspiciatis amet.",
+      "contact": {
+        "id": "2ayixwqv",
+        "email": "brett_grimes7@hotmail.com",
+        "firstName": "Brett",
+        "lastName": "Grimes",
+        "birthTime": "21:25:33"
+      }
+    },
+    {
+      "id": "wiu11oia",
+      "price": 2562,
+      "size": 2,
+      "address": {
+        "id": "dijslt2o",
+        "country": "TN",
+        "city": "North Rhodaport",
+        "street": "Bernier Hills",
+        "streetNumber": "2955M",
+        "zipCode": "menwr0p8"
+      },
+      "availableFrom": "2023-06-25T15:14:21.604Z",
+      "features": ["VIEW", "ELEVATOR", "PARKING_SPACE"],
+      "description": "Provident soluta vero amet doloribus. Quo velit molestias animi repellendus. Cum commodi laborum.",
+      "contact": {
+        "id": "734yqbg8",
+        "email": "tyshawn.bahringer@hotmail.com",
+        "firstName": "Tyshawn",
+        "lastName": "Bahringer",
+        "birthTime": "20:14:30"
+      }
+    },
+    {
+      "id": "eoz6yg2a",
+      "price": 1971,
+      "size": 3,
+      "address": {
+        "id": "39z8xapa",
+        "country": "AF",
+        "city": "Jaidenville",
+        "street": "Luettgen Hill",
+        "streetNumber": "2618G",
+        "zipCode": "suvldd4p"
+      },
+      "availableFrom": "2023-10-07T05:39:02.879Z",
+      "features": ["PARKING_SPACE", "WASHING_MACHINE"],
+      "description": "Suscipit vitae accusamus veritatis accusantium quo. Officiis animi eos amet explicabo harum placeat asperiores. Hic deleniti quis perspiciatis nulla ut eligendi ipsam aperiam. Adipisci sit aut occaecati consequatur quibusdam quidem consectetur.",
+      "contact": {
+        "id": "0mszu5os",
+        "email": "jeffery25@hotmail.com",
+        "firstName": "Jeffery",
+        "lastName": "Pfannerstill",
+        "birthTime": "17:29:59"
+      }
+    },
+    {
+      "id": "u7dt8qdo",
+      "price": 3558,
+      "size": 3,
+      "address": {
+        "id": "t8ewx5ji",
+        "country": "HK",
+        "city": "Monterey Park",
+        "street": "Stark Rapid",
+        "streetNumber": "1055K",
+        "zipCode": "ephey8gy"
+      },
+      "availableFrom": "2024-04-13T06:34:34.094Z",
+      "features": [
+        "WASHING_MACHINE",
+        "WHEELCHAIR_ACCESS",
+        "VIEW",
+        "BALCONY_TERRACE",
+        "ELEVATOR",
+        "PARKING_SPACE",
+        "GARAGE"
+      ],
+      "description": "Magnam aspernatur nihil accusamus iusto repudiandae voluptate praesentium omnis maxime. Reiciendis reiciendis tenetur. Aliquid optio repudiandae. Quae soluta voluptatibus reprehenderit quibusdam rem eum sequi harum.",
+      "contact": {
+        "id": "h0mesics",
+        "email": "leanne.lebsack47@yahoo.com",
+        "firstName": "Leanne",
+        "lastName": "Lebsack",
+        "birthTime": "7:4:40"
+      }
+    },
+    {
+      "id": "fbr4iu9n",
+      "price": 2556,
+      "size": 3,
+      "address": {
+        "id": "bjs9o1p9",
+        "country": "PN",
+        "city": "Henrietteborough",
+        "street": "Shaylee Curve",
+        "streetNumber": "792X",
+        "zipCode": "jlgvestn"
+      },
+      "availableFrom": "2024-03-27T09:44:40.440Z",
+      "features": ["WASHING_MACHINE", "ELEVATOR", "GARAGE", "PARKING_SPACE", "BALCONY_TERRACE"],
+      "description": "Minus repellat id quidem vero exercitationem quos saepe consequuntur. Excepturi cum debitis. Et necessitatibus animi nemo dolore voluptates animi laudantium nisi nobis. Eos sunt consectetur. Veniam eos dolores magnam eius occaecati fugit.",
+      "contact": {
+        "id": "ru0zhhbn",
+        "email": "jayson.schulist@gmail.com",
+        "firstName": "Jayson",
+        "lastName": "Schulist",
+        "birthTime": "6:6:5"
+      }
+    },
+    {
+      "id": "7xr87k0g",
+      "price": 2218,
+      "size": 9,
+      "address": {
+        "id": "fb8snpta",
+        "country": "BV",
+        "city": "North Noeliaside",
+        "street": "Casey Burg",
+        "streetNumber": "568M",
+        "zipCode": "t4nn95pr"
+      },
+      "availableFrom": "2023-09-10T03:45:07.332Z",
+      "features": ["VIEW", "ELEVATOR", "WHEELCHAIR_ACCESS"],
+      "description": "Sit nulla incidunt commodi. Et tempora ea et laboriosam aliquid. Ex dolorem eaque.",
+      "contact": {
+        "id": "aiwul8dh",
+        "email": "eloise_bartell46@hotmail.com",
+        "firstName": "Eloise",
+        "lastName": "Bartell",
+        "birthTime": "10:56:2"
+      }
+    },
+    {
+      "id": "xcwrzzsz",
+      "price": 1716,
+      "size": 8,
+      "address": {
+        "id": "q9gpen0l",
+        "country": "AW",
+        "city": "Janelleboro",
+        "street": "Cassandra Lights",
+        "streetNumber": "2353Q",
+        "zipCode": "f9shslhf"
+      },
+      "availableFrom": "2023-08-19T13:31:31.858Z",
+      "features": ["VIEW", "PARKING_SPACE"],
+      "description": "Recusandae debitis totam occaecati temporibus eaque consectetur vel. Nisi soluta debitis error. Ut qui dolorum cupiditate cumque asperiores vero itaque aspernatur deserunt. Quaerat aliquam quia quo unde.",
+      "contact": {
+        "id": "c5pa2w1y",
+        "email": "bethany58@yahoo.com",
+        "firstName": "Bethany",
+        "lastName": "Baumbach",
+        "birthTime": "22:14:36"
+      }
+    },
+    {
+      "id": "74mk7wo8",
+      "price": 3233,
+      "size": 1,
+      "address": {
+        "id": "c7krahvv",
+        "country": "FI",
+        "city": "Ceres",
+        "street": "Armand Lake",
+        "streetNumber": "652E",
+        "zipCode": "yjbe01i8"
+      },
+      "availableFrom": "2024-02-10T00:22:04.761Z",
+      "features": ["WASHING_MACHINE", "WHEELCHAIR_ACCESS", "PARKING_SPACE", "VIEW", "ELEVATOR", "GARAGE"],
+      "description": "Dolorem dolore error exercitationem excepturi fuga quasi magni. Aliquam magni quam rerum possimus. Voluptate minima aperiam iure molestiae eveniet nemo animi quod. Occaecati illo dolores suscipit nesciunt alias.",
+      "contact": {
+        "id": "2dhk8l1y",
+        "email": "coty.hartmann@yahoo.com",
+        "firstName": "Coty",
+        "lastName": "Hartmann",
+        "birthTime": "22:3:20"
+      }
+    },
+    {
+      "id": "jfjm80dc",
+      "price": 976,
+      "size": 12,
+      "address": {
+        "id": "mqum8szj",
+        "country": "GE",
+        "city": "North Charleston",
+        "street": "Roberto Course",
+        "streetNumber": "2745A",
+        "zipCode": "yjn1xcdp"
+      },
+      "availableFrom": "2023-07-06T02:05:22.871Z",
+      "features": ["WASHING_MACHINE"],
+      "description": "Tempore quaerat corporis consequuntur porro quod. Adipisci occaecati ea deserunt. Quaerat facilis ipsum eum facere ut. Temporibus quas repellendus ratione aspernatur quo aut.",
+      "contact": {
+        "id": "fqbcrj8t",
+        "email": "berta_wintheiser@hotmail.com",
+        "firstName": "Berta",
+        "lastName": "Wintheiser",
+        "birthTime": "18:39:24"
+      }
+    },
+    {
+      "id": "ec2gjikw",
+      "price": 1381,
+      "size": 6,
+      "address": {
+        "id": "b80lpzto",
+        "country": "NL",
+        "city": "Lake Winona",
+        "street": "Wilderman Gateway",
+        "streetNumber": "166H",
+        "zipCode": "so7u0ipx"
+      },
+      "availableFrom": "2023-10-01T13:17:56.809Z",
+      "features": ["WASHING_MACHINE", "VIEW", "GARAGE"],
+      "description": "Omnis facere perspiciatis aliquid enim. Eos id incidunt laborum vitae illo qui doloremque in. Laboriosam voluptas eligendi magni saepe ad.",
+      "contact": {
+        "id": "0kuijz01",
+        "email": "paris.christiansen@hotmail.com",
+        "firstName": "Paris",
+        "lastName": "Christiansen",
+        "birthTime": "14:47:29"
+      }
+    },
+    {
+      "id": "f6w8kou0",
+      "price": 1600,
+      "size": 2,
+      "address": {
+        "id": "hn0jcdzl",
+        "country": "SL",
+        "city": "Kautzerborough",
+        "street": "Weissnat Mews",
+        "streetNumber": "894D",
+        "zipCode": "ujlon3j0"
+      },
+      "availableFrom": "2023-09-17T05:27:08.077Z",
+      "features": [
+        "VIEW",
+        "ELEVATOR",
+        "WASHING_MACHINE",
+        "BALCONY_TERRACE",
+        "WHEELCHAIR_ACCESS",
+        "GARAGE",
+        "PARKING_SPACE"
+      ],
+      "description": "Fugiat tempora eos laboriosam inventore. Nobis quaerat amet corporis porro iure nesciunt deserunt. Autem dolorem facere deserunt nobis. Consequuntur ullam vitae quidem ut at assumenda veniam.",
+      "contact": {
+        "id": "gfzy4pjl",
+        "email": "julius84@hotmail.com",
+        "firstName": "Julius",
+        "lastName": "Mosciski",
+        "birthTime": "18:22:52"
+      }
+    },
+    {
+      "id": "y405cw07",
+      "price": 940,
+      "size": 4,
+      "address": {
+        "id": "9puz4zec",
+        "country": "AW",
+        "city": "North Brantstead",
+        "street": "Boyle Station",
+        "streetNumber": "2437V",
+        "zipCode": "2cz4f6cp"
+      },
+      "availableFrom": "2023-11-05T03:21:06.429Z",
+      "features": ["WASHING_MACHINE", "WHEELCHAIR_ACCESS", "PARKING_SPACE", "GARAGE", "BALCONY_TERRACE"],
+      "description": "Libero recusandae eaque. Possimus voluptate accusantium ab sed ex. Nobis voluptates vero.",
+      "contact": {
+        "id": "lq5veyme",
+        "email": "lavada.veum78@hotmail.com",
+        "firstName": "Lavada",
+        "lastName": "Veum",
+        "birthTime": "1:12:32"
+      }
+    },
+    {
+      "id": "7r1cbqjx",
+      "price": 1448,
+      "size": 8,
+      "address": {
+        "id": "yl5vur5z",
+        "country": "KP",
+        "city": "Muncie",
+        "street": "Waters Corners",
+        "streetNumber": "1812A",
+        "zipCode": "63n8853w"
+      },
+      "availableFrom": "2023-11-14T14:48:34.210Z",
+      "features": ["WHEELCHAIR_ACCESS", "GARAGE", "WASHING_MACHINE", "PARKING_SPACE", "BALCONY_TERRACE"],
+      "description": "Aliquid fugit exercitationem nesciunt earum. Dolorem sunt dolor laudantium ad libero. Suscipit nihil cumque quam.",
+      "contact": {
+        "id": "8nbfcqh1",
+        "email": "phoebe_mclaughlin@yahoo.com",
+        "firstName": "Phoebe",
+        "lastName": "McLaughlin",
+        "birthTime": "21:29:10"
+      }
+    },
+    {
+      "id": "kiv04zep",
+      "price": 847,
+      "size": 11,
+      "address": {
+        "id": "wkys8wt7",
+        "country": "EG",
+        "city": "Collinsview",
+        "street": "Ruth Loaf",
+        "streetNumber": "1775Z",
+        "zipCode": "ucuepx1m"
+      },
+      "availableFrom": "2023-10-11T21:40:31.911Z",
+      "features": ["ELEVATOR", "PARKING_SPACE", "WHEELCHAIR_ACCESS", "WASHING_MACHINE", "GARAGE"],
+      "description": "Consectetur repudiandae optio amet. Consectetur omnis error porro veritatis laborum eligendi quas alias. Nobis id velit cumque quas fuga. Asperiores praesentium nemo. Quos praesentium totam dolorem possimus aliquam.",
+      "contact": {
+        "id": "ft3irzhz",
+        "email": "maybell.oconnell@gmail.com",
+        "firstName": "Maybell",
+        "lastName": "O'Connell",
+        "birthTime": "21:39:27"
+      }
+    },
+    {
+      "id": "tb1qfmnq",
+      "price": 1639,
+      "size": 11,
+      "address": {
+        "id": "h95nmh93",
+        "country": "VA",
+        "city": "Emmerichport",
+        "street": "Imelda Courts",
+        "streetNumber": "1769P",
+        "zipCode": "a1utenqq"
+      },
+      "availableFrom": "2023-08-23T22:07:25.274Z",
+      "features": [
+        "PARKING_SPACE",
+        "WHEELCHAIR_ACCESS",
+        "VIEW",
+        "WASHING_MACHINE",
+        "BALCONY_TERRACE",
+        "GARAGE",
+        "ELEVATOR"
+      ],
+      "description": "Sapiente cupiditate nihil voluptates odio doloribus eius. Repellendus voluptates aut sint beatae. Autem pariatur fugiat quae. Illo ullam quos ipsa tempore sequi ullam voluptate harum. Aspernatur unde ipsa inventore nulla eos voluptate dolore quasi quos.",
+      "contact": {
+        "id": "qiwjypyg",
+        "email": "estrella.toy32@yahoo.com",
+        "firstName": "Estrella",
+        "lastName": "Toy",
+        "birthTime": "15:36:57"
+      }
+    },
+    {
+      "id": "cs2atinc",
+      "price": 827,
+      "size": 2,
+      "address": {
+        "id": "w732mr0f",
+        "country": "MX",
+        "city": "South Alexandraton",
+        "street": "Tracy Loaf",
+        "streetNumber": "1389C",
+        "zipCode": "y1mpmydj"
+      },
+      "availableFrom": "2024-01-11T18:49:19.597Z",
+      "features": ["WHEELCHAIR_ACCESS", "VIEW", "BALCONY_TERRACE", "ELEVATOR"],
+      "description": "Officiis ad expedita rerum. Occaecati consectetur dolores nisi voluptate dolores animi expedita autem. Et recusandae optio. Officiis illum aspernatur laboriosam veritatis quidem quos itaque ipsam omnis. Minus et iste alias sint molestias.",
+      "contact": {
+        "id": "zwzuboz0",
+        "email": "ferne.oconnell@yahoo.com",
+        "firstName": "Ferne",
+        "lastName": "O'Connell",
+        "birthTime": "8:51:58"
+      }
+    },
+    {
+      "id": "2srtah8v",
+      "price": 2256,
+      "size": 4,
+      "address": {
+        "id": "9o9e3fcs",
+        "country": "SO",
+        "city": "Lake Sigmundland",
+        "street": "Monroe Crossing",
+        "streetNumber": "2218X",
+        "zipCode": "4p8oq07b"
+      },
+      "availableFrom": "2023-11-01T22:13:43.928Z",
+      "features": ["WASHING_MACHINE"],
+      "description": "Accusamus atque non maxime nam at sunt ducimus cumque inventore. Officia quae non accusantium inventore laborum asperiores odio beatae. Quasi ullam facilis beatae exercitationem velit fuga. Consequatur unde pariatur molestias temporibus.",
+      "contact": {
+        "id": "mpkvi2kp",
+        "email": "virginie_haag12@hotmail.com",
+        "firstName": "Virginie",
+        "lastName": "Haag",
+        "birthTime": "1:7:4"
+      }
+    },
+    {
+      "id": "g1ur5udn",
+      "price": 2154,
+      "size": 9,
+      "address": {
+        "id": "2t95fn1z",
+        "country": "MO",
+        "city": "Tigard",
+        "street": "Branson Vista",
+        "streetNumber": "1285Z",
+        "zipCode": "n1an6gdj"
+      },
+      "availableFrom": "2023-04-28T21:19:14.140Z",
+      "features": ["BALCONY_TERRACE", "VIEW", "ELEVATOR"],
+      "description": "Consectetur reprehenderit explicabo natus ut tempora. Sunt dolores voluptatum dolorum deleniti quidem esse inventore. Quidem exercitationem ducimus suscipit quae enim. Debitis placeat doloribus nostrum excepturi ullam facere. Dolorem voluptates et cum tempora. Nesciunt maxime omnis ipsam.",
+      "contact": {
+        "id": "tlpr2f08",
+        "email": "garrison_quigley@gmail.com",
+        "firstName": "Garrison",
+        "lastName": "Quigley",
+        "birthTime": "18:25:37"
+      }
+    },
+    {
+      "id": "kvbnuan4",
+      "price": 1148,
+      "size": 12,
+      "address": {
+        "id": "7n3h86nq",
+        "country": "ML",
+        "city": "South Marge",
+        "street": "Gorczany Ferry",
+        "streetNumber": "159H",
+        "zipCode": "0kswhfsg"
+      },
+      "availableFrom": "2023-08-07T17:28:24.517Z",
+      "features": ["WHEELCHAIR_ACCESS", "PARKING_SPACE", "VIEW"],
+      "description": "Ipsum voluptate molestiae delectus animi sequi ut adipisci cum maxime. Deleniti quaerat possimus nesciunt amet id consequatur neque. Ab ducimus distinctio voluptate ab corporis. Reiciendis libero illo fugiat officia consequuntur. Commodi aut ab nesciunt debitis aliquam eaque temporibus.",
+      "contact": {
+        "id": "mt7wd2yy",
+        "email": "meagan_littel43@hotmail.com",
+        "firstName": "Meagan",
+        "lastName": "Littel",
+        "birthTime": "3:16:54"
+      }
+    },
+    {
+      "id": "52p1p0or",
+      "price": 927,
+      "size": 11,
+      "address": {
+        "id": "3bg0y0ef",
+        "country": "KN",
+        "city": "Shanellehaven",
+        "street": "Mertz Flats",
+        "streetNumber": "387J",
+        "zipCode": "bn29mw5y"
+      },
+      "availableFrom": "2023-10-06T06:17:15.496Z",
+      "features": ["BALCONY_TERRACE", "GARAGE", "VIEW"],
+      "description": "Non ratione vitae consequuntur aperiam exercitationem quo laboriosam. Animi unde impedit architecto at aut labore. Nobis nobis quaerat harum vitae ipsam rerum aut doloribus. Ea quaerat quisquam itaque. Voluptate quae velit cum repellendus repellat. Recusandae eius voluptates vitae animi perferendis dolor assumenda.",
+      "contact": {
+        "id": "vrnag0cc",
+        "email": "jerome_will@yahoo.com",
+        "firstName": "Jerome",
+        "lastName": "Will",
+        "birthTime": "18:27:20"
+      }
+    },
+    {
+      "id": "mz4an1p5",
+      "price": 2514,
+      "size": 4,
+      "address": {
+        "id": "dzdygz94",
+        "country": "IS",
+        "city": "North Mortimerboro",
+        "street": "Annetta Forest",
+        "streetNumber": "1160O",
+        "zipCode": "uqkp2z6l"
+      },
+      "availableFrom": "2023-12-25T15:02:32.396Z",
+      "features": ["ELEVATOR", "GARAGE", "WASHING_MACHINE", "WHEELCHAIR_ACCESS"],
+      "description": "Natus quaerat dolore tempore necessitatibus sapiente enim maxime eveniet facilis. Quisquam quod cum. Aspernatur ex vitae. Fugit corrupti incidunt nostrum.",
+      "contact": {
+        "id": "pya6wz7u",
+        "email": "wilber_tromp56@hotmail.com",
+        "firstName": "Wilber",
+        "lastName": "Tromp",
+        "birthTime": "15:10:45"
+      }
+    },
+    {
+      "id": "q0ixlq7v",
+      "price": 3612,
+      "size": 2,
+      "address": {
+        "id": "6sfupnye",
+        "country": "FJ",
+        "city": "New Veronica",
+        "street": "Kathryn Camp",
+        "streetNumber": "2781W",
+        "zipCode": "mmbm015i"
+      },
+      "availableFrom": "2023-06-20T16:39:05.624Z",
+      "features": [
+        "ELEVATOR",
+        "PARKING_SPACE",
+        "VIEW",
+        "WHEELCHAIR_ACCESS",
+        "GARAGE",
+        "WASHING_MACHINE",
+        "BALCONY_TERRACE"
+      ],
+      "description": "Quod nostrum eius nisi. Alias neque non vitae nemo ex veritatis aliquid vero. Eum dignissimos praesentium voluptatem.",
+      "contact": {
+        "id": "27qruu0q",
+        "email": "jesus66@yahoo.com",
+        "firstName": "Jesus",
+        "lastName": "Witting",
+        "birthTime": "1:38:27"
+      }
+    },
+    {
+      "id": "w6wiuq7j",
+      "price": 2761,
+      "size": 1,
+      "address": {
+        "id": "7bua4pru",
+        "country": "KN",
+        "city": "Farmington Hills",
+        "street": "Heaney Track",
+        "streetNumber": "2834S",
+        "zipCode": "2tb6x1h7"
+      },
+      "availableFrom": "2023-09-14T05:56:33.808Z",
+      "features": ["VIEW", "PARKING_SPACE", "ELEVATOR", "BALCONY_TERRACE", "WHEELCHAIR_ACCESS", "GARAGE"],
+      "description": "Tempora laudantium dolores molestiae et. Quas corporis eligendi labore atque. Perspiciatis cumque voluptatibus quibusdam magni sunt quisquam culpa qui. Excepturi necessitatibus non minus labore vero delectus at. Quisquam distinctio illo dolorem laudantium voluptatem. Delectus quis eaque eligendi exercitationem explicabo iure consequatur.",
+      "contact": {
+        "id": "2jq8vmn2",
+        "email": "stevie.heathcote0@yahoo.com",
+        "firstName": "Stevie",
+        "lastName": "Heathcote",
+        "birthTime": "6:13:47"
+      }
+    },
+    {
+      "id": "jy0yvsff",
+      "price": 2076,
+      "size": 5,
+      "address": {
+        "id": "06hxavcw",
+        "country": "AM",
+        "city": "Redlands",
+        "street": "Blick Fords",
+        "streetNumber": "849P",
+        "zipCode": "9tjkdv8l"
+      },
+      "availableFrom": "2023-07-31T14:58:53.015Z",
+      "features": ["WASHING_MACHINE", "ELEVATOR", "WHEELCHAIR_ACCESS"],
+      "description": "Doloribus dignissimos expedita illum sed perferendis quasi voluptatum esse at. Quia facere ea quidem labore magnam officia. Magnam nostrum sed esse architecto. Ad provident doloremque.",
+      "contact": {
+        "id": "6nr7zyfa",
+        "email": "mac.graham37@gmail.com",
+        "firstName": "Mac",
+        "lastName": "Graham",
+        "birthTime": "5:49:29"
+      }
+    },
+    {
+      "id": "5qxzrn9a",
+      "price": 2274,
+      "size": 11,
+      "address": {
+        "id": "sg2ecaa1",
+        "country": "SR",
+        "city": "Francescoport",
+        "street": "Hackett Greens",
+        "streetNumber": "750G",
+        "zipCode": "9pfv99u6"
+      },
+      "availableFrom": "2023-12-10T04:36:21.509Z",
+      "features": ["WASHING_MACHINE", "WHEELCHAIR_ACCESS", "PARKING_SPACE", "VIEW", "ELEVATOR"],
+      "description": "Nisi placeat numquam consequuntur natus voluptate nihil a est. Provident cum sequi nihil consectetur iste. Libero corrupti officiis incidunt veritatis facilis eum. Fugit vel temporibus placeat possimus itaque reiciendis adipisci. Suscipit ab eius nihil corporis illum eos. Odio suscipit mollitia perspiciatis possimus porro.",
+      "contact": {
+        "id": "n63jzwl1",
+        "email": "idella_murazik83@hotmail.com",
+        "firstName": "Idella",
+        "lastName": "Murazik",
+        "birthTime": "23:7:0"
+      }
+    },
+    {
+      "id": "l4mtplae",
+      "price": 2188,
+      "size": 4,
+      "address": {
+        "id": "5n1u8hqj",
+        "country": "QA",
+        "city": "Newtonside",
+        "street": "Buster Squares",
+        "streetNumber": "1541V",
+        "zipCode": "2pqknulg"
+      },
+      "availableFrom": "2023-08-18T06:44:13.097Z",
+      "features": ["WASHING_MACHINE", "WHEELCHAIR_ACCESS", "GARAGE", "BALCONY_TERRACE"],
+      "description": "Ducimus itaque aspernatur exercitationem culpa hic eligendi voluptatum. Veniam praesentium possimus quo voluptas ipsa. Optio alias vero nostrum eum quae minus adipisci quas.",
+      "contact": {
+        "id": "xzk92s7x",
+        "email": "keyshawn86@yahoo.com",
+        "firstName": "Keyshawn",
+        "lastName": "Roberts",
+        "birthTime": "4:40:1"
+      }
+    },
+    {
+      "id": "cjzpnq7q",
+      "price": 945,
+      "size": 5,
+      "address": {
+        "id": "gbh3xcsz",
+        "country": "ID",
+        "city": "New Haventon",
+        "street": "Hettinger Valley",
+        "streetNumber": "1165G",
+        "zipCode": "y18o96gq"
+      },
+      "availableFrom": "2024-01-15T15:36:51.098Z",
+      "features": ["VIEW"],
+      "description": "Natus vel ab. Debitis ea voluptates eligendi fuga natus sequi iusto delectus similique. Dolorem ea minus aperiam exercitationem consequuntur ratione. Odit quasi a.",
+      "contact": {
+        "id": "ze8vujsc",
+        "email": "carolyn66@gmail.com",
+        "firstName": "Carolyn",
+        "lastName": "Beier",
+        "birthTime": "5:52:52"
+      }
+    },
+    {
+      "id": "vphx306t",
+      "price": 1100,
+      "size": 3,
+      "address": {
+        "id": "5ofbsw98",
+        "country": "UY",
+        "city": "Strackeberg",
+        "street": "Tiara Dale",
+        "streetNumber": "2363V",
+        "zipCode": "8lj9pyy0"
+      },
+      "availableFrom": "2023-12-21T20:47:16.589Z",
+      "features": ["PARKING_SPACE", "BALCONY_TERRACE", "ELEVATOR"],
+      "description": "Ea temporibus vitae ipsum quam iste distinctio dolores recusandae. Repudiandae quasi impedit similique reprehenderit odio soluta maxime. Sit quasi animi aliquam.",
+      "contact": {
+        "id": "7s4ow1s4",
+        "email": "deontae_hane@gmail.com",
+        "firstName": "Deontae",
+        "lastName": "Hane",
+        "birthTime": "15:50:41"
+      }
+    },
+    {
+      "id": "qifkbff3",
+      "price": 3913,
+      "size": 1,
+      "address": {
+        "id": "4z88rx2y",
+        "country": "IR",
+        "city": "Herzogboro",
+        "street": "Marty Ways",
+        "streetNumber": "1841G",
+        "zipCode": "gke1cdi1"
+      },
+      "availableFrom": "2024-03-09T07:01:14.589Z",
+      "features": [
+        "VIEW",
+        "ELEVATOR",
+        "PARKING_SPACE",
+        "GARAGE",
+        "WASHING_MACHINE",
+        "WHEELCHAIR_ACCESS",
+        "BALCONY_TERRACE"
+      ],
+      "description": "Optio vitae vel velit. Sed eaque ducimus doloribus in. Aperiam in esse adipisci deserunt magni corporis repudiandae. Dolore provident praesentium vel. Quaerat ut qui excepturi ipsum.",
+      "contact": {
+        "id": "v7wjxg0j",
+        "email": "kenyon10@hotmail.com",
+        "firstName": "Kenyon",
+        "lastName": "McClure",
+        "birthTime": "12:6:12"
+      }
+    },
+    {
+      "id": "uc873kym",
+      "price": 3892,
+      "size": 9,
+      "address": {
+        "id": "yv0wuxlw",
+        "country": "VE",
+        "city": "West Jaquelineberg",
+        "street": "Beahan Shoals",
+        "streetNumber": "563N",
+        "zipCode": "ixug272o"
+      },
+      "availableFrom": "2024-01-11T10:50:45.745Z",
+      "features": ["WHEELCHAIR_ACCESS", "PARKING_SPACE"],
+      "description": "Enim error neque quisquam nostrum mollitia blanditiis mollitia debitis. Perferendis dignissimos nobis eum dicta. Necessitatibus amet cupiditate dignissimos numquam. Veniam deleniti nisi voluptas. Officiis dignissimos ex sunt consequuntur.",
+      "contact": {
+        "id": "w7si6pbt",
+        "email": "mandy.barrows@yahoo.com",
+        "firstName": "Mandy",
+        "lastName": "Barrows",
+        "birthTime": "3:0:36"
+      }
+    },
+    {
+      "id": "wveux7ze",
+      "price": 3560,
+      "size": 1,
+      "address": {
+        "id": "j85ogeik",
+        "country": "SG",
+        "city": "Bennettfort",
+        "street": "Sigurd Hills",
+        "streetNumber": "571J",
+        "zipCode": "x6y1f9cz"
+      },
+      "availableFrom": "2023-09-17T16:11:02.101Z",
+      "features": ["WHEELCHAIR_ACCESS"],
+      "description": "Consequuntur provident ad tempora culpa quidem dignissimos qui commodi deleniti. Id commodi et. Laboriosam quisquam iure consequatur ipsa quibusdam numquam est minus.",
+      "contact": {
+        "id": "s5e4vvu8",
+        "email": "rita57@gmail.com",
+        "firstName": "Rita",
+        "lastName": "Walsh",
+        "birthTime": "11:2:12"
+      }
+    },
+    {
+      "id": "k8x66hoo",
+      "price": 2402,
+      "size": 2,
+      "address": {
+        "id": "zbr3oavv",
+        "country": "MP",
+        "city": "Fayboro",
+        "street": "Osinski Point",
+        "streetNumber": "2590W",
+        "zipCode": "xw5rb2or"
+      },
+      "availableFrom": "2023-05-28T15:01:37.253Z",
+      "features": ["PARKING_SPACE", "VIEW", "ELEVATOR", "WASHING_MACHINE"],
+      "description": "Facere voluptates nam explicabo magni cum voluptatum ex consectetur voluptas. Dolores voluptate nobis itaque. Sunt iste tempore. Asperiores repellendus sint praesentium. Itaque ullam nulla sunt aspernatur.",
+      "contact": {
+        "id": "rzo19rki",
+        "email": "jada33@gmail.com",
+        "firstName": "Jada",
+        "lastName": "Spencer",
+        "birthTime": "4:57:5"
+      }
+    },
+    {
+      "id": "nany78js",
+      "price": 891,
+      "size": 7,
+      "address": {
+        "id": "3ts8arcm",
+        "country": "BV",
+        "city": "North Tiffany",
+        "street": "Jade Land",
+        "streetNumber": "779A",
+        "zipCode": "e5xos3j6"
+      },
+      "availableFrom": "2023-09-08T11:00:33.990Z",
+      "features": ["VIEW"],
+      "description": "Magni recusandae enim. Voluptas saepe suscipit magni eius. Aperiam fugiat voluptatum sit.",
+      "contact": {
+        "id": "p5ybcct6",
+        "email": "hermina_gerhold@gmail.com",
+        "firstName": "Hermina",
+        "lastName": "Gerhold",
+        "birthTime": "12:11:53"
+      }
+    },
+    {
+      "id": "7xgoq7p2",
+      "price": 906,
+      "size": 12,
+      "address": {
+        "id": "or79vh78",
+        "country": "LU",
+        "city": "Manteberg",
+        "street": "Jacobs Junction",
+        "streetNumber": "2461J",
+        "zipCode": "5s9o5y9i"
+      },
+      "availableFrom": "2023-07-13T01:31:36.974Z",
+      "features": ["BALCONY_TERRACE", "VIEW", "ELEVATOR", "PARKING_SPACE", "WHEELCHAIR_ACCESS", "WASHING_MACHINE"],
+      "description": "Consequuntur dicta occaecati mollitia quos nesciunt assumenda officiis similique. Accusantium vel nobis aperiam. Occaecati itaque culpa. Officiis iusto vel ratione fugit consequuntur. Maxime amet porro fugiat illo.",
+      "contact": {
+        "id": "ymf2v1fu",
+        "email": "jules75@yahoo.com",
+        "firstName": "Jules",
+        "lastName": "Williamson",
+        "birthTime": "21:22:32"
+      }
+    },
+    {
+      "id": "21yzb68u",
+      "price": 1645,
+      "size": 5,
+      "address": {
+        "id": "0v04mx1h",
+        "country": "MR",
+        "city": "Santa Fe",
+        "street": "Connelly Spurs",
+        "streetNumber": "619U",
+        "zipCode": "v710274t"
+      },
+      "availableFrom": "2024-02-13T07:04:14.376Z",
+      "features": ["GARAGE", "WASHING_MACHINE", "VIEW", "PARKING_SPACE", "ELEVATOR"],
+      "description": "Eaque ipsum omnis modi voluptatem earum maiores doloribus repudiandae. Debitis recusandae temporibus. Repellat inventore magnam dolorum labore. Quas nesciunt vel iure cum exercitationem eligendi incidunt. Accusamus officiis sit officia alias sit minus. Alias ipsam voluptatum.",
+      "contact": {
+        "id": "s1dsnpzy",
+        "email": "naomie70@hotmail.com",
+        "firstName": "Naomie",
+        "lastName": "Little",
+        "birthTime": "15:6:30"
+      }
+    },
+    {
+      "id": "bz94nb21",
+      "price": 1085,
+      "size": 6,
+      "address": {
+        "id": "0iw8x420",
+        "country": "IR",
+        "city": "Lafayetteport",
+        "street": "Bode Locks",
+        "streetNumber": "2541X",
+        "zipCode": "qvwqixpk"
+      },
+      "availableFrom": "2023-10-06T16:55:09.449Z",
+      "features": ["ELEVATOR", "WHEELCHAIR_ACCESS", "VIEW"],
+      "description": "At officiis laboriosam optio aliquam. Quos officia quia possimus atque quia laboriosam. Laudantium minima autem excepturi. Magnam nemo exercitationem.",
+      "contact": {
+        "id": "2owvhpiq",
+        "email": "juwan93@yahoo.com",
+        "firstName": "Juwan",
+        "lastName": "Mayert",
+        "birthTime": "1:47:14"
+      }
+    },
+    {
+      "id": "hl8nfol9",
+      "price": 2081,
+      "size": 7,
+      "address": {
+        "id": "066p94bu",
+        "country": "GI",
+        "city": "West Chestertown",
+        "street": "Violet Points",
+        "streetNumber": "355P",
+        "zipCode": "ih2pobum"
+      },
+      "availableFrom": "2023-05-04T04:56:23.164Z",
+      "features": ["ELEVATOR", "PARKING_SPACE", "GARAGE"],
+      "description": "Natus dolor odit. Deleniti eos quod facilis ullam reiciendis. Nemo quidem voluptate magni commodi pariatur et cumque. Eum doloremque maiores.",
+      "contact": {
+        "id": "9gicly6j",
+        "email": "chyna.willms@hotmail.com",
+        "firstName": "Chyna",
+        "lastName": "Willms",
+        "birthTime": "5:5:7"
+      }
+    },
+    {
+      "id": "i4o141lp",
+      "price": 2574,
+      "size": 10,
+      "address": {
+        "id": "62egakkf",
+        "country": "BH",
+        "city": "Buckeye",
+        "street": "Wolff Locks",
+        "streetNumber": "991N",
+        "zipCode": "9aebak17"
+      },
+      "availableFrom": "2024-01-04T17:53:44.316Z",
+      "features": ["VIEW", "GARAGE"],
+      "description": "Culpa quibusdam amet voluptatem. Animi enim odit ab quasi harum eos delectus. Quis veniam cum voluptatum amet accusantium eligendi. Ad porro laudantium quia voluptates recusandae impedit.",
+      "contact": {
+        "id": "06v3d296",
+        "email": "domenic_howell33@yahoo.com",
+        "firstName": "Domenic",
+        "lastName": "Howell",
+        "birthTime": "8:45:23"
+      }
+    },
+    {
+      "id": "9splgmvc",
+      "price": 1640,
+      "size": 7,
+      "address": {
+        "id": "s20ofaif",
+        "country": "FK",
+        "city": "East Elvera",
+        "street": "Jairo Fall",
+        "streetNumber": "1115D",
+        "zipCode": "a9t52yer"
+      },
+      "availableFrom": "2023-08-19T18:39:42.128Z",
+      "features": ["WHEELCHAIR_ACCESS", "VIEW", "GARAGE"],
+      "description": "Corrupti neque id reiciendis commodi quis sapiente asperiores non. Sint totam alias. Eum animi voluptatibus ducimus laboriosam temporibus ullam eos voluptate saepe.",
+      "contact": {
+        "id": "0a1n918e",
+        "email": "karlie_pagac31@gmail.com",
+        "firstName": "Karlie",
+        "lastName": "Pagac",
+        "birthTime": "23:51:56"
+      }
+    },
+    {
+      "id": "q1jsquj6",
+      "price": 3672,
+      "size": 4,
+      "address": {
+        "id": "rhu5tyh3",
+        "country": "IL",
+        "city": "New Kaydenworth",
+        "street": "Heidenreich Ridges",
+        "streetNumber": "1692M",
+        "zipCode": "ghw0tm9q"
+      },
+      "availableFrom": "2023-12-09T01:09:15.006Z",
+      "features": ["BALCONY_TERRACE", "WHEELCHAIR_ACCESS", "ELEVATOR", "WASHING_MACHINE", "GARAGE", "PARKING_SPACE"],
+      "description": "Soluta quod blanditiis. Deleniti explicabo cum accusamus voluptatem vero. Sapiente labore dignissimos sunt nihil. Perspiciatis et natus necessitatibus qui numquam tempora. Iusto ducimus dolorum dignissimos magnam perferendis repellat.",
+      "contact": {
+        "id": "lr8kmedp",
+        "email": "delphine57@yahoo.com",
+        "firstName": "Delphine",
+        "lastName": "Upton",
+        "birthTime": "15:53:11"
+      }
+    },
+    {
+      "id": "yyc03b0l",
+      "price": 935,
+      "size": 5,
+      "address": {
+        "id": "mpd9ik7n",
+        "country": "BR",
+        "city": "Bryonstead",
+        "street": "Kohler Summit",
+        "streetNumber": "1585X",
+        "zipCode": "rm8gg5fo"
+      },
+      "availableFrom": "2024-01-06T06:45:30.822Z",
+      "features": ["VIEW", "WASHING_MACHINE", "GARAGE"],
+      "description": "Rerum quibusdam quasi. Distinctio commodi corrupti fuga magni modi quibusdam incidunt. Eaque vel natus ex. Voluptates voluptas impedit voluptates odio quo harum.",
+      "contact": {
+        "id": "zcdmqo5w",
+        "email": "abagail.borer38@gmail.com",
+        "firstName": "Abagail",
+        "lastName": "Borer",
+        "birthTime": "19:18:53"
+      }
+    },
+    {
+      "id": "prt0ls0a",
+      "price": 1292,
+      "size": 8,
+      "address": {
+        "id": "pavgncax",
+        "country": "NO",
+        "city": "Johnsonstad",
+        "street": "Lorenz Union",
+        "streetNumber": "2879H",
+        "zipCode": "0mn60mnu"
+      },
+      "availableFrom": "2023-12-07T15:44:16.978Z",
+      "features": [
+        "ELEVATOR",
+        "BALCONY_TERRACE",
+        "VIEW",
+        "GARAGE",
+        "PARKING_SPACE",
+        "WASHING_MACHINE",
+        "WHEELCHAIR_ACCESS"
+      ],
+      "description": "Adipisci neque impedit sed quidem consectetur. Quos voluptatibus porro commodi delectus animi voluptatum dolorum. Maiores quo doloribus ad enim nisi provident commodi exercitationem ea.",
+      "contact": {
+        "id": "ieac2niu",
+        "email": "theresa.dickens@yahoo.com",
+        "firstName": "Theresa",
+        "lastName": "Dickens",
+        "birthTime": "6:33:40"
+      }
+    },
+    {
+      "id": "foc7dc7q",
+      "price": 3529,
+      "size": 6,
+      "address": {
+        "id": "452jql37",
+        "country": "KG",
+        "city": "Cremincester",
+        "street": "Mauricio Harbors",
+        "streetNumber": "2856L",
+        "zipCode": "2avkoxl8"
+      },
+      "availableFrom": "2024-02-02T11:26:31.427Z",
+      "features": ["BALCONY_TERRACE", "PARKING_SPACE", "WASHING_MACHINE", "ELEVATOR", "WHEELCHAIR_ACCESS"],
+      "description": "Ad non ducimus asperiores. Nulla totam quisquam rem eveniet ducimus. Quas earum cumque debitis eos iusto atque quibusdam. Itaque in ullam quis. Odio praesentium eos reiciendis quidem omnis molestias voluptatem. Magnam odio aliquam modi tenetur.",
+      "contact": {
+        "id": "4puu19x0",
+        "email": "ariel5@yahoo.com",
+        "firstName": "Ariel",
+        "lastName": "Koss",
+        "birthTime": "16:32:11"
+      }
+    },
+    {
+      "id": "0d2hex4s",
+      "price": 1276,
+      "size": 9,
+      "address": {
+        "id": "q6ounf5u",
+        "country": "UG",
+        "city": "Arnoldburgh",
+        "street": "Oceane Bypass",
+        "streetNumber": "2669H",
+        "zipCode": "g3u0tpm9"
+      },
+      "availableFrom": "2024-02-01T10:16:57.675Z",
+      "features": [
+        "ELEVATOR",
+        "BALCONY_TERRACE",
+        "GARAGE",
+        "WASHING_MACHINE",
+        "WHEELCHAIR_ACCESS",
+        "VIEW",
+        "PARKING_SPACE"
+      ],
+      "description": "Culpa deleniti deleniti. Esse impedit at facere. Incidunt quos quasi reiciendis delectus quidem inventore assumenda. Exercitationem quia adipisci laborum enim exercitationem suscipit.",
+      "contact": {
+        "id": "vwufo4as",
+        "email": "lonzo.hane@yahoo.com",
+        "firstName": "Lonzo",
+        "lastName": "Hane",
+        "birthTime": "9:56:5"
+      }
+    },
+    {
+      "id": "h6j4uxby",
+      "price": 3861,
+      "size": 6,
+      "address": {
+        "id": "or7ewehz",
+        "country": "CI",
+        "city": "Monterey Park",
+        "street": "Daugherty Flat",
+        "streetNumber": "1422F",
+        "zipCode": "0qbrgw16"
+      },
+      "availableFrom": "2023-09-26T02:47:13.542Z",
+      "features": ["PARKING_SPACE", "BALCONY_TERRACE", "ELEVATOR"],
+      "description": "Excepturi repellendus vero laborum voluptates eaque excepturi eius quibusdam repellat. Non aut ipsam fugiat et officiis nobis. Quo cupiditate rem rem cupiditate rem voluptatem corporis iure.",
+      "contact": {
+        "id": "eyatgtmv",
+        "email": "narciso_ruecker@hotmail.com",
+        "firstName": "Narciso",
+        "lastName": "Ruecker",
+        "birthTime": "6:56:12"
+      }
+    },
+    {
+      "id": "d7qk1w6z",
+      "price": 2876,
+      "size": 8,
+      "address": {
+        "id": "aw2273n4",
+        "country": "MN",
+        "city": "Port Odie",
+        "street": "Lesch Brooks",
+        "streetNumber": "3000D",
+        "zipCode": "pv3kjle6"
+      },
+      "availableFrom": "2024-04-19T08:12:08.749Z",
+      "features": ["ELEVATOR", "WHEELCHAIR_ACCESS", "PARKING_SPACE", "VIEW", "WASHING_MACHINE"],
+      "description": "Quibusdam est est quisquam repellat suscipit excepturi deserunt quidem libero. Quam libero voluptatum eaque fuga quaerat nam. Atque in aperiam. Deserunt unde dolore consequatur laudantium harum voluptatem magni nemo officiis. Ex a illo odio libero hic nulla in commodi maiores. Ullam quasi repellat accusantium incidunt.",
+      "contact": {
+        "id": "k82sk80s",
+        "email": "perry.kozey59@hotmail.com",
+        "firstName": "Perry",
+        "lastName": "Kozey",
+        "birthTime": "3:58:40"
+      }
+    },
+    {
+      "id": "ji0ckoiu",
+      "price": 1602,
+      "size": 11,
+      "address": {
+        "id": "2shlcu04",
+        "country": "GT",
+        "city": "Larsonstead",
+        "street": "Harber Estate",
+        "streetNumber": "214Q",
+        "zipCode": "0psdk845"
+      },
+      "availableFrom": "2024-01-17T23:44:41.568Z",
+      "features": ["WHEELCHAIR_ACCESS"],
+      "description": "Velit voluptas fugiat deleniti maxime ea enim blanditiis. Corporis vel atque magni porro ea porro magnam pariatur. At magni nihil incidunt quibusdam cum error saepe placeat sint. Voluptatibus voluptatibus veniam repudiandae expedita ullam odit. Quo dolores commodi tempora.",
+      "contact": {
+        "id": "c7fdizzg",
+        "email": "merritt_ruecker96@gmail.com",
+        "firstName": "Merritt",
+        "lastName": "Ruecker",
+        "birthTime": "20:53:26"
+      }
+    },
+    {
+      "id": "0235cu2v",
+      "price": 1324,
+      "size": 12,
+      "address": {
+        "id": "0nnpdhxu",
+        "country": "GE",
+        "city": "East Bradenfurt",
+        "street": "Lubowitz Ports",
+        "streetNumber": "2030J",
+        "zipCode": "7ccs1wh5"
+      },
+      "availableFrom": "2024-03-13T13:27:23.387Z",
+      "features": ["VIEW", "PARKING_SPACE"],
+      "description": "Aut nihil ea minima incidunt dolor consectetur. Saepe libero odit. Ad laborum quam et suscipit cupiditate laboriosam veniam.",
+      "contact": {
+        "id": "hx1ug4dm",
+        "email": "sim20@hotmail.com",
+        "firstName": "Sim",
+        "lastName": "Quigley",
+        "birthTime": "23:22:47"
+      }
+    },
+    {
+      "id": "ln8fz3vn",
+      "price": 3419,
+      "size": 1,
+      "address": {
+        "id": "khk56nyf",
+        "country": "SD",
+        "city": "Port Lewis",
+        "street": "Alverta Port",
+        "streetNumber": "1075O",
+        "zipCode": "czwniea9"
+      },
+      "availableFrom": "2023-05-06T00:39:27.685Z",
+      "features": ["BALCONY_TERRACE", "ELEVATOR"],
+      "description": "Mollitia voluptatibus neque magnam. Distinctio aliquid asperiores voluptatibus eius harum magni beatae hic doloribus. Deserunt exercitationem sed minima consectetur repellat ipsa quos.",
+      "contact": {
+        "id": "aetx4cmv",
+        "email": "johnnie56@gmail.com",
+        "firstName": "Johnnie",
+        "lastName": "Botsford",
+        "birthTime": "9:18:42"
+      }
+    },
+    {
+      "id": "cdll002h",
+      "price": 3482,
+      "size": 1,
+      "address": {
+        "id": "0nnymgku",
+        "country": "FR",
+        "city": "Deltona",
+        "street": "Smitham Dale",
+        "streetNumber": "1647L",
+        "zipCode": "bgpnxfwc"
+      },
+      "availableFrom": "2023-10-15T23:15:24.957Z",
+      "features": [
+        "VIEW",
+        "BALCONY_TERRACE",
+        "ELEVATOR",
+        "GARAGE",
+        "WHEELCHAIR_ACCESS",
+        "WASHING_MACHINE",
+        "PARKING_SPACE"
+      ],
+      "description": "Delectus voluptates harum. Consectetur beatae provident amet suscipit officia repudiandae veniam recusandae. Tempore optio nisi quia. Id aspernatur voluptatibus molestias suscipit. Iusto voluptate fugiat esse veniam molestiae quibusdam ipsam consequuntur saepe.",
+      "contact": {
+        "id": "tckud3nj",
+        "email": "marian_fisher78@yahoo.com",
+        "firstName": "Marian",
+        "lastName": "Fisher",
+        "birthTime": "17:24:13"
+      }
+    },
+    {
+      "id": "xvpsd4p7",
+      "price": 3780,
+      "size": 5,
+      "address": {
+        "id": "r39jab7m",
+        "country": "RO",
+        "city": "Frankland",
+        "street": "Bauch Valley",
+        "streetNumber": "1249H",
+        "zipCode": "boovytni"
+      },
+      "availableFrom": "2023-10-20T18:13:36.428Z",
+      "features": [
+        "WHEELCHAIR_ACCESS",
+        "VIEW",
+        "PARKING_SPACE",
+        "WASHING_MACHINE",
+        "ELEVATOR",
+        "BALCONY_TERRACE",
+        "GARAGE"
+      ],
+      "description": "Maxime consequuntur perspiciatis recusandae repudiandae vel voluptatibus tempora sunt voluptatem. Amet et dolore tempore corrupti et. Totam nemo tenetur illum. Dolores voluptas explicabo saepe assumenda recusandae rem.",
+      "contact": {
+        "id": "37nkjle1",
+        "email": "ardella_gottlieb@yahoo.com",
+        "firstName": "Ardella",
+        "lastName": "Gottlieb",
+        "birthTime": "16:16:2"
+      }
+    },
+    {
+      "id": "het8dpdg",
+      "price": 1465,
+      "size": 9,
+      "address": {
+        "id": "otgpeu1o",
+        "country": "AS",
+        "city": "Overland Park",
+        "street": "Mason Radial",
+        "streetNumber": "530F",
+        "zipCode": "kfh9n4u9"
+      },
+      "availableFrom": "2023-05-28T18:17:32.812Z",
+      "features": ["BALCONY_TERRACE"],
+      "description": "Nihil nesciunt veniam eum laboriosam. Quaerat amet quia quo quibusdam. Vero assumenda enim veritatis est eum ex placeat pariatur. Ex odit aspernatur possimus. Sunt voluptas nulla libero. Tenetur nesciunt iure rem consectetur.",
+      "contact": {
+        "id": "ag475va9",
+        "email": "jerry3@yahoo.com",
+        "firstName": "Jerry",
+        "lastName": "Terry",
+        "birthTime": "8:23:29"
+      }
+    },
+    {
+      "id": "2a7repna",
+      "price": 1071,
+      "size": 7,
+      "address": {
+        "id": "2e5ewwrh",
+        "country": "CD",
+        "city": "Heavenshire",
+        "street": "Beer Fork",
+        "streetNumber": "2353B",
+        "zipCode": "jpl6a832"
+      },
+      "availableFrom": "2023-06-19T22:42:54.815Z",
+      "features": ["BALCONY_TERRACE", "WHEELCHAIR_ACCESS", "VIEW", "WASHING_MACHINE", "ELEVATOR", "GARAGE"],
+      "description": "Numquam deleniti occaecati excepturi eligendi eius porro minus tenetur architecto. Voluptatibus illum facilis porro velit earum doloribus. Itaque tempore in ullam harum fugit veritatis quam. Rem placeat omnis sequi placeat.",
+      "contact": {
+        "id": "9jbvceb4",
+        "email": "sally.conn@gmail.com",
+        "firstName": "Sally",
+        "lastName": "Conn",
+        "birthTime": "10:1:31"
+      }
+    },
+    {
+      "id": "dqsi4zmj",
+      "price": 1483,
+      "size": 9,
+      "address": {
+        "id": "3tfjhctd",
+        "country": "TL",
+        "city": "West Adalbertoville",
+        "street": "West Forest",
+        "streetNumber": "684M",
+        "zipCode": "p8cuy4be"
+      },
+      "availableFrom": "2023-09-30T13:44:12.408Z",
+      "features": [
+        "PARKING_SPACE",
+        "ELEVATOR",
+        "BALCONY_TERRACE",
+        "WASHING_MACHINE",
+        "VIEW",
+        "GARAGE",
+        "WHEELCHAIR_ACCESS"
+      ],
+      "description": "Perferendis iusto qui error natus. Expedita repellendus quidem fugit. Vel fuga explicabo necessitatibus dignissimos quas ipsum quam natus autem. Eius architecto magni ut. Culpa enim modi accusamus officia corporis aliquid eum quidem. Assumenda quia sed consequatur.",
+      "contact": {
+        "id": "wurvwkyu",
+        "email": "unique_lowe79@yahoo.com",
+        "firstName": "Unique",
+        "lastName": "Lowe",
+        "birthTime": "10:8:57"
+      }
+    },
+    {
+      "id": "hit6mjl4",
+      "price": 1355,
+      "size": 2,
+      "address": {
+        "id": "9d7u6j27",
+        "country": "PK",
+        "city": "Linamouth",
+        "street": "Kovacek Cove",
+        "streetNumber": "1267B",
+        "zipCode": "zgyabgy3"
+      },
+      "availableFrom": "2023-11-10T22:02:58.563Z",
+      "features": ["WHEELCHAIR_ACCESS", "ELEVATOR", "PARKING_SPACE", "WASHING_MACHINE", "GARAGE", "VIEW"],
+      "description": "Dignissimos optio doloribus ea laboriosam atque voluptas beatae adipisci fugit. Sed perspiciatis similique assumenda quibusdam at facere. Architecto qui enim voluptas eum quaerat explicabo.",
+      "contact": {
+        "id": "ym3kiaj5",
+        "email": "avis_brakus@hotmail.com",
+        "firstName": "Avis",
+        "lastName": "Brakus",
+        "birthTime": "5:9:13"
+      }
+    },
+    {
+      "id": "pfr1fz2y",
+      "price": 2936,
+      "size": 8,
+      "address": {
+        "id": "piaczi4u",
+        "country": "ES",
+        "city": "Port Marjorieville",
+        "street": "Kailey Manor",
+        "streetNumber": "2586C",
+        "zipCode": "xr3rqq5q"
+      },
+      "availableFrom": "2024-02-14T13:29:58.365Z",
+      "features": ["BALCONY_TERRACE", "VIEW", "GARAGE", "ELEVATOR", "WASHING_MACHINE", "PARKING_SPACE"],
+      "description": "Necessitatibus nobis ab perferendis delectus dolores velit ipsa asperiores cumque. Quae fugiat neque nostrum. Accusamus sint aut saepe eligendi accusantium possimus laudantium saepe.",
+      "contact": {
+        "id": "fqokpmmq",
+        "email": "rylan.botsford59@yahoo.com",
+        "firstName": "Rylan",
+        "lastName": "Botsford",
+        "birthTime": "3:48:13"
+      }
+    },
+    {
+      "id": "1xomvw7d",
+      "price": 1596,
+      "size": 7,
+      "address": {
+        "id": "od1eatmq",
+        "country": "SV",
+        "city": "South Savion",
+        "street": "Herbert Green",
+        "streetNumber": "2739U",
+        "zipCode": "ea0l998g"
+      },
+      "availableFrom": "2023-09-05T20:48:03.536Z",
+      "features": ["GARAGE", "PARKING_SPACE", "VIEW", "BALCONY_TERRACE", "WASHING_MACHINE", "ELEVATOR"],
+      "description": "Iusto reiciendis totam minus quo. Voluptate voluptate voluptates at unde ducimus perspiciatis. Illum enim nobis blanditiis magni.",
+      "contact": {
+        "id": "5msrzodr",
+        "email": "winifred_harvey@yahoo.com",
+        "firstName": "Winifred",
+        "lastName": "Harvey",
+        "birthTime": "13:3:59"
+      }
+    },
+    {
+      "id": "qul8d018",
+      "price": 1240,
+      "size": 4,
+      "address": {
+        "id": "3mep2dgh",
+        "country": "CD",
+        "city": "Brandynboro",
+        "street": "Dietrich Park",
+        "streetNumber": "2028N",
+        "zipCode": "n61mp75v"
+      },
+      "availableFrom": "2023-10-02T04:43:37.102Z",
+      "features": ["VIEW", "GARAGE"],
+      "description": "Quas illo ipsa deserunt reprehenderit eveniet quasi non. Ipsa dolorem id illum. Similique cupiditate dolorem quae at. Temporibus expedita numquam. Totam fuga deserunt. Excepturi tenetur repellat debitis fugit cum harum.",
+      "contact": {
+        "id": "8fols84z",
+        "email": "jessika67@hotmail.com",
+        "firstName": "Jessika",
+        "lastName": "Toy",
+        "birthTime": "21:6:21"
+      }
+    },
+    {
+      "id": "sbm2b9dd",
+      "price": 841,
+      "size": 12,
+      "address": {
+        "id": "g9yicp70",
+        "country": "MV",
+        "city": "Port Meggieland",
+        "street": "Santa Shore",
+        "streetNumber": "908Z",
+        "zipCode": "f7mjfzro"
+      },
+      "availableFrom": "2023-11-20T04:12:15.795Z",
+      "features": ["GARAGE", "WHEELCHAIR_ACCESS", "ELEVATOR"],
+      "description": "Aut ipsa dignissimos doloribus neque officia molestias at vitae. Fuga sunt nobis exercitationem minus dicta adipisci minus nulla reiciendis. Dicta nam ex corrupti deleniti. Vero amet voluptate qui quia totam velit ipsa. Deleniti est ratione doloremque facere porro corrupti quo maxime eius. Id ea fugit accusamus.",
+      "contact": {
+        "id": "juii77cf",
+        "email": "neoma10@yahoo.com",
+        "firstName": "Neoma",
+        "lastName": "Reinger",
+        "birthTime": "7:22:41"
+      }
+    },
+    {
+      "id": "fgtpt81c",
+      "price": 3995,
+      "size": 10,
+      "address": {
+        "id": "kczlai8z",
+        "country": "SZ",
+        "city": "Fort Raoulfield",
+        "street": "Mason Canyon",
+        "streetNumber": "1314F",
+        "zipCode": "e6hsio7p"
+      },
+      "availableFrom": "2024-03-20T18:06:09.281Z",
+      "features": ["BALCONY_TERRACE", "GARAGE"],
+      "description": "Repudiandae suscipit veritatis porro in repellat voluptate amet nulla. Tenetur voluptas debitis placeat impedit alias eaque. Voluptates magni architecto aut dolorum nesciunt praesentium.",
+      "contact": {
+        "id": "bo13ypae",
+        "email": "clement9@yahoo.com",
+        "firstName": "Clement",
+        "lastName": "Wolf",
+        "birthTime": "22:45:33"
+      }
+    },
+    {
+      "id": "58p98699",
+      "price": 1199,
+      "size": 4,
+      "address": {
+        "id": "4fnds34w",
+        "country": "TM",
+        "city": "Harlingen",
+        "street": "Maximilian Lakes",
+        "streetNumber": "1345Y",
+        "zipCode": "kk5xhijq"
+      },
+      "availableFrom": "2023-06-29T20:44:35.772Z",
+      "features": [
+        "PARKING_SPACE",
+        "VIEW",
+        "ELEVATOR",
+        "WASHING_MACHINE",
+        "WHEELCHAIR_ACCESS",
+        "BALCONY_TERRACE",
+        "GARAGE"
+      ],
+      "description": "Eaque ducimus iusto numquam. Quam quam nemo. Velit itaque fugit odit nesciunt repellendus. Quidem neque necessitatibus distinctio quaerat cupiditate ducimus asperiores. Doloremque eveniet autem sit laboriosam veniam.",
+      "contact": {
+        "id": "tm955nde",
+        "email": "daija.veum22@yahoo.com",
+        "firstName": "Daija",
+        "lastName": "Veum",
+        "birthTime": "10:56:36"
+      }
+    },
+    {
+      "id": "o95v7xaa",
+      "price": 1567,
+      "size": 7,
+      "address": {
+        "id": "zuep7u18",
+        "country": "SA",
+        "city": "Jaymeland",
+        "street": "Spinka Throughway",
+        "streetNumber": "1157V",
+        "zipCode": "196ruwr9"
+      },
+      "availableFrom": "2024-02-01T18:33:07.078Z",
+      "features": ["VIEW", "BALCONY_TERRACE", "WHEELCHAIR_ACCESS", "PARKING_SPACE", "ELEVATOR"],
+      "description": "Officia eligendi itaque maxime beatae beatae porro. Voluptate ducimus distinctio maxime. Officia placeat voluptas labore nihil dignissimos possimus. Ab facere veniam pariatur alias labore hic.",
+      "contact": {
+        "id": "zfijxq3q",
+        "email": "verona_prohaska@gmail.com",
+        "firstName": "Verona",
+        "lastName": "Prohaska",
+        "birthTime": "10:19:39"
+      }
+    },
+    {
+      "id": "1e61mkzi",
+      "price": 3086,
+      "size": 2,
+      "address": {
+        "id": "wvbq9dqs",
+        "country": "CH",
+        "city": "Fort Ernieville",
+        "street": "Mohamed Point",
+        "streetNumber": "1541V",
+        "zipCode": "1s342nsy"
+      },
+      "availableFrom": "2024-04-01T17:17:27.501Z",
+      "features": ["PARKING_SPACE", "GARAGE"],
+      "description": "Maiores occaecati modi nemo nostrum deleniti illum nam. Laudantium eius velit commodi provident quas. Excepturi omnis eos unde sit doloremque quibusdam natus asperiores esse. Ab autem corporis nulla magnam quasi. Nisi fugit architecto atque illo iure nesciunt eveniet itaque voluptatem. Quam officiis facilis dolor at.",
+      "contact": {
+        "id": "428aszs2",
+        "email": "spencer_hansen@gmail.com",
+        "firstName": "Spencer",
+        "lastName": "Hansen",
+        "birthTime": "8:15:47"
+      }
+    },
+    {
+      "id": "dvejwbrj",
+      "price": 1482,
+      "size": 8,
+      "address": {
+        "id": "psbfm4ly",
+        "country": "LY",
+        "city": "Paterson",
+        "street": "Mante Ways",
+        "streetNumber": "2044G",
+        "zipCode": "dt26ckbc"
+      },
+      "availableFrom": "2023-07-15T08:54:57.739Z",
+      "features": ["WASHING_MACHINE", "PARKING_SPACE"],
+      "description": "Expedita eum sit exercitationem illo culpa. Laborum asperiores nisi excepturi. Repellendus velit at animi.",
+      "contact": {
+        "id": "u8urjefz",
+        "email": "haylee_renner68@yahoo.com",
+        "firstName": "Haylee",
+        "lastName": "Renner",
+        "birthTime": "0:42:44"
+      }
+    },
+    {
+      "id": "q5x155qd",
+      "price": 1169,
+      "size": 2,
+      "address": {
+        "id": "nxc1oftj",
+        "country": "CH",
+        "city": "Gradyfurt",
+        "street": "Franey Course",
+        "streetNumber": "663U",
+        "zipCode": "lpi2lk9h"
+      },
+      "availableFrom": "2024-03-22T16:17:13.673Z",
+      "features": ["WHEELCHAIR_ACCESS", "WASHING_MACHINE"],
+      "description": "Suscipit doloribus doloremque sint dolores tempora sint. Adipisci mollitia corrupti debitis minima quidem quasi odio. Aliquam quam reiciendis aliquam nesciunt temporibus odit officia totam dolore. Distinctio odit similique alias error. Sit possimus ullam consequuntur occaecati cumque nulla quia minima. Illum unde sit itaque nisi amet.",
+      "contact": {
+        "id": "v4zxfey7",
+        "email": "freda.mante@yahoo.com",
+        "firstName": "Freda",
+        "lastName": "Mante",
+        "birthTime": "19:11:24"
+      }
+    },
+    {
+      "id": "crjq3fj4",
+      "price": 3436,
+      "size": 11,
+      "address": {
+        "id": "wqa0qccr",
+        "country": "SR",
+        "city": "West Nyasiaburgh",
+        "street": "Jammie Manor",
+        "streetNumber": "2852Y",
+        "zipCode": "aiana6qr"
+      },
+      "availableFrom": "2023-07-18T08:31:53.924Z",
+      "features": ["ELEVATOR"],
+      "description": "Laboriosam aliquam deserunt quam numquam cum. Odit vero distinctio quas atque fuga molestiae eveniet. Similique fugiat modi corrupti maiores totam quod praesentium magni. Beatae nemo officia in possimus accusamus voluptatum.",
+      "contact": {
+        "id": "r8sf9aqk",
+        "email": "christina.herman67@hotmail.com",
+        "firstName": "Christina",
+        "lastName": "Herman",
+        "birthTime": "14:22:4"
+      }
+    },
+    {
+      "id": "xylkcsc9",
+      "price": 1526,
+      "size": 6,
+      "address": {
+        "id": "mjpc2vbl",
+        "country": "IL",
+        "city": "Lake Elenorafield",
+        "street": "Konopelski Port",
+        "streetNumber": "638V",
+        "zipCode": "4hkyitvi"
+      },
+      "availableFrom": "2023-04-29T05:06:16.983Z",
+      "features": ["PARKING_SPACE", "GARAGE", "WHEELCHAIR_ACCESS", "WASHING_MACHINE", "VIEW"],
+      "description": "Sunt neque quae laudantium eveniet quas. Non praesentium esse minus ipsum officiis. Iste natus nostrum unde. Ea eligendi perspiciatis nulla recusandae.",
+      "contact": {
+        "id": "0dcujzev",
+        "email": "isabel8@gmail.com",
+        "firstName": "Isabel",
+        "lastName": "Ratke",
+        "birthTime": "8:13:24"
+      }
+    },
+    {
+      "id": "6rr7nake",
+      "price": 1689,
+      "size": 12,
+      "address": {
+        "id": "rp7dmnxn",
+        "country": "SV",
+        "city": "Garnetfurt",
+        "street": "Hudson Camp",
+        "streetNumber": "2023H",
+        "zipCode": "vhpecewk"
+      },
+      "availableFrom": "2023-12-04T01:51:03.871Z",
+      "features": ["WHEELCHAIR_ACCESS", "PARKING_SPACE", "WASHING_MACHINE"],
+      "description": "Porro dolorum culpa quia sed incidunt ipsum. Ad sapiente architecto. A autem tempora quaerat eius unde accusantium enim corporis ab. Maxime nesciunt accusamus temporibus explicabo nobis similique. Vero voluptatum laudantium harum error quam quaerat laudantium aliquam iusto. A quia voluptatem neque.",
+      "contact": {
+        "id": "6egnxgm4",
+        "email": "virgil.schaden39@yahoo.com",
+        "firstName": "Virgil",
+        "lastName": "Schaden",
+        "birthTime": "8:30:41"
+      }
+    }
+  ],
+  "users": [
+    { "id": "0", "email": "alana35@hotmail.com", "firstName": "Alana", "lastName": "Medhurst", "birthTime": "12:46:8" },
+    { "id": "1", "email": "edwin77@hotmail.com", "firstName": "Edwin", "lastName": "Zieme", "birthTime": "13:28:50" },
+    {
+      "id": "2",
+      "email": "alanna.volkman@gmail.com",
+      "firstName": "Alanna",
+      "lastName": "Volkman",
+      "birthTime": "22:27:36"
+    },
+    {
+      "id": "3",
+      "email": "alexandro27@yahoo.com",
+      "firstName": "Alexandro",
+      "lastName": "Schmitt",
+      "birthTime": "0:58:26"
+    },
+    {
+      "id": "4",
+      "email": "hayley_lueilwitz@yahoo.com",
+      "firstName": "Hayley",
+      "lastName": "Lueilwitz",
+      "birthTime": "1:17:41"
+    },
+    { "id": "5", "email": "erich12@yahoo.com", "firstName": "Erich", "lastName": "Torp", "birthTime": "3:30:42" },
+    {
+      "id": "6",
+      "email": "beatrice_osinski95@gmail.com",
+      "firstName": "Beatrice",
+      "lastName": "Osinski",
+      "birthTime": "7:50:58"
+    },
+    { "id": "7", "email": "mustafa10@gmail.com", "firstName": "Mustafa", "lastName": "Lynch", "birthTime": "0:42:39" },
+    {
+      "id": "8",
+      "email": "wellington84@gmail.com",
+      "firstName": "Wellington",
+      "lastName": "Gulgowski",
+      "birthTime": "1:42:25"
+    },
+    {
+      "id": "9",
+      "email": "kaela.fritsch@yahoo.com",
+      "firstName": "Kaela",
+      "lastName": "Fritsch",
+      "birthTime": "0:48:11"
+    },
+    {
+      "id": "10",
+      "email": "aliyah.senger32@hotmail.com",
+      "firstName": "Aliyah",
+      "lastName": "Senger",
+      "birthTime": "9:50:37"
+    },
+    { "id": "11", "email": "lee62@yahoo.com", "firstName": "Lee", "lastName": "Pacocha", "birthTime": "3:40:41" },
+    { "id": "12", "email": "ayana67@gmail.com", "firstName": "Ayana", "lastName": "Dietrich", "birthTime": "12:21:47" },
+    {
+      "id": "13",
+      "email": "jeanne.keeling@hotmail.com",
+      "firstName": "Jeanne",
+      "lastName": "Keeling",
+      "birthTime": "18:19:51"
+    },
+    { "id": "14", "email": "abigail13@yahoo.com", "firstName": "Abigail", "lastName": "Wolff", "birthTime": "21:3:30" },
+    {
+      "id": "15",
+      "email": "geovanni.rempel@hotmail.com",
+      "firstName": "Geovanni",
+      "lastName": "Rempel",
+      "birthTime": "21:18:32"
+    },
+    {
+      "id": "16",
+      "email": "dangelo.gislason@gmail.com",
+      "firstName": "Dangelo",
+      "lastName": "Gislason",
+      "birthTime": "18:51:42"
+    },
+    {
+      "id": "17",
+      "email": "bernard82@hotmail.com",
+      "firstName": "Bernard",
+      "lastName": "Hills",
+      "birthTime": "15:59:59"
+    },
+    {
+      "id": "18",
+      "email": "crawford61@yahoo.com",
+      "firstName": "Crawford",
+      "lastName": "Macejkovic",
+      "birthTime": "19:48:8"
+    },
+    { "id": "19", "email": "lexi54@yahoo.com", "firstName": "Lexi", "lastName": "Connelly", "birthTime": "3:27:9" },
+    {
+      "id": "20",
+      "email": "candice.labadie3@hotmail.com",
+      "firstName": "Candice",
+      "lastName": "Labadie",
+      "birthTime": "15:14:19"
+    },
+    { "id": "21", "email": "aliyah90@gmail.com", "firstName": "Aliyah", "lastName": "Stamm", "birthTime": "13:1:59" },
+    {
+      "id": "22",
+      "email": "jeff.harvey28@yahoo.com",
+      "firstName": "Jeff",
+      "lastName": "Harvey",
+      "birthTime": "14:10:49"
+    },
+    {
+      "id": "23",
+      "email": "eudora_pagac78@gmail.com",
+      "firstName": "Eudora",
+      "lastName": "Pagac",
+      "birthTime": "23:26:14"
+    },
+    {
+      "id": "24",
+      "email": "dovie.mccullough@hotmail.com",
+      "firstName": "Dovie",
+      "lastName": "McCullough",
+      "birthTime": "13:19:9"
+    },
+    {
+      "id": "25",
+      "email": "mariam89@yahoo.com",
+      "firstName": "Mariam",
+      "lastName": "Marquardt",
+      "birthTime": "11:19:44"
+    },
+    {
+      "id": "26",
+      "email": "cathy.kuphal62@hotmail.com",
+      "firstName": "Cathy",
+      "lastName": "Kuphal",
+      "birthTime": "4:21:36"
+    },
+    {
+      "id": "27",
+      "email": "brady_armstrong96@gmail.com",
+      "firstName": "Brady",
+      "lastName": "Armstrong",
+      "birthTime": "3:45:9"
+    },
+    {
+      "id": "28",
+      "email": "mireille_stroman@hotmail.com",
+      "firstName": "Mireille",
+      "lastName": "Stroman",
+      "birthTime": "19:25:15"
+    },
+    { "id": "29", "email": "elmore28@hotmail.com", "firstName": "Elmore", "lastName": "Nolan", "birthTime": "18:10:50" }
+  ]
+}
