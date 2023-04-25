@@ -209,7 +209,9 @@ describe('RestService', () => {
           done();
         });
 
-      const request = httpTestingController.expectOne(`${expectedUrl}?sort=${testSortingFieldName}`);
+      const request = httpTestingController.expectOne(
+        `${expectedUrl}?_sort=${testSortingFieldName}&_order=${SortingDirection.ASCENDING}`
+      );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
     });
@@ -229,7 +231,9 @@ describe('RestService', () => {
         done();
       });
 
-      const request = httpTestingController.expectOne(`${expectedUrl}?sort=-${testSortingFieldName}`);
+      const request = httpTestingController.expectOne(
+        `${expectedUrl}?_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}`
+      );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
     });
@@ -255,7 +259,7 @@ describe('RestService', () => {
       });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?sort=${testSortingFieldName},-${testSortingFieldName2}`
+        `${expectedUrl}?_sort=${testSortingFieldName},${testSortingFieldName2}&_order=${SortingDirection.ASCENDING},${SortingDirection.DESCENDING}`
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -328,7 +332,7 @@ describe('RestService', () => {
         });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&sort=-${testSortingFieldName}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`
+        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -344,7 +348,7 @@ describe('RestService', () => {
       );
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&sort=-${testSortingFieldName}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`
+        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`
       );
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });

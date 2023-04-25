@@ -76,7 +76,7 @@ describe('PropertiesService', () => {
     expect(mockRestService.deleteResource).toHaveBeenCalledWith(`${PROPERTIES_RESOURCE_BASE_PATH}/${property.id}`);
   });
 
-  it('queryResources', () => {
+  it('loadResources', () => {
     const options: RequestOptions = {
       pagingOptions: {
         page: 1,
@@ -88,8 +88,8 @@ describe('PropertiesService', () => {
     const actual = service.loadResources(options);
 
     expect(actual).toBeObservable(expected);
-    expect(mockRestService.queryResources).toHaveBeenCalledTimes(1);
-    expect(mockRestService.queryResources).toHaveBeenCalledWith(PROPERTIES_RESOURCE_BASE_PATH, options);
+    expect(mockRestService.loadResources).toHaveBeenCalledTimes(1);
+    expect(mockRestService.loadResources).toHaveBeenCalledWith(PROPERTIES_RESOURCE_BASE_PATH, options);
   });
 
   it('deleteResources', () => {

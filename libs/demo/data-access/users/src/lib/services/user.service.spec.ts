@@ -69,7 +69,7 @@ describe('UsersService', () => {
     expect(mockRestService.deleteResource).toHaveBeenCalledWith(`${USERS_RESOURCE_BASE_PATH}/${user.id}`);
   });
 
-  it('queryResources', () => {
+  it('loadResources', () => {
     const options: RequestOptions = {
       pagingOptions: {
         page: 1,
@@ -81,8 +81,8 @@ describe('UsersService', () => {
     const actual = service.loadResources(options);
 
     expect(actual).toBeObservable(expected);
-    expect(mockRestService.queryResources).toHaveBeenCalledTimes(1);
-    expect(mockRestService.queryResources).toHaveBeenCalledWith(USERS_RESOURCE_BASE_PATH, options);
+    expect(mockRestService.loadResources).toHaveBeenCalledTimes(1);
+    expect(mockRestService.loadResources).toHaveBeenCalledWith(USERS_RESOURCE_BASE_PATH, options);
   });
 
   it('deleteResources', () => {
