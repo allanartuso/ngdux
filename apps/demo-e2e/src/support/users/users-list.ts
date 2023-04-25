@@ -8,17 +8,17 @@ export const usersListRoutes = {
 };
 
 const usersListApiUrls = {
-  query: '/api/users/query',
+  get: 'http://localhost:3000/api/users?*',
   deleteUsers: '/api/users/bulk'
 };
 
 export function stubUsers(): UserDto[] {
   const users = createPersistentUsers(35);
 
-  cy.intercept({ method: 'POST', url: usersListApiUrls.query }, req => {
-    const queryOptions = req.body;
-    const pageIndex = queryOptions.page - 1;
-    const pageSize = queryOptions.pageSize;
+  cy.intercept({ method: 'GET', url: usersListApiUrls.get }, req => {
+    const queryOptions = req.query;
+    const pageIndex = +queryOptions['page'] - 1;
+    const pageSize = +queryOptions['pageSize'];
     const res = users.slice(pageIndex * pageSize, pageSize * (pageIndex + 1));
     req.reply(res);
   }).as(usersListRoutes.getUsers);

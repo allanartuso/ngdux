@@ -1,6 +1,6 @@
 import { PropertyDto } from '@demo/demo/data-model/properties';
 import { SortingDirection, SortingField } from '@ngdux/data-model-common';
-import { assertCorrectQueryRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
+import { assertCorrectGetRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
 import { propertiesListRoutes, stubDeleteProperties, stubProperties } from '../../support/properties/properties-list';
 
 describe('Properties list', () => {
@@ -10,7 +10,7 @@ describe('Properties list', () => {
     properties = stubProperties();
 
     cy.visit('/properties');
-    assertCorrectQueryRequested(propertiesListRoutes.getProperties, 1);
+    assertCorrectGetRequested(propertiesListRoutes.getProperties, 1);
   });
 
   it('paging through the table', () => {
@@ -20,7 +20,7 @@ describe('Properties list', () => {
   it('request sort', () => {
     cy.get(listSelectors.columnHeader).contains('Size').click();
     const sort: SortingField[] = [{ field: 'size', direction: SortingDirection.ASCENDING }];
-    assertCorrectQueryRequested(propertiesListRoutes.getProperties, 1, sort);
+    assertCorrectGetRequested(propertiesListRoutes.getProperties, 1, sort);
   });
 
   it('delete properties', () => {

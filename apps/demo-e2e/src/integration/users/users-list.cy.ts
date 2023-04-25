@@ -1,6 +1,6 @@
 import { UserDto } from '@demo/demo/data-model/users';
 import { SortingDirection, SortingField } from '@ngdux/data-model-common';
-import { assertCorrectQueryRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
+import { assertCorrectGetRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
 import { stubDeleteUsers, stubUsers, usersListRoutes } from '../../support/users/users-list';
 
 describe('Users list', () => {
@@ -10,7 +10,7 @@ describe('Users list', () => {
     users = stubUsers();
 
     cy.visit('/users');
-    assertCorrectQueryRequested(usersListRoutes.getUsers, 1);
+    assertCorrectGetRequested(usersListRoutes.getUsers, 1);
   });
 
   it('paging through the table', () => {
@@ -20,7 +20,7 @@ describe('Users list', () => {
   it('request sort', () => {
     cy.get(listSelectors.columnHeader).contains('Email').click();
     const sort: SortingField[] = [{ field: 'email', direction: SortingDirection.ASCENDING }];
-    assertCorrectQueryRequested(usersListRoutes.getUsers, 1, sort);
+    assertCorrectGetRequested(usersListRoutes.getUsers, 1, sort);
   });
 
   it('delete users', () => {

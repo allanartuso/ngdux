@@ -8,17 +8,17 @@ export const propertiesListRoutes = {
 };
 
 const propertiesListApiUrls = {
-  query: '/api/properties/query',
+  get: 'http://localhost:3000/api/properties?*',
   deleteProperties: '/api/properties/bulk'
 };
 
 export function stubProperties(): PropertyDto[] {
   const properties = createPersistentProperties(35);
 
-  cy.intercept({ method: 'POST', url: propertiesListApiUrls.query }, req => {
-    const queryOptions = req.body;
-    const pageIndex = queryOptions.page - 1;
-    const pageSize = queryOptions.pageSize;
+  cy.intercept({ method: 'GET', url: propertiesListApiUrls.get }, req => {
+    const queryOptions = req.query;
+    const pageIndex = +queryOptions['page'] - 1;
+    const pageSize = +queryOptions['pageSize'];
     const res = properties.slice(pageIndex * pageSize, pageSize * (pageIndex + 1));
     req.reply(res);
   }).as(propertiesListRoutes.getProperties);
