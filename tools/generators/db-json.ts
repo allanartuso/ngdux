@@ -10,7 +10,9 @@ const db = {
   users
 };
 
-fs.writeFile('./json-server/db.json', JSON.stringify(db), error => {
+const fileContent = `export const db = ${JSON.stringify(db)}`;
+
+fs.writeFile('./apps/demo-json-server/src/db.ts', fileContent, error => {
   if (error) {
     console.log(error);
     return;
