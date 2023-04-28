@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { UserFacade } from '@demo/demo/data-access/users';
-import { first, Observable } from 'rxjs';
+import { Observable, first, of } from 'rxjs';
 
 @Injectable()
 export class UserResolver implements Resolve<boolean> {
@@ -10,8 +10,12 @@ export class UserResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     const id = route.params['id'];
 
-    this.userFacade.load({ id });
-
-    return this.userFacade.isReady$.pipe(first(userReady => userReady));
+    if (id) {
+      this.userFacade.load({ id });
+      return this.userFacade.isReady$.pipe(first(isReady => isReady));
+    } else {
+      this.userFacade.reset();
+      return of(true);
+    }
   }
 }

@@ -24,6 +24,7 @@ export const usersRoutes: Routes = [
       },
       {
         path: `new`,
+        resolve: [PropertyResolver],
         component: PropertyComponent
       },
       {

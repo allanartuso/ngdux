@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
 import { UsersFacade } from '@demo/demo/data-access/users';
-import { combineLatest, first, map, Observable } from 'rxjs';
+import { Observable, combineLatest, first, map } from 'rxjs';
 
 @Injectable()
 export class PropertyResolver implements Resolve<boolean> {
@@ -10,14 +10,19 @@ export class PropertyResolver implements Resolve<boolean> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     const id = route.params['id'];
-
-    this.propertyFacade.load({ id });
     this.usersFacade.setPageSize({ pageSize: 100 });
     this.usersFacade.initialize();
 
-    return combineLatest([this.propertyFacade.isReady$, this.usersFacade.isReady$]).pipe(
-      first(items => items.every(isReady => isReady)),
-      map(() => true)
-    );
+    if (id) {
+      this.propertyFacade.load({ id });
+
+      return combineLatest([this.propertyFacade.isReady$, this.usersFacade.isReady$]).pipe(
+        first(items => items.every(isReady => isReady)),
+        map(() => true)
+      );
+    } else {
+      this.propertyFacade.reset();
+      return this.usersFacade.isReady$.pipe(first(isReady => isReady));
+    }
   }
 }
