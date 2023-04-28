@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { listActions, listSelectors } from '@demo/demo/data-access/users';
-import { select, Store } from '@ngrx/store';
+import { UsersFacade } from '@demo/demo/data-access/users';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class UsersResolver implements Resolve<boolean> {
-  constructor(private readonly store: Store) {}
+  constructor(private readonly usersFacade: UsersFacade) {}
 
   resolve(): Observable<boolean> {
-    this.store.dispatch(listActions.initialize());
+    this.usersFacade.initialize();
 
-    return this.store.pipe(select(listSelectors.isReady)).pipe(first(isReady => isReady));
+    return this.usersFacade.isReady$.pipe(first(isReady => isReady));
   }
 }

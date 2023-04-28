@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { listActions, listSelectors } from '@demo/demo/data-access/users';
+import { UsersFacade } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
 import { FilteringOptions, PagingOptions, SortingOptions } from '@ngdux/data-model-common';
-import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,33 +11,33 @@ import { Observable } from 'rxjs';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-  users$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getCurrentPageData));
-  totalCount$: Observable<number> = this.store.pipe(select(listSelectors.getTotalCount));
-  pagingOptions$: Observable<PagingOptions> = this.store.pipe(select(listSelectors.getPagingOptions));
-  sortingOptions$: Observable<SortingOptions> = this.store.pipe(select(listSelectors.getSortingOptions));
-  filteringOptions$: Observable<FilteringOptions> = this.store.pipe(select(listSelectors.getFilteringOptions));
-  selectedItems$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getSelectedItems));
+  users$: Observable<UserDto[]> = this.usersFacade.currentPageData$;
+  totalCount$: Observable<number> = this.usersFacade.totalCount$;
+  pagingOptions$: Observable<PagingOptions> = this.usersFacade.pagingOptions$;
+  sortingOptions$: Observable<SortingOptions> = this.usersFacade.sortingOptions$;
+  filteringOptions$: Observable<FilteringOptions> = this.usersFacade.filteringOptions$;
+  selectedItems$: Observable<UserDto[]> = this.usersFacade.selectedItems$;
 
-  constructor(private readonly router: Router, private readonly store: Store) {}
+  constructor(private readonly router: Router, private readonly usersFacade: UsersFacade) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
-    this.store.dispatch(listActions.changeFiltering({ filteringOptions }));
+    this.usersFacade.changeFiltering({ filteringOptions });
   }
 
   onSortingChanged(sortingOptions: SortingOptions): void {
-    this.store.dispatch(listActions.changeSorting({ sortingOptions }));
+    this.usersFacade.changeSorting({ sortingOptions });
   }
 
   onPageOptionsChanged(pagingOptions: PagingOptions): void {
-    this.store.dispatch(listActions.changePagingOptions({ pagingOptions }));
+    this.usersFacade.changePagingOptions({ pagingOptions });
   }
 
   onRefreshPageSelected(): void {
-    this.store.dispatch(listActions.loadPage());
+    this.usersFacade.loadPage();
   }
 
   onRowSelected(users: UserDto[]): void {
-    this.store.dispatch(listActions.changeSelectedResources({ selectedResourceIds: users.map(user => user.id) }));
+    this.usersFacade.changeSelectedResources({ selectedResourceIds: users.map(user => user.id) });
   }
 
   onCellSelected(resourceId: string): void {
@@ -46,6 +45,6 @@ export class UsersComponent {
   }
 
   onDelete(): void {
-    this.store.dispatch(listActions.showRemovalsConfirmation());
+    this.usersFacade.showRemovalsConfirmation();
   }
 }

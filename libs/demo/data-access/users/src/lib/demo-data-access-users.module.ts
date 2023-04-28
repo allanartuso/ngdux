@@ -1,33 +1,36 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { UsersFacade } from '@demo/demo/data-access/users';
 import { SharedUtilNotificationModule } from '@demo/shared/util-notification';
 import { FORM_FEATURE_KEY } from '@ngdux/form';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { UserReducerManager, USER_DEFAULT_FEATURE_KEY } from './+state/user/user-state.service';
+import { LIST_FEATURE_KEY } from '@ngdux/list';
+import { provideEffects } from '@ngrx/effects';
+import { USER_DEFAULT_FEATURE_KEY, UserReducerManager } from './+state/user/user-state.service';
 import { UserEffects } from './+state/user/user.effects';
 import { UserFacade } from './+state/user/user.facade';
+import { USERS_DEFAULT_FEATURE_KEY, UsersReducerManager } from './+state/users/users-state.service';
 import { UsersEffects } from './+state/users/users.effects';
-import { usersReducer, USERS_FEATURE_KEY } from './+state/users/users.reducer';
+import { UsersFacade } from './+state/users/users.facade';
+import { DataAccessUsersModuleConfig } from './models/users.model';
 
 @NgModule({
-  imports: [
-    StoreModule.forFeature(USERS_FEATURE_KEY, usersReducer),
-    EffectsModule.forFeature([UserEffects, UsersEffects]),
-    SharedUtilNotificationModule
-  ],
+  imports: [SharedUtilNotificationModule],
   providers: [
     { provide: FORM_FEATURE_KEY, useValue: USER_DEFAULT_FEATURE_KEY },
+    { provide: LIST_FEATURE_KEY, useValue: USERS_DEFAULT_FEATURE_KEY },
     UserReducerManager,
+    UsersReducerManager,
     UserFacade,
-    UsersFacade
+    UsersFacade,
+    provideEffects(UserEffects, UsersEffects)
   ]
 })
 export class DemoDataAccessUsersModule {
-  static config(featureKey: string): ModuleWithProviders<DemoDataAccessUsersModule> {
+  static config(config: DataAccessUsersModuleConfig): ModuleWithProviders<DemoDataAccessUsersModule> {
     return {
       ngModule: DemoDataAccessUsersModule,
-      providers: [{ provide: FORM_FEATURE_KEY, useValue: featureKey }, UserReducerManager]
+      providers: [
+        { provide: FORM_FEATURE_KEY, useValue: config.formFeatureKey || USER_DEFAULT_FEATURE_KEY },
+        { provide: LIST_FEATURE_KEY, useValue: config.listFeatureKey || USERS_DEFAULT_FEATURE_KEY }
+      ]
     };
   }
 }

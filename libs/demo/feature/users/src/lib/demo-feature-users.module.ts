@@ -44,10 +44,10 @@ export const usersRoutes: Routes = [
     SharedUiFormModule,
     SharedUiListModule,
     SharedUtilNotificationModule,
-    DemoDataAccessUsersModule.config('myCustomKey'),
+    DemoDataAccessUsersModule.config({ formFeatureKey: 'mainUser', listFeatureKey: 'mainUsers' }),
     DemoUiUsersModule
   ],
   declarations: [UserComponent, UsersComponent],
-  providers: [UserResolver]
+  providers: [UserResolver, UsersResolver]
 })
 export class DemoFeatureUsersModule {}
