@@ -44,7 +44,7 @@ export const usersRoutes: Routes = [
     SharedUiFormModule,
     SharedUiListModule,
     SharedUtilNotificationModule,
-    DemoDataAccessUsersModule.config({ formFeatureKey: 'mainUser', listFeatureKey: 'mainUsers' }),
+    DemoDataAccessUsersModule,
     DemoUiUsersModule
   ],
   declarations: [UserComponent, UsersComponent],

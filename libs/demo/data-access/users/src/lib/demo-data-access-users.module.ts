@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { SharedUtilNotificationModule } from '@demo/shared/util-notification';
 import { FORM_FEATURE_KEY } from '@ngdux/form';
 import { LIST_FEATURE_KEY } from '@ngdux/list';
-import { provideEffects } from '@ngrx/effects';
+import { RegisterEffectsService } from '@ngdux/store-common';
 import { USER_DEFAULT_FEATURE_KEY, UserReducerManager } from './+state/user/user-state.service';
 import { UserEffects } from './+state/user/user.effects';
 import { UserFacade } from './+state/user/user.facade';
@@ -20,10 +20,15 @@ import { DataAccessUsersModuleConfig } from './models/users.model';
     UsersReducerManager,
     UserFacade,
     UsersFacade,
-    provideEffects(UserEffects, UsersEffects)
+    UserEffects,
+    UsersEffects
   ]
 })
 export class DemoDataAccessUsersModule {
+  constructor(usersEffects: UsersEffects, userEffects: UserEffects, registerEffectsService: RegisterEffectsService) {
+    registerEffectsService.registerEffects([userEffects, usersEffects]);
+  }
+
   static config(config: DataAccessUsersModuleConfig): ModuleWithProviders<DemoDataAccessUsersModule> {
     return {
       ngModule: DemoDataAccessUsersModule,

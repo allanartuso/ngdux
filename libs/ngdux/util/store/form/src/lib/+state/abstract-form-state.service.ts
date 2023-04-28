@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { createFeatureSelector, ReducerManager } from '@ngrx/store';
-import { FormActions, FormSelectors, FormState, FORM_FEATURE_KEY } from '../models/form.model';
+import { ReducerManager, createFeatureSelector } from '@ngrx/store';
+import { FORM_FEATURE_KEY, FormActions, FormSelectors, FormState } from '../models/form.model';
 import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';
 import { createFormSelectors } from './form-selectors';

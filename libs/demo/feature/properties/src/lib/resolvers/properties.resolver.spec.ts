@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { RequestState } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
-import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { PropertiesResolver } from './properties.resolver';
 
@@ -20,7 +19,6 @@ describe('PropertiesResolver', () => {
     TestBed.configureTestingModule({
       providers: [
         PropertiesResolver,
-        provideMockStore(),
         {
           provide: PropertiesFacade,
           useValue: facade

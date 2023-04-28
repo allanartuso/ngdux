@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { EntityAdapter } from '@ngrx/entity';
-import { createFeatureSelector, ReducerManager } from '@ngrx/store';
-import { ListActions, ListSelectors, ListState, LIST_FEATURE_KEY } from '../models/list.model';
+import { ReducerManager, createFeatureSelector } from '@ngrx/store';
+import { LIST_FEATURE_KEY, ListActions, ListSelectors, ListState } from '../models/list.model';
 import { createListActions } from './list-actions';
 import { createListEntityAdapter, createListReducer } from './list-reducer';
 import { createListSelectors } from './list-selectors';

@@ -1,6 +1,6 @@
 import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { select, Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
