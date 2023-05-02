@@ -16,9 +16,9 @@ export const DEFAULT_REQUEST_OPTIONS: RequestOptions = {
 
 export interface RequestOptions {
   requestParameters?: Record<string, string>;
-  pagingOptions?: PagingOptions;
-  sortingOptions?: SortingOptions;
-  filteringOptions?: FilteringOptions;
+  pagingOptions: PagingOptions;
+  sortingOptions: SortingOptions;
+  filteringOptions: FilteringOptions;
 }
 
 export interface QueryOptionsDto {

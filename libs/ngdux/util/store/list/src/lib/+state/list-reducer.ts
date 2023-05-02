@@ -4,8 +4,8 @@ import {
   createRequestStateActionHandlers,
   getLastPageNumber
 } from '@ngdux/store-common';
-import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { ActionReducer, createReducer, on, ReducerTypes } from '@ngrx/store';
+import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { ActionReducer, ReducerTypes, createReducer, on } from '@ngrx/store';
 import { ActionCreator } from '@ngrx/store/src/models';
 
 import { ListActions, ListState } from '../models/list.model';
@@ -89,7 +89,7 @@ function createListActionHandlers<T, E, S>(
     })),
     on(actions.loadPageSuccess, (state: ListState<S, E>, { resources, pagingOptions }) => {
       const lastPageNumber = getLastPageNumber(resources, pagingOptions) || state.lastPageNumber;
-      if (pagingOptions.page > lastPageNumber) {
+      if (lastPageNumber && pagingOptions.page > lastPageNumber) {
         return {
           ...state,
           pagingOptions: {

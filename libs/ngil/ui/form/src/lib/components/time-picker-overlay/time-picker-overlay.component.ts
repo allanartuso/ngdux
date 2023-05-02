@@ -11,15 +11,15 @@ import { TimePickerValue } from '../time-picker/time-picker.model';
   template: ''
 })
 export class NgilTimePickerOverlayComponent implements OnDestroy {
-  origin: ElementRef<HTMLInputElement>;
+  origin?: ElementRef<HTMLInputElement>;
   valueChanges$ = new Subject<TimePickerValue>();
   isOpen = false;
 
-  protected value: TimePickerValue | undefined;
+  protected value: TimePickerValue = { hour: 0, minute: 0, second: 0 };
   protected readonly destroy$ = new Subject<void>();
   protected contentComponent = NgilTimePickerComponent;
   protected componentInstance: undefined | NgilTimePickerComponent;
-  private overlayRef: OverlayRef;
+  private overlayRef?: OverlayRef;
 
   constructor(private readonly overlay: Overlay) {}
 
@@ -40,8 +40,12 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
     this.componentInstance.writeValue(this.value);
 
     this.componentInstance.formGroup.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      const value = this.componentInstance.formGroup.getRawValue();
-      this.valueChanges$.next(value);
+      const value = this.componentInstance?.formGroup.getRawValue();
+      this.valueChanges$.next({
+        hour: value?.hour ?? 0,
+        minute: value?.minute ?? 0,
+        second: value?.second ?? 0
+      });
     });
 
     this.overlayRef
@@ -80,6 +84,10 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
     const secondaryX = primaryX === 'start' ? 'end' : 'start';
     const primaryY = 'top';
     const secondaryY = 'bottom';
+
+    if (!this.origin) {
+      return undefined;
+    }
 
     const strategy = this.overlay
       .position()

@@ -11,18 +11,18 @@ export interface FieldErrors {
   [key: string]: FieldError[] | FieldErrors;
 }
 
-export interface FormService<T> {
-  loadResource(id: string): Observable<T>;
+export interface FormService<DTO, CREATE_DTO = DTO> {
+  loadResource(id: string): Observable<DTO>;
 
-  saveResource?(resource: T): Observable<T>;
+  saveResource?(resource: DTO): Observable<DTO>;
 
-  deleteResource?(id: string): Observable<T>;
+  deleteResource?(id: string): Observable<DTO>;
 
-  createResource?(resource: T): Observable<T>;
+  createResource?(resource: CREATE_DTO): Observable<DTO>;
 }
 
-export interface FormNotificationService<E> {
-  onFormErrors: (errors: E) => void;
+export interface FormNotificationService<ERROR> {
+  onFormErrors: (errors: ERROR) => void;
 
   onFormDelete: (id: string) => void;
 }

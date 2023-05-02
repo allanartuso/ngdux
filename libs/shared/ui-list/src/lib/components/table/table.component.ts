@@ -45,8 +45,8 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   @Output() deleteSelected = new EventEmitter<void>();
   @Output() cellSelected = new EventEmitter<T>();
 
-  sortActive: string;
-  sortDirection: SortDirection;
+  sortActive = '';
+  sortDirection: SortDirection = 'asc';
   selection = new SelectionModel<T>(true, []);
   pageNumber = DEFAULT_PAGE;
   pageSize = DEFAULT_PAGE_SIZE;

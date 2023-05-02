@@ -5,10 +5,10 @@ import { NgControl } from '@angular/forms';
   selector: 'input[ngilNumberRotation]'
 })
 export class NumberRotationDirective implements AfterViewInit, OnDestroy, OnInit {
-  @Input() min: number;
-  @Input() max: number;
-  @Input() buttonUp: HTMLElement;
-  @Input() buttonDown: HTMLElement;
+  @Input() min = 0;
+  @Input() max = 10;
+  @Input() buttonUp?: HTMLElement;
+  @Input() buttonDown?: HTMLElement;
 
   get length(): number {
     return this.max.toString().length;
@@ -35,8 +35,8 @@ export class NumberRotationDirective implements AfterViewInit, OnDestroy, OnInit
   }
 
   ngAfterViewInit(): void {
-    this.buttonUp.addEventListener('click', this.onUp);
-    this.buttonDown.addEventListener('click', this.onDown);
+    this.buttonUp?.addEventListener('click', this.onUp);
+    this.buttonDown?.addEventListener('click', this.onDown);
   }
 
   private onKeyDownEvent(event: KeyboardEvent): void {
@@ -85,12 +85,12 @@ export class NumberRotationDirective implements AfterViewInit, OnDestroy, OnInit
   }
 
   private setInputValue(value: number) {
-    this.ngControl.control.setValue(value);
+    this.ngControl.control?.setValue(value);
     this.elementRef.nativeElement.value = value.toString().padStart(this.length, '0');
   }
 
   ngOnDestroy(): void {
-    this.buttonUp.removeEventListener('click', this.onUp);
-    this.buttonDown.removeEventListener('click', this.onDown);
+    this.buttonUp?.removeEventListener('click', this.onUp);
+    this.buttonDown?.removeEventListener('click', this.onDown);
   }
 }

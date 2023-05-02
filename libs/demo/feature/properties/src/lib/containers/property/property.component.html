@@ -1,6 +1,7 @@
 <demo-property-form
+  *ngIf="model$ | async as model"
   #propertyProfileForm
-  [formViewModel]="property$ | async"
-  [users]="users$ | async"
+  [formViewModel]="model.property"
+  [users]="model.users"
   (submitted)="onSaved($event)"
 ></demo-property-form>

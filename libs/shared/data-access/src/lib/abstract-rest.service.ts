@@ -49,7 +49,7 @@ export abstract class AbstractRestService {
    *                Defaults to an empty object if no options are provided.
    * @returns An observable that emits the loaded resources.
    */
-  public loadResources<T>(resourcePath = '', options: RequestOptions = {}): Observable<T[]> {
+  public loadResources<T>(resourcePath = '', options: Partial<RequestOptions> = {}): Observable<T[]> {
     const url = this.createUrl(resourcePath);
     const requestParameters = {
       params: new HttpParams({
@@ -70,7 +70,7 @@ export abstract class AbstractRestService {
    *          This must never be null or undefined.
    *          Return an empty object if no request parameters can be created.
    */
-  protected abstract createRequestParameters(options: RequestOptions): Record<string, string>;
+  protected abstract createRequestParameters(options: Partial<RequestOptions>): Record<string, string>;
 
   /**
    * Queries all the resources from the given resource path that match the given request options.
@@ -82,7 +82,7 @@ export abstract class AbstractRestService {
    *                Defaults to an empty object if no options are provided.
    * @returns An observable that emits the queried resources.
    */
-  public queryResources<T>(resourcePath = '', options: RequestOptions = {}): Observable<T[]> {
+  public queryResources<T>(resourcePath = '', options: Partial<RequestOptions> = {}): Observable<T[]> {
     const url = this.createUrl(resourcePath);
     const requestQuery = this.createRequestQuery(options);
 
@@ -98,7 +98,7 @@ export abstract class AbstractRestService {
    * @returns The request query object. This must never be null or undefined.
    *          Return an empty object if no query object can be created.
    */
-  protected abstract createRequestQuery(options: RequestOptions): object;
+  protected abstract createRequestQuery(options: Partial<RequestOptions>): object;
 
   /**
    * Creates the given resource at the given resource path.

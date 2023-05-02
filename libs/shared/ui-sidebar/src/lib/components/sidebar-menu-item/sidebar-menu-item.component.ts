@@ -7,8 +7,8 @@ import { MenuItem } from '../../models/sidebar.models';
   styleUrls: ['./sidebar-menu-item.component.scss']
 })
 export class SidebarMenuItemComponent {
-  @Input() menuItem: MenuItem;
-  @Input() expanded: boolean;
+  @Input() menuItem: MenuItem = { name: '' };
+  @Input() expanded = false;
 
   @Output() menuItemHoveredOn: EventEmitter<MenuItem> = new EventEmitter();
   @Output() menuItemHoveredOff: EventEmitter<MenuItem> = new EventEmitter();

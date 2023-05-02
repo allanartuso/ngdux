@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PropertyDto } from '@demo/demo/data-model/properties';
+import { CreatePropertyDto, PropertyDto } from '@demo/demo/data-model/properties';
 import { NotificationService } from '@demo/shared/util-notification';
 import { ErrorDto } from '@ngdux/data-model-common';
 import { AbstractFormEffects } from '@ngdux/form';
@@ -9,7 +9,7 @@ import { PropertyService } from '../../services/property.service';
 import { propertyActions } from './property.state';
 
 @Injectable()
-export class PropertyEffects extends AbstractFormEffects<PropertyDto, ErrorDto> {
+export class PropertyEffects extends AbstractFormEffects<PropertyDto, ErrorDto, CreatePropertyDto> {
   constructor(
     actions$: Actions,
     store: Store,

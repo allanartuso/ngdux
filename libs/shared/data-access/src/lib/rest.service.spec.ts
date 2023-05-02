@@ -138,7 +138,7 @@ describe('RestService', () => {
     });
 
     it('applies request parameters when request options with request parameters are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         requestParameters: {
           ...defaultRequestOptions.requestParameters
         }
@@ -157,7 +157,7 @@ describe('RestService', () => {
     });
 
     it('applies request parameters when request options with paging options are provided', done => {
-      const expectedOptions: RequestOptions = {
+      const expectedOptions: Partial<RequestOptions> = {
         pagingOptions: {
           ...defaultRequestOptions.pagingOptions
         }
@@ -169,14 +169,14 @@ describe('RestService', () => {
       });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?page=${expectedOptions.pagingOptions.page}&pageSize=${expectedOptions.pagingOptions.pageSize}`
+        `${expectedUrl}?page=${expectedOptions.pagingOptions?.page}&pageSize=${expectedOptions.pagingOptions?.pageSize}`
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
     });
 
     it('applies request parameters when request options with empty sorting options are provided', done => {
-      const expectedRequestOptions: RequestOptions = {
+      const expectedRequestOptions: Partial<RequestOptions> = {
         sortingOptions: {}
       };
 
@@ -193,7 +193,7 @@ describe('RestService', () => {
     });
 
     it('applies request parameters when request options with one ascending sorting field is provided', done => {
-      const expectedRequestOptions: RequestOptions = {
+      const expectedRequestOptions: Partial<RequestOptions> = {
         sortingOptions: {
           [testSortingFieldName]: {
             field: testSortingFieldName,
@@ -217,7 +217,7 @@ describe('RestService', () => {
     });
 
     it('applies request parameters when request options with one descending sorting field are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         sortingOptions: {
           [testSortingFieldName]: {
             field: testSortingFieldName,
@@ -240,7 +240,7 @@ describe('RestService', () => {
 
     it('applies request parameters when request options with multiple sorting fields are provided', done => {
       const testSortingFieldName2 = 'testSortingFieldName12';
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         sortingOptions: {
           [testSortingFieldName]: {
             field: testSortingFieldName,
@@ -266,7 +266,7 @@ describe('RestService', () => {
     });
 
     it('applies request parameters when request options with no filters are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           logic: FilteringLogic.OR,
           filters: []
@@ -284,7 +284,7 @@ describe('RestService', () => {
     });
 
     it('applies request parameters when request options with one filtering field are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           logic: FilteringLogic.OR,
           filters: [defaultRequestOptions.filteringOptions.filters[0]]
@@ -304,7 +304,7 @@ describe('RestService', () => {
     });
 
     it('applies request parameters when request options with multiple filtering fields are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           logic: FilteringLogic.OR,
           filters: [...defaultRequestOptions.filteringOptions.filters]
@@ -434,7 +434,7 @@ describe('RestService', () => {
     });
 
     it('applies query parameters when request options with request parameters are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         requestParameters: { ...defaultRequestOptions.requestParameters }
       };
 
@@ -450,7 +450,7 @@ describe('RestService', () => {
     });
 
     it('applies query parameters when request options with paging options are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         pagingOptions: { ...defaultRequestOptions.pagingOptions }
       };
 
@@ -466,7 +466,7 @@ describe('RestService', () => {
     });
 
     it('applies query parameters when request options with one ascending sorting field are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         sortingOptions: {
           [testSortingFieldName]: {
             field: testSortingFieldName,
@@ -494,7 +494,7 @@ describe('RestService', () => {
     });
 
     it('applies query parameters when request options with one descending sorting field are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         sortingOptions: {
           [testSortingFieldName2]: {
             field: testSortingFieldName2,
@@ -522,7 +522,7 @@ describe('RestService', () => {
     });
 
     it('applies query parameters when request options with multiple sorting fields are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         sortingOptions: { ...defaultRequestOptions.sortingOptions }
       };
 
@@ -549,7 +549,7 @@ describe('RestService', () => {
     });
 
     it('applies query parameters when request options with one filtering field are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           logic: FilteringLogic.AND,
           filters: [defaultRequestOptions.filteringOptions.filters[1]]
@@ -570,7 +570,7 @@ describe('RestService', () => {
     });
 
     it('applies query parameters when request options with complex filtering options are provided', done => {
-      const testRequestOptions: RequestOptions = {
+      const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           ...defaultRequestOptions.filteringOptions
         }

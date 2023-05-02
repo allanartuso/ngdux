@@ -2,7 +2,7 @@ import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
 import { FormActions, FormSelectors } from '../models/form.model';
 
-export abstract class AbstractFormFacade<T, E> {
+export abstract class AbstractFormFacade<DTO, E, CREATE_DTO = DTO> {
   readonly resource$ = this.store.pipe(select(this.formSelectors.getResource));
   readonly loadingState$ = this.store.pipe(select(this.formSelectors.getLoadingState));
   readonly requestState$ = this.store.pipe(select(this.formSelectors.getRequestState));
@@ -11,23 +11,23 @@ export abstract class AbstractFormFacade<T, E> {
 
   constructor(
     protected readonly store: Store,
-    private readonly formActions: FormActions<T, E>,
-    private readonly formSelectors: FormSelectors<T, E>
+    private readonly formActions: FormActions<DTO, E, CREATE_DTO>,
+    private readonly formSelectors: FormSelectors<DTO, E>
   ) {}
 
-  create(props: ActionPayload<FormActions<T, E>['create']>): void {
+  create(props: ActionPayload<FormActions<DTO, E, CREATE_DTO>['create']>): void {
     this.store.dispatch(this.formActions.create(props));
   }
 
-  load(props: ActionPayload<FormActions<T, E>['load']>): void {
+  load(props: ActionPayload<FormActions<DTO, E, CREATE_DTO>['load']>): void {
     this.store.dispatch(this.formActions.load(props));
   }
 
-  save(props: ActionPayload<FormActions<T, E>['save']>): void {
+  save(props: ActionPayload<FormActions<DTO, E, CREATE_DTO>['save']>): void {
     this.store.dispatch(this.formActions.save(props));
   }
 
-  delete(props: ActionPayload<FormActions<T, E>['delete']>): void {
+  delete(props: ActionPayload<FormActions<DTO, E, CREATE_DTO>['delete']>): void {
     this.store.dispatch(this.formActions.delete(props));
   }
 

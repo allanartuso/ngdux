@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { PROPERTIES_RESOURCE_BASE_PATH, PropertyDto } from '@demo/demo/data-model/properties';
 import { FilteringOptions, PagingOptions, SortingOptions } from '@ngdux/data-model-common';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'demo-properties',
@@ -11,12 +11,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./properties.component.scss']
 })
 export class PropertiesComponent {
-  resources$: Observable<PropertyDto[]> = this.propertiesFacade.currentPageData$;
-  totalCount$: Observable<number> = this.propertiesFacade.totalCount$;
-  pagingOptions$: Observable<PagingOptions> = this.propertiesFacade.pagingOptions$;
-  sortingOptions$: Observable<SortingOptions> = this.propertiesFacade.sortingOptions$;
-  filteringOptions$: Observable<FilteringOptions> = this.propertiesFacade.filteringOptions$;
-  selectedItems$: Observable<PropertyDto[]> = this.propertiesFacade.selectedItems$;
+  model$ = combineLatest({
+    resources: this.propertiesFacade.currentPageData$,
+    totalCount: this.propertiesFacade.totalCount$,
+    pagingOptions: this.propertiesFacade.pagingOptions$,
+    sortingOptions: this.propertiesFacade.sortingOptions$,
+    filteringOptions: this.propertiesFacade.filteringOptions$,
+    selectedItems: this.propertiesFacade.selectedItems$
+  });
 
   constructor(private readonly router: Router, private readonly propertiesFacade: PropertiesFacade) {}
 

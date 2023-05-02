@@ -1,29 +1,29 @@
 import { Directive, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import { AbstractControl, ControlContainer, ControlValueAccessor, FormArray, FormControl } from '@angular/forms';
+import { AbstractControl, ControlContainer, ControlValueAccessor, FormArray } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getErrorMessage } from '../error-messages';
 
 @Directive()
 export abstract class AbstractInputComponent<T = string> implements OnInit, ControlValueAccessor, OnDestroy {
-  @Input() formControlName: string;
-  @Input() errorMessage: string;
-  @Input() label: string;
-  @Input() readonly: boolean;
-  @Input() required: boolean;
+  @Input() formControlName = '';
+  @Input() errorMessage = '';
+  @Input() label = '';
+  @Input() readonly = false;
+  @Input() required = false;
 
-  protected parentControl: FormControl;
-  protected onChange: (value: T) => void;
-  protected onTouched: () => void;
+  protected parentControl?: AbstractControl | null;
+  protected onChange?: (value: T) => void;
+  protected onTouched?: () => void;
   protected readonly destroy$ = new Subject<void>();
 
   constructor(@Optional() private readonly controlContainer?: ControlContainer) {}
 
   ngOnInit(): void {
     if (this.controlContainer?.control instanceof FormArray) {
-      this.parentControl = this.controlContainer?.control.at(+this.formControlName) as FormControl;
+      this.parentControl = this.controlContainer?.control.at(+this.formControlName);
     } else {
-      this.parentControl = this.controlContainer?.control.get(this.formControlName) as FormControl;
+      this.parentControl = this.controlContainer?.control?.get(this.formControlName);
     }
     this.setRequiredState();
     this.listenStatusChanges();
@@ -70,7 +70,7 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
         ...errorObj
       });
     } else {
-      this.errorMessage = undefined;
+      this.errorMessage = '';
     }
   }
 

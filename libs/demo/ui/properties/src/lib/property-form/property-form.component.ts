@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AddressDto, PropertyDto, PropertyFeatureDto } from '@demo/demo/data-model/properties';
 import { UserDto } from '@demo/demo/data-model/users';
-import { AbstractFormComponent } from '@ngil/ui-form';
+import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/ui-form';
 
 interface PropertyForm {
   price: FormControl<number>;
@@ -24,7 +24,7 @@ export class PropertyFormComponent extends AbstractFormComponent<PropertyDto> {
 
   features = Object.keys(PropertyFeatureDto);
 
-  form: FormGroup<PropertyForm> = new FormGroup<PropertyForm>({
+  form = new FormGroup<FlatFormControlsOf<PropertyForm>>({
     price: new FormControl(null),
     size: new FormControl(null),
     address: new FormControl(null),

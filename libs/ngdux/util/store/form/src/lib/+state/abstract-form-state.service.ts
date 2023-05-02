@@ -6,21 +6,21 @@ import { createFormReducer } from './form-reducer';
 import { createFormSelectors } from './form-selectors';
 
 @Injectable()
-export abstract class AbstractFormReducerManager<T, E> {
-  actions: FormActions<T, E>;
-  selectors: FormSelectors<T, E>;
+export abstract class AbstractFormReducerManager<DTO, ERROR, CREATE_DTO = DTO> {
+  actions: FormActions<DTO, ERROR, CREATE_DTO>;
+  selectors: FormSelectors<DTO, ERROR>;
 
   constructor(
     private readonly reducerManager: ReducerManager,
     @Inject(FORM_FEATURE_KEY) private readonly featureKey: string
   ) {
-    this.setActions();
+    this.actions = this.getActions();
     this.addReducer();
-    this.setSelectors();
+    this.selectors = this.getSelectors();
   }
 
-  protected setActions() {
-    this.actions = createFormActions<T, E>(this.featureKey);
+  protected getActions() {
+    return createFormActions<DTO, ERROR, CREATE_DTO>(this.featureKey);
   }
 
   protected addReducer() {
@@ -31,8 +31,8 @@ export abstract class AbstractFormReducerManager<T, E> {
     }
   }
 
-  protected setSelectors() {
-    const getState = createFeatureSelector<FormState<T, E>>(this.featureKey);
-    this.selectors = createFormSelectors(getState);
+  protected getSelectors() {
+    const getState = createFeatureSelector<FormState<DTO, ERROR>>(this.featureKey);
+    return createFormSelectors(getState);
   }
 }

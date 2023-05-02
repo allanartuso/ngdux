@@ -17,7 +17,7 @@ import { AbstractInputComponent } from '@ngil/ui-form';
 export class DemoInputComponent extends AbstractInputComponent {
   @Input() type = 'text';
 
-  value: string;
+  value = '';
 
   writeValue(value: string): void {
     this.value = value;
@@ -26,9 +26,11 @@ export class DemoInputComponent extends AbstractInputComponent {
   onChangeInput(event: Event): void {
     const input = event.target as HTMLInputElement;
 
-    if (input.value || this.parentControl.value !== input.value) {
+    if (input.value || this.parentControl?.value !== input.value) {
       this.value = input.value;
-      this.onChange(input.value);
+      if (this.onChange) {
+        this.onChange(input.value);
+      }
     }
   }
 }

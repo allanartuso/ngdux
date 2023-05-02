@@ -7,7 +7,7 @@ import { RequestState } from '@ngdux/data-model-common';
   styleUrls: ['./submit-button.component.scss']
 })
 export class DemoSubmitButtonComponent {
-  state: RequestState;
+  state: RequestState = RequestState.IDLE;
 
   @Input() disabled = false;
   @Input() type = 'submit';

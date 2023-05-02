@@ -14,7 +14,7 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
       "@demo/demo/data-access/properties": ["libs/demo/data-access/properties/src/index.ts"],

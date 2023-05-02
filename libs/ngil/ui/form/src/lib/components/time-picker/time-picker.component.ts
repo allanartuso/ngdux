@@ -19,11 +19,11 @@ import { TimePickerValue } from './time-picker.model';
 export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerValue> implements AfterViewInit {
   private defaultValue: TimePickerValue = { hour: 0, minute: 0, second: 0 };
 
-  value: string;
+  value = '';
   formGroup = new FormGroup({
-    hour: new FormControl(this.defaultValue.hour),
-    minute: new FormControl(this.defaultValue.minute),
-    second: new FormControl(this.defaultValue.second)
+    hour: new FormControl<number>(this.defaultValue.hour),
+    minute: new FormControl<number>(this.defaultValue.minute),
+    second: new FormControl<number>(this.defaultValue.second)
   });
 
   ngAfterViewInit(): void {
@@ -33,7 +33,12 @@ export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerVa
   protected listenValueChanges(): void {
     this.formGroup.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       if (this.onChange) {
-        this.onChange(this.formGroup.getRawValue());
+        const value = this.formGroup.getRawValue();
+        this.onChange({
+          hour: value.hour ?? this.defaultValue.hour,
+          minute: value.minute ?? this.defaultValue.minute,
+          second: value.second ?? this.defaultValue.second
+        });
       }
     });
   }

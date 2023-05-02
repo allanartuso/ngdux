@@ -21,7 +21,7 @@ import { TimePickerValue } from './time-picker.model';
   selector: '[ngilTimePicker]'
 })
 export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
-  @Input() picker: NgilTimePickerOverlayComponent;
+  @Input() picker?: NgilTimePickerOverlayComponent;
 
   @Output() changed = new EventEmitter<TimePickerValue>();
 
@@ -36,7 +36,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
 
   @HostListener('input', ['$event']) onInput = (event: InputEvent): void => {
     const value = this.getTimePickerValue((event.target as HTMLInputElement).value);
-    this.picker.setValue({
+    this.picker?.setValue({
       hour: +value.hour,
       minute: +value.minute || 0,
       second: +value.second || 0
@@ -50,7 +50,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ngControl.control.setValidators([this.timeValidator()]);
+    this.ngControl?.control?.setValidators([this.timeValidator()]);
   }
 
   private timeValidator(): ValidatorFn {
@@ -97,11 +97,13 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.picker.origin = this.elementRef;
-    this.picker.valueChanges$.pipe(takeUntil(this.destroy$)).subscribe(value => {
-      this.setInputText(value);
-      this.changed.emit(value);
-    });
+    if (this.picker) {
+      this.picker.origin = this.elementRef;
+      this.picker.valueChanges$.pipe(takeUntil(this.destroy$)).subscribe(value => {
+        this.setInputText(value);
+        this.changed.emit(value);
+      });
+    }
   }
 
   private setInputText(value: TimePickerValue): void {
@@ -110,7 +112,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
     );
     this.inputComponent?.control.setValue(text);
     this.elementRef.nativeElement.value = text;
-    this.ngControl?.control.setValue(text);
+    this.ngControl?.control?.setValue(text);
   }
 
   private getItemText(value: number) {

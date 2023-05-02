@@ -7,6 +7,6 @@ import { MenuHeader } from '../../models/sidebar.models';
   styleUrls: ['./sidebar-header.component.scss']
 })
 export class SidebarHeaderComponent {
-  @Input() expanded: boolean;
-  @Input() header: MenuHeader;
+  @Input() expanded = false;
+  @Input() header?: MenuHeader;
 }

@@ -96,7 +96,7 @@ describe('AbstractFormGroupComponent', () => {
 
   describe('validates', () => {
     it('set CVA as invalid if the formGroup is invalid', () => {
-      component.formGroup.controls.firstName.setValue(undefined);
+      component.formGroup.controls.firstName.setValue('');
 
       expect(component.formGroup.controls.firstName.errors).toStrictEqual({ required: true });
       expect(component.validate()).toStrictEqual({

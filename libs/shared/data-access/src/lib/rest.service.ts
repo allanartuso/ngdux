@@ -23,11 +23,11 @@ export class RestService extends AbstractRestService {
     return super.loadResource<T>(resourcePath);
   }
 
-  public override loadResources<T>(resourcePath: string, options: RequestOptions = {}): Observable<T[]> {
+  public override loadResources<T>(resourcePath: string, options: Partial<RequestOptions> = {}): Observable<T[]> {
     return super.loadResources<T>(resourcePath, options);
   }
 
-  protected createRequestParameters(options: RequestOptions): Record<string, string> {
+  protected createRequestParameters(options: Partial<RequestOptions>): Record<string, string> {
     return {
       ...(options.requestParameters || {}),
       ...this.getPagingParameters(options.pagingOptions),
@@ -36,7 +36,7 @@ export class RestService extends AbstractRestService {
     };
   }
 
-  private getPagingParameters(options: PagingOptions): Record<string, string> {
+  private getPagingParameters(options: PagingOptions | undefined): Record<string, string> {
     const pagingParameters: Record<string, string> = {};
 
     if (options) {
@@ -47,7 +47,7 @@ export class RestService extends AbstractRestService {
     return pagingParameters;
   }
 
-  private getSortingParameters(options: SortingOptions): Record<string, string> {
+  private getSortingParameters(options: SortingOptions | undefined): Record<string, string> {
     const fieldNames: string[] = [];
     const orders: string[] = [];
 
@@ -70,7 +70,7 @@ export class RestService extends AbstractRestService {
     };
   }
 
-  private getFilteringParameters(options: FilteringOptions): Record<string, string> {
+  private getFilteringParameters(options: FilteringOptions | undefined): Record<string, string> {
     const filteringParameters: Record<string, string> = {};
 
     if (options) {
@@ -82,11 +82,11 @@ export class RestService extends AbstractRestService {
     return filteringParameters;
   }
 
-  public override queryResources<T>(resourcePath = '', options: RequestOptions = {}): Observable<T[]> {
+  public override queryResources<T>(resourcePath = '', options: Partial<RequestOptions> = {}): Observable<T[]> {
     return super.queryResources<T>(`${resourcePath}/query`, options);
   }
 
-  protected createRequestQuery(options: RequestOptions) {
+  protected createRequestQuery(options: Partial<RequestOptions>) {
     return {
       ...(options.requestParameters || {}),
       ...(options.pagingOptions || {}),
@@ -95,7 +95,7 @@ export class RestService extends AbstractRestService {
     };
   }
 
-  private getSortingQuery(options: SortingOptions) {
+  private getSortingQuery(options: SortingOptions | undefined) {
     if (!options || Object.keys(options).length === 0) {
       return {};
     }
@@ -112,7 +112,7 @@ export class RestService extends AbstractRestService {
     };
   }
 
-  private getFilteringQuery(options: FilteringOptions) {
+  private getFilteringQuery(options: FilteringOptions | undefined) {
     if (!options || options.filters.length === 0) {
       return {};
     }

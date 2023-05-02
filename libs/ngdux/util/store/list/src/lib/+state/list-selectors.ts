@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { RequestOptions, RequestState } from '@ngdux/data-model-common';
 import { EntityAdapter } from '@ngrx/entity';
-import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
+import { DefaultProjectorFn, MemoizedSelector, createSelector } from '@ngrx/store';
 import { ListSelectors, ListState } from '../models/list.model';
 
 export function createListSelectors<T, E>(
@@ -24,7 +24,7 @@ export function createListSelectors<T, E>(
   const getLastPageNumber = createSelector(getListState, state => state.lastPageNumber);
 
   const isLastPage = createSelector(getPagingOptions, getLastPageNumber, ({ page }, lastPageNumber) => {
-    return lastPageNumber <= page;
+    return lastPageNumber ? lastPageNumber <= page : false;
   });
 
   const getCurrentPageData = createSelector(getAll, resources => {
@@ -35,7 +35,7 @@ export function createListSelectors<T, E>(
 
   const getFilteringOptions = createSelector(getListState, state => state.filteringOptions);
 
-  const getCurrentPageNumber = createSelector(getPagingOptions, options => options.page);
+  const getCurrentPageNumber = createSelector(getPagingOptions, options => options?.page);
 
   const getSelectedResourceIds = createSelector(getListState, state => state.selectedResourceIds);
 
@@ -45,7 +45,13 @@ export function createListSelectors<T, E>(
     getSelectedResourceIds,
     createSelector(getListState, entityAdapter.getSelectors().selectEntities),
     (selectedResourceIds, resources): T[] =>
-      selectedResourceIds.map(selectedResourceId => resources[selectedResourceId])
+      selectedResourceIds.reduce((acc, selectedResourceId): T[] => {
+        const resource = resources[selectedResourceId];
+        if (resource) {
+          acc.push(resource);
+        }
+        return acc;
+      }, [] as T[])
   );
 
   const getSelectionRecord = createSelector(
@@ -53,7 +59,10 @@ export function createListSelectors<T, E>(
     createSelector(getListState, entityAdapter.getSelectors().selectEntities),
     (selectedResourceIds, resources): Record<string, T> =>
       selectedResourceIds.reduce((selected, selectedResourceId) => {
-        selected[selectedResourceId] = resources[selectedResourceId];
+        const resource = resources[selectedResourceId];
+        if (resource) {
+          selected[selectedResourceId] = resource;
+        }
         return selected;
       }, {} as Record<string, T>)
   );
@@ -89,6 +98,10 @@ export function createListSelectors<T, E>(
     isLastPage,
     getCurrentPageData,
     (pagingOptions, isLastPage, currentPageData) => {
+      if (!pagingOptions) {
+        return 0;
+      }
+
       if (isLastPage) {
         return (pagingOptions.page - 1) * pagingOptions.pageSize + currentPageData.length;
       }

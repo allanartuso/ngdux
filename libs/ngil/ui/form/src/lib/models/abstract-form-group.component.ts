@@ -22,8 +22,8 @@ export abstract class AbstractFormGroupComponent<
   abstract formGroup: FormGroup<F>;
 
   protected readonly destroy$ = new Subject<void>();
-  protected onChange: (value: FormValueOf<FormGroup<F>>) => void;
-  protected onTouched: () => void;
+  protected onChange?: (value: FormValueOf<FormGroup<F>>) => void;
+  protected onTouched?: () => void;
 
   ngAfterViewInit(): void {
     this.listenValueChanges();

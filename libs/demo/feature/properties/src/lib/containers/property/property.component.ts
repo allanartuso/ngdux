@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
 import { UsersFacade } from '@demo/demo/data-access/users';
-import { PropertyDto } from '@demo/demo/data-model/properties';
+import { CreatePropertyDto, PropertyDto, isPropertyDto } from '@demo/demo/data-model/properties';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'demo-property',
@@ -9,14 +10,16 @@ import { PropertyDto } from '@demo/demo/data-model/properties';
   styleUrls: ['./property.component.scss']
 })
 export class PropertyComponent {
-  property$ = this.propertyFacade.resource$;
-  requestState$ = this.propertyFacade.requestState$;
-  users$ = this.usersFacade.resources$;
+  model$ = combineLatest({
+    property: this.propertyFacade.resource$,
+    requestState: this.propertyFacade.requestState$,
+    users: this.usersFacade.resources$
+  });
 
   constructor(private readonly propertyFacade: PropertyFacade, private readonly usersFacade: UsersFacade) {}
 
-  onSaved(property: PropertyDto): void {
-    if (property.id) {
+  onSaved(property: PropertyDto | CreatePropertyDto): void {
+    if (isPropertyDto(property)) {
       this.propertyFacade.save({ resource: property });
     } else {
       this.propertyFacade.create({ resource: property });

@@ -15,7 +15,7 @@ import { AbstractInputComponent } from './abstract-input-component';
   ]
 })
 export class TestInputComponent extends AbstractInputComponent<string> {
-  value: string;
+  value = '';
 
   writeValue(value: string): void {
     this.value = value;

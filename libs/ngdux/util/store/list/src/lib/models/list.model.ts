@@ -17,7 +17,7 @@ export const LIST_FEATURE_KEY = new InjectionToken<string>('LIST_FEATURE_KEY');
 
 export interface ListState<T, E> extends EntityState<T>, RequestOptions, ApiRequestState<E>, LoadingState {
   selectedResourceIds: string[];
-  lastPageNumber: number;
+  lastPageNumber?: number;
 }
 
 export interface ListSelectors<T, E> {
@@ -29,13 +29,13 @@ export interface ListSelectors<T, E> {
   getSortingOptions: MemoizedSelector<object, SortingOptions>;
   getFilteringOptions: MemoizedSelector<object, FilteringOptions>;
   getCurrentPageNumber: MemoizedSelector<object, number>;
-  getLastPageNumber: MemoizedSelector<object, number>;
+  getLastPageNumber: MemoizedSelector<object, number | undefined>;
   getLoadingState: MemoizedSelector<object, RequestState>;
   getSelectedResourceIds: MemoizedSelector<object, string[]>;
   getSelectedItems: MemoizedSelector<object, T[]>;
   getSelectionRecord: MemoizedSelector<object, Record<string, T>>;
   getRequestState: MemoizedSelector<object, RequestState>;
-  getErrors: MemoizedSelector<object, E>;
+  getErrors: MemoizedSelector<object, E | undefined>;
   areSelectedReady: MemoizedSelector<object, boolean>;
   isReady: MemoizedSelector<object, boolean>;
   isDeleteDisabled: MemoizedSelector<object, boolean>;

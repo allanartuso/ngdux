@@ -101,12 +101,16 @@ export abstract class AbstractListEffects<T, E, S = T> {
   patch$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.listActions.patch),
-      exhaustMap(action =>
-        this.service.patchResources(action.resourceIds, action.resource).pipe(
+      exhaustMap(action => {
+        if (!this.service.patchResources) {
+          throw new Error('patchResources not implement in the ListService');
+        }
+
+        return this.service.patchResources(action.resourceIds, action.resource).pipe(
           map(resources => this.listActions.patchSuccess({ resources })),
           catchError((errors: E) => of(this.listActions.patchFailure({ errors })))
-        )
-      )
+        );
+      })
     )
   );
 
@@ -128,12 +132,16 @@ export abstract class AbstractListEffects<T, E, S = T> {
   delete$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.listActions.delete),
-      exhaustMap(({ resourceIds }) =>
-        this.service.deleteResources(resourceIds).pipe(
+      exhaustMap(({ resourceIds }) => {
+        if (!this.service.deleteResources) {
+          throw new Error('deleteResources not implement in the ListService');
+        }
+
+        return this.service.deleteResources(resourceIds).pipe(
           map(() => this.listActions.deleteSuccess({ resourceIds })),
           catchError((errors: E) => of(this.listActions.deleteFailure({ errors })))
-        )
-      )
+        );
+      })
     )
   );
 

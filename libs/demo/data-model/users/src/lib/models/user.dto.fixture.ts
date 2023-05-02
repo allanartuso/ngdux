@@ -1,5 +1,5 @@
 import { commonFixture } from '@ngdux/data-model-common/test';
-import { UserDto } from './user.dto';
+import { CreateUserDto, UserDto } from './user.dto';
 
 export function createPersistentUsers(n = 3): UserDto[] {
   const result: UserDto[] = [];
@@ -18,7 +18,7 @@ export function createPersistentUser(id: string = commonFixture.getAlphaNumeric(
   };
 }
 
-export function createTransientUser(): UserDto {
+export function createTransientUser(): CreateUserDto {
   const firstName = commonFixture.getFirstName();
   const lastName = commonFixture.getLastName();
   const birthTime = commonFixture.getTime();

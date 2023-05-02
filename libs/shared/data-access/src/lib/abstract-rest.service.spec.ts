@@ -5,7 +5,12 @@ import { of } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';
 
 interface TestResource {
-  id?: string;
+  id: string;
+  name: string;
+  value: number;
+}
+
+interface CreateTestResource {
   name: string;
   value: number;
 }
@@ -13,10 +18,12 @@ interface TestResource {
 const TEST_API_BASE_URL = 'https://testapi:3000/baseurl';
 const EXPECTED_RESOURCES: TestResource[] = [
   {
+    id: 'id1',
     name: 'name1',
     value: 1
   },
   {
+    id: 'id2',
     name: 'name2',
     value: 2
   }
@@ -90,7 +97,7 @@ describe('AbstractRestService', () => {
   describe('loadResources', () => {
     let expectedResourcePath: string;
     let expectedResources: TestResource[];
-    const defaultRequestOptions: RequestOptions = {
+    const defaultRequestOptions: Partial<RequestOptions> = {
       pagingOptions: {
         page: 1,
         pageSize: 100
@@ -142,7 +149,7 @@ describe('AbstractRestService', () => {
   describe('queryResources', () => {
     let expectedResourcePath: string;
     let expectedResources: TestResource[];
-    const defaultRequestOptions: RequestOptions = {
+    const defaultRequestOptions: Partial<RequestOptions> = {
       pagingOptions: {
         page: 2,
         pageSize: 100
@@ -188,7 +195,7 @@ describe('AbstractRestService', () => {
 
   describe('createResource', () => {
     let expectedResourcePath: string;
-    let expectedResource: TestResource;
+    let expectedResource: CreateTestResource;
 
     beforeEach(() => {
       expectedResourcePath = '4/tests/32';
@@ -225,6 +232,7 @@ describe('AbstractRestService', () => {
     beforeEach(() => {
       expectedResourcePath = '5/tests/37';
       expectedResource = {
+        id: 'id41',
         name: 'name41',
         value: 41
       };
@@ -257,6 +265,7 @@ describe('AbstractRestService', () => {
     beforeEach(() => {
       expectedResourcePath = '6/tests/32';
       expectedResource = {
+        id: 'id62',
         name: 'name62',
         value: 62
       };
@@ -289,6 +298,7 @@ describe('AbstractRestService', () => {
     beforeEach(() => {
       expectedResourcePath = '6/tests/32';
       expectedResource = {
+        id: 'id62',
         name: 'name62',
         value: 62
       };
@@ -321,6 +331,7 @@ describe('AbstractRestService', () => {
     beforeEach(() => {
       expectedResourcePath = '6/tests/bulk';
       expectedResource = {
+        id: 'id62',
         name: 'name62',
         value: 62
       };

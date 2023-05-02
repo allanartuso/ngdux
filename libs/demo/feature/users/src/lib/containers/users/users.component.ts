@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { UsersFacade } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
 import { FilteringOptions, PagingOptions, SortingOptions } from '@ngdux/data-model-common';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'demo-users',
@@ -11,12 +11,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-  users$: Observable<UserDto[]> = this.usersFacade.currentPageData$;
-  totalCount$: Observable<number> = this.usersFacade.totalCount$;
-  pagingOptions$: Observable<PagingOptions> = this.usersFacade.pagingOptions$;
-  sortingOptions$: Observable<SortingOptions> = this.usersFacade.sortingOptions$;
-  filteringOptions$: Observable<FilteringOptions> = this.usersFacade.filteringOptions$;
-  selectedItems$: Observable<UserDto[]> = this.usersFacade.selectedItems$;
+  $model = combineLatest({
+    users: this.usersFacade.currentPageData$,
+    totalCount: this.usersFacade.totalCount$,
+    pagingOptions: this.usersFacade.pagingOptions$,
+    sortingOptions: this.usersFacade.sortingOptions$,
+    filteringOptions: this.usersFacade.filteringOptions$,
+    selectedItems: this.usersFacade.selectedItems$
+  });
 
   constructor(private readonly router: Router, private readonly usersFacade: UsersFacade) {}
 

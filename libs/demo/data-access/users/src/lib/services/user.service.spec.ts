@@ -3,7 +3,7 @@ import { USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
 import { createPersistentUser, createPersistentUsers, createTransientUser } from '@demo/demo/data-model/users/test';
 import { RestService } from '@demo/shared/data-access';
 import { restServiceFixture } from '@demo/shared/data-access/test';
-import { RequestOptions } from '@ngdux/data-model-common';
+import { FilteringLogic, RequestOptions } from '@ngdux/data-model-common';
 import { cold } from 'jest-marbles';
 import { UserService } from './user.service';
 
@@ -74,7 +74,9 @@ describe('UsersService', () => {
       pagingOptions: {
         page: 1,
         pageSize: 10
-      }
+      },
+      sortingOptions: {},
+      filteringOptions: { logic: FilteringLogic.AND, filters: [] }
     };
     const expected = cold('(u|)', { u: users });
 

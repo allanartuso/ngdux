@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { UserFacade } from '@demo/demo/data-access/users';
-import { UserDto } from '@demo/demo/data-model/users';
-import { RequestState } from '@ngdux/data-model-common';
-import { Observable } from 'rxjs';
+import { CreateUserDto, UserDto, isUserDto } from '@demo/demo/data-model/users';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'demo-user',
@@ -10,13 +9,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-  user$: Observable<UserDto> = this.userFacade.resource$;
-  requestState$: Observable<RequestState> = this.userFacade.requestState$;
+  model$ = combineLatest({
+    user: this.userFacade.resource$,
+    requestState: this.userFacade.requestState$
+  });
 
   constructor(private readonly userFacade: UserFacade) {}
 
-  onSaved(user: UserDto): void {
-    if (user.id) {
+  onSaved(user: UserDto | CreateUserDto): void {
+    if (isUserDto(user)) {
       this.userFacade.save({ resource: user });
     } else {
       this.userFacade.create({ resource: user });

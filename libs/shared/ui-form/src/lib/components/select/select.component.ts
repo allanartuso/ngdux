@@ -15,7 +15,7 @@ import { AbstractInputComponent } from '@ngil/ui-form';
   ]
 })
 export class DemoSelectComponent extends AbstractInputComponent {
-  @Input() items: { value: string; text?: string }[];
+  @Input() items: { value: string; text?: string }[] = [];
 
   value = '';
 
@@ -24,6 +24,8 @@ export class DemoSelectComponent extends AbstractInputComponent {
   }
 
   updateModel(): void {
-    this.onChange(this.value);
+    if (this.onChange) {
+      this.onChange(this.value);
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { PropertyDto } from '@demo/demo/data-model/properties';
+import { CreatePropertyDto, PropertyDto } from '@demo/demo/data-model/properties';
 import { createPersistentProperty } from '@demo/demo/data-model/properties/test';
 import { PropertyFormComponent } from './property-form.component';
 
@@ -24,8 +24,15 @@ describe('PropertyFormComponent', () => {
     component.formViewModel = testProperty;
     component.ngOnInit();
     component.ngAfterViewInit();
-    const expectedFormValue = { ...testProperty };
-    delete expectedFormValue.id;
+    const expectedFormValue = {
+      price: testProperty.price,
+      size: testProperty.size,
+      address: testProperty.address,
+      availableFrom: testProperty.availableFrom,
+      features: testProperty.features,
+      description: testProperty.description,
+      contact: testProperty.contact
+    };
 
     expect(component.form).toBeTruthy();
     expect(component.form.value).toStrictEqual(expectedFormValue);
@@ -34,7 +41,7 @@ describe('PropertyFormComponent', () => {
   it('creates an empty form when the form model is undefined', () => {
     component.ngOnInit();
     component.ngAfterViewInit();
-    const expectedFormValue: PropertyDto = {
+    const expectedFormValue: Record<keyof CreatePropertyDto, null> = {
       price: null,
       size: null,
       address: null,

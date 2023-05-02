@@ -21,6 +21,7 @@ describe('DemoFormComponent', () => {
 
   it('emits cancel event', () => {
     jest.spyOn(component.cancelled, 'emit');
+    component.isCancelDisabled = false;
 
     component.onCancel();
 

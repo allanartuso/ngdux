@@ -2,7 +2,7 @@ export interface ErrorDto {
   statusCode: number;
   error: string;
   message?: string;
-  fieldErrors?: FieldErrorDto[];
+  fieldErrors: FieldErrorDto[];
 }
 
 export interface FieldErrorDto {

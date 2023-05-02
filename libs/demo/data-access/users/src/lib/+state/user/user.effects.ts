@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { UserDto } from '@demo/demo/data-model/users';
+import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
 import { NotificationService } from '@demo/shared/util-notification';
 import { ErrorDto } from '@ngdux/data-model-common';
 import { AbstractFormEffects, FORM_FEATURE_KEY } from '@ngdux/form';
@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
 import { UserReducerManager } from './user-state.service';
 
 @Injectable()
-export class UserEffects extends AbstractFormEffects<UserDto, ErrorDto> implements OnIdentifyEffects {
+export class UserEffects extends AbstractFormEffects<UserDto, ErrorDto, CreateUserDto> implements OnIdentifyEffects {
   constructor(
     actions$: Actions,
     store: Store,

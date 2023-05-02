@@ -1,22 +1,22 @@
 import { RequestState } from '@ngdux/data-model-common';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
-import { ActionCreator, ActionReducer, createReducer, Creator, on, ReducerTypes } from '@ngrx/store';
+import { ActionCreator, ActionReducer, Creator, ReducerTypes, createReducer, on } from '@ngrx/store';
 import { FormActions, FormState } from '../models/form.model';
 
-export function createFormReducer<T, E>(
-  actions: FormActions<T, E>,
-  actionHandlers?: ReducerTypes<FormState<T, E>, ActionCreator[]>[],
-  initialFormState?: object
-): ActionReducer<FormState<T, E>> {
-  const initialState: FormState<T, E> = { ...createInitialFormState<T, E>(), ...initialFormState };
-  return createReducer<FormState<T, E>>(
+export function createFormReducer<DTO, ERROR, CREATE_DTO = DTO>(
+  actions: FormActions<DTO, ERROR, CREATE_DTO>,
+  actionHandlers?: ReducerTypes<FormState<DTO, ERROR>, ActionCreator[]>[],
+  initialFormState?: Record<string, any>
+): ActionReducer<FormState<DTO, ERROR>> {
+  const initialState: FormState<DTO, ERROR> = { ...createInitialFormState<DTO, ERROR>(), ...initialFormState };
+  return createReducer<FormState<DTO, ERROR>>(
     initialState,
-    ...createFormActionHandlers<T, E>(initialState, actions),
+    ...createFormActionHandlers<DTO, ERROR, CREATE_DTO>(initialState, actions),
     ...(actionHandlers || [])
   );
 }
 
-function createInitialFormState<T, E>(): FormState<T, E> {
+function createInitialFormState<DTO, ERROR>(): FormState<DTO, ERROR> {
   return {
     resource: undefined,
     loadingState: RequestState.IDLE,
@@ -25,43 +25,43 @@ function createInitialFormState<T, E>(): FormState<T, E> {
   };
 }
 
-function createFormActionHandlers<T, E>(
-  initialFormState: FormState<T, E>,
-  actions: FormActions<T, E>
-): ReducerTypes<FormState<T, E>, ActionCreator<string, Creator<any[], object>>[]>[] {
+function createFormActionHandlers<DTO, ERROR, CREATE_DTO = DTO>(
+  initialFormState: FormState<DTO, ERROR>,
+  actions: FormActions<DTO, ERROR, CREATE_DTO>
+): ReducerTypes<FormState<DTO, ERROR>, ActionCreator<string, Creator<any[], object>>[]>[] {
   return [
-    on(actions.reset, (): FormState<T, E> => initialFormState),
+    on(actions.reset, (): FormState<DTO, ERROR> => initialFormState),
     on(
       actions.loadSuccess,
       actions.createSuccess,
       actions.saveSuccess,
-      (state: FormState<T, E>, { resource }): FormState<T, E> => ({ ...state, resource })
+      (state: FormState<DTO, ERROR>, { resource }): FormState<DTO, ERROR> => ({ ...state, resource })
     ),
     on(
       actions.deleteSuccess,
-      (state: FormState<T, E>): FormState<T, E> => ({
+      (state: FormState<DTO, ERROR>): FormState<DTO, ERROR> => ({
         ...state,
         resource: undefined
       })
     ),
-    ...createRequestStateActionHandlers<FormState<T, E>, E>(
+    ...createRequestStateActionHandlers<FormState<DTO, ERROR>, ERROR>(
       actions.load,
       actions.save,
       actions.saveSuccess,
       actions.saveFailure
     ),
-    ...createRequestStateActionHandlers<FormState<T, E>, E>(
+    ...createRequestStateActionHandlers<FormState<DTO, ERROR>, ERROR>(
       undefined,
       actions.create,
       actions.createSuccess,
       actions.createFailure
     ),
-    ...createRequestStateActionHandlers<FormState<T, E>, E>(
+    ...createRequestStateActionHandlers<FormState<DTO, ERROR>, ERROR>(
       undefined,
       actions.delete,
       actions.deleteSuccess,
       actions.deleteFailure
     ),
-    ...createLoadingStateActionHandlers<FormState<T, E>>(actions.load, actions.loadSuccess, actions.loadFailure)
+    ...createLoadingStateActionHandlers<FormState<DTO, ERROR>>(actions.load, actions.loadSuccess, actions.loadFailure)
   ];
 }

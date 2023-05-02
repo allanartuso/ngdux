@@ -18,6 +18,7 @@ jest.mock('@ngrx/store', () => ({
   createFeatureSelector: jest.fn().mockReturnValue(mockFeatureSelector)
 }));
 
+import { RequestState } from '@ngdux/data-model-common';
 import { createFeatureSelector } from '@ngrx/store';
 import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';
@@ -35,7 +36,9 @@ describe('formState', () => {
 
   it('create form reducer', () => {
     expect(createFormReducer).toHaveBeenCalledWith(mockActions);
-    expect(reducer(undefined, { type: '' })).toBe(mockReducer);
+    expect(reducer({ requestState: RequestState.IDLE, loadingState: RequestState.IDLE }, { type: '' })).toBe(
+      mockReducer
+    );
   });
 
   it('create form selectors', () => {

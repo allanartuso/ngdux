@@ -97,7 +97,7 @@ describe('AbstractFormComponent', () => {
   describe('cancel', () => {
     it('path the received form model values to the form when cancel the current changes', () => {
       component.formViewModel = testFormValues;
-      component.form.get('name').setValue('newTestValue');
+      component.form.controls.name.setValue('newTestValue');
       expect(component.form.value.name).not.toBe(testFormValues.name);
 
       component.cancel();

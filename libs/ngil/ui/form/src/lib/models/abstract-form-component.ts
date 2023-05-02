@@ -5,27 +5,27 @@ import { takeUntil } from 'rxjs/operators';
 
 @Directive()
 export abstract class AbstractFormComponent<T> implements ControlValueAccessor, OnDestroy, AfterViewInit, OnInit {
-  @Input() formControlName: string;
-  @Input() formViewModel: T;
+  @Input() formControlName = '';
+  @Input() formViewModel?: T;
 
   @Output() submitted: EventEmitter<T> = new EventEmitter();
 
   abstract form: FormGroup;
 
   protected readonly destroy$ = new Subject<void>();
-  protected onChange: (value: T) => void;
-  protected onTouched: () => void;
+  protected onChange?: (value: T) => void;
+  protected onTouched?: () => void;
 
   get isSubmitDisabled(): boolean {
     return !this.form?.valid || this.form?.pristine;
   }
 
-  protected getFormDefaultValue(model?: T): T {
+  protected getFormDefaultValue(model?: T): T | undefined {
     return model;
   }
 
   ngOnInit(): void {
-    this.form.patchValue(this.formViewModel, { emitEvent: false });
+    this.form.patchValue(this.formViewModel || {}, { emitEvent: false });
   }
 
   ngAfterViewInit(): void {
@@ -52,7 +52,7 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
   cancel(): void {
     this.form.markAsPristine();
     this.form.markAsUntouched();
-    this.writeValue(this.formViewModel);
+    this.writeValue(this.formViewModel || undefined);
   }
 
   registerOnChange(fn: (value: T) => void): void {
@@ -63,14 +63,14 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     isDisabled ? this.form.disable({ emitEvent: false }) : this.form.enable({ emitEvent: false });
   }
 
-  writeValue(model: T): void {
+  writeValue(model?: T): void {
     const formValue = this.getFormDefaultValue(model);
 
-    if (model) {
+    if (formValue) {
       this.form.patchValue(formValue, { emitEvent: false });
     } else {
       this.form.reset(formValue || undefined, { emitEvent: false });

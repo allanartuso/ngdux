@@ -3,7 +3,7 @@ import { AddressDto } from './address.dto';
 export const PROPERTIES_RESOURCE_BASE_PATH = 'properties';
 
 export interface PropertyDto {
-  id?: string;
+  id: string;
   price: number;
   size: number;
   address: AddressDto;
@@ -13,6 +13,8 @@ export interface PropertyDto {
   contact: UserDto;
 }
 
+export type CreatePropertyDto = Omit<PropertyDto, 'id'>;
+
 export enum PropertyFeatureDto {
   BALCONY_TERRACE = 'BALCONY_TERRACE',
   ELEVATOR = 'ELEVATOR',
@@ -21,4 +23,8 @@ export enum PropertyFeatureDto {
   VIEW = 'VIEW',
   WASHING_MACHINE = 'WASHING_MACHINE',
   WHEELCHAIR_ACCESS = 'WHEELCHAIR_ACCESS'
+}
+
+export function isPropertyDto(resource: PropertyDto | CreatePropertyDto): resource is PropertyDto {
+  return 'id' in resource;
 }

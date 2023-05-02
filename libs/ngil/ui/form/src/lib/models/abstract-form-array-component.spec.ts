@@ -28,8 +28,8 @@ class MockFormArrayComponent extends AbstractFormArrayComponent<FormGroup<FlatFo
 
   protected createFormArrayItem(model?: TestFormModel) {
     return new FormGroup<FlatFormControlsOf<TestFormModel>>({
-      firstName: new FormControl(model.firstName, [Validators.required]),
-      lastName: new FormControl(model.firstName)
+      firstName: new FormControl(model?.firstName || null, [Validators.required]),
+      lastName: new FormControl(model?.firstName || null)
     });
   }
 }
@@ -110,7 +110,7 @@ describe('AbstractFormArrayComponent', () => {
 
   describe('validates', () => {
     it('set CVA as invalid if the formArray is invalid', () => {
-      component.formArray.at(0).controls.firstName.setValue(undefined);
+      component.formArray.at(0).controls.firstName.setValue('');
 
       expect(component.formArray.at(0).controls.firstName.errors).toStrictEqual({ required: true });
       expect(component.validate()).toStrictEqual({

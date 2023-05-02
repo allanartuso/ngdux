@@ -9,7 +9,7 @@ import { ClickActionType, MenuHeader, MenuItem } from '../../models/sidebar.mode
 export class SidebarComponent {
   @Input() expanded = false;
   @Input() showLogout = false;
-  @Input() header: MenuHeader;
+  @Input() header?: MenuHeader;
   @Input() bodyItems: MenuItem[] = [];
   @Input() set footerItems(footerItems: MenuItem[]) {
     const items = [...footerItems];

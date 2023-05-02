@@ -1,9 +1,9 @@
 import { PagingOptions, RequestState } from '@ngdux/data-model-common';
-import { ActionCreator, createAction, on, ReducerTypes } from '@ngrx/store';
+import { ActionCreator, ReducerTypes, createAction, on } from '@ngrx/store';
 
 export interface ApiRequestState<E> {
   requestState: RequestState;
-  errors: E;
+  errors?: E;
 }
 
 export interface LoadingState {
@@ -11,7 +11,7 @@ export interface LoadingState {
 }
 
 export function createRequestStateActionHandlers<T extends ApiRequestState<E>, E>(
-  loadAction: ActionCreator,
+  loadAction: ActionCreator | undefined,
   saveAction: ActionCreator,
   saveSuccessAction: ActionCreator,
   saveFailureAction: ActionCreator<string, (props: { errors: E }) => { errors: E }>
@@ -48,7 +48,7 @@ export function createLoadingStateActionHandlers<T extends LoadingState>(
   ];
 }
 
-export function getLastPageNumber<T>(summaries: T[], pagingOptions: PagingOptions): number {
+export function getLastPageNumber<T>(summaries: T[], pagingOptions: PagingOptions): number | undefined {
   if (!summaries.length) {
     return pagingOptions.page - 1;
   }

@@ -4,15 +4,15 @@ import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';
 import { createFormSelectors } from './form-selectors';
 
-export function createFormState<T, E>(featureName: string) {
-  const actions = createFormActions<T, E>(featureName);
+export function createFormState<DTO, ERROR, CREATE_DTO = DTO>(featureName: string) {
+  const actions = createFormActions<DTO, ERROR, CREATE_DTO>(featureName);
   const reducer = createFormReducer(actions);
-  const getState = createFeatureSelector<FormState<T, E>>(featureName);
+  const getState = createFeatureSelector<FormState<DTO, ERROR>>(featureName);
   const selectors = createFormSelectors(getState);
 
   return {
     actions,
-    reducer: (state: FormState<T, E>, action: Action): FormState<T, E> => reducer(state, action),
+    reducer: (state: FormState<DTO, ERROR>, action: Action): FormState<DTO, ERROR> => reducer(state, action),
     selectors
   };
 }

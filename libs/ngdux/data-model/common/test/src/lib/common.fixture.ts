@@ -108,7 +108,7 @@ export function getElementsFromEnum<T>(
   return Array.from(elements);
 }
 
-export function getEnumValue<T>(enumObj: T): T[keyof T] {
+export function getEnumValue<T extends Record<keyof T, string>>(enumObj: T): T[keyof T] {
   return getElementFromArray(Object.values(enumObj));
 }
 

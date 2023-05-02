@@ -7,7 +7,7 @@ import {
 } from '@demo/demo/data-model/properties/test';
 import { RestService } from '@demo/shared/data-access';
 import { restServiceFixture } from '@demo/shared/data-access/test';
-import { RequestOptions } from '@ngdux/data-model-common';
+import { FilteringLogic, RequestOptions } from '@ngdux/data-model-common';
 import { cold } from 'jest-marbles';
 import { PropertyService } from './property.service';
 
@@ -81,6 +81,11 @@ describe('PropertiesService', () => {
       pagingOptions: {
         page: 1,
         pageSize: 10
+      },
+      sortingOptions: {},
+      filteringOptions: {
+        filters: [],
+        logic: FilteringLogic.AND
       }
     };
     const expected = cold('(u|)', { u: properties });

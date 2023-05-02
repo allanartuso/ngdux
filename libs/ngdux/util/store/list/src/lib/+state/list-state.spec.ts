@@ -20,6 +20,7 @@ jest.mock('@ngrx/store', () => ({
   createFeatureSelector: jest.fn().mockReturnValue(mockFeatureSelector)
 }));
 
+import { FilteringLogic, RequestState } from '@ngdux/data-model-common';
 import { createFeatureSelector } from '@ngrx/store';
 import { createListActions } from './list-actions';
 import { createListReducer } from './list-reducer';
@@ -37,7 +38,25 @@ describe('listState', () => {
 
   it('create list reducer', () => {
     expect(createListReducer).toHaveBeenCalledWith(mockAdapter, mockActions);
-    expect(reducer(undefined, { type: '' })).toBe(mockReducer);
+    expect(
+      reducer(
+        {
+          requestState: RequestState.IDLE,
+          loadingState: RequestState.IDLE,
+
+          selectedResourceIds: [],
+          ids: [],
+          entities: {},
+          pagingOptions: {
+            page: 1,
+            pageSize: 10
+          },
+          sortingOptions: {},
+          filteringOptions: { filters: [], logic: FilteringLogic.AND }
+        },
+        { type: '' }
+      )
+    ).toBe(mockReducer);
   });
 
   it('create list selectors', () => {

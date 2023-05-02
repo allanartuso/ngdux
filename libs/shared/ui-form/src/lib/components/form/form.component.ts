@@ -7,8 +7,8 @@ import { RequestState } from '@ngdux/data-model-common';
   styleUrls: ['./form.component.scss']
 })
 export class DemoFormComponent {
-  @Input() isSubmitDisabled: boolean;
-  @Input() isCancelDisabled: boolean;
+  @Input() isSubmitDisabled = false;
+  @Input() isCancelDisabled = true;
   @Input() canEdit = true;
   @Input() formRequestState: RequestState | RequestState[] = RequestState.IDLE;
 

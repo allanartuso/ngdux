@@ -21,8 +21,8 @@ export abstract class AbstractFormArrayComponent<F extends AbstractControl<any>>
   protected abstract createFormArrayItem(item?: FormValueOf<F>): F;
 
   protected readonly destroy$ = new Subject<void>();
-  protected onChange: (value: FormValueOf<F>[]) => void;
-  protected onTouched: () => void;
+  protected onChange?: (value: FormValueOf<F>[]) => void;
+  protected onTouched?: () => void;
 
   formGroup = new FormGroup({
     formArray: this.createFormArray()

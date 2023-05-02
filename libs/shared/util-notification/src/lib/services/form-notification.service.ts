@@ -10,7 +10,7 @@ export class NotificationService implements FormNotificationService<ErrorDto>, L
   constructor(private readonly snackBar: MatSnackBar, private readonly dialog: MatDialog) {}
 
   onFormErrors(errors: ErrorDto): void {
-    this.snackBar.open(errors.message);
+    this.snackBar.open(errors.message || errors.error);
   }
 
   onFormDelete(id: string): void {
@@ -18,7 +18,7 @@ export class NotificationService implements FormNotificationService<ErrorDto>, L
   }
 
   onListErrors(errors: ErrorDto): void {
-    this.snackBar.open(errors.message);
+    this.snackBar.open(errors.message || errors.error);
   }
 
   onListDelete(ids: string[]): void {

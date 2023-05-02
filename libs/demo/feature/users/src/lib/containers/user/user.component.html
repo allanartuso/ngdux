@@ -1,1 +1,6 @@
-<demo-user-form #userProfileForm [formViewModel]="user$ | async" (submitted)="onSaved($event)"></demo-user-form>
+<demo-user-form
+  *ngIf="model$ | async as model"
+  #userProfileForm
+  [formViewModel]="model.user"
+  (submitted)="onSaved($event)"
+></demo-user-form>
