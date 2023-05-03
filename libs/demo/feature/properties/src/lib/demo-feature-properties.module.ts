@@ -45,7 +45,7 @@ export const usersRoutes: Routes = [
     SharedUiListModule,
     SharedUtilNotificationModule,
     DemoDataAccessPropertiesModule,
-    DemoDataAccessUsersModule.config({ listFeatureKey: 'propertyUsers' }),
+    DemoDataAccessUsersModule.config({ listFeatureKey: 'property.users' }),
     DemoUiPropertiesModule
   ],
   declarations: [PropertyComponent, PropertiesComponent],

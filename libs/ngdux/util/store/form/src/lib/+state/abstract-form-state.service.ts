@@ -24,8 +24,7 @@ export abstract class AbstractFormReducerManager<DTO, ERROR, CREATE_DTO = DTO> {
   }
 
   protected addReducer() {
-    const currentReducers: string[] = Object.keys(this.reducerManager.currentReducers || {});
-    if (!currentReducers.includes(this.featureKey)) {
+    if (!this.reducerManager.currentReducers[this.featureKey]) {
       const reducer = createFormReducer(this.actions);
       this.reducerManager.addReducer(this.featureKey, reducer);
     }

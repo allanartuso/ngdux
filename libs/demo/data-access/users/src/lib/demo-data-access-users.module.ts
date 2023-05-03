@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { SharedUtilNotificationModule } from '@demo/shared/util-notification';
 import { FORM_FEATURE_KEY } from '@ngdux/form';
 import { LIST_FEATURE_KEY } from '@ngdux/list';
-import { RegisterEffectsService } from '@ngdux/store-common';
+import { EffectsModule } from '@ngrx/effects';
 import { USER_DEFAULT_FEATURE_KEY, UserReducerManager } from './+state/user/user-state.service';
 import { UserEffects } from './+state/user/user.effects';
 import { UserFacade } from './+state/user/user.facade';
@@ -12,23 +12,17 @@ import { UsersFacade } from './+state/users/users.facade';
 import { DataAccessUsersModuleConfig } from './models/users.model';
 
 @NgModule({
-  imports: [SharedUtilNotificationModule],
+  imports: [SharedUtilNotificationModule, EffectsModule.forFeature([UserEffects, UsersEffects])],
   providers: [
     { provide: FORM_FEATURE_KEY, useValue: USER_DEFAULT_FEATURE_KEY },
     { provide: LIST_FEATURE_KEY, useValue: USERS_DEFAULT_FEATURE_KEY },
     UserReducerManager,
     UsersReducerManager,
     UserFacade,
-    UsersFacade,
-    UserEffects,
-    UsersEffects
+    UsersFacade
   ]
 })
 export class DemoDataAccessUsersModule {
-  constructor(usersEffects: UsersEffects, userEffects: UserEffects, registerEffectsService: RegisterEffectsService) {
-    registerEffectsService.registerEffects([userEffects, usersEffects]);
-  }
-
   static config(config: DataAccessUsersModuleConfig): ModuleWithProviders<DemoDataAccessUsersModule> {
     return {
       ngModule: DemoDataAccessUsersModule,
