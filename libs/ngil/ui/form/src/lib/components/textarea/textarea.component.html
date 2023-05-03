@@ -1,18 +1,20 @@
-<div class="ngil-textarea" [class.ngil-textarea--error]="!!errorMessage">
-  <label class="ngil-textarea__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
+<ng-container *ngIf="model$ | async as model">
+  <div class="ngil-textarea" [class.ngil-textarea--error]="!!model.errorMessage">
+    <label class="ngil-textarea__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
 
-  <div class="ngil-textarea__field">
-    <textarea
-      class="ngil-textarea__input"
-      [id]="formControlName"
-      [required]="required"
-      [readonly]="readonly"
-      [formControl]="control"
-      (blur)="onBlur()"
-    >
-    </textarea>
-    <ng-content select="[suffix]"></ng-content>
+    <div class="ngil-textarea__field">
+      <textarea
+        class="ngil-textarea__input"
+        [id]="formControlName"
+        [required]="required"
+        [readonly]="readonly"
+        [formControl]="control"
+        (blur)="onBlur()"
+      >
+      </textarea>
+      <ng-content select="[suffix]"></ng-content>
+    </div>
+
+    <small class="ngil-textarea__error-message">{{ model.errorMessage }}</small>
   </div>
-
-  <small class="ngil-textarea__error-message">{{ errorMessage }}</small>
-</div>
+</ng-container>

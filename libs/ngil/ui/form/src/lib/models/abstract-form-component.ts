@@ -1,11 +1,9 @@
-import { AfterViewInit, Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, FormGroup } from '@angular/forms';
+import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Directive()
-export abstract class AbstractFormComponent<T> implements ControlValueAccessor, OnDestroy, AfterViewInit, OnInit {
-  @Input() formControlName = '';
+export abstract class AbstractFormComponent<T> implements OnDestroy, OnInit {
   @Input() formViewModel?: T;
 
   @Output() submitted: EventEmitter<T> = new EventEmitter();
@@ -13,11 +11,13 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
   abstract form: FormGroup;
 
   protected readonly destroy$ = new Subject<void>();
-  protected onChange?: (value: T) => void;
-  protected onTouched?: () => void;
 
   get isSubmitDisabled(): boolean {
-    return !this.form?.valid || this.form?.pristine;
+    return !this.form.valid || this.form.pristine;
+  }
+
+  get isCancelDisabled(): boolean {
+    return !this.form.dirty;
   }
 
   protected getFormDefaultValue(model?: T): T | undefined {
@@ -25,55 +25,25 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
   }
 
   ngOnInit(): void {
-    this.form.patchValue(this.formViewModel || {}, { emitEvent: false });
-  }
-
-  ngAfterViewInit(): void {
-    this.listenValueChanges();
-  }
-
-  protected listenValueChanges(): void {
-    this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      if (this.onChange) {
-        this.onChange(this.form.getRawValue());
-      }
-    });
+    this.form.patchValue(this.getFormDefaultValue(this.formViewModel) || {}, { emitEvent: false });
   }
 
   submit(): void {
-    if (this.form.valid && this.form.dirty) {
+    if (!this.isSubmitDisabled) {
       this.submitted.emit({
         ...this.formViewModel,
         ...this.form.value
       });
+    } else {
+      Object.values(this.form.controls).forEach(control => control.updateValueAndValidity());
     }
   }
 
   cancel(): void {
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
-    this.writeValue(this.formViewModel || undefined);
-  }
-
-  registerOnChange(fn: (value: T) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    isDisabled ? this.form.disable({ emitEvent: false }) : this.form.enable({ emitEvent: false });
-  }
-
-  writeValue(model?: T): void {
-    const formValue = this.getFormDefaultValue(model);
-
-    if (formValue) {
-      this.form.patchValue(formValue, { emitEvent: false });
-    } else {
-      this.form.reset(formValue || undefined, { emitEvent: false });
+    if (!this.isCancelDisabled) {
+      this.form.reset(this.getFormDefaultValue(this.formViewModel), { emitEvent: false });
+      this.form.markAsPristine();
+      this.form.markAsUntouched();
     }
   }
 

@@ -1,13 +1,15 @@
 import { Directive, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { AbstractControl, ControlContainer, ControlValueAccessor, FormArray } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getErrorMessage } from '../error-messages';
 
 @Directive()
 export abstract class AbstractInputComponent<T = string> implements OnInit, ControlValueAccessor, OnDestroy {
   @Input() formControlName = '';
-  @Input() errorMessage = '';
+  @Input() set errorMessage(errorMessage: string) {
+    this.errorMessage$.next(errorMessage);
+  }
   @Input() label = '';
   @Input() readonly = false;
   @Input() required = false;
@@ -16,6 +18,11 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
   protected onChange?: (value: T) => void;
   protected onTouched?: () => void;
   protected readonly destroy$ = new Subject<void>();
+  protected readonly errorMessage$ = new BehaviorSubject<string>('');
+
+  model$ = combineLatest({
+    errorMessage: this.errorMessage$
+  });
 
   constructor(@Optional() private readonly controlContainer?: ControlContainer) {}
 
@@ -65,12 +72,14 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
     if (this.parentControl?.errors) {
       const errorKey = Object.keys(this.parentControl?.errors)[0];
       const errorObj = this.parentControl?.errors[`${errorKey}`];
-      this.errorMessage = getErrorMessage(errorKey, {
-        fieldName: this.label,
-        ...errorObj
-      });
+      this.errorMessage$.next(
+        getErrorMessage(errorKey, {
+          fieldName: this.label,
+          ...errorObj
+        })
+      );
     } else {
-      this.errorMessage = '';
+      this.errorMessage$.next('');
     }
   }
 

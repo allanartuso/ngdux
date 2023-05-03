@@ -16,14 +16,10 @@ export class DemoFormComponent {
   @Output() cancelled = new EventEmitter<void>();
 
   onSubmit(): void {
-    if (!this.isSubmitDisabled) {
-      this.submitted.emit();
-    }
+    this.submitted.emit();
   }
 
   onCancel(): void {
-    if (!this.isCancelDisabled) {
-      this.cancelled.emit();
-    }
+    this.cancelled.emit();
   }
 }
