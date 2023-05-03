@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, forwardRef, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractInputComponent } from '../../models/abstract-input-component';
@@ -13,7 +13,8 @@ import { AbstractInputComponent } from '../../models/abstract-input-component';
       useExisting: forwardRef(() => NgilInputComponent),
       multi: true
     }
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgilInputComponent extends AbstractInputComponent<string | number> implements AfterViewInit {
   @Input() type = 'text';

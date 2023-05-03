@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UserFacade } from '@demo/demo/data-access/users';
 import { CreateUserDto, UserDto, isUserDto } from '@demo/demo/data-model/users';
 import { combineLatest } from 'rxjs';
@@ -6,7 +6,8 @@ import { combineLatest } from 'rxjs';
 @Component({
   selector: 'demo-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserComponent {
   model$ = combineLatest({

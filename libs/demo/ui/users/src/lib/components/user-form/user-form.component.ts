@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
 import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/ui-form';
@@ -6,7 +6,8 @@ import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/ui-form';
 @Component({
   selector: 'demo-user-form',
   templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss']
+  styleUrls: ['./user-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserFormComponent extends AbstractFormComponent<UserDto> {
   form = new FormGroup<FlatFormControlsOf<CreateUserDto>>({

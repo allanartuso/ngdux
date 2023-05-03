@@ -21,9 +21,9 @@ export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerVa
 
   value = '';
   formGroup = new FormGroup({
-    hour: new FormControl<number>(this.defaultValue.hour),
-    minute: new FormControl<number>(this.defaultValue.minute),
-    second: new FormControl<number>(this.defaultValue.second)
+    hour: new FormControl<number>(this.defaultValue.hour, { nonNullable: true }),
+    minute: new FormControl<number>(this.defaultValue.minute, { nonNullable: true }),
+    second: new FormControl<number>(this.defaultValue.second, { nonNullable: true })
   });
 
   ngAfterViewInit(): void {

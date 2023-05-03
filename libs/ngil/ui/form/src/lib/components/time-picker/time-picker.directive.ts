@@ -86,13 +86,13 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
     return false;
   }
 
-  private getTimePickerValue(value: string) {
-    const split = value.split(':');
+  private getTimePickerValue(value: string | null) {
+    const split = value?.split(':');
 
     return {
-      hour: split[0],
-      minute: split[1],
-      second: split[2]
+      hour: split ? split[0] : '00',
+      minute: split ? split[1] : '00',
+      second: split ? split[2] : '00'
     };
   }
 
