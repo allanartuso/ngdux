@@ -1,11 +1,7 @@
 <ng-container *ngIf="model$ | async as model">
   <div class="ngil-input" [class.ngil-input--error]="!!model.errorMessage">
     <label class="ngil-input__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
-    <!-- <ng-content select="[inputTemplate]"></ng-content>
 
-  <ng-container *ngIf="inputTemplate">
-    <ng-container *ngTemplateOutlet="inputTemplate;; context: { $implicit: display }"></ng-container>
-  </ng-container> -->
     <div class="ngil-input__field">
       <input
         class="ngil-input__input"

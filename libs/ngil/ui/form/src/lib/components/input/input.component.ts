@@ -18,9 +18,7 @@ import { AbstractInputComponent } from '../../models/abstract-input-component';
 })
 export class NgilInputComponent extends AbstractInputComponent<string | number> implements AfterViewInit {
   @Input() type = 'text';
-  // @Input() inputTemplate: TemplateRef<any>;
 
-  // @ContentChild('contentParagraph', {static: true}) paragraph : ElementRef;
   control = new FormControl();
 
   ngAfterViewInit() {

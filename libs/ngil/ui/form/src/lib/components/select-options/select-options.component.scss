@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  min-width: 200px;
+  background: white;
+  border: 1px solid #000;
+  overflow-y: auto;
+
+  .ngil-dropdown {
+    &__item {
+      line-height: 1.5rem;
+      padding: 0.25rem 0.5rem;
+
+      &:hover {
+        background: lightgray;
+      }
+
+      &--selected {
+        background: slategray;
+      }
+    }
+  }
+}

@@ -13,9 +13,10 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
   @Input() label = '';
   @Input() readonly = false;
   @Input() required = false;
+  @Input() disabled = false;
 
   protected parentControl?: AbstractControl | null;
-  protected onChange?: (value: T) => void;
+  protected onChange?: (value: T | null) => void;
   protected onTouched?: () => void;
   protected readonly destroy$ = new Subject<void>();
   protected readonly errorMessage$ = new BehaviorSubject<string>('');
@@ -54,12 +55,16 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
     this.setErrors();
   }
 
-  registerOnChange(fn: (value: T) => void): void {
+  registerOnChange(fn: (value: T | null) => void): void {
     this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   abstract writeValue(value: T): void;

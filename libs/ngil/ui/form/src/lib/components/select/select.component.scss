@@ -27,10 +27,15 @@
       border: 1px solid black;
       border-radius: 3px;
       padding: 0.25rem;
+      overflow: hidden;
     }
 
     &__field {
       display: flex;
+    }
+
+    &__field-content {
+      flex-grow: 1;
     }
 
     &__error-message {
@@ -39,5 +44,13 @@
       height: 1rem;
       font-size: 85%;
     }
+
+    &__dropdown {
+      width: 100%;
+    }
+  }
+
+  .hidden {
+    display: none;
   }
 }

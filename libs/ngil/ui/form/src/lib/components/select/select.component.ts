@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
-import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component, forwardRef, Input, ViewChild } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgilOverlayDirective } from '../../directives/select-overlay.component';
 import { AbstractInputComponent } from '../../models/abstract-input-component';
 
 @Component({
@@ -16,30 +16,49 @@ import { AbstractInputComponent } from '../../models/abstract-input-component';
     }
   ]
 })
-export class NgilSelectComponent<T> extends AbstractInputComponent<T> implements AfterViewInit {
+export class NgilSelectComponent<T> extends AbstractInputComponent<T | T[]> {
+  @ViewChild(NgilOverlayDirective) overlay?: NgilOverlayDirective;
   @Input() multiple = false;
   @Input() items: T[] = [];
   @Input() displayKey?: keyof T;
 
-  control = new FormControl();
+  value: T | T[] | null = null;
 
-  ngAfterViewInit() {
-    this.control.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(value => {
-      this.onChangeInput(value);
-    });
+  get displayValue() {
+    if (Array.isArray(this.value)) {
+      return this.value.map(item => (this.displayKey ? item[this.displayKey] : item)).join(',');
+    }
+
+    if (this.value && this.displayKey) {
+      return this.value[this.displayKey];
+    }
+
+    return this.value;
   }
 
   writeValue(value: T): void {
-    this.control.setValue(value);
+    this.value = value;
   }
 
-  onChangeInput(selection: T[]): void {
-    let newValue: T | T[] = selection;
+  onItemSelected(item: T | T[]) {
+    this.value = item;
+
     if (!this.multiple) {
-      newValue = selection[0];
+      this.overlay?.close();
     }
+
     if (this.onChange) {
-      this.onChange(newValue as any);
+      this.onChange(this.value);
+    }
+  }
+
+  isArray(item: T | T[]): item is T[] {
+    return Array.isArray(item);
+  }
+
+  toggleOverlay() {
+    if (!this.readonly && !this.disabled) {
+      this.overlay?.toggle();
     }
   }
 }

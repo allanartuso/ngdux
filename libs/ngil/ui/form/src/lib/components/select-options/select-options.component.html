@@ -1,0 +1,12 @@
+<div class="ngil-dropdown" *ngIf="display" role="listbox">
+  <ng-container *ngFor="let item of items">
+    <div
+      role="option"
+      class="ngil-dropdown__item"
+      (click)="onItemSelected(item)"
+      [class.ngil-dropdown__item--selected]="isSelected(item)"
+    >
+      {{ displayKey ? item[displayKey] : item }}
+    </div>
+  </ng-container>
+</div>
