@@ -42,6 +42,7 @@
       "@ngdux/list": ["libs/ngdux/util/store/list/src/index.ts"],
       "@ngdux/store-common": ["libs/ngdux/util/store/common/src/index.ts"],
       "@ngdux/store-common/test": ["libs/ngdux/util/store/common/test/src/index.ts"],
+      "@ngil/form-cva": ["libs/ngil/ui/common/form-cva/src/index.ts"],
       "@ngil/ui-form": ["libs/ngil/ui/form/src/index.ts"],
       "@ngil/ui-list": ["libs/ngil/ui/list/src/index.ts"]
     }

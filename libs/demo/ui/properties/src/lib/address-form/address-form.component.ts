@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AddressDto } from '@demo/demo/data-model/properties';
-import { AbstractFormGroupComponent, createControlValueAccessorProviders, FlatFormControlsOf } from '@ngil/ui-form';
+import { AbstractFormGroupComponent, FlatFormControlsOf, createControlValueAccessorProviders } from '@ngil/form-cva';
 
 @Component({
   selector: 'demo-address-form',

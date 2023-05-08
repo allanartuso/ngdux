@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AddressDto, PropertyDto, PropertyFeatureDto } from '@demo/demo/data-model/properties';
 import { UserDto } from '@demo/demo/data-model/users';
-import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/ui-form';
+import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/form-cva';
 
 interface PropertyForm {
   price: FormControl<number>;

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractInputComponent } from '@ngil/form-cva';
 import { takeUntil } from 'rxjs/operators';
-import { AbstractInputComponent } from '../../models/abstract-input-component';
 import { TimePickerValue } from './time-picker.model';
 
 @Component({

@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractInputComponent } from '@ngil/form-cva';
 import { takeUntil } from 'rxjs';
-import { AbstractInputComponent } from '../../models/abstract-input-component';
 
 @Component({
   selector: 'ngil-textarea',

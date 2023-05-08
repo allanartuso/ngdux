@@ -69,11 +69,11 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
 
   abstract writeValue(value: T): void;
 
-  private listenStatusChanges(): void {
+  protected listenStatusChanges(): void {
     this.parentControl?.statusChanges.pipe(takeUntil(this.destroy$)).subscribe(() => this.setErrors());
   }
 
-  private setErrors(): void {
+  protected setErrors(): void {
     if (this.parentControl?.errors) {
       const errorKey = Object.keys(this.parentControl?.errors)[0];
       const errorObj = this.parentControl?.errors[`${errorKey}`];

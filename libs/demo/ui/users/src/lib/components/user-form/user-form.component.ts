@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
-import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/ui-form';
+import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/form-cva';
 
 @Component({
   selector: 'demo-user-form',
