@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgilOverlayDirective } from '../../directives/select-overlay.component';
+import { NgilOverlayDirective } from '../../directives/overlay.directive';
 import { AbstractInputComponent } from '../../models/abstract-input-component';
 
 @Component({
