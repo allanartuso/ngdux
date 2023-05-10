@@ -1,38 +1,38 @@
 {
-  "name": "ngil-ui-form",
+  "name": "ngil-ui-form-inputs",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/ngil/ui/form/src",
+  "sourceRoot": "libs/ngil/ui/form-inputs/src",
   "prefix": "demo",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["{workspaceRoot}/dist/libs/ngil/ui/form"],
+      "outputs": ["{workspaceRoot}/dist/libs/ngil/ui/form-inputs"],
       "options": {
-        "project": "libs/ngil/ui/form/ng-package.json"
+        "project": "libs/ngil/ui/form-inputs/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/ngil/ui/form/tsconfig.lib.prod.json"
+          "tsConfig": "libs/ngil/ui/form-inputs/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/ngil/ui/form/tsconfig.lib.json"
+          "tsConfig": "libs/ngil/ui/form-inputs/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/ngil/ui/form"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ngil/ui/form-inputs"],
       "options": {
-        "jestConfig": "libs/ngil/ui/form/jest.config.ts",
+        "jestConfig": "libs/ngil/ui/form-inputs/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/ngil/ui/form/**/*.ts", "libs/ngil/ui/form/**/*.html"]
+        "lintFilePatterns": ["libs/ngil/ui/form-inputs/**/*.ts", "libs/ngil/ui/form-inputs/**/*.html"]
       }
     }
   },

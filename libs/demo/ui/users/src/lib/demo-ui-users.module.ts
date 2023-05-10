@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
-import { NgilUiFormModule } from '@ngil/ui-form';
+import { NgilUiFormModule } from '@ngil/form-inputs';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 

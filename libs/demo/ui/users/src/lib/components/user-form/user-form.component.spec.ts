@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
 import { createPersistentUser } from '@demo/demo/data-model/users/test';
-import { NgilInputComponent } from '@ngil/ui-form';
+import { NgilInputComponent } from '@ngil/form-inputs';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {

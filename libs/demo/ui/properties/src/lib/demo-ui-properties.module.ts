@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
-import { NgilUiFormModule } from '@ngil/ui-form';
+import { NgilUiFormModule } from '@ngil/form-inputs';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { PropertiesTableComponent } from './properties-table/properties-table.component';
 import { PropertyFormComponent } from './property-form/property-form.component';
