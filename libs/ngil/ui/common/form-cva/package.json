@@ -1,12 +1,13 @@
 {
   "name": "@ngil/form-cva",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^15.1.0",
-    "@angular/core": "^15.1.0"
-  },
+  "version": "0.1.0",
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:allanartuso/ngdux.git",
+    "directory": "/libs/ngil/ui/common/cva"
+  },
+  "homepage": "https://github.com/allanartuso/ngdux/tree/master/libs/ngil/ui/common/cva#readme"
 }

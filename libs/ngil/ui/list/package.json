@@ -1,6 +1,6 @@
 {
-  "name": "@ngil/ui-list",
-  "version": "0.1.9",
+  "name": "@ngil/list",
+  "version": "0.1.0",
   "dependencies": {
     "tslib": "^2.3.0"
   },
