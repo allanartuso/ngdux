@@ -11,8 +11,6 @@ describe('UserFormComponent', () => {
   let component: UserFormComponent;
   let fixture: ComponentFixture<UserFormComponent>;
   let testUser: UserDto;
-  const onChangeMock = jest.fn();
-  const onTouchedMock = jest.fn();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -27,8 +25,6 @@ describe('UserFormComponent', () => {
 
     fixture = TestBed.createComponent(UserFormComponent);
     component = fixture.componentInstance;
-    component.registerOnChange(onChangeMock);
-    component.registerOnTouched(onTouchedMock);
   });
 
   it('creates the form', () => {

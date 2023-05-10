@@ -3,7 +3,7 @@
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/ngil/ui/common/form-cva/src",
-  "prefix": "demo",
+  "prefix": "ngil",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
@@ -43,5 +43,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["scope:shared-common", "type:ui"]
 }

@@ -5,15 +5,11 @@ import { PropertyFormComponent } from './property-form.component';
 describe('PropertyFormComponent', () => {
   let component: PropertyFormComponent;
   let testProperty: PropertyDto;
-  const onChangeMock = jest.fn();
-  const onTouchedMock = jest.fn();
 
   beforeEach(() => {
     testProperty = createPersistentProperty();
 
     component = new PropertyFormComponent();
-    component.registerOnChange(onChangeMock);
-    component.registerOnTouched(onTouchedMock);
   });
 
   afterEach(() => {
@@ -23,7 +19,6 @@ describe('PropertyFormComponent', () => {
   it('creates the form', () => {
     component.formViewModel = testProperty;
     component.ngOnInit();
-    component.ngAfterViewInit();
     const expectedFormValue = {
       price: testProperty.price,
       size: testProperty.size,
@@ -40,7 +35,6 @@ describe('PropertyFormComponent', () => {
 
   it('creates an empty form when the form model is undefined', () => {
     component.ngOnInit();
-    component.ngAfterViewInit();
     const expectedFormValue: Record<keyof CreatePropertyDto, null> = {
       price: null,
       size: null,

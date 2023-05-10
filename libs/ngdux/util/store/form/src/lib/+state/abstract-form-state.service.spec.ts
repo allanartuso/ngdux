@@ -46,7 +46,8 @@ describe('AbstractFormReducerManager', () => {
   beforeEach(() => {
     featureKey = commonFixture.getWord();
     mockReducerManager = {
-      addReducer: jest.fn()
+      addReducer: jest.fn(),
+      currentReducers: {}
     };
 
     TestBed.configureTestingModule({

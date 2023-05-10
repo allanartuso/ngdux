@@ -21,7 +21,7 @@ declare namespace Cypress {
      *
      * @example cy.get('input').updateInputValue('new value')
      */
-    updateInputValue(value: string | number): Chainable<Element>;
+    updateInputValue(inputValue: string | number): Chainable<JQuery<HTMLElement>>;
   }
 }
 //
@@ -41,6 +41,8 @@ Cypress.Commands.add('login', (email, password) => {
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('updateInputValue', { prevSubject: 'element' }, (element, options) =>
-  cy.wrap(element).scrollIntoView().should('be.visible').clear().type(options.toString())
-);
+Cypress.Commands.add('updateInputValue', { prevSubject: 'element' }, (subject, inputValue) => {
+  cy.wrap(subject).scrollIntoView();
+  cy.wrap(subject).should('be.visible').clear();
+  return cy.wrap(subject).type(inputValue.toString());
+});

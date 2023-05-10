@@ -45,8 +45,6 @@ describe('AbstractFormComponent', () => {
   let component: MockFormComponent;
   let fixture: ComponentFixture<MockFormComponent>;
   let testFormValues: TestFormModel;
-  const onChangeMock = jest.fn();
-  const onTouchedMock = jest.fn();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -65,8 +63,6 @@ describe('AbstractFormComponent', () => {
       address: { city: 'testCity' }
     };
     component.formViewModel = testFormValues;
-    component.registerOnChange(onChangeMock);
-    component.registerOnTouched(onTouchedMock);
 
     fixture.detectChanges();
   });
@@ -98,6 +94,7 @@ describe('AbstractFormComponent', () => {
     it('path the received form model values to the form when cancel the current changes', () => {
       component.formViewModel = testFormValues;
       component.form.controls.name.setValue('newTestValue');
+      component.form.controls.name.markAsDirty();
       expect(component.form.value.name).not.toBe(testFormValues.name);
 
       component.cancel();
@@ -106,36 +103,5 @@ describe('AbstractFormComponent', () => {
       expect(component.form.pristine).toBe(true);
       expect(component.form.untouched).toBe(true);
     });
-  });
-
-  it('disables the control', () => {
-    component.setDisabledState(true);
-
-    expect(component.form.disabled).toBe(true);
-  });
-
-  it('enables the control', () => {
-    component.setDisabledState(false);
-
-    expect(component.form.enabled).toBe(true);
-  });
-
-  it('writes value to the form', () => {
-    const newFormValues = {
-      ...testFormValues,
-      name: 'newTestName'
-    };
-
-    component.writeValue(newFormValues);
-
-    expect(component.form.value).toStrictEqual(newFormValues);
-  });
-
-  it('resets the form when writing an undefined value', () => {
-    jest.spyOn(component.form, 'reset');
-
-    component.writeValue(undefined);
-
-    expect(component.form.reset).toHaveBeenCalled();
   });
 });
