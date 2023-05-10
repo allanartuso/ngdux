@@ -1,8 +1,11 @@
-<div class="ngil-dropdown" *ngIf="display" role="listbox">
+<div class="ngil-dropdown" *ngIf="display" role="listbox" data-test="ngil-select-options-list">
   <ng-container *ngFor="let item of items">
     <div
       role="option"
       class="ngil-dropdown__item"
+      data-test="ngil-select-option"
+      [attr.value]="item"
+      [attr.displayValue]="displayKey ? item[displayKey] : item"
       (click)="onItemSelected(item)"
       [class.ngil-dropdown__item--selected]="isSelected(item)"
     >

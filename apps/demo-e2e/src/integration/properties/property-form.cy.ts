@@ -1,4 +1,5 @@
 import { PropertyDto } from '@demo/demo/data-model/properties';
+import { UserDto } from '@demo/demo/data-model/users';
 import { formSelectors } from '../../support/form/form';
 import {
   propertyFormRoutes,
@@ -9,9 +10,11 @@ import {
 
 describe('Property form', () => {
   let updatedProperty: PropertyDto;
+  let property: PropertyDto;
+  let users: UserDto[];
 
   beforeEach(() => {
-    const { property, users } = stubGetProperty();
+    ({ property, users } = stubGetProperty());
     updatedProperty = stubUpdateProperty(property, users);
     cy.visit('/properties/1');
   });
@@ -25,9 +28,32 @@ describe('Property form', () => {
     cy.get(propertyInputSelectors.address.zipCode).updateInputValue(updatedProperty.address.zipCode);
     cy.get(propertyInputSelectors.address.street).updateInputValue(updatedProperty.address.street);
     cy.get(propertyInputSelectors.address.streetNumber).updateInputValue(updatedProperty.address.streetNumber);
+
+    // features
+    cy.get(propertyInputSelectors.features).click();
+    cy.get(propertyInputSelectors.selectOptions)
+      .should('be.visible')
+      .then(() => {
+        property.features.forEach(feature => {
+          cy.get(propertyInputSelectors.selectOptions).get(`[value="${feature}"]`).click();
+        });
+
+        updatedProperty.features.forEach(feature => {
+          cy.get(propertyInputSelectors.selectOptions).get(`[value="${feature}"]`).click();
+        });
+      });
+    cy.get('body').click();
+
+    // contact
+    cy.get(propertyInputSelectors.contact).click();
+    cy.get(propertyInputSelectors.selectOptions)
+      .should('be.visible')
+      .then(() => {
+        cy.get(propertyInputSelectors.selectOptions).get(`[displayValue="${updatedProperty.contact.email}"]`).click();
+      });
+    cy.get('body').click();
+
     cy.get(propertyInputSelectors.description).updateInputValue(updatedProperty.description);
-    cy.get(propertyInputSelectors.contact).select(updatedProperty.contact.email);
-    cy.get(propertyInputSelectors.features).select([]).select(updatedProperty.features);
     cy.get(formSelectors.submitButton).click();
 
     cy.wait(`@${propertyFormRoutes.updateProperty}`);

@@ -8,6 +8,7 @@
           #origin
           class="ngil-select__input"
           [value]="displayValue"
+          [disabled]="disabled"
           (keydown)="$event.preventDefault(); toggleOverlay()"
           [id]="formControlName"
           (blur)="onBlur()"
@@ -23,6 +24,7 @@
 
   <ngil-select-options
     class="ngil-select__dropdown"
+    data-test="ngil-select-options"
     ngilOverlay
     #overlay="ngilOverlay"
     [display]="overlay.isOpen"

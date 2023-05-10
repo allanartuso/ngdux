@@ -8,7 +8,7 @@ export const propertyInputSelectors = {
   price: '[label="Price"] input',
   size: '[label="Size"] input',
   availableFrom: '[label="Available from"] input',
-  description: '[formControlName="description"]',
+  description: '[formControlName="description"] textarea',
   address: {
     country: '[formControlName="country"]',
     city: '[formControlName="city"]',
@@ -16,8 +16,9 @@ export const propertyInputSelectors = {
     street: '[formControlName="street"]',
     streetNumber: '[formControlName="streetNumber"]'
   },
-  contact: '[formControlName="contact"] select',
-  features: '[formControlName="features"] select'
+  contact: '[formControlName="contact"] input',
+  features: '[formControlName="features"] input',
+  selectOptions: '[data-test="ngil-select-options"]'
 };
 
 export const propertyFormRoutes = {
