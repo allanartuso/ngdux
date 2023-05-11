@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AddressDto } from '@demo/demo/data-model/properties';
 import { AbstractFormGroupComponent, FlatFormControlsOf, createControlValueAccessorProviders } from '@ngil/form-cva';
@@ -11,7 +11,7 @@ import { AbstractFormGroupComponent, FlatFormControlsOf, createControlValueAcces
   providers: createControlValueAccessorProviders(AddressFormComponent)
 })
 export class AddressFormComponent extends AbstractFormGroupComponent<AddressDto> {
-  @Input() validators: Partial<Record<keyof AddressDto, ValidatorFn[]>> = {
+  validators: Partial<Record<keyof AddressDto, ValidatorFn[]>> = {
     country: [Validators.required, Validators.maxLength(20)],
     city: [Validators.required, Validators.maxLength(60)],
     zipCode: [Validators.required, Validators.maxLength(20)],
