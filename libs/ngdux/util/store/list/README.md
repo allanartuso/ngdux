@@ -1,12 +1,12 @@
 # @ngdux/list
 
-The @ngdux/list gives yo a full state to make easy to load, save and delete resources. It gives also support to paging, filtering and sorting.
+The @ngdux/list gives you a full state to simplify how to create, load, save and delete a resource.
 
 Example:
 
-## Option 1
+## Option 1 - Full state
 
-### Full state
+### State
 
 ```
 import { UserDto } from '@demo/demo/data-model/users';
@@ -22,7 +22,24 @@ export const {
 } = createListState<UserDto, ErrorDto>(USERS_FEATURE_KEY);
 ```
 
-## Option 2
+### Facade
+
+```
+import { Injectable } from '@angular/core';
+import { AbstractListFacade } from '@ngdux/list';
+import { Store } from '@ngrx/store';
+import { usersActions, usersSelectors } from './users.state';
+import { User, Error } from './models';
+
+@Injectable()
+export class UsersFacade extends AbstractListFacade<User, Error> {
+  constructor(store: Store) {
+    super(store, usersActions, usersSelectors);
+  }
+}
+```
+
+## Option 2 - Separated creators for actions, reducer and selectors
 
 ### Actions
 
@@ -30,7 +47,7 @@ export const {
 import { createListActions } from '@ngdux/list';
 import { User, Error } from './models';
 
-export const listActions = createListActions<User, Error>('Users');
+export const usersActions = createListActions<User, Error>('Users');
 ```
 
 ### Reducer
@@ -39,12 +56,12 @@ export const listActions = createListActions<User, Error>('Users');
 import { createListEntityAdapter, createListReducer, ListState } from '@ngdux/list';
 import { Action } from '@ngrx/store';
 import { User, Error } from './models';
-import { listActions } from './users.actions';
+import { usersActions } from './users.actions';
 
 export const USERS_FEATURE_KEY = 'users';
 export const entityAdapter = createListEntityAdapter<User>();
 
-const reducer = createListReducer<User, Error>(entityAdapter, listActions);
+const reducer = createListReducer<User, Error>(entityAdapter, usersActions);
 
 export function usersReducer(state: ListState<User, Error>, action: Action): ListState<User, Error> {
   return reducer(state, action);
@@ -61,7 +78,80 @@ import { entityAdapter, USERS_FEATURE_KEY } from './users.reducer';
 
 const getState = createFeatureSelector<ListState<User, Error>>(USERS_FEATURE_KEY);
 
-export const listSelectors = createListSelectors(entityAdapter, getState);
+export const usersSelectors = createListSelectors(entityAdapter, getState);
+```
+
+### Facade
+
+```
+import { Injectable } from '@angular/core';
+import { AbstractListFacade } from '@ngdux/list';
+import { Store } from '@ngrx/store';
+import { usersActions } from './users.actions';
+import { usersSelectors } from './users.selectors';
+
+@Injectable()
+export class UsersFacade extends AbstractListFacade<User, Error> {
+  constructor(store: Store) {
+    super(store, userActions, usersSelectors);
+  }
+}
+```
+
+## Option 3 - Dynamic feature key
+
+### Reducer manager service
+
+```
+import { Injectable } from '@angular/core';
+import { User, Error } from '.../models';
+import { AbstractListReducerManager } from '@ngdux/list';
+
+@Injectable()
+export class UsersReducerManager extends AbstractListReducerManager<User, Error> {}
+```
+
+### Facade
+
+```
+import { Injectable } from '@angular/core';
+import { AbstractListFacade } from '@ngdux/list';
+import { Store } from '@ngrx/store';
+import { UsersReducerManager } from './users-state.service';
+
+@Injectable()
+export class UsersFacade extends AbstractListFacade<User, Error> {
+  constructor(store: Store, usersReducerManager: UsersReducerManager) {
+    super(store, usersReducerManager.actions, usersReducerManager.selectors);
+  }
+}
+
+```
+
+### Module
+
+```
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { LIST_FEATURE_KEY } from '@ngdux/list';
+import { UsersReducerManager } from './+state/users/users-state.service';
+import { UsersFacade } from './+state/users/users.facade';
+
+@NgModule({
+  providers: [
+    UsersReducerManager,
+    UsersFacade
+  ]
+})
+export class UsersModule {
+  static config(listFeatureKey: string): ModuleWithProviders<UsersModule> {
+    return {
+      ngModule: UsersModule,
+      providers: [
+        { provide: LIST_FEATURE_KEY, useValue: listFeatureKey  },
+      ]
+    };
+  }
+}
 ```
 
 ## Effects
@@ -73,8 +163,8 @@ import { AbstractListEffects } from '@ngdux/list';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { UserService } from '../../services/user.service';
-import { listActions } from './users.actions';
-import { listSelectors } from './users.selectors';
+import { usersActions } from './users.actions';
+import { usersSelectors } from './users.selectors';
 import { User, Error } from './models';
 
 @Injectable()
@@ -91,7 +181,7 @@ export class UsersEffects extends AbstractListEffects<User, Error> {
     usersService: UserService,
     notificationService: NotificationService
   ) {
-    super(actions$, store, usersService, listActions, listSelectors, notificationService);
+    super(actions$, store, usersService, usersActions, usersSelectors, notificationService);
   }
 }
 ```

@@ -1,12 +1,12 @@
 # @ngdux/form
 
-The @ngdux/form gives yo a full state to make easy to create, load, save and delete a resource.
+The @ngdux/form gives you a full state to simplify how to create, load, save and delete a resource.
 
 Example:
 
-## Option 1
+## Option 1 - Full state
 
-### Full state
+### State
 
 ```
 import { User, Error } from '.../models';
@@ -20,7 +20,23 @@ export const {
 } = createFormState<User, Error>(USER_FEATURE_KEY);
 ```
 
-## Option 2
+### Facade
+
+```
+import { Injectable } from '@angular/core';
+import { AbstractFormFacade } from '@ngdux/form';
+import { Store } from '@ngrx/store';
+import { userActions, userSelectors } from './user.state';
+
+@Injectable()
+export class UserFacade extends AbstractFormFacade<User, Error> {
+  constructor(store: Store) {
+    super(store, userActions, userSelectors);
+  }
+}
+```
+
+## Option 2 - Separated creators for actions, reducer and selectors
 
 ### Actions
 
@@ -28,7 +44,7 @@ export const {
 import { createFormActions } from '@ngdux/form';
 import { User, Error } from '.../models';
 
-export const formActions = createFormActions<User, Error>('User');
+export const userActions = createFormActions<User, Error>('User');
 ```
 
 ### Reducer
@@ -57,7 +73,80 @@ import { USER_FEATURE_KEY } from './user.reducer';
 
 const getState = createFeatureSelector<FormState<User, Error>>(USER_FEATURE_KEY);
 
-export const formSelectors = createFormSelectors(getState);
+export const userSelectors = createFormSelectors(getState);
+```
+
+### Facade
+
+```
+import { Injectable } from '@angular/core';
+import { AbstractFormFacade } from '@ngdux/form';
+import { Store } from '@ngrx/store';
+import { userActions } from './user.actions';
+import { userSelectors } from './user.selectors';
+
+@Injectable()
+export class UserFacade extends AbstractFormFacade<User, Error> {
+  constructor(store: Store) {
+    super(store, userActions, userSelectors);
+  }
+}
+```
+
+## Option 3 - Dynamic feature key
+
+### Reducer manager service
+
+```
+import { Injectable } from '@angular/core';
+import { User, Error } from '.../models';
+import { AbstractFormReducerManager } from '@ngdux/form';
+
+@Injectable()
+export class UserReducerManager extends AbstractFormReducerManager<User, Error> {}
+```
+
+### Facade
+
+```
+import { Injectable } from '@angular/core';
+import { AbstractFormFacade } from '@ngdux/form';
+import { Store } from '@ngrx/store';
+import { UserReducerManager } from './user-state.service';
+
+@Injectable()
+export class UserFacade extends AbstractFormFacade<User, Error> {
+  constructor(store: Store, userReducerManager: UserReducerManager) {
+    super(store, userReducerManager.actions, userReducerManager.selectors);
+  }
+}
+
+```
+
+### Module
+
+```
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { FORM_FEATURE_KEY } from '@ngdux/form';
+import { UserReducerManager } from './+state/user/user-state.service';
+import { UserFacade } from './+state/user/user.facade';
+
+@NgModule({
+  providers: [
+    UserReducerManager,
+    UserFacade
+  ]
+})
+export class UserModule {
+  static config(formFeatureKey: string): ModuleWithProviders<UserModule> {
+    return {
+      ngModule: UserModule,
+      providers: [
+        { provide: FORM_FEATURE_KEY, useValue: formFeatureKey  },
+      ]
+    };
+  }
+}
 ```
 
 ## Effects
