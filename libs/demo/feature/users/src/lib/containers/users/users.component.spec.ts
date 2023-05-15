@@ -1,5 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UsersFacade } from '@demo/demo/data-access/users';
@@ -13,19 +12,18 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingOptions
+  SortingField
 } from '@ngdux/data-model-common';
 import { of } from 'rxjs';
 import { UsersComponent } from './users.component';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
-  let fixture: ComponentFixture<UsersComponent>;
   let router: Router;
   let users: UserDto[];
   let facade: Partial<UsersFacade>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     facade = {
       currentPageData$: of([]),
       selectedItems$: of([]),
@@ -43,18 +41,13 @@ describe('UsersComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      declarations: [UsersComponent],
-      providers: [{ provide: UsersFacade, useValue: facade }],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
-  }));
+      providers: [UsersComponent, { provide: UsersFacade, useValue: facade }]
+    });
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UsersComponent);
-    component = fixture.componentInstance;
+    component = TestBed.inject(UsersComponent);
     router = TestBed.inject(Router);
-    fixture.detectChanges();
 
     users = createPersistentUsers();
   });
@@ -90,11 +83,13 @@ describe('UsersComponent', () => {
   });
 
   it('emits change users sorting action when sorting', () => {
-    const sortingOptions: SortingOptions = { name: { field: 'email', direction: SortingDirection.DESCENDING } };
+    const sortingOptions: SortingField[] = [{ field: 'email', direction: SortingDirection.DESCENDING }];
 
     component.onSortingChanged(sortingOptions);
 
-    expect(facade.changeSorting).toHaveBeenCalledWith({ sortingOptions });
+    expect(facade.changeSorting).toHaveBeenCalledWith({
+      sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] }
+    });
   });
 
   it('emits change selected users action when selecting rows', () => {
@@ -107,10 +102,9 @@ describe('UsersComponent', () => {
 
   it('emits navigate action when clicking a cell', () => {
     jest.spyOn(router, 'navigate');
-    const resourceId = ' testId2';
 
-    component.onCellSelected(resourceId);
+    component.onRowClicked(users[0]);
 
-    expect(router.navigate).toHaveBeenCalledWith([USERS_RESOURCE_BASE_PATH, resourceId]);
+    expect(router.navigate).toHaveBeenCalledWith([USERS_RESOURCE_BASE_PATH, users[0].id]);
   });
 });

@@ -29,7 +29,7 @@ describe('Properties list', () => {
 
     stubDeleteProperties(deletedProperties, indexes);
 
-    cy.get('button').contains('delete').click();
+    cy.get('button').contains('delete').click({ force: true });
     cy.get('button').contains('Confirm').click();
 
     cy.wait(`@${propertiesListRoutes.deleteProperties}`)

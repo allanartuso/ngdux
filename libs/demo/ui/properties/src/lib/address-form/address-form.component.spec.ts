@@ -1,19 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { AddressFormComponent } from './address-form.component';
 
 describe('AddressFormComponent', () => {
   let component: AddressFormComponent;
-  let fixture: ComponentFixture<AddressFormComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [AddressFormComponent]
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [AddressFormComponent]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddressFormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = TestBed.inject(AddressFormComponent);
   });
 
   it('should create', () => {

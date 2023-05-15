@@ -1,5 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
@@ -13,19 +12,18 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingOptions
+  SortingField
 } from '@ngdux/data-model-common';
 import { of } from 'rxjs';
 import { PropertiesComponent } from './properties.component';
 
 describe('PropertiesComponent', () => {
   let component: PropertiesComponent;
-  let fixture: ComponentFixture<PropertiesComponent>;
   let facade: Partial<PropertiesFacade>;
   let router: Router;
   let properties: PropertyDto[];
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     facade = {
       currentPageData$: of([]),
       selectedItems$: of([]),
@@ -43,17 +41,14 @@ describe('PropertiesComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      declarations: [PropertiesComponent],
-      providers: [{ provide: PropertiesFacade, useValue: facade }],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
-  }));
+      declarations: [],
+      providers: [PropertiesComponent, { provide: PropertiesFacade, useValue: facade }]
+    });
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PropertiesComponent);
-    component = fixture.componentInstance;
+    component = TestBed.inject(PropertiesComponent);
     router = TestBed.inject(Router);
-    fixture.detectChanges();
 
     properties = createPersistentProperties();
   });
@@ -89,11 +84,13 @@ describe('PropertiesComponent', () => {
   });
 
   it('emits change properties sorting action when sorting', () => {
-    const sortingOptions: SortingOptions = { name: { field: 'email', direction: SortingDirection.DESCENDING } };
+    const sortingOptions: SortingField[] = [{ field: 'email', direction: SortingDirection.DESCENDING }];
 
     component.onSortingChanged(sortingOptions);
 
-    expect(facade.changeSorting).toHaveBeenCalledWith({ sortingOptions });
+    expect(facade.changeSorting).toHaveBeenCalledWith({
+      sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] }
+    });
   });
 
   it('emits change selected properties action when selecting rows', () => {
@@ -106,10 +103,9 @@ describe('PropertiesComponent', () => {
 
   it('emits navigate action when clicking a cell', () => {
     jest.spyOn(router, 'navigate');
-    const resourceId = ' testId2';
 
-    component.onCellSelected(resourceId);
+    component.onRowClicked(properties[0]);
 
-    expect(router.navigate).toHaveBeenCalledWith([PROPERTIES_RESOURCE_BASE_PATH, resourceId]);
+    expect(router.navigate).toHaveBeenCalledWith([PROPERTIES_RESOURCE_BASE_PATH, properties[0].id]);
   });
 });

@@ -42,7 +42,7 @@ export class PropertiesComponent {
     this.propertiesFacade.changeSelectedResources({ selectedResourceIds: properties.map(user => user.id) });
   }
 
-  rowClicked(property: PropertyDto): void {
+  onRowClicked(property: PropertyDto): void {
     this.router.navigate([PROPERTIES_RESOURCE_BASE_PATH, property.id]);
   }
 
