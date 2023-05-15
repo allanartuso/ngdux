@@ -1,10 +1,17 @@
 # @ngdux/form
 
 The @ngdux/form gives you a full state to simplify how to create, load, save and delete a resource.
+It was created to reduce the ngrx/store boilerplate code
+
+## Installation
+
+npm install @ngdux/form
 
 Example:
 
 ## Option 1 - Full state
+
+https://github.com/allanartuso/ngdux/tree/master/libs/demo/data-access/properties/src/lib/%2Bstate/property
 
 ### State
 
@@ -94,6 +101,8 @@ export class UserFacade extends AbstractFormFacade<User, Error> {
 ```
 
 ## Option 3 - Dynamic feature key
+
+https://github.com/allanartuso/ngdux/blob/master/libs/demo/data-access/users/src/lib/%2Bstate/user/user-state.service.ts
 
 ### Reducer manager service
 

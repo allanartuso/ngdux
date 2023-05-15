@@ -1,10 +1,17 @@
 # @ngdux/list
 
-The @ngdux/list gives you a full state to simplify how to create, load, save and delete a resource.
+The @ngdux/list uses ngrx/store to give you a full state to make easy to load, save and delete resources. It gives also support to paging, filtering and sorting.
+It was created to reduce the ngrx/store boilerplate code
+
+## Installation
+
+npm install @ngdux/list
 
 Example:
 
 ## Option 1 - Full state
+
+https://github.com/allanartuso/ngdux/tree/master/libs/demo/data-access/properties/src/lib/%2Bstate/properties
 
 ### State
 
@@ -99,6 +106,8 @@ export class UsersFacade extends AbstractListFacade<User, Error> {
 ```
 
 ## Option 3 - Dynamic feature key
+
+https://github.com/allanartuso/ngdux/tree/master/libs/demo/data-access/users/src/lib/%2Bstate/users
 
 ### Reducer manager service
 
