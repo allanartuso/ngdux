@@ -19,4 +19,5 @@ export interface SortingField {
  * The options required to sort resources by one or multiple fields.
  * Defines which fields to sort the resources by.
  */
+//TODO: remove it
 export type SortingOptions = Record<string, SortingField>;

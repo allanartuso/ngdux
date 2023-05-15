@@ -8,8 +8,7 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingField,
-  SortingOptions
+  SortingField
 } from '@ngdux/data-model-common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -26,8 +25,8 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   @Input() pageSizeOptions = [5, 10, 20, 30, 50];
   @Input() dataSource: T[] = [];
   @Input() allowRowSelection = false;
-  @Input() set sortingOptions(sortingOptions: SortingOptions) {
-    const firstSort = Object.values(sortingOptions)[0];
+  @Input() set sortingOptions(sortingOptions: SortingField[]) {
+    const firstSort = sortingOptions[0];
     this.sortActive = firstSort?.field;
     this.sortDirection = firstSort?.direction;
   }
@@ -43,7 +42,7 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   @Output() pageOptionsChanged = new EventEmitter<PagingOptions>();
   @Output() rowSelected = new EventEmitter<T[]>();
   @Output() deleteSelected = new EventEmitter<void>();
-  @Output() cellSelected = new EventEmitter<T>();
+  @Output() rowClicked = new EventEmitter<T>();
 
   sortActive = '';
   sortDirection: SortDirection = 'asc';
@@ -117,8 +116,8 @@ export class TableComponent<T> implements OnInit, OnDestroy {
     this.deleteSelected.emit();
   }
 
-  onCellSelected(item: T): void {
-    this.cellSelected.emit(item);
+  onRowClicked(item: T) {
+    this.rowClicked.emit(item);
   }
 
   ngOnDestroy(): void {

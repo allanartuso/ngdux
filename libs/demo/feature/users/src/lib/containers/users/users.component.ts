@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersFacade } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
-import { FilteringOptions, PagingOptions, SortingOptions } from '@ngdux/data-model-common';
-import { combineLatest } from 'rxjs';
+import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
+import { combineLatest, map } from 'rxjs';
 
 @Component({
   selector: 'demo-users',
@@ -15,7 +15,7 @@ export class UsersComponent {
     users: this.usersFacade.currentPageData$,
     totalCount: this.usersFacade.totalCount$,
     pagingOptions: this.usersFacade.pagingOptions$,
-    sortingOptions: this.usersFacade.sortingOptions$,
+    sortingOptions: this.usersFacade.sortingOptions$.pipe(map(sortingOptions => Object.values(sortingOptions))),
     filteringOptions: this.usersFacade.filteringOptions$,
     selectedItems: this.usersFacade.selectedItems$
   });
@@ -26,8 +26,8 @@ export class UsersComponent {
     this.usersFacade.changeFiltering({ filteringOptions });
   }
 
-  onSortingChanged(sortingOptions: SortingOptions): void {
-    this.usersFacade.changeSorting({ sortingOptions });
+  onSortingChanged(sortingOptions: SortingField[]): void {
+    this.usersFacade.changeSorting({ sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] } });
   }
 
   onPageOptionsChanged(pagingOptions: PagingOptions): void {
@@ -42,8 +42,8 @@ export class UsersComponent {
     this.usersFacade.changeSelectedResources({ selectedResourceIds: users.map(user => user.id) });
   }
 
-  onCellSelected(resourceId: string): void {
-    this.router.navigate([USERS_RESOURCE_BASE_PATH, resourceId]);
+  onRowClicked(user: UserDto): void {
+    this.router.navigate([USERS_RESOURCE_BASE_PATH, user.id]);
   }
 
   onDelete(): void {

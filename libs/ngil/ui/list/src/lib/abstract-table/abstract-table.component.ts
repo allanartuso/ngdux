@@ -5,14 +5,13 @@ import {
   FilteringLogic,
   FilteringOptions,
   PagingOptions,
-  SortingField,
-  SortingOptions
+  SortingField
 } from '@ngdux/data-model-common';
 
 @Directive()
 export abstract class AbstractTableComponent<T> {
   @Input() totalCount = 0;
-  @Input() sortingOptions: SortingOptions = {};
+  @Input() sortingOptions: SortingField[] = [];
   @Input() filteringOptions: FilteringOptions = {
     filters: [],
     logic: FilteringLogic.AND
@@ -24,18 +23,19 @@ export abstract class AbstractTableComponent<T> {
   @Input() gridData: T[] = [];
   @Input() selectedItems: T[] = [];
 
-  @Output() sortingChanged = new EventEmitter<SortingOptions>();
+  @Output() sortingChanged = new EventEmitter<SortingField[]>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();
   @Output() refreshPageSelected = new EventEmitter<void>();
   @Output() pageOptionsChanged = new EventEmitter<PagingOptions>();
   @Output() rowSelected = new EventEmitter<T[]>();
+  @Output() rowClicked = new EventEmitter<T>();
   @Output() deleteSelected = new EventEmitter<void>();
 
   onSortingChanged(sortingField: SortingField): void {
     if (sortingField.direction) {
-      this.sortingChanged.emit({ [sortingField.field]: sortingField });
+      this.sortingChanged.emit([sortingField]);
     } else {
-      this.sortingChanged.emit({});
+      this.sortingChanged.emit([]);
     }
   }
 
@@ -57,5 +57,9 @@ export abstract class AbstractTableComponent<T> {
 
   onRowSelected(selectedItems: T[]): void {
     this.rowSelected.emit(selectedItems);
+  }
+
+  onRowClicked(item: T): void {
+    this.rowClicked.emit(item);
   }
 }
