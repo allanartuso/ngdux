@@ -19,6 +19,7 @@ async function updatePublishableLibsVersions() {
 
   await updatePubLibsVersion(publishableLibs, nextVersion);
   execSync('git add .', { stdio: 'inherit' });
+  execSync(` git push origin v${nextVersion}`, { stdio: 'inherit' });
 
   await standardVersion({
     skip: {
