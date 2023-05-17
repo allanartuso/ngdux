@@ -10,8 +10,8 @@ import { PickerToggleComponent } from './components/time-picker-overlay/picker-t
 import { NgilTimePickerOverlayComponent } from './components/time-picker-overlay/time-picker-overlay.component';
 import { NgilTimePickerComponent } from './components/time-picker/time-picker.component';
 import { TimePickerDirective } from './components/time-picker/time-picker.directive';
+import { NumberRotationDirective } from './directives/number-rotation.directive';
 import { NgilOverlayDirective } from './directives/overlay.directive';
-import { NumberRotationDirective } from './pipes/number-rotation.directive';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, OverlayModule],

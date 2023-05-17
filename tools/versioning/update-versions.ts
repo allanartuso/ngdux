@@ -1,98 +1,33 @@
+import { execSync } from 'child_process';
 import * as fs from 'fs';
-import { ProjectGraphProjectNode } from 'nx/src/config/project-graph';
-import { filterAffected } from 'nx/src/project-graph/affected/affected-project-graph';
-import { calculateFileChanges } from 'nx/src/project-graph/file-utils';
-import { createProjectGraphAsync } from 'nx/src/project-graph/project-graph';
-import { parseFiles } from 'nx/src/utils/command-line-utils';
 import standardVersion from 'standard-version';
-
-interface PackageJson {
-  name: string;
-  version: string;
-  dependencies: Object;
-  repository: Object;
-  homepage: string;
-}
-
-interface ProjectJson {
-  name: string;
-  $schema: string;
-  projectType: string;
-  sourceRoot: string;
-  prefix: string;
-  targets: Object;
-  tags: string[];
-}
-
-interface ProjectInfo {
-  projectJsonFile: string;
-  packageJsonFile: string;
-  packageJson: PackageJson;
-  projectJson: ProjectJson;
-}
+import { ProjectInfo, getPublishableLibs } from './publishable-libs';
 
 const BASE_BRANCH = process.env.npm_config_base || 'origin/master';
 
 async function updatePublishableLibsVersions() {
-  const graph = await createProjectGraphAsync();
-  const files = parseFiles({ base: BASE_BRANCH }).files;
-  const changes = calculateFileChanges(files, []);
-  const affected = await filterAffected(graph, changes);
+  const publishableLibs = await getPublishableLibs(BASE_BRANCH);
 
   await standardVersion({
     skip: {
       commit: true,
-      tag: true
-    }
-  });
-
-  const nextVersion = await getNextVersion();
-  const publishableLibs = await getPublishableLibs(Object.values(affected.nodes));
-  await updatePubLibsVersion(publishableLibs, nextVersion);
-
-  // build
-
-  await standardVersion({
-    skip: {
-      bump: true,
+      tag: true,
       changelog: true
     }
   });
+  const nextVersion = await getNextVersion();
 
-  // publish
+  await updatePubLibsVersion(publishableLibs, nextVersion);
+  execSync('git add .', { stdio: 'inherit' });
+
+  await standardVersion({
+    skip: {
+      bump: true
+    },
+    commitAll: true
+  });
 
   process.exit(0);
-}
-
-async function getPublishableLibs(list: ProjectGraphProjectNode[]) {
-  const promises: Promise<ProjectInfo>[] = [];
-
-  for (const item of list) {
-    promises.push(getProjectInfo(item));
-  }
-
-  const projectFiles = await Promise.all(promises);
-  return projectFiles.filter(file => !!file.packageJson);
-}
-
-async function getProjectInfo(node: ProjectGraphProjectNode): Promise<ProjectInfo> {
-  const packageJsonFile = node.data.root + '/package.json';
-  const projectJsonFile = node.data.root + '/project.json';
-
-  let packageJson;
-  let projectJson;
-
-  try {
-    packageJson = await import(`'../../${packageJsonFile}`);
-    projectJson = await import(`'../../${projectJsonFile}`);
-  } catch (e) {}
-
-  return {
-    projectJsonFile,
-    packageJsonFile,
-    projectJson,
-    packageJson
-  };
 }
 
 async function getNextVersion(): Promise<string> {

@@ -33,6 +33,8 @@
     "ngdux:publish": "npm publish dist/libs/ngdux/data-model/common && npm publish dist/libs/ngdux/util/store/common && npm publish dist/libs/ngdux/util/store/form && npm publish dist/libs/ngdux/util/store/list",
     "ngil:build": "nx build ngil-ui-common-form-cva --configuration=production && nx build ngil-ui-list --configuration=production",
     "ngil:publish": "npm publish dist/libs/ngil/ui/common/form-cva && npm publish dist/libs/ngil/ui/list",
+    "update-versions": "ts-node -P tools/tsconfig.json tools/versioning/update-versions.ts",
+    "publish": "ts-node -P tools/tsconfig.json tools/versioning/publish-libs.ts",
     "generate:db": "ts-node -P tools/tsconfig.json tools/generators/db-json.ts"
   },
   "private": true,
