@@ -18,6 +18,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
         this.listActions.changePageSize,
         this.listActions.changeSorting,
         this.listActions.changeFiltering,
+        this.listActions.changeRequestParams,
         this.listActions.initialize,
         this.listActions.reset,
         this.listActions.changePageNumber,

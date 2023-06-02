@@ -44,7 +44,7 @@ export interface ListSelectors<T, E> {
   getTotalCount: MemoizedSelector<object, number>;
 }
 
-export interface ListActions<T, E, S = T> {
+export interface ListActions<Entity, Error, Summary = Entity, Params = Record<string, string>> {
   /**
    * Set the page size without reloading the list
    */
@@ -63,6 +63,10 @@ export interface ListActions<T, E, S = T> {
     string,
     (props: { filteringOptions: FilteringOptions }) => { filteringOptions: FilteringOptions } & TypedAction<string>
   >;
+  /**
+   * Set the request parameters without reloading the list
+   */
+  setRequestParams: ActionCreator<string, (props: { params: Params }) => { params: Params } & TypedAction<string>>;
 
   /**
    * Change the paging options and reload the list
@@ -97,6 +101,10 @@ export interface ListActions<T, E, S = T> {
     string,
     (props: { filteringOptions: FilteringOptions }) => { filteringOptions: FilteringOptions } & TypedAction<string>
   >;
+  /**
+   * Change the request parameters and reload the list
+   */
+  changeRequestParams: ActionCreator<string, (props: { params: Params }) => { params: Params } & TypedAction<string>>;
 
   changeSelectedResources: ActionCreator<
     string,
@@ -106,29 +114,29 @@ export interface ListActions<T, E, S = T> {
   loadPageSuccess: ActionCreator<
     string,
     (props: {
-      resources: S[];
+      resources: Summary[];
       pagingOptions: PagingOptions;
-    }) => { resources: S[]; pagingOptions: PagingOptions } & TypedAction<string>
+    }) => { resources: Summary[]; pagingOptions: PagingOptions } & TypedAction<string>
   >;
-  loadPageFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
+  loadPageFailure: ActionCreator<string, (props: { errors: Error }) => { errors: Error } & TypedAction<string>>;
   delete: ActionCreator<string, (props: { resourceIds: string[] }) => { resourceIds: string[] } & TypedAction<string>>;
   deleteSuccess: ActionCreator<
     string,
     (props: { resourceIds: string[] }) => { resourceIds: string[] } & TypedAction<string>
   >;
-  deleteFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
+  deleteFailure: ActionCreator<string, (props: { errors: Error }) => { errors: Error } & TypedAction<string>>;
   patch: ActionCreator<
     string,
     (props: {
       resourceIds: string[];
-      resource: Partial<T>;
-    }) => { resourceIds: string[]; resource: Partial<T> } & TypedAction<string>
+      resource: Partial<Entity>;
+    }) => { resourceIds: string[]; resource: Partial<Entity> } & TypedAction<string>
   >;
   patchSuccess: ActionCreator<
     string,
-    (props: { resources: (T | ErrorDto)[] }) => { resources: (T | ErrorDto)[] } & TypedAction<string>
+    (props: { resources: (Entity | ErrorDto)[] }) => { resources: (Entity | ErrorDto)[] } & TypedAction<string>
   >;
-  patchFailure: ActionCreator<string, (props: { errors: E }) => { errors: E } & TypedAction<string>>;
+  patchFailure: ActionCreator<string, (props: { errors: Error }) => { errors: Error } & TypedAction<string>>;
   loadNextPage: ActionCreator<string, () => TypedAction<string>>;
 
   /**

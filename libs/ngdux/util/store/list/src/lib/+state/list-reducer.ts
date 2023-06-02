@@ -79,6 +79,11 @@ function createListActionHandlers<T, E, S>(
       pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE },
       lastPageNumber: undefined
     })),
+    on(actions.changeRequestParams, actions.setRequestParams, (state: ListState<S, E>, { params }) => ({
+      ...state,
+      params,
+      pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE }
+    })),
     on(actions.changeSelectedResources, (state: ListState<S, E>, { selectedResourceIds }) => ({
       ...state,
       selectedResourceIds

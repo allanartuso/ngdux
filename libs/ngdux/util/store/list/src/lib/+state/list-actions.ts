@@ -2,7 +2,9 @@ import { ErrorDto, FilteringOptions, PagingOptions, SortingOptions } from '@ngdu
 import { createAction, props } from '@ngrx/store';
 import { ListActions } from '../models/list.model';
 
-export function createListActions<T, E, S = T>(featureName: string): ListActions<T, E, S> {
+export function createListActions<T, E, S = T, Params = Record<string, string>>(
+  featureName: string
+): ListActions<T, E, S, Params> {
   const resetRequestState = createAction(`[${featureName} Page] Reset ${featureName} Request State`);
   const initialize = createAction(`[${featureName} Page] Initialize ${featureName}`);
   const reset = createAction(`[Organization ${featureName} Page] Reset ${featureName}`);
@@ -19,6 +21,10 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
   const setFiltering = createAction(
     `[${featureName} Page] Set ${featureName} Filtering`,
     props<{ filteringOptions: FilteringOptions }>()
+  );
+  const setRequestParams = createAction(
+    `[${featureName} Page] Set ${featureName} Request Params`,
+    props<{ params: Params }>()
   );
 
   const changePageSize = createAction(
@@ -46,6 +52,10 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
   const changeSelectedResources = createAction(
     `[${featureName} Page] Change Selected Resources ${featureName}`,
     props<{ selectedResourceIds: string[] }>()
+  );
+  const changeRequestParams = createAction(
+    `[${featureName} Page] Change ${featureName} Request Params`,
+    props<{ params: Params }>()
   );
 
   const loadPage = createAction(`[${featureName} Page] Load ${featureName} Page`);
@@ -83,11 +93,13 @@ export function createListActions<T, E, S = T>(featureName: string): ListActions
     setPageSize,
     setSorting,
     setFiltering,
+    setRequestParams,
     changePageSize,
     changePageNumber,
     changePagingOptions,
     changeSorting,
     changeFiltering,
+    changeRequestParams,
     loadPreviousPage,
     loadNextPage,
     loadFirstPage,
