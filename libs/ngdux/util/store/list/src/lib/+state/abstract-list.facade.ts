@@ -12,6 +12,7 @@ export abstract class AbstractListFacade<T, E, S = T> {
   readonly currentPageData$ = this.store.pipe(select(this.listSelectors.getCurrentPageData));
   readonly currentPageNumber$ = this.store.pipe(select(this.listSelectors.getCurrentPageNumber));
   readonly filteringOptions$ = this.store.pipe(select(this.listSelectors.getFilteringOptions));
+  readonly requestParameters$ = this.store.pipe(select(this.listSelectors.getRequestParameters));
   readonly lastPageNumber$ = this.store.pipe(select(this.listSelectors.getLastPageNumber));
   readonly pagingOptions$ = this.store.pipe(select(this.listSelectors.getPagingOptions));
   readonly requestOptions$ = this.store.pipe(select(this.listSelectors.getRequestOptions));
@@ -37,6 +38,10 @@ export abstract class AbstractListFacade<T, E, S = T> {
     this.store.dispatch(this.listActions.setSorting(props));
   }
 
+  setRequestParameters(props: ActionPayload<ListActions<T, E>['setRequestParams']>) {
+    this.store.dispatch(this.listActions.setRequestParams(props));
+  }
+
   changeFiltering(props: ActionPayload<ListActions<T, E>['changeFiltering']>): void {
     this.store.dispatch(this.listActions.changeFiltering(props));
   }
@@ -59,6 +64,10 @@ export abstract class AbstractListFacade<T, E, S = T> {
 
   changeSorting(props: ActionPayload<ListActions<T, E>['changeSorting']>): void {
     this.store.dispatch(this.listActions.changeSorting(props));
+  }
+
+  changeRequestParams(props: ActionPayload<ListActions<T, E>['changeRequestParams']>): void {
+    this.store.dispatch(this.listActions.changeRequestParams(props));
   }
 
   loadPage(): void {
