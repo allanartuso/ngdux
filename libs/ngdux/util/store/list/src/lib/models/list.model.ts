@@ -28,6 +28,7 @@ export interface ListSelectors<T, E> {
   getPagingOptions: MemoizedSelector<object, PagingOptions>;
   getSortingOptions: MemoizedSelector<object, SortingOptions>;
   getFilteringOptions: MemoizedSelector<object, FilteringOptions>;
+  getRequestParameters: MemoizedSelector<object, Record<string, string> | undefined>;
   getCurrentPageNumber: MemoizedSelector<object, number>;
   getLastPageNumber: MemoizedSelector<object, number | undefined>;
   getLoadingState: MemoizedSelector<object, RequestState>;

@@ -76,14 +76,16 @@ export abstract class AbstractListEffects<T, E, S = T> {
       withLatestFrom(
         this.store.pipe(select(this.listSelectors.getPagingOptions)),
         this.store.pipe(select(this.listSelectors.getSortingOptions)),
-        this.store.pipe(select(this.listSelectors.getFilteringOptions))
+        this.store.pipe(select(this.listSelectors.getFilteringOptions)),
+        this.store.pipe(select(this.listSelectors.getRequestParameters))
       ),
-      concatMap(([, pagingOptions, sortingOptions, filteringOptions]) => {
+      concatMap(([, pagingOptions, sortingOptions, filteringOptions, requestParameters]) => {
         return this.service
           .loadResources({
             pagingOptions,
             sortingOptions,
-            filteringOptions
+            filteringOptions,
+            requestParameters
           })
           .pipe(
             map(resources =>
@@ -118,10 +120,14 @@ export abstract class AbstractListEffects<T, E, S = T> {
     this.actions$.pipe(
       ofType(this.listActions.showRemovalsConfirmation),
       switchMap(() => {
-        return this.notificationService.openConfirmationDialog({
-          message: this.texts.deleteConfirmationMessage,
-          title: this.texts.deleteConfirmationTitle
-        });
+        if (this.notificationService?.openConfirmationDialog) {
+          return this.notificationService.openConfirmationDialog({
+            message: this.texts.deleteConfirmationMessage,
+            title: this.texts.deleteConfirmationTitle
+          });
+        }
+
+        return of(true);
       }),
       filter(confirmed => confirmed),
       withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectedResourceIds))),
@@ -150,7 +156,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
       this.actions$.pipe(
         ofType(this.listActions.deleteSuccess),
         tap(({ resourceIds }) => {
-          this.notificationService.onListDelete(resourceIds);
+          this.notificationService?.onListDelete(resourceIds);
         })
       ),
     { dispatch: false }
@@ -161,7 +167,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
       this.actions$.pipe(
         ofType(this.listActions.loadPageFailure, this.listActions.deleteFailure, this.listActions.patchFailure),
         tap(({ errors }) => {
-          this.notificationService.onListErrors(errors);
+          this.notificationService?.onListErrors(errors);
         })
       ),
     { dispatch: false }
@@ -170,9 +176,9 @@ export abstract class AbstractListEffects<T, E, S = T> {
   protected constructor(
     protected readonly actions$: Actions,
     protected readonly store: Store,
-    private readonly service: ListService<T, S>,
-    private readonly listActions: ListActions<T, E, S>,
-    private readonly listSelectors: ListSelectors<S, E>,
-    private readonly notificationService: ListNotificationService<E>
+    protected readonly service: ListService<T, S>,
+    protected readonly listActions: ListActions<T, E, S>,
+    protected readonly listSelectors: ListSelectors<S, E>,
+    protected readonly notificationService?: ListNotificationService<E>
   ) {}
 }

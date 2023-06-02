@@ -5,10 +5,11 @@ import { createListEntityAdapter, createListReducer } from './list-reducer';
 import { createListSelectors } from './list-selectors';
 
 export function createListState<T extends { [key: string]: any }, E, S extends { [key: string]: any } = T>(
-  featureName: string
+  featureName: string,
+  idKey?: string
 ) {
   const actions = createListActions<T, E, S>(featureName);
-  const entityAdapter = createListEntityAdapter<S>();
+  const entityAdapter = createListEntityAdapter<S>(idKey);
   const reducer = createListReducer<T, E, S>(entityAdapter, actions);
   const getState = createFeatureSelector<ListState<S, E>>(featureName);
   const selectors = createListSelectors<S, E>(entityAdapter, getState);

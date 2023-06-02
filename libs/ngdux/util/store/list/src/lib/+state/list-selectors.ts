@@ -33,6 +33,8 @@ export function createListSelectors<T, E>(
 
   const getSortingOptions = createSelector(getListState, state => state.sortingOptions);
 
+  const getRequestParameters = createSelector(getListState, state => state.requestParameters);
+
   const getFilteringOptions = createSelector(getListState, state => state.filteringOptions);
 
   const getCurrentPageNumber = createSelector(getPagingOptions, options => options?.page);
@@ -117,6 +119,7 @@ export function createListSelectors<T, E>(
     getPagingOptions,
     getSortingOptions,
     getFilteringOptions,
+    getRequestParameters,
     getCurrentPageNumber,
     getLastPageNumber,
     getLoadingState,
