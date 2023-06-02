@@ -11,7 +11,6 @@ async function updatePublishableLibsVersions() {
   await standardVersion({
     skip: {
       commit: true,
-      tag: true,
       changelog: true
     }
   });
@@ -23,7 +22,8 @@ async function updatePublishableLibsVersions() {
 
   await standardVersion({
     skip: {
-      bump: true
+      bump: true,
+      tag: true
     },
     commitAll: true
   });
