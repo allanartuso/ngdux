@@ -1,30 +1,23 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { MenuItem } from '../../models/sidebar.models';
 import { SidebarMenuItemComponent } from './sidebar-menu-item.component';
 
 describe('SidebarMenuItemComponent', () => {
   let component: SidebarMenuItemComponent;
-  let fixture: ComponentFixture<SidebarMenuItemComponent>;
 
   const testMenuItem: MenuItem = {
     name: 'testName'
   };
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [SidebarMenuItemComponent],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
-    })
-  );
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [SidebarMenuItemComponent]
+    });
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SidebarMenuItemComponent);
-    component = fixture.componentInstance;
+    component = TestBed.inject(SidebarMenuItemComponent);
     component.menuItem = { name: 'testName' };
-    fixture.detectChanges();
   });
 
   it('emit event when hovering on a menu item.', () => {

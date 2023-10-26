@@ -1,3 +1,4 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { ErrorDto } from '@ngdux/data-model-common';
 
 export function createErrorDto(): ErrorDto {

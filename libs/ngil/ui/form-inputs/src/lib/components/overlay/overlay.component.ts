@@ -1,37 +1,37 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { DomPortal } from '@angular/cdk/portal';
-import { Directive, ElementRef, HostBinding, Input, OnDestroy } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-@Directive({
-  selector: '[ngilOverlay]',
-  exportAs: 'ngilOverlay'
+@Component({
+  selector: 'ngil-overlay',
+  templateUrl: './overlay.component.html',
+  styleUrls: ['./overlay.component.scss']
 })
-export class NgilOverlayDirective implements OnDestroy {
-  @Input() origin?: HTMLElement;
+export class NgilOverlayComponent implements OnDestroy {
   @HostBinding('class.hidden') hidden = true;
+  @ViewChild('contentWrapper') el?: ElementRef;
+  @Input() maxHeight = 500;
+
+  origin?: ElementRef<HTMLInputElement>;
   isOpen = false;
 
   protected readonly destroy$ = new Subject<void>();
   private overlayRef?: OverlayRef;
 
-  constructor(private readonly overlay: Overlay, private el: ElementRef) {}
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  constructor(private readonly overlay: Overlay) {}
 
   open() {
-    const width = this.origin?.offsetWidth;
+    const originWidth = this.origin?.nativeElement.offsetWidth;
 
     this.overlayRef = this.overlay.create({
       positionStrategy: this.getStrategy(),
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
-      maxHeight: 300,
-      width: width
+      maxHeight: this.maxHeight,
+      minWidth: originWidth
     });
+
     const portal = new DomPortal(this.el);
     this.overlayRef.attach(portal);
 
@@ -45,25 +45,6 @@ export class NgilOverlayDirective implements OnDestroy {
     this.isOpen = true;
   }
 
-  close(): void {
-    this.destroyOverlay();
-  }
-
-  toggle() {
-    if (this.isOpen) {
-      this.close();
-    } else {
-      this.open();
-    }
-  }
-
-  private destroyOverlay() {
-    this.destroy$.next();
-    this.overlayRef?.dispose();
-    this.overlayRef = undefined;
-    this.isOpen = false;
-  }
-
   private getStrategy() {
     const primaryX = 'start';
     const secondaryX = primaryX === 'start' ? 'end' : 'start';
@@ -71,7 +52,7 @@ export class NgilOverlayDirective implements OnDestroy {
     const secondaryY = 'bottom';
 
     if (!this.origin) {
-      return undefined;
+      throw new Error('Origin is not defined');
     }
 
     const strategy = this.overlay
@@ -105,5 +86,25 @@ export class NgilOverlayDirective implements OnDestroy {
       ]);
 
     return strategy;
+  }
+
+  close(): void {
+    this.destroy$.next();
+    this.overlayRef?.dispose();
+    this.overlayRef = undefined;
+    this.isOpen = false;
+  }
+
+  toggle() {
+    if (this.isOpen) {
+      this.close();
+    } else {
+      this.open();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

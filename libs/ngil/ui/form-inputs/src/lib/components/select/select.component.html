@@ -5,14 +5,13 @@
     <div class="ngil-select__field">
       <div class="ngil-select__field-content">
         <input
-          #origin
           class="ngil-select__input"
           [value]="displayValue"
           [disabled]="disabled"
-          (keydown)="$event.preventDefault(); toggleOverlay()"
+          (keydown)="$event.preventDefault(); overlay.toggle()"
           [id]="formControlName"
           (blur)="onBlur()"
-          (click)="toggleOverlay()"
+          [ngilOverlayToggle]="overlay"
         />
       </div>
 
@@ -22,17 +21,17 @@
     <small class="ngil-select__error-message">{{ model.errorMessage }}</small>
   </div>
 
-  <ngil-select-options
-    class="ngil-select__dropdown"
-    data-test="ngil-select-options"
-    ngilOverlay
-    #overlay="ngilOverlay"
-    [display]="overlay.isOpen"
-    [multiple]="multiple"
-    [origin]="origin"
-    [items]="items"
-    [displayKey]="displayKey"
-    [selectedItems]="value"
-    (itemSelected)="onItemSelected($event)"
-  ></ngil-select-options>
+  <ngil-overlay #overlay>
+    <ngil-select-options
+      ngilOverlay
+      class="ngil-select__dropdown"
+      data-test="ngil-select-options"
+      [display]="overlay.isOpen"
+      [multiple]="multiple"
+      [items]="items"
+      [displayKey]="displayKey"
+      [selectedItems]="value"
+      (itemSelected)="onItemSelected($event)"
+    ></ngil-select-options>
+  </ngil-overlay>
 </ng-container>

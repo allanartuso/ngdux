@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractInputComponent } from '@ngil/form-cva';
-import { NgilOverlayDirective } from '../../directives/overlay.directive';
+import { NgilOverlayComponent } from '../overlay/overlay.component';
 
 @Component({
   selector: 'ngil-select',
@@ -17,7 +17,7 @@ import { NgilOverlayDirective } from '../../directives/overlay.directive';
   ]
 })
 export class NgilSelectComponent<T> extends AbstractInputComponent<T | T[]> {
-  @ViewChild(NgilOverlayDirective) overlay?: NgilOverlayDirective;
+  @ViewChild(NgilOverlayComponent) overlay?: NgilOverlayComponent;
   @Input() multiple = false;
   @Input() items: T[] = [];
   @Input() displayKey?: keyof T;
@@ -54,11 +54,5 @@ export class NgilSelectComponent<T> extends AbstractInputComponent<T | T[]> {
 
   isArray(item: T | T[]): item is T[] {
     return Array.isArray(item);
-  }
-
-  toggleOverlay() {
-    if (!this.readonly && !this.disabled) {
-      this.overlay?.toggle();
-    }
   }
 }

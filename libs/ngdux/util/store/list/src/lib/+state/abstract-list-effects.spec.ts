@@ -1,19 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { DEFAULT_REQUEST_OPTIONS, ListService, RequestState } from '@ngdux/data-model-common';
-import { createTestResources, TestResource } from '@ngdux/store-common/test';
+import { TestResource, createTestResources } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jest-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import {
+  TestErrors,
+  TestListEffects,
+  TestListService,
   createTestErrors,
   testEntityAdapter,
-  TestErrors,
   testListActions,
-  TestListEffects,
-  testListSelectors,
-  TestListService
+  testListSelectors
 } from '../models/list.fixture';
 import { ListState } from '../models/list.model';
 
@@ -52,7 +52,8 @@ describe('TestEffects', () => {
             { selector: testListSelectors.getCurrentPageNumber, value: DEFAULT_REQUEST_OPTIONS.pagingOptions.page },
             { selector: testListSelectors.getPagingOptions, value: DEFAULT_REQUEST_OPTIONS.pagingOptions },
             { selector: testListSelectors.getSortingOptions, value: DEFAULT_REQUEST_OPTIONS.sortingOptions },
-            { selector: testListSelectors.getFilteringOptions, value: DEFAULT_REQUEST_OPTIONS.filteringOptions }
+            { selector: testListSelectors.getFilteringOptions, value: DEFAULT_REQUEST_OPTIONS.filteringOptions },
+            { selector: testListSelectors.getRequestParameters, value: {} }
           ]
         })
       ]
