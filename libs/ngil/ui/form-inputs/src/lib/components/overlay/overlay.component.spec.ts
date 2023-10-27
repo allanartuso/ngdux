@@ -52,7 +52,7 @@ describe('NgilOverlayComponent', () => {
 
   it('should open', () => {
     const maxHeight = 10;
-    component.maxHeight = maxHeight;
+    component.overwriteConfig = { maxHeight };
 
     component.open();
 
@@ -64,7 +64,7 @@ describe('NgilOverlayComponent', () => {
     );
     expect(overlayRefMock.attach).toHaveBeenCalled();
     expect(overlayRefMock.backdropClick).toHaveBeenCalled();
-    expect(component.isOpen).toEqual(true);
+    expect(component.isOpened).toEqual(true);
   });
 
   it('should close', () => {
@@ -73,7 +73,7 @@ describe('NgilOverlayComponent', () => {
     component.close();
 
     expect(overlayRefMock.dispose).toHaveBeenCalled();
-    expect(component.isOpen).toEqual(false);
+    expect(component.isOpened).toEqual(false);
   });
 
   it('toggle should open if it is closed', () => {
@@ -86,7 +86,7 @@ describe('NgilOverlayComponent', () => {
 
   it('toggle should close if it is opened', () => {
     jest.spyOn(component, 'close');
-    component.isOpen = true;
+    component.isOpened = true;
 
     component.toggle();
 

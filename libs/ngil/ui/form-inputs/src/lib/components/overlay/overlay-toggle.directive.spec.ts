@@ -16,7 +16,17 @@ describe('OverlayToggleDirective', () => {
   });
 
   it('sets the overlay origin', () => {
+    directive.ngOnInit();
+
     expect(overlayComponentMock.origin).toStrictEqual(elementRef);
+  });
+
+  it('unsets the overlay origin', () => {
+    directive.ngOnInit();
+
+    directive.isOverlayOrigin = false;
+
+    expect(overlayComponentMock.origin).toBe(undefined);
   });
 
   it('opens the overlay on click', () => {

@@ -1,21 +1,38 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { NgilOverlayComponent } from './overlay.component';
 
 @Directive({
   selector: '[ngilOverlayToggle]',
   exportAs: 'ngilOverlayToggle'
 })
-export class OverlayToggleDirective {
+export class OverlayToggleDirective implements OnInit {
   @Input() set ngilOverlayToggle(overlay: NgilOverlayComponent) {
-    this._overlay = overlay;
-    overlay.origin = this.elementRef;
+    this.overlay = overlay;
   }
-  private _overlay: NgilOverlayComponent | undefined;
+  private overlay: NgilOverlayComponent | undefined;
+
+  @Input() set isOverlayOrigin(isOrigin: boolean) {
+    this.isOrigin = isOrigin;
+    this.setOverlayOrigin();
+  }
+  private isOrigin = true;
 
   constructor(private readonly elementRef: ElementRef<HTMLInputElement>) {}
 
-  @HostListener('click', ['$event']) onClick = (event: Event) => {
-    if (!this._overlay) {
+  ngOnInit(): void {
+    this.setOverlayOrigin();
+  }
+
+  private setOverlayOrigin(): void {
+    if (this.isOrigin && this.overlay) {
+      this.overlay.origin = this.elementRef;
+    } else if (this.overlay) {
+      this.overlay.origin = undefined;
+    }
+  }
+
+  @HostListener('click', ['$event']) onClick = (event: Event): void => {
+    if (!this.overlay) {
       throw new Error(`The overlay is not defined. The overlay component should be provided in the directive input
 
         <my-element [ngilOverlayToggle]="overlay"></my-element>
@@ -23,8 +40,8 @@ export class OverlayToggleDirective {
       `);
     }
 
-    if (!this._overlay.isOpen) {
-      this._overlay.open();
+    if (!this.overlay.isOpened) {
+      this.overlay.open();
     }
 
     event.stopPropagation();
