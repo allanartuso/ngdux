@@ -85,6 +85,9 @@ export function createListActions<T, E, S = T, Params = Record<string, string>>(
   );
   const patchFailure = createAction(`[${featureName} Page] Patch ${featureName} Failure`, props<{ errors: E }>());
 
+  /**
+   * @deprecated The method will be removed. THe AbstractEffect will not be responsible for it anymore
+   */
   const showRemovalsConfirmation = createAction(`[${featureName} Page] Show ${featureName} Removal Confirmation`);
 
   return {

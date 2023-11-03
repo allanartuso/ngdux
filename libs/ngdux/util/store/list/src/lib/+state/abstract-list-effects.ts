@@ -117,6 +117,9 @@ export abstract class AbstractListEffects<T, E, S = T> {
     )
   );
 
+  /**
+   * @deprecated The method will be removed. THe AbstractEffect will not be responsible for it anymore
+   */
   showRemovalsDialog$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.listActions.showRemovalsConfirmation),
