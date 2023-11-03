@@ -154,5 +154,8 @@ export interface ListActions<Entity, Error, Summary = Entity, Params = Record<st
    * Reset the request state to idle
    */
   resetRequestState: ActionCreator<string, () => TypedAction<string>>;
+  /**
+   * @deprecated The method will be removed. THe AbstractEffect will not be responsible for it anymore
+   */
   showRemovalsConfirmation: ActionCreator<string, () => TypedAction<string>>;
 }
