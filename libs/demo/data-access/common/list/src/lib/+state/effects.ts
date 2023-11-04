@@ -4,7 +4,7 @@ import { ErrorDto, ListService } from '@ngdux/data-model-common';
 import { AbstractListEffects, LIST_FEATURE_KEY } from '@ngdux/list';
 import { Actions, OnIdentifyEffects } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { LIST_SERVICE } from '../../models/model';
+import { LIST_SERVICE } from '../models/model';
 import { ListReducerManager } from './state.service';
 
 @Injectable()

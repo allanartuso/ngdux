@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersFacade } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
-import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
+import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class UsersComponent {
     selectedItems: this.usersFacade.selectedItems$
   });
 
-  constructor(private readonly router: Router, private readonly usersFacade: UsersFacade) {}
+  constructor(private readonly router: Router, private readonly usersFacade: UsersFacade<UserDto, ErrorDto>) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.usersFacade.changeFiltering({ filteringOptions });

@@ -2,11 +2,16 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
 import { UsersFacade } from '@demo/demo/data-access/users';
+import { UserDto } from '@demo/demo/data-model/users';
+import { ErrorDto } from '@ngdux/data-model-common';
 import { Observable, combineLatest, first, map } from 'rxjs';
 
 @Injectable()
 export class PropertyResolver implements Resolve<boolean> {
-  constructor(private readonly propertyFacade: PropertyFacade, private readonly usersFacade: UsersFacade) {}
+  constructor(
+    private readonly propertyFacade: PropertyFacade,
+    private readonly usersFacade: UsersFacade<UserDto, ErrorDto>
+  ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     const id = route.params['id'];
