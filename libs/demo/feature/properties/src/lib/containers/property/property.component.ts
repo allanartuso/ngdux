@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
 import { UsersFacade } from '@demo/demo/data-access/users';
 import { CreatePropertyDto, PropertyDto, isPropertyDto } from '@demo/demo/data-model/properties';
+import { UserDto } from '@demo/demo/data-model/users';
+import { ErrorDto } from '@ngdux/data-model-common';
 import { combineLatest } from 'rxjs';
 
 @Component({
@@ -16,7 +18,10 @@ export class PropertyComponent {
     users: this.usersFacade.resources$
   });
 
-  constructor(private readonly propertyFacade: PropertyFacade, private readonly usersFacade: UsersFacade) {}
+  constructor(
+    private readonly propertyFacade: PropertyFacade,
+    private readonly usersFacade: UsersFacade<UserDto, ErrorDto>
+  ) {}
 
   onSaved(property: PropertyDto | CreatePropertyDto): void {
     if (isPropertyDto(property)) {
