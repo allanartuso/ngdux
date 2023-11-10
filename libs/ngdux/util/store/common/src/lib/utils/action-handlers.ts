@@ -1,7 +1,7 @@
 import { PagingOptions, RequestState } from '@ngdux/data-model-common';
 import { ActionCreator, ReducerTypes, createAction, on } from '@ngrx/store';
 
-export interface ApiRequestState<E> {
+export interface ApiRequestState<E = unknown> {
   requestState: RequestState;
   errors?: E;
 }
@@ -10,7 +10,7 @@ export interface LoadingState {
   loadingState: RequestState;
 }
 
-export function createRequestStateActionHandlers<T extends ApiRequestState<E>, E>(
+export function createRequestStateActionHandlers<T extends ApiRequestState<E>, E = unknown>(
   loadAction: ActionCreator | undefined,
   saveAction: ActionCreator,
   saveSuccessAction: ActionCreator,

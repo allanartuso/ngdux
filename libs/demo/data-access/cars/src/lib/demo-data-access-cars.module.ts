@@ -1,11 +1,10 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { DemoDataAccessCommonListModule } from '@demo/shared/data-access/list';
-import { LIST_FEATURE_KEY } from '@ngdux/list';
+import { LIST_FEATURE_KEY, NgduxListStateModule } from '@ngdux/list';
 import { CARS_DEFAULT_FEATURE_KEY, DataAccessCarsModuleConfig } from './models/cars.model';
 import { CarsService } from './services/cars.service';
 
 @NgModule({
-  imports: [DemoDataAccessCommonListModule.config(CarsService, { listFeatureKey: CARS_DEFAULT_FEATURE_KEY })]
+  imports: [NgduxListStateModule.config({ service: CarsService })]
 })
 export class DemoDataAccessCarsModule {
   static config(config: DataAccessCarsModuleConfig): ModuleWithProviders<DemoDataAccessCarsModule> {

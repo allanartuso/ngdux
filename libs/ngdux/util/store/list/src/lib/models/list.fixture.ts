@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { TestResource } from '@ngdux/store-common/test';
 import { Actions } from '@ngrx/effects';
-import { createFeatureSelector, Store } from '@ngrx/store';
-import { AbstractListEffects } from '../+state/abstract-list-effects';
-import { createListActions } from '../+state/list-actions';
-import { createListEntityAdapter } from '../+state/list-reducer';
-import { createListSelectors } from '../+state/list-selectors';
+import { Store, createFeatureSelector } from '@ngrx/store';
+import { AbstractListEffects } from '../state-generator/abstract-list-effects';
+import { createListActions } from '../state-generator/list-actions';
+import { createListEntityAdapter } from '../state-generator/list-reducer';
+import { createListSelectors } from '../state-generator/list-selectors';
 
 export type TestErrors = string[];
 
