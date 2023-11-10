@@ -1,18 +1,11 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { DemoDataAccessCommonListModule } from '@demo/demo/data-access/common/list';
+import { DemoDataAccessCommonListModule } from '@demo/shared/data-access/list';
 import { LIST_FEATURE_KEY } from '@ngdux/list';
 import { CARS_DEFAULT_FEATURE_KEY, DataAccessCarsModuleConfig } from './models/users.model';
 import { CarsService } from './services/cars.service';
 
 @NgModule({
-  imports: [
-    // SharedUtilNotificationModule,
-    DemoDataAccessCommonListModule.config(CarsService, { listFeatureKey: CARS_DEFAULT_FEATURE_KEY })
-  ],
-  providers: [
-    // ListReducerManager,
-    // ListFacade
-  ]
+  imports: [DemoDataAccessCommonListModule.config(CarsService, { listFeatureKey: CARS_DEFAULT_FEATURE_KEY })]
 })
 export class DemoDataAccessCarsModule {
   static config(config: DataAccessCarsModuleConfig): ModuleWithProviders<DemoDataAccessCarsModule> {
