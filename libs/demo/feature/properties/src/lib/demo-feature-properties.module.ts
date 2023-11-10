@@ -7,7 +7,7 @@ import { DemoDataAccessUsersModule } from '@demo/demo/data-access/users';
 import { DemoUiPropertiesModule } from '@demo/demo/ui/properties';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
-import { SharedUtilNotificationModule } from '@demo/shared/util-notification';
+import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 import { PropertiesComponent } from './containers/properties/properties.component';
 import { PropertyComponent } from './containers/property/property.component';
 import { PropertiesResolver } from './resolvers/properties.resolver';

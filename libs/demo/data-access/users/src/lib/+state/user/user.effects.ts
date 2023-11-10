@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
-import { NotificationService } from '@demo/shared/util-notification';
+import { NotificationService } from '@demo/shared/common/util-notification';
 import { ErrorDto } from '@ngdux/data-model-common';
 import { AbstractFormEffects, FORM_FEATURE_KEY } from '@ngdux/form';
 import { Actions, OnIdentifyEffects } from '@ngrx/effects';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
-import { RestService } from '@demo/shared/data-access';
+import { RestService } from '@demo/shared/data-access/rest-service';
 import { ErrorDto, ListService, RequestOptions } from '@ngdux/data-model-common';
 import { Observable } from 'rxjs';
 

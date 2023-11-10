@@ -36,5 +36,5 @@
       }
     }
   },
-  "tags": ["scope:shared-common", "type:ui"]
+  "tags": ["scope:publishable", "type:ui"]
 }

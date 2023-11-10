@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { NotificationService } from '@demo/shared/util-notification';
+import { NotificationService } from '@demo/shared/common/util-notification';
 import { ErrorDto, ListService } from '@ngdux/data-model-common';
 import { AbstractListEffects, LIST_FEATURE_KEY } from '@ngdux/list';
 import { Actions, OnIdentifyEffects } from '@ngrx/effects';

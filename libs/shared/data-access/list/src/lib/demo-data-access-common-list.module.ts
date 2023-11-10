@@ -1,5 +1,5 @@
 import { InjectionToken, ModuleWithProviders, NgModule, Type } from '@angular/core';
-import { SharedUtilNotificationModule } from '@demo/shared/util-notification';
+import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 import { LIST_FEATURE_KEY, ListService } from '@ngdux/list';
 import { EffectsModule } from '@ngrx/effects';
 import { ListEffects } from './+state/effects';
