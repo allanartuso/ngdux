@@ -18,7 +18,6 @@
     "baseUrl": ".",
     "paths": {
       "@demo/demo/data-access/cars": ["libs/demo/data-access/cars/src/index.ts"],
-      "@demo/demo/data-access/common/list": ["libs/demo/data-access/common/list/src/index.ts"],
       "@demo/demo/data-access/properties": ["libs/demo/data-access/properties/src/index.ts"],
       "@demo/demo/data-access/users": ["libs/demo/data-access/users/src/index.ts"],
       "@demo/demo/data-model/properties": ["libs/demo/data-model/properties/src/index.ts"],
@@ -31,6 +30,7 @@
       "@demo/demo/ui/properties": ["libs/demo/ui/properties/src/index.ts"],
       "@demo/demo/ui/users": ["libs/demo/ui/users/src/index.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],
+      "@demo/shared/data-access/list": ["libs/shared/data-access/list/src/index.ts"],
       "@demo/shared/data-access/test": ["libs/shared/data-access/src/index-test.ts"],
       "@demo/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
       "@demo/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
