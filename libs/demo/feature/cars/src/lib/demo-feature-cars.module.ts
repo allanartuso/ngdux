@@ -20,12 +20,7 @@ export const carsRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(carsRoutes),
-    DemoDataAccessCarsModule.config({ listFeatureKey: 'my-exclusive-cars' }),
-    DemoUiCarsModule
-  ],
+  imports: [CommonModule, RouterModule.forChild(carsRoutes), DemoDataAccessCarsModule, DemoUiCarsModule],
   declarations: [CarsComponent],
   providers: [CarsResolver]
 })

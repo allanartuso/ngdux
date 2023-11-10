@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AbstractListFacade } from '@ngdux/list';
 import { Store } from '@ngrx/store';
+import { AbstractListFacade } from '../state-generator/abstract-list.facade';
 import { ListReducerManager } from './state.service';
 
 @Injectable()
 export class ListFacade<
   T extends { [key: string]: any },
-  E,
+  Error = unknown,
   S extends { [key: string]: any } = T
-> extends AbstractListFacade<T, E, S> {
-  constructor(store: Store, usersReducerManager: ListReducerManager<T, E, S>) {
+> extends AbstractListFacade<T, Error, S> {
+  constructor(store: Store, usersReducerManager: ListReducerManager<T, Error, S>) {
     super(store, usersReducerManager.actions, usersReducerManager.selectors);
   }
 }

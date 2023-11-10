@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, Type } from '@angular/core';
 import {
   ErrorDto,
   FilteringOptions,
+  ListNotificationService,
+  ListService,
   PagingOptions,
   RequestOptions,
   RequestState,
@@ -14,13 +16,15 @@ import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 
 export const LIST_FEATURE_KEY = new InjectionToken<string>('LIST_FEATURE_KEY');
+export const LIST_SERVICE = new InjectionToken<string>('LIST_SERVICE');
+export const LIST_NOTIFICATION_SERVICE = new InjectionToken<string>('LIST_NOTIFICATION_SERVICE');
 
-export interface ListState<T, E> extends EntityState<T>, RequestOptions, ApiRequestState<E>, LoadingState {
+export interface ListState<T, E = unknown> extends EntityState<T>, RequestOptions, ApiRequestState<E>, LoadingState {
   selectedResourceIds: string[];
   lastPageNumber?: number;
 }
 
-export interface ListSelectors<T, E> {
+export interface ListSelectors<T, E = unknown> {
   getAll: MemoizedSelector<object, T[]>;
   getRequestOptions: MemoizedSelector<object, RequestOptions>;
   isLastPage: MemoizedSelector<object, boolean>;
@@ -44,7 +48,7 @@ export interface ListSelectors<T, E> {
   getTotalCount: MemoizedSelector<object, number>;
 }
 
-export interface ListActions<Entity, Error, Summary = Entity, Params = Record<string, string>> {
+export interface ListActions<Entity, Error = unknown, Summary = Entity, Params = Record<string, string>> {
   /**
    * Set the page size without reloading the list
    */
@@ -158,4 +162,10 @@ export interface ListActions<Entity, Error, Summary = Entity, Params = Record<st
    * @deprecated The method will be removed. THe AbstractEffect will not be responsible for it anymore
    */
   showRemovalsConfirmation: ActionCreator<string, () => TypedAction<string>>;
+}
+
+export interface NgduxListStateModuleConfig<T extends { [key: string]: any }, E, S = T> {
+  service: Type<ListService<T, S>>;
+  listFeatureKey?: string;
+  notificationService?: Type<ListNotificationService<E>>;
 }

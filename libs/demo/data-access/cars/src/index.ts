@@ -1,2 +1,2 @@
-export { ListFacade as CarsFacade } from '@demo/shared/data-access/list';
+export { ListFacade as CarsFacade } from '@ngdux/list';
 export * from './lib/demo-data-access-cars.module';

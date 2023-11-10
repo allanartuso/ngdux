@@ -6,7 +6,7 @@ import { catchError, concatMap, exhaustMap, filter, map, switchMap, tap, withLat
 
 import { ListActions, ListSelectors } from '../models/list.model';
 
-export abstract class AbstractListEffects<T, E, S = T> {
+export abstract class AbstractListEffects<T, E = unknown, S = T> {
   texts = {
     deleteConfirmationTitle: 'Delete resources',
     deleteConfirmationMessage: 'Are you sure to delete the selected resources?'
@@ -80,6 +80,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
         this.store.pipe(select(this.listSelectors.getFilteringOptions)),
         this.store.pipe(select(this.listSelectors.getRequestParameters))
       ),
+      // TODO: change to switchMap
       concatMap(([, pagingOptions, sortingOptions, filteringOptions, requestParameters]) => {
         return this.service
           .loadResources({
@@ -135,6 +136,7 @@ export abstract class AbstractListEffects<T, E, S = T> {
       }),
       filter(confirmed => confirmed),
       withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectedResourceIds))),
+      filter(([, resourceIds]) => !!resourceIds.length),
       map(([, resourceIds]) => this.listActions.delete({ resourceIds }))
     )
   );
