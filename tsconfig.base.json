@@ -17,6 +17,7 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
+      "@demo/demo/data-access/cars": ["libs/demo/data-access/cars/src/index.ts"],
       "@demo/demo/data-access/common/list": ["libs/demo/data-access/common/list/src/index.ts"],
       "@demo/demo/data-access/properties": ["libs/demo/data-access/properties/src/index.ts"],
       "@demo/demo/data-access/users": ["libs/demo/data-access/users/src/index.ts"],
