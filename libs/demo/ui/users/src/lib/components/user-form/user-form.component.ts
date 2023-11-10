@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CarDto } from '@demo/demo/data-model/cars';
 import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
 import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/form-cva';
 
@@ -10,10 +11,13 @@ import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/form-cva';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserFormComponent extends AbstractFormComponent<UserDto> {
+  @Input() cars: CarDto[] = [];
+
   form = new FormGroup<FlatFormControlsOf<CreateUserDto>>({
     email: new FormControl('', [Validators.required, Validators.email]),
     firstName: new FormControl(''),
     lastName: new FormControl('', [Validators.maxLength(40)]),
+    cars: new FormControl([]),
     birthTime: new FormControl('')
   });
 }

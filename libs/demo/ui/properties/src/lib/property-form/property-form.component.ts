@@ -25,12 +25,12 @@ export class PropertyFormComponent extends AbstractFormComponent<PropertyDto> {
   features = Object.keys(PropertyFeatureDto);
 
   form = new FormGroup<FlatFormControlsOf<PropertyForm>>({
-    price: new FormControl(null),
-    size: new FormControl(null),
-    address: new FormControl(null),
-    availableFrom: new FormControl(null),
-    features: new FormControl(null),
-    description: new FormControl(null),
-    contact: new FormControl(null)
+    price: new FormControl(),
+    size: new FormControl(),
+    address: new FormControl(),
+    availableFrom: new FormControl(),
+    features: new FormControl(),
+    description: new FormControl(),
+    contact: new FormControl()
   });
 }

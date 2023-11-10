@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CarsFacade } from '@demo/demo/data-access/cars';
 import { UserFacade } from '@demo/demo/data-access/users';
+import { CarDto } from '@demo/demo/data-model/cars';
 import { CreateUserDto, UserDto, isUserDto } from '@demo/demo/data-model/users';
 import { combineLatest } from 'rxjs';
 
@@ -12,10 +14,11 @@ import { combineLatest } from 'rxjs';
 export class UserComponent {
   model$ = combineLatest({
     user: this.userFacade.resource$,
-    requestState: this.userFacade.requestState$
+    requestState: this.userFacade.requestState$,
+    cars: this.carsFacade.resources$
   });
 
-  constructor(private readonly userFacade: UserFacade) {}
+  constructor(private readonly userFacade: UserFacade, private readonly carsFacade: CarsFacade<CarDto>) {}
 
   onSaved(user: UserDto | CreateUserDto): void {
     if (isUserDto(user)) {
