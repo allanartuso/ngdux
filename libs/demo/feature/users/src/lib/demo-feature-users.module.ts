@@ -4,10 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { DemoDataAccessUsersModule } from '@demo/demo/data-access/users';
 import { DemoUiUsersModule } from '@demo/demo/ui/users';
+import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
-import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 
+import { DemoDataAccessCarsModule } from '@demo/demo/data-access/cars';
 import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
 import { UserResolver } from './resolvers/user.resolver';
@@ -45,7 +46,8 @@ export const usersRoutes: Routes = [
     SharedUiListModule,
     SharedUtilNotificationModule,
     DemoDataAccessUsersModule,
-    DemoUiUsersModule
+    DemoUiUsersModule,
+    DemoDataAccessCarsModule
   ],
   declarations: [UserComponent, UsersComponent],
   providers: [UserResolver, UsersResolver]

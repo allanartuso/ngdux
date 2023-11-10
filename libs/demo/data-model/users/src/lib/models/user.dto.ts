@@ -1,3 +1,5 @@
+import { CarDto } from '@demo/demo/data-model/cars';
+
 export const USERS_RESOURCE_BASE_PATH = 'users';
 
 export interface UserDto {
@@ -6,6 +8,7 @@ export interface UserDto {
   firstName?: string;
   lastName?: string;
   birthTime?: string;
+  cars: CarDto[];
 }
 
 export type CreateUserDto = Omit<UserDto, 'id'>;
