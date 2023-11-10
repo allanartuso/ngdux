@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { PROPERTIES_RESOURCE_BASE_PATH, PropertyDto } from '@demo/demo/data-model/properties';
+import { SortingOptions } from '@ngdux/data-model-common';
 import { FilteringOptions, PagingOptions, SortingField } from '@ngil/list';
 import { combineLatest, map } from 'rxjs';
 
@@ -27,7 +28,11 @@ export class PropertiesComponent {
   }
 
   onSortingChanged(sortingOptions: SortingField[]): void {
-    this.propertiesFacade.changeSorting({ sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] } });
+    this.propertiesFacade.changeSorting({
+      sortingOptions: sortingOptions.reduce<SortingOptions>((acc, sortingOption) => {
+        return { ...acc, [sortingOption.field]: sortingOption };
+      }, {})
+    });
   }
 
   onPageOptionsChanged(pagingOptions: PagingOptions): void {

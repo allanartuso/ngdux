@@ -1,4 +1,4 @@
-<!-- <demo-cars-table
+<demo-cars-table
   *ngIf="$model | async as model"
   [gridData]="model.cars"
   [totalCount]="model.totalCount"
@@ -13,6 +13,4 @@
   (rowClicked)="onRowClicked($event)"
   (rowSelected)="onRowSelected($event)"
   (deleteSelected)="onDelete()"
-></demo-cars-table> -->
-
-{{ $model | async | json }}
+></demo-cars-table>
