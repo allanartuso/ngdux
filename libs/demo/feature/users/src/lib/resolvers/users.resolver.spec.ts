@@ -1,15 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { UsersFacade } from '@demo/demo/data-access/users';
-import { RequestState } from '@ngdux/data-model-common';
+import { UserDto } from '@demo/demo/data-model/users';
+import { ErrorDto, RequestState } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
-import { MockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { UsersResolver } from './users.resolver';
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;
-  let store: MockStore;
-  let facade: Partial<commonFixture.RemoveReadonly<UsersFacade>>;
+  let facade: Partial<commonFixture.RemoveReadonly<UsersFacade<UserDto, ErrorDto>>>;
 
   beforeEach(() => {
     facade = {

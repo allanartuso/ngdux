@@ -1,15 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { UsersFacade } from '@demo/demo/data-access/users';
-import { RequestState } from '@ngdux/data-model-common';
+import { CarsFacade } from '@demo/demo/data-access/cars';
+import { CarDto } from '@demo/demo/data-model/cars';
+import { ErrorDto, RequestState } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
-import { MockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
-import { UsersResolver } from './users.resolver';
+import { CarsResolver } from './cars.resolver';
 
-describe('UsersResolver', () => {
-  let resolver: UsersResolver;
-  let store: MockStore;
-  let facade: Partial<commonFixture.RemoveReadonly<UsersFacade>>;
+describe('CarsResolver', () => {
+  let resolver: CarsResolver;
+  let facade: Partial<commonFixture.RemoveReadonly<CarsFacade<CarDto, ErrorDto>>>;
 
   beforeEach(() => {
     facade = {
@@ -20,15 +19,15 @@ describe('UsersResolver', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        UsersResolver,
+        CarsResolver,
         {
-          provide: UsersFacade,
+          provide: CarsFacade,
           useValue: facade
         }
       ]
     });
 
-    resolver = TestBed.inject(UsersResolver);
+    resolver = TestBed.inject(CarsResolver);
   });
 
   it('should dispatch initial actions', () => {
@@ -37,7 +36,7 @@ describe('UsersResolver', () => {
     expect(facade.initialize).toHaveBeenCalledWith();
   });
 
-  it('should emit true if the users are already loaded', done => {
+  it('should emit true if the cars are already loaded', done => {
     facade.isReady$ = of(true);
 
     resolver.resolve().subscribe(canActivate => {
