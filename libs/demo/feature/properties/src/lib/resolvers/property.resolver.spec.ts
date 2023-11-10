@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
 import { UsersFacade } from '@demo/demo/data-access/users';
-import { UserDto } from '@demo/demo/data-model/users';
-import { ErrorDto, RequestState } from '@ngdux/data-model-common';
+import { RequestState } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
 import { of } from 'rxjs';
 import { PropertyResolver } from './property.resolver';
@@ -11,7 +10,7 @@ import { PropertyResolver } from './property.resolver';
 describe('PropertyResolver', () => {
   let resolver: PropertyResolver;
   let propertyFacade: Partial<commonFixture.RemoveReadonly<PropertyFacade>>;
-  let usersFacade: Partial<commonFixture.RemoveReadonly<UsersFacade<UserDto, ErrorDto>>>;
+  let usersFacade: Partial<commonFixture.RemoveReadonly<UsersFacade>>;
 
   const id = 'testId';
   const mockRouteSnapshot = { params: { id } } as unknown as ActivatedRouteSnapshot;

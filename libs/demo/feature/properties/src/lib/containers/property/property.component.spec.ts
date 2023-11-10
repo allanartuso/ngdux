@@ -4,8 +4,7 @@ import { PropertyFacade } from '@demo/demo/data-access/properties';
 import { UsersFacade } from '@demo/demo/data-access/users';
 import { PropertyDto } from '@demo/demo/data-model/properties';
 import { createPersistentProperty, createTransientProperty } from '@demo/demo/data-model/properties/test';
-import { UserDto } from '@demo/demo/data-model/users';
-import { ErrorDto, RequestState } from '@ngdux/data-model-common';
+import { RequestState } from '@ngdux/data-model-common';
 import { of } from 'rxjs';
 import { PropertyComponent } from './property.component';
 
@@ -14,7 +13,7 @@ describe('PropertyComponent', () => {
   let fixture: ComponentFixture<PropertyComponent>;
   let property: PropertyDto;
   let propertyFacade: Partial<PropertyFacade>;
-  let usersFacade: Partial<UsersFacade<UserDto, ErrorDto>>;
+  let usersFacade: Partial<UsersFacade>;
 
   beforeEach(waitForAsync(() => {
     property = createPersistentProperty();
