@@ -47,7 +47,7 @@ export const usersRoutes: Routes = [
     SharedUtilNotificationModule,
     DemoDataAccessUsersModule,
     DemoUiUsersModule,
-    DemoDataAccessCarsModule
+    DemoDataAccessCarsModule.config({ listFeatureKey: 'user.cars' })
   ],
   declarations: [UserComponent, UsersComponent],
   providers: [UserResolver, UsersResolver]
