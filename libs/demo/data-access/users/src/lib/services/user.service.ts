@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CreateUserDto, UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
-import { RestService } from '@demo/shared/data-access';
+import { RestService } from '@demo/shared/data-access/rest-service';
 import { ErrorDto, ListService, RequestOptions } from '@ngdux/data-model-common';
 import { FormService } from '@ngdux/form';
 import { Observable } from 'rxjs';

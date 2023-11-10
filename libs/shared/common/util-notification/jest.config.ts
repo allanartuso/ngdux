@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'shared-util-notification',
-  preset: '../../../jest.preset.js',
+  displayName: 'shared-common-util-notification',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$'
     }
   },
-  coverageDirectory: '../../../coverage/libs/shared/util-notification',
+  coverageDirectory: '../../../../coverage/libs/shared/common/util-notification',
   transform: {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular'
   },

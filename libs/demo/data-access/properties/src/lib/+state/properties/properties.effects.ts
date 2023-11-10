@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PropertyDto } from '@demo/demo/data-model/properties';
-import { NotificationService } from '@demo/shared/util-notification';
+import { NotificationService } from '@demo/shared/common/util-notification';
 import { ErrorDto } from '@ngdux/data-model-common';
 import { AbstractListEffects } from '@ngdux/list';
 import { Actions } from '@ngrx/effects';

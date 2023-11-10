@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
 import { createPersistentCar, createPersistentCars } from '@demo/demo/data-model/cars/test';
-import { RestService } from '@demo/shared/data-access';
-import { restServiceFixture } from '@demo/shared/data-access/test';
+import { RestService } from '@demo/shared/data-access/rest-service';
+import { restServiceFixture } from '@demo/shared/data-access/rest-service/test';
 import { FilteringLogic, RequestOptions } from '@ngdux/data-model-common';
 import { cold } from 'jest-marbles';
 import { CarsService } from './cars.service';

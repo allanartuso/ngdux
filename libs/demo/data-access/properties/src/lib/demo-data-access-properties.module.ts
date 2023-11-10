@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedUtilNotificationModule } from '@demo/shared/util-notification';
+import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { PropertiesEffects } from './+state/properties/properties.effects';

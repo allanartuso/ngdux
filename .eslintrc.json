@@ -13,12 +13,22 @@
             "allow": [],
             "depConstraints": [
               {
+                "sourceTag": "scope:publishable",
+                "onlyDependOnLibsWithTags": ["scope:publishable-common"]
+              },
+              {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": ["scope:shared-common"]
+                "onlyDependOnLibsWithTags": ["scope:shared-common", "scope:publishable", "scope:publishable-common"]
               },
               {
                 "sourceTag": "scope:demo",
-                "onlyDependOnLibsWithTags": ["scope:shared-common", "scope:shared", "scope:demo"]
+                "onlyDependOnLibsWithTags": [
+                  "scope:shared-common",
+                  "scope:shared",
+                  "scope:demo",
+                  "scope:publishable",
+                  "scope:publishable-common"
+                ]
               },
               {
                 "sourceTag": "type:data-model",

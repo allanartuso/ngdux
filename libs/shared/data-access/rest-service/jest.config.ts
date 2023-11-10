@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'shared-data-access',
-  preset: '../../../jest.preset.js',
+  displayName: 'shared-data-access-rest-service',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$'
     }
   },
-  coverageDirectory: '../../../coverage/libs/shared/data-access',
+  coverageDirectory: '../../../../coverage/libs/shared/data-access/rest-service',
   transform: {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular'
   },

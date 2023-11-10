@@ -5,8 +5,8 @@ import {
   createPersistentProperty,
   createTransientProperty
 } from '@demo/demo/data-model/properties/test';
-import { RestService } from '@demo/shared/data-access';
-import { restServiceFixture } from '@demo/shared/data-access/test';
+import { RestService } from '@demo/shared/data-access/rest-service';
+import { restServiceFixture } from '@demo/shared/data-access/rest-service/test';
 import { FilteringLogic, RequestOptions } from '@ngdux/data-model-common';
 import { cold } from 'jest-marbles';
 import { PropertyService } from './property.service';
