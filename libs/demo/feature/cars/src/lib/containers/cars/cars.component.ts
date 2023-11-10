@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarsFacade } from '@demo/demo/data-access/cars';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
-import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
+import { ErrorDto, FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
 
 @Component({
@@ -27,7 +27,11 @@ export class CarsComponent {
   }
 
   onSortingChanged(sortingOptions: SortingField[]): void {
-    this.carsFacade.changeSorting({ sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] } });
+    this.carsFacade.changeSorting({
+      sortingOptions: sortingOptions.reduce<SortingOptions>((acc, sortingOption) => {
+        return { ...acc, [sortingOption.field]: sortingOption };
+      }, {})
+    });
   }
 
   onPageOptionsChanged(pagingOptions: PagingOptions): void {

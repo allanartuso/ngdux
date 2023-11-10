@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DemoDataAccessCarsModule } from '@demo/demo/data-access/cars';
+import { DemoUiCarsModule } from '@demo/demo/ui/cars';
 import { CarsComponent } from './containers/cars/cars.component';
 import { CarsResolver } from './resolvers/cars.resolver';
 
@@ -22,10 +23,8 @@ export const carsRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(carsRoutes),
-    // SharedUiListModule,
-    // SharedUtilNotificationModule,
-    DemoDataAccessCarsModule.config({ listFeatureKey: 'my-exclusive-cars' })
-    // DemoUiCarsModule
+    DemoDataAccessCarsModule.config({ listFeatureKey: 'my-exclusive-cars' }),
+    DemoUiCarsModule
   ],
   declarations: [CarsComponent],
   providers: [CarsResolver]

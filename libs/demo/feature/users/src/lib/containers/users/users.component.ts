@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersFacade } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
-import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
+import { ErrorDto, FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
 
 @Component({
@@ -27,7 +27,11 @@ export class UsersComponent {
   }
 
   onSortingChanged(sortingOptions: SortingField[]): void {
-    this.usersFacade.changeSorting({ sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] } });
+    this.usersFacade.changeSorting({
+      sortingOptions: sortingOptions.reduce<SortingOptions>((acc, sortingOption) => {
+        return { ...acc, [sortingOption.field]: sortingOption };
+      }, {})
+    });
   }
 
   onPageOptionsChanged(pagingOptions: PagingOptions): void {

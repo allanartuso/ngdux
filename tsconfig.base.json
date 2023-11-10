@@ -30,6 +30,7 @@
       "@demo/demo/feature/properties": ["libs/demo/feature/properties/src/index.ts"],
       "@demo/demo/feature/sidebar": ["libs/demo/feature/sidebar/src/index.ts"],
       "@demo/demo/feature/users": ["libs/demo/feature/users/src/index.ts"],
+      "@demo/demo/ui/cars": ["libs/demo/ui/cars/src/index.ts"],
       "@demo/demo/ui/properties": ["libs/demo/ui/properties/src/index.ts"],
       "@demo/demo/ui/users": ["libs/demo/ui/users/src/index.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],

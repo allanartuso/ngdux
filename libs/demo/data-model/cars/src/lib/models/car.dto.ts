@@ -7,6 +7,7 @@ export interface CarDto {
   year: number;
   color: string;
   vin: string;
+  price: number;
 }
 
 export type CreateCarDto = Omit<CarDto, 'id'>;

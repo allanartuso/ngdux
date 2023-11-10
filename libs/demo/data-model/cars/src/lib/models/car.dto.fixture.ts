@@ -24,6 +24,7 @@ export function createTransientCar(): CreateCarDto {
     model: commonFixture.getVehicleModel(),
     year: commonFixture.getYear(),
     color: commonFixture.getVehicleColor(),
-    vin: commonFixture.getVehicleVin()
+    vin: commonFixture.getVehicleVin(),
+    price: commonFixture.getNumberInRange(3, 150) * 1000
   };
 }

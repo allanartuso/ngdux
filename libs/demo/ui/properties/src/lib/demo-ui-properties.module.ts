@@ -1,4 +1,3 @@
-import { OverlayModule } from '@angular/cdk/overlay';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -19,7 +18,6 @@ import { PropertyFormComponent } from './property-form/property-form.component';
     SharedUiFormModule,
     SharedUiListModule,
     NgilUiFormModule,
-    OverlayModule,
     MatSelectModule,
     TextFieldModule,
     MatInputModule
