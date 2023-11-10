@@ -2,13 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CarsFacade } from '@demo/demo/data-access/cars';
-import { CarDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
+import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
 import { createPersistentCars } from '@demo/demo/data-model/cars/test';
 import {
   DEFAULT_FILTERING_LOGIC,
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   DEFAULT_SORTING_ORDER,
+  ErrorDto,
   FilteringOptions,
   PagingOptions,
   SortingDirection,
@@ -21,7 +22,7 @@ describe('CarsComponent', () => {
   let component: CarsComponent;
   let router: Router;
   let cars: CarDto[];
-  let facade: Partial<CarsFacade>;
+  let facade: Partial<CarsFacade<CarDto, ErrorDto>>;
 
   beforeEach(() => {
     facade = {
@@ -105,6 +106,6 @@ describe('CarsComponent', () => {
 
     component.onRowClicked(cars[0]);
 
-    expect(router.navigate).toHaveBeenCalledWith([USERS_RESOURCE_BASE_PATH, cars[0].id]);
+    expect(router.navigate).toHaveBeenCalledWith([CARS_RESOURCE_BASE_PATH, cars[0].id]);
   });
 });

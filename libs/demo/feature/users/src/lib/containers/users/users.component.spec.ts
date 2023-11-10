@@ -9,6 +9,7 @@ import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   DEFAULT_SORTING_ORDER,
+  ErrorDto,
   FilteringOptions,
   PagingOptions,
   SortingDirection,
@@ -21,7 +22,7 @@ describe('UsersComponent', () => {
   let component: UsersComponent;
   let router: Router;
   let users: UserDto[];
-  let facade: Partial<UsersFacade>;
+  let facade: Partial<UsersFacade<UserDto, ErrorDto>>;
 
   beforeEach(() => {
     facade = {
