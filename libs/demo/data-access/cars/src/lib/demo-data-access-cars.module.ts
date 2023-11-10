@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { DemoDataAccessCommonListModule } from '@demo/shared/data-access/list';
 import { LIST_FEATURE_KEY } from '@ngdux/list';
-import { CARS_DEFAULT_FEATURE_KEY, DataAccessCarsModuleConfig } from './models/users.model';
+import { CARS_DEFAULT_FEATURE_KEY, DataAccessCarsModuleConfig } from './models/cars.model';
 import { CarsService } from './services/cars.service';
 
 @NgModule({

@@ -39,11 +39,31 @@ export const BODY_ITEMS: MenuItem[] = [
         link: '/properties'
       },
       {
-        name: 'Create User',
+        name: 'Create Property',
         icon: 'add',
         display: true,
         link: '/properties/new'
       }
+    ]
+  },
+  {
+    name: 'Cars',
+    icon: 'local_taxi',
+    display: true,
+    link: '/cars',
+    children: [
+      {
+        name: 'Cars',
+        icon: 'list',
+        display: true,
+        link: '/cars'
+      }
+      // {
+      //   name: 'Create Car',
+      //   icon: 'add',
+      //   display: true,
+      //   link: '/cars/new'
+      // }
     ]
   }
 ];

@@ -31,6 +31,10 @@ const ROUTES: Routes = [
     loadChildren: () => import('@demo/demo/feature/properties').then(module => module.DemoFeaturePropertiesModule)
   },
   {
+    path: 'cars',
+    loadChildren: () => import('@demo/demo/feature/cars').then(module => module.DemoFeatureCarsModule)
+  },
+  {
     path: '**',
     redirectTo: 'users'
   }
