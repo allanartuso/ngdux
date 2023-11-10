@@ -171,6 +171,11 @@ export function getLocale(): string {
   return faker.random.locale();
 }
 
+export function getYear(): number {
+  const date = faker.date.past(20);
+  return date.getFullYear();
+}
+
 export function getIso8601Date(): string {
   return faker.date.recent().toISOString();
 }
@@ -238,4 +243,24 @@ export function getTag(): string {
 
 export function getTags(n = getNumberInRange(1, 6)): string[] {
   return [...Array(n)].map(() => getTag());
+}
+
+export function getVehicleName(): string {
+  return faker.vehicle.vehicle();
+}
+
+export function getVehicleManufacturer(): string {
+  return faker.vehicle.manufacturer();
+}
+
+export function getVehicleVin(): string {
+  return faker.vehicle.vin();
+}
+
+export function getVehicleColor(): string {
+  return faker.vehicle.color();
+}
+
+export function getVehicleModel(): string {
+  return faker.vehicle.model();
 }
