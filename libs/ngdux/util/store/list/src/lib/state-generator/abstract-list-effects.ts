@@ -6,7 +6,7 @@ import { catchError, concatMap, exhaustMap, filter, map, switchMap, tap, withLat
 
 import { ListActions, ListSelectors } from '../models/list.model';
 
-export abstract class AbstractListEffects<T, E = unknown, S = T> {
+export abstract class AbstractListEffects<T, E = unknown, S = T, Params = Record<string, string>> {
   texts = {
     deleteConfirmationTitle: 'Delete resources',
     deleteConfirmationMessage: 'Are you sure to delete the selected resources?'
@@ -182,9 +182,9 @@ export abstract class AbstractListEffects<T, E = unknown, S = T> {
   protected constructor(
     protected readonly actions$: Actions,
     protected readonly store: Store,
-    protected readonly service: ListService<T, S>,
-    protected readonly listActions: ListActions<T, E, S>,
-    protected readonly listSelectors: ListSelectors<S, E>,
+    protected readonly service: ListService<T, S, Params>,
+    protected readonly listActions: ListActions<T, E, S, Params>,
+    protected readonly listSelectors: ListSelectors<S, E, Params>,
     protected readonly notificationService?: ListNotificationService<E>
   ) {}
 }

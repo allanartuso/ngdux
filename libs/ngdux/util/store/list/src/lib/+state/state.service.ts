@@ -10,10 +10,11 @@ import { createListSelectors } from '../state-generator/list-selectors';
 export class ListReducerManager<
   T extends { [key: string]: any },
   Error = unknown,
-  S extends { [key: string]: any } = T
+  S extends { [key: string]: any } = T,
+  Params = Record<string, string>
 > {
-  actions: Record<string, ListActions<T, Error, S>> = {};
-  selectors: Record<string, ListSelectors<S, Error>> = {};
+  actions: Record<string, ListActions<T, Error, S, Params>> = {};
+  selectors: Record<string, ListSelectors<S, Error, Params>> = {};
   private entityAdapter: EntityAdapter<S>;
 
   constructor(private readonly reducerManager: ReducerManager, @Inject(LIST_FEATURE_KEYS) featureKeys: string[]) {
@@ -28,24 +29,32 @@ export class ListReducerManager<
   }
 
   protected getActions(featureKey: string) {
-    return createListActions<T, Error, S>(featureKey);
+    return createListActions<T, Error, S, Params>(featureKey);
   }
 
   private getEntityAdapter() {
     return createListEntityAdapter<S>();
   }
 
-  protected addReducer(featureKey: string, actions: ListActions<T, Error, S>) {
+  protected addReducer(featureKey: string, actions: ListActions<T, Error, S, Params>) {
     const currentReducers: string[] = Object.keys(this.reducerManager.currentReducers || {});
 
     if (!currentReducers.includes(featureKey)) {
-      const reducer = createListReducer<T, Error, S>(this.entityAdapter, actions);
+      const reducer = createListReducer<T, Error, S, Params>(this.entityAdapter, actions);
       this.reducerManager.addReducer(featureKey, reducer);
     }
   }
 
   protected getSelectors(featureKey: string) {
-    const getState = createFeatureSelector<ListState<S, Error>>(featureKey);
+    const getState = createFeatureSelector<ListState<S, Error, Params>>(featureKey);
     return createListSelectors(this.entityAdapter, getState);
+  }
+
+  getFeatureActions(featureKey: string) {
+    return this.actions[featureKey];
+  }
+
+  getFeatureSelectors(featureKey: string) {
+    return this.selectors[featureKey];
   }
 }

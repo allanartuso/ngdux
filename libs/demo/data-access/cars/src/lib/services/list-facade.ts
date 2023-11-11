@@ -12,6 +12,6 @@ export class CarsListFacade extends AbstractListFacade<CarDto, ErrorDto> {
     reducerManager: ListReducerManager<CarDto, ErrorDto>,
     @Inject(CARS_LIST_FEATURE_KEY) featureKey: string
   ) {
-    super(store, reducerManager.actions[featureKey], reducerManager.selectors[featureKey]);
+    super(store, reducerManager.getFeatureActions(featureKey), reducerManager.getFeatureSelectors(featureKey));
   }
 }

@@ -19,15 +19,16 @@ import { NotificationServicePlaceholder } from './services/list-notification-ser
 export class NgduxListStateModule<
   T extends { [key: string]: any },
   Error = unknown,
-  S extends { [key: string]: any } = T
+  S extends { [key: string]: any } = T,
+  Params = Record<string, string>
 > {
   constructor(
     registerEffectsService: RegisterEffectsService,
     actions$: Actions,
     store: Store,
-    reducerManager: ListReducerManager<T, Error, S>,
+    reducerManager: ListReducerManager<T, Error, S, Params>,
     @Inject(LIST_FEATURE_KEYS) featureKeys: string[],
-    @Inject(LIST_SERVICES) services: ListService<T, S>[],
+    @Inject(LIST_SERVICES) services: ListService<T, S, Params>[],
     @Optional() @Inject(LIST_NOTIFICATION_SERVICES) notificationServices: ListNotificationService<Error>[]
   ) {
     featureKeys.forEach((featureKey, index) => {
@@ -43,9 +44,14 @@ export class NgduxListStateModule<
     });
   }
 
-  static config<T extends { [key: string]: any }, Error = unknown, S extends { [key: string]: any } = T>(
-    config: NgduxListStateModuleConfig<T, Error, S>
-  ): ModuleWithProviders<NgduxListStateModule<T, Error, S>> {
+  static config<
+    T extends { [key: string]: any },
+    Error = unknown,
+    S extends { [key: string]: any } = T,
+    Params = Record<string, string>
+  >(
+    config: NgduxListStateModuleConfig<T, Error, S, Params>
+  ): ModuleWithProviders<NgduxListStateModule<T, Error, S, Params>> {
     return {
       ngModule: NgduxListStateModule,
       providers: [

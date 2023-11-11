@@ -10,10 +10,11 @@ import { createListSelectors } from './list-selectors';
 export abstract class AbstractListReducerManager<
   T extends { [key: string]: any },
   E,
-  S extends { [key: string]: any } = T
+  S extends { [key: string]: any } = T,
+  Params = Record<string, string>
 > {
-  actions: ListActions<T, E, S>;
-  selectors: ListSelectors<S, E>;
+  actions: ListActions<T, E, S, Params>;
+  selectors: ListSelectors<S, E, Params>;
   private entityAdapter: EntityAdapter<S>;
 
   constructor(
@@ -27,7 +28,7 @@ export abstract class AbstractListReducerManager<
   }
 
   protected getActions() {
-    return createListActions<T, E, S>(this.featureKey);
+    return createListActions<T, E, S, Params>(this.featureKey);
   }
 
   private getEntityAdapter() {
@@ -38,13 +39,13 @@ export abstract class AbstractListReducerManager<
     const currentReducers: string[] = Object.keys(this.reducerManager.currentReducers || {});
 
     if (!currentReducers.includes(this.featureKey)) {
-      const reducer = createListReducer<T, E, S>(this.entityAdapter, this.actions);
+      const reducer = createListReducer<T, E, S, Params>(this.entityAdapter, this.actions);
       this.reducerManager.addReducer(this.featureKey, reducer);
     }
   }
 
   protected getSelectors() {
-    const getState = createFeatureSelector<ListState<S, E>>(this.featureKey);
+    const getState = createFeatureSelector<ListState<S, E, Params>>(this.featureKey);
     return createListSelectors(this.entityAdapter, getState);
   }
 }

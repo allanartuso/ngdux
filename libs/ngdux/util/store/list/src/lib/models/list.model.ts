@@ -20,12 +20,16 @@ export const LIST_FEATURE_KEYS = new InjectionToken<string>('LIST_FEATURE_KEYS')
 export const LIST_SERVICES = new InjectionToken<string>('LIST_SERVICES');
 export const LIST_NOTIFICATION_SERVICES = new InjectionToken<string>('LIST_NOTIFICATION_SERVICES');
 
-export interface ListState<T, E = unknown> extends EntityState<T>, RequestOptions, ApiRequestState<E>, LoadingState {
+export interface ListState<T, E = unknown, Params = Record<string, string>>
+  extends EntityState<T>,
+    RequestOptions<Params>,
+    ApiRequestState<E>,
+    LoadingState {
   selectedResourceIds: string[];
   lastPageNumber?: number;
 }
 
-export interface ListSelectors<T, E = unknown> {
+export interface ListSelectors<T, E = unknown, Params = Record<string, string>> {
   getAll: MemoizedSelector<object, T[]>;
   getRequestOptions: MemoizedSelector<object, RequestOptions>;
   isLastPage: MemoizedSelector<object, boolean>;
@@ -33,7 +37,7 @@ export interface ListSelectors<T, E = unknown> {
   getPagingOptions: MemoizedSelector<object, PagingOptions>;
   getSortingOptions: MemoizedSelector<object, SortingOptions>;
   getFilteringOptions: MemoizedSelector<object, FilteringOptions>;
-  getRequestParameters: MemoizedSelector<object, Record<string, string> | undefined>;
+  getRequestParameters: MemoizedSelector<object, Params | undefined>;
   getCurrentPageNumber: MemoizedSelector<object, number>;
   getLastPageNumber: MemoizedSelector<object, number | undefined>;
   getLoadingState: MemoizedSelector<object, RequestState>;
@@ -165,7 +169,12 @@ export interface ListActions<Entity, Error = unknown, Summary = Entity, Params =
   showRemovalsConfirmation: ActionCreator<string, () => TypedAction<string>>;
 }
 
-export interface NgduxListStateModuleConfig<T extends { [key: string]: any }, E, S = T> {
-  service: Type<ListService<T, S>>;
+export interface NgduxListStateModuleConfig<
+  T extends { [key: string]: any },
+  E,
+  S = T,
+  Params = Record<string, string>
+> {
+  service: Type<ListService<T, S, Params>>;
   notificationService?: Type<ListNotificationService<E>>;
 }
