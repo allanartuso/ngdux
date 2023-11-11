@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { CarsFacade } from '@demo/demo/data-access/cars';
-import { CarDto } from '@demo/demo/data-model/cars';
-import { ErrorDto } from '@ngdux/data-model-common';
+import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 @Injectable()
 export class CarsResolver implements Resolve<boolean> {
-  constructor(private readonly carsFacade: CarsFacade<CarDto, ErrorDto>) {}
+  constructor(private readonly carsFacade: CarsListFacade) {}
 
   resolve(): Observable<boolean> {
     this.carsFacade.initialize();
