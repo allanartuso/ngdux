@@ -1,5 +1,5 @@
 <demo-cars-table
-  *ngIf="$model | async as model"
+  *ngIf="model$ | async as model"
   [gridData]="model.cars"
   [totalCount]="model.totalCount"
   [sortingOptions]="model.sortingOptions"

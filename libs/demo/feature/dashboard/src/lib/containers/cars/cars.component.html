@@ -1,6 +1,7 @@
-<demo-agents-table
+Cars
+<demo-cars-table
   *ngIf="model$ | async as model"
-  [gridData]="model.agents"
+  [gridData]="model.cars"
   [totalCount]="model.totalCount"
   [sortingOptions]="model.sortingOptions"
   [pagingOptions]="model.pagingOptions"
@@ -13,4 +14,4 @@
   (rowClicked)="onRowClicked($event)"
   (rowSelected)="onRowSelected($event)"
   (deleteSelected)="onDelete()"
-></demo-agents-table>
+></demo-cars-table>

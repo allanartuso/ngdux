@@ -1,5 +1,5 @@
 <demo-users-table
-  *ngIf="$model | async as model"
+  *ngIf="model$ | async as model"
   [gridData]="model.users"
   [totalCount]="model.totalCount"
   [sortingOptions]="model.sortingOptions"

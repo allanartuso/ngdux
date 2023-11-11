@@ -20,7 +20,11 @@ export class CarsComponent {
     selectedItems: this.carsFacade.selectedItems$
   });
 
-  constructor(private readonly router: Router, private readonly carsFacade: CarsFacade<CarDto, ErrorDto>) {}
+  isReady$ = this.carsFacade.isReady$;
+
+  constructor(private readonly router: Router, private readonly carsFacade: CarsFacade<CarDto, ErrorDto>) {
+    this.carsFacade.initialize();
+  }
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.carsFacade.changeFiltering({ filteringOptions });
