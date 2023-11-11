@@ -5,90 +5,87 @@ import { ListActions } from '../models/list.model';
 export function createListActions<T, E, S = T, Params = Record<string, string>>(
   featureName: string
 ): ListActions<T, E, S, Params> {
-  const resetRequestState = createAction(`[${featureName} Page] Reset ${featureName} Request State`);
-  const initialize = createAction(`[${featureName} Page] Initialize ${featureName}`);
-  const reset = createAction(`[Organization ${featureName} Page] Reset ${featureName}`);
+  const resetRequestState = createAction(`[${featureName} API] Reset ${featureName} Request State`);
+  const initialize = createAction(`[${featureName} API] Initialize ${featureName}`);
+  const reset = createAction(`[Organization ${featureName} API] Reset ${featureName}`);
 
-  const loadNextPage = createAction(`[${featureName} Page] Load Next ${featureName} Page`);
-  const loadPreviousPage = createAction(`[${featureName} Page] Load Previous ${featureName} Page`);
-  const loadFirstPage = createAction(`[${featureName} Page] Load First ${featureName} Page`);
+  const loadNextPage = createAction(`[${featureName} API] Load Next ${featureName} Page`);
+  const loadPreviousPage = createAction(`[${featureName} API] Load Previous ${featureName} Page`);
+  const loadFirstPage = createAction(`[${featureName} API] Load First ${featureName} Page`);
 
-  const setPageSize = createAction(`[${featureName} Page] Set ${featureName} Page Size`, props<{ pageSize: number }>());
+  const setPageSize = createAction(`[${featureName} API] Set ${featureName} Page Size`, props<{ pageSize: number }>());
   const setSorting = createAction(
-    `[${featureName} Page] Set ${featureName} Sorting`,
+    `[${featureName} API] Set ${featureName} Sorting`,
     props<{ sortingOptions: SortingOptions }>()
   );
   const setFiltering = createAction(
-    `[${featureName} Page] Set ${featureName} Filtering`,
+    `[${featureName} API] Set ${featureName} Filtering`,
     props<{ filteringOptions: FilteringOptions }>()
   );
   const setRequestParams = createAction(
-    `[${featureName} Page] Set ${featureName} Request Params`,
+    `[${featureName} API] Set ${featureName} Request Params`,
     props<{ params: Params }>()
   );
 
   const changePageSize = createAction(
-    `[${featureName} Page] Change ${featureName} Page Size`,
+    `[${featureName} API] Change ${featureName} Page Size`,
     props<{ pageSize: number }>()
   );
 
   const changePageNumber = createAction(
-    `[${featureName} Page] Change ${featureName} Page Number`,
+    `[${featureName} API] Change ${featureName} Page Number`,
     props<{ pageNumber: number }>()
   );
 
   const changePagingOptions = createAction(
-    `[${featureName} Page] Change ${featureName} Page Options`,
+    `[${featureName} API] Change ${featureName} Page Options`,
     props<{ pagingOptions: PagingOptions }>()
   );
   const changeSorting = createAction(
-    `[${featureName} Page] Change ${featureName} Sorting`,
+    `[${featureName} API] Change ${featureName} Sorting`,
     props<{ sortingOptions: SortingOptions }>()
   );
   const changeFiltering = createAction(
-    `[${featureName} Page] Change ${featureName} Filtering`,
+    `[${featureName} API] Change ${featureName} Filtering`,
     props<{ filteringOptions: FilteringOptions }>()
   );
   const changeSelectedResources = createAction(
-    `[${featureName} Page] Change Selected Resources ${featureName}`,
+    `[${featureName} API] Change Selected Resources ${featureName}`,
     props<{ selectedResourceIds: string[] }>()
   );
   const changeRequestParams = createAction(
-    `[${featureName} Page] Change ${featureName} Request Params`,
+    `[${featureName} API] Change ${featureName} Request Params`,
     props<{ params: Params }>()
   );
 
-  const loadPage = createAction(`[${featureName} Page] Load ${featureName} Page`);
+  const loadPage = createAction(`[${featureName} API] Load ${featureName} Page`);
   const loadPageSuccess = createAction(
-    `[${featureName} Page] Load ${featureName} Page Success`,
+    `[${featureName} API] Load ${featureName} Page Success`,
     props<{ resources: S[]; pagingOptions: PagingOptions }>()
   );
-  const loadPageFailure = createAction(
-    `[${featureName} Page] Load ${featureName} Page Failure`,
-    props<{ errors: E }>()
-  );
+  const loadPageFailure = createAction(`[${featureName} API] Load ${featureName} Page Failure`, props<{ errors: E }>());
 
-  const deleteAction = createAction(`[${featureName} Page] Delete ${featureName}`, props<{ resourceIds: string[] }>());
+  const deleteAction = createAction(`[${featureName} API] Delete ${featureName}`, props<{ resourceIds: string[] }>());
   const deleteSuccess = createAction(
-    `[${featureName} Page] Delete ${featureName} Success`,
+    `[${featureName} API] Delete ${featureName} Success`,
     props<{ resourceIds: string[] }>()
   );
-  const deleteFailure = createAction(`[${featureName} Page] Delete ${featureName} Failure`, props<{ errors: E }>());
+  const deleteFailure = createAction(`[${featureName} API] Delete ${featureName} Failure`, props<{ errors: E }>());
 
   const patch = createAction(
-    `[${featureName} Page] Patch ${featureName}`,
+    `[${featureName} API] Patch ${featureName}`,
     props<{ resourceIds: string[]; resource: Partial<T> }>()
   );
   const patchSuccess = createAction(
-    `[${featureName} Page] Patch ${featureName} Success`,
+    `[${featureName} API] Patch ${featureName} Success`,
     props<{ resources: (T | ErrorDto)[] }>()
   );
-  const patchFailure = createAction(`[${featureName} Page] Patch ${featureName} Failure`, props<{ errors: E }>());
+  const patchFailure = createAction(`[${featureName} API] Patch ${featureName} Failure`, props<{ errors: E }>());
 
   /**
-   * @deprecated The method will be removed. THe AbstractEffect will not be responsible for it anymore
+   * @deprecated The method will be removed. The AbstractEffect will not be responsible for it anymore
    */
-  const showRemovalsConfirmation = createAction(`[${featureName} Page] Show ${featureName} Removal Confirmation`);
+  const showRemovalsConfirmation = createAction(`[${featureName} API] Show ${featureName} Removal Confirmation`);
 
   return {
     initialize,
