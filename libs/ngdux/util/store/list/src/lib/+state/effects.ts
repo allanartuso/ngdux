@@ -14,22 +14,18 @@ export class ListEffects<T extends { [key: string]: any }, Error = unknown, S ex
   constructor(
     actions$: Actions,
     store: Store,
-    usersReducerManager: ListReducerManager<T, Error, S>,
+    reducerManager: ListReducerManager<T, Error, S>,
     @Inject(LIST_FEATURE_KEY) private readonly featureKey: string,
-    @Inject(LIST_SERVICE) usersService: ListService<T, S>,
+    @Inject(LIST_SERVICE) service: ListService<T, S>,
     @Optional() @Inject(LIST_NOTIFICATION_SERVICE) notificationService: ListNotificationService<Error>
   ) {
-    super(
-      actions$,
-      store,
-      usersService,
-      usersReducerManager.actions,
-      usersReducerManager.selectors,
-      notificationService
-    );
+    super(actions$, store, service, reducerManager.actions, reducerManager.selectors, notificationService);
+    console.log(featureKey);
+    console.log(service);
   }
 
   ngrxOnIdentifyEffects() {
+    console.log(this.featureKey);
     return this.featureKey;
   }
 }

@@ -20,7 +20,11 @@ export class AgentsComponent {
     selectedItems: this.agentsFacade.selectedItems$
   });
 
-  constructor(private readonly router: Router, private readonly agentsFacade: AgentsFacade<AgentDto, ErrorDto>) {}
+  isReady$ = this.agentsFacade.isReady$;
+
+  constructor(private readonly router: Router, private readonly agentsFacade: AgentsFacade<AgentDto, ErrorDto>) {
+    this.agentsFacade.initialize();
+  }
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.agentsFacade.changeFiltering({ filteringOptions });

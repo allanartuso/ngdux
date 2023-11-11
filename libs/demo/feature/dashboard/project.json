@@ -3,7 +3,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/demo/feature/dashboard/src",
   "prefix": "demo",
-  "tags": [],
+  "tags": ["scope:demo", "type:feature"],
   "projectType": "library",
   "targets": {
     "test": {

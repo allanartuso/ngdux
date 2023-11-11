@@ -15,16 +15,15 @@ const ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'users'
+    redirectTo: 'dashboard'
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('@demo/demo/feature/dashboard').then(module => module.DemoFeatureDashboardModule)
   },
   {
     path: 'users',
     loadChildren: () => import('@demo/demo/feature/users').then(module => module.DemoFeatureUsersModule)
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'users'
   },
   {
     path: 'properties',
@@ -40,7 +39,7 @@ const ROUTES: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'users'
+    redirectTo: 'dashboard'
   }
 ];
 

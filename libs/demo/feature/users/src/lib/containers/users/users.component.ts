@@ -11,7 +11,7 @@ import { combineLatest, map } from 'rxjs';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-  $model = combineLatest({
+  model$ = combineLatest({
     users: this.usersFacade.currentPageData$,
     totalCount: this.usersFacade.totalCount$,
     pagingOptions: this.usersFacade.pagingOptions$,
