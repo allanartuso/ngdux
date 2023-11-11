@@ -4,7 +4,7 @@ import { CARS_DEFAULT_FEATURE_KEY, DataAccessCarsModuleConfig } from './models/c
 import { CarsService } from './services/cars.service';
 
 @NgModule({
-  imports: [NgduxListStateModule.config({ listFeatureKey: 'cars', service: CarsService })]
+  imports: [NgduxListStateModule.config({ listFeatureKey: CARS_DEFAULT_FEATURE_KEY, service: CarsService })]
 })
 export class DemoDataAccessCarsModule {
   static config(config: DataAccessCarsModuleConfig): ModuleWithProviders<DemoDataAccessCarsModule> {

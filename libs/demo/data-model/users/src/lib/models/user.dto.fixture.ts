@@ -1,3 +1,4 @@
+import { createPersistentCars } from '@demo/demo/data-model/cars/test';
 import { commonFixture } from '@ngdux/data-model-common/test';
 import { CreateUserDto, UserDto } from './user.dto';
 
@@ -27,6 +28,7 @@ export function createTransientUser(): CreateUserDto {
     email: commonFixture.getEmail(firstName, lastName),
     firstName,
     lastName,
-    birthTime
+    birthTime,
+    cars: createPersistentCars()
   };
 }
