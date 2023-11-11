@@ -65,5 +65,25 @@ export const BODY_ITEMS: MenuItem[] = [
       //   link: '/cars/new'
       // }
     ]
+  },
+  {
+    name: 'Agents',
+    icon: 'real_estate_agent',
+    display: true,
+    link: '/agents',
+    children: [
+      {
+        name: 'Agents',
+        icon: 'list',
+        display: true,
+        link: '/agents'
+      }
+      // {
+      //   name: 'Create Car',
+      //   icon: 'add',
+      //   display: true,
+      //   link: '/agents/new'
+      // }
+    ]
   }
 ];

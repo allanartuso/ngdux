@@ -39,7 +39,7 @@ export function getJobTitle(): string {
 }
 
 export function getPhoneNumber(): string {
-  return `+${faker.phone.phoneNumberFormat(2)}`;
+  return `+${faker.phone.number()}`;
 }
 
 export function getAvatar(): string {
@@ -161,6 +161,10 @@ export function getUrl(): string {
 
 export function getDomainName(): string {
   return faker.internet.domainName();
+}
+
+export function getCompanyName(): string {
+  return faker.company.name();
 }
 
 export function getSemverVersion(): string {
