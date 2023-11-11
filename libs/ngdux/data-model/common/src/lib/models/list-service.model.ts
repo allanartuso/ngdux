@@ -7,8 +7,8 @@ export interface BulkOperationSuccess {
   response: unknown;
 }
 
-export interface ListService<T, S = T> {
-  loadResources(options: RequestOptions): Observable<S[]>;
+export interface ListService<T, S = T, Params = Record<string, string>> {
+  loadResources(options: RequestOptions<Params>): Observable<S[]>;
 
   deleteResources?(resourceIds: string[]): Observable<Array<T | ErrorDto>>;
 

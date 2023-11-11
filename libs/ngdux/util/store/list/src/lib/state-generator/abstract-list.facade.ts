@@ -2,7 +2,7 @@ import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
 import { ListActions, ListSelectors } from '../models/list.model';
 
-export abstract class AbstractListFacade<T, E, S = T> {
+export abstract class AbstractListFacade<T, E, S = T, Params = Record<string, string>> {
   readonly resources$ = this.store.pipe(select(this.listSelectors.getAll));
   readonly loadingState$ = this.store.pipe(select(this.listSelectors.getLoadingState));
   readonly requestState$ = this.store.pipe(select(this.listSelectors.getRequestState));
@@ -22,51 +22,51 @@ export abstract class AbstractListFacade<T, E, S = T> {
 
   constructor(
     protected readonly store: Store,
-    private readonly listActions: ListActions<T, E, S>,
-    private readonly listSelectors: ListSelectors<S, E>
+    private readonly listActions: ListActions<T, E, S, Params>,
+    private readonly listSelectors: ListSelectors<S, E, Params>
   ) {}
 
-  setPageSize(props: ActionPayload<ListActions<T, E>['setPageSize']>): void {
+  setPageSize(props: ActionPayload<ListActions<T, E, S, Params>['setPageSize']>): void {
     this.store.dispatch(this.listActions.setPageSize(props));
   }
 
-  setFiltering(props: ActionPayload<ListActions<T, E>['setFiltering']>): void {
+  setFiltering(props: ActionPayload<ListActions<T, E, S, Params>['setFiltering']>): void {
     this.store.dispatch(this.listActions.setFiltering(props));
   }
 
-  setSorting(props: ActionPayload<ListActions<T, E>['setSorting']>): void {
+  setSorting(props: ActionPayload<ListActions<T, E, S, Params>['setSorting']>): void {
     this.store.dispatch(this.listActions.setSorting(props));
   }
 
-  setRequestParameters(props: ActionPayload<ListActions<T, E>['setRequestParams']>) {
+  setRequestParameters(props: ActionPayload<ListActions<T, E, S, Params>['setRequestParams']>) {
     this.store.dispatch(this.listActions.setRequestParams(props));
   }
 
-  changeFiltering(props: ActionPayload<ListActions<T, E>['changeFiltering']>): void {
+  changeFiltering(props: ActionPayload<ListActions<T, E, S, Params>['changeFiltering']>): void {
     this.store.dispatch(this.listActions.changeFiltering(props));
   }
 
-  changePagingOptions(props: ActionPayload<ListActions<T, E>['changePagingOptions']>): void {
+  changePagingOptions(props: ActionPayload<ListActions<T, E, S, Params>['changePagingOptions']>): void {
     this.store.dispatch(this.listActions.changePagingOptions(props));
   }
 
-  changePageSize(props: ActionPayload<ListActions<T, E>['changePageSize']>): void {
+  changePageSize(props: ActionPayload<ListActions<T, E, S, Params>['changePageSize']>): void {
     this.store.dispatch(this.listActions.changePageSize(props));
   }
 
-  changePageNumber(props: ActionPayload<ListActions<T, E>['changePageNumber']>): void {
+  changePageNumber(props: ActionPayload<ListActions<T, E, S, Params>['changePageNumber']>): void {
     this.store.dispatch(this.listActions.changePageNumber(props));
   }
 
-  changeSelectedResources(props: ActionPayload<ListActions<T, E>['changeSelectedResources']>): void {
+  changeSelectedResources(props: ActionPayload<ListActions<T, E, S, Params>['changeSelectedResources']>): void {
     this.store.dispatch(this.listActions.changeSelectedResources(props));
   }
 
-  changeSorting(props: ActionPayload<ListActions<T, E>['changeSorting']>): void {
+  changeSorting(props: ActionPayload<ListActions<T, E, S, Params>['changeSorting']>): void {
     this.store.dispatch(this.listActions.changeSorting(props));
   }
 
-  changeRequestParams(props: ActionPayload<ListActions<T, E>['changeRequestParams']>): void {
+  changeRequestParams(props: ActionPayload<ListActions<T, E, S, Params>['changeRequestParams']>): void {
     this.store.dispatch(this.listActions.changeRequestParams(props));
   }
 
@@ -86,11 +86,11 @@ export abstract class AbstractListFacade<T, E, S = T> {
     this.store.dispatch(this.listActions.loadPreviousPage());
   }
 
-  patch(props: ActionPayload<ListActions<T, E>['patch']>): void {
+  patch(props: ActionPayload<ListActions<T, E, S, Params>['patch']>): void {
     this.store.dispatch(this.listActions.patch(props));
   }
 
-  delete(props: ActionPayload<ListActions<T, E>['delete']>): void {
+  delete(props: ActionPayload<ListActions<T, E, S, Params>['delete']>): void {
     this.store.dispatch(this.listActions.delete(props));
   }
 

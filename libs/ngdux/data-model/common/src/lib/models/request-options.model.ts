@@ -2,20 +2,8 @@ import { DEFAULT_FILTERING_LOGIC, FilteringOptions } from './filtering-options.m
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, PagingOptions } from './paging-options.model';
 import { SortingField, SortingOptions } from './sorting-options.model';
 
-export const DEFAULT_REQUEST_OPTIONS: RequestOptions = {
-  pagingOptions: {
-    page: DEFAULT_PAGE,
-    pageSize: DEFAULT_PAGE_SIZE
-  },
-  sortingOptions: {},
-  filteringOptions: {
-    logic: DEFAULT_FILTERING_LOGIC,
-    filters: []
-  }
-};
-
-export interface RequestOptions {
-  requestParameters?: Record<string, string>;
+export interface RequestOptions<Params = Record<string, string>> {
+  requestParameters?: Params;
   pagingOptions: PagingOptions;
   sortingOptions: SortingOptions;
   filteringOptions: FilteringOptions;
@@ -26,4 +14,18 @@ export interface QueryOptionsDto {
   sort?: SortingField[];
   page?: number;
   pageSize?: number;
+}
+
+export function getDefaultRequestOptions<Params = Record<string, string>>(): RequestOptions<Params> {
+  return {
+    pagingOptions: {
+      page: DEFAULT_PAGE,
+      pageSize: DEFAULT_PAGE_SIZE
+    },
+    sortingOptions: {},
+    filteringOptions: {
+      logic: DEFAULT_FILTERING_LOGIC,
+      filters: []
+    }
+  };
 }

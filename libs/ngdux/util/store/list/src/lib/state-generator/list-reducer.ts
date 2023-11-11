@@ -1,11 +1,11 @@
-import { DEFAULT_PAGE, DEFAULT_REQUEST_OPTIONS, RequestState } from '@ngdux/data-model-common';
+import { DEFAULT_PAGE, getDefaultRequestOptions, RequestState } from '@ngdux/data-model-common';
 import {
   createLoadingStateActionHandlers,
   createRequestStateActionHandlers,
   getLastPageNumber
 } from '@ngdux/store-common';
-import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ActionReducer, ReducerTypes, createReducer, on } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
+import { ActionReducer, createReducer, on, ReducerTypes } from '@ngrx/store';
 import { ActionCreator } from '@ngrx/store/src/models';
 
 import { ListActions, ListState } from '../models/list.model';
@@ -16,23 +16,28 @@ export function createListEntityAdapter<T extends { [key: string]: any }>(idKey 
   });
 }
 
-export function createListReducer<T, E, S = T>(
+export function createListReducer<T, E, S = T, Params = Record<string, string>>(
   entityAdapter: EntityAdapter<S>,
-  actions: ListActions<T, E, S>,
-  actionHandlers?: ReducerTypes<ListState<S, E>, ActionCreator[]>[],
+  actions: ListActions<T, E, S, Params>,
+  actionHandlers?: ReducerTypes<ListState<S, E, Params>, ActionCreator[]>[],
   initialListState?: { [key: string]: unknown }
-): ActionReducer<ListState<S, E>> {
-  const initialState: ListState<S, E> = { ...createInitialListState<S, E>(entityAdapter), ...initialListState };
-  return createReducer<ListState<S, E>>(
+): ActionReducer<ListState<S, E, Params>> {
+  const initialState: ListState<S, E, Params> = {
+    ...createInitialListState<S, E, Params>(entityAdapter),
+    ...initialListState
+  };
+  return createReducer<ListState<S, E, Params>>(
     initialState,
-    ...createListActionHandlers<T, E, S>(initialState, entityAdapter, actions),
+    ...createListActionHandlers<T, E, S, Params>(initialState, entityAdapter, actions),
     ...(actionHandlers || [])
   );
 }
 
-function createInitialListState<T, E>(entityAdapter: EntityAdapter<T>): ListState<T, E> {
+function createInitialListState<T, E, Params = Record<string, string>>(
+  entityAdapter: EntityAdapter<T>
+): ListState<T, E, Params> {
   return entityAdapter.getInitialState({
-    ...DEFAULT_REQUEST_OPTIONS,
+    ...getDefaultRequestOptions<Params>(),
     lastPageNumber: undefined,
     selectedResourceIds: [],
     loadingState: RequestState.IDLE,
@@ -41,14 +46,14 @@ function createInitialListState<T, E>(entityAdapter: EntityAdapter<T>): ListStat
   });
 }
 
-function createListActionHandlers<T, E, S>(
-  initialListState: ListState<S, E>,
+function createListActionHandlers<T, E, S, Params>(
+  initialListState: ListState<S, E, Params>,
   entityAdapter: EntityAdapter<S>,
-  actions: ListActions<T, E, S>
-): ReducerTypes<ListState<S, E>, ActionCreator[]>[] {
+  actions: ListActions<T, E, S, Params>
+): ReducerTypes<ListState<S, E, Params>, ActionCreator[]>[] {
   return [
     on(actions.reset, () => initialListState),
-    on(actions.initialize, (state: ListState<S, E>) =>
+    on(actions.initialize, (state: ListState<S, E, Params>) =>
       entityAdapter.removeAll({
         ...state,
         selectedResourceIds: [],
@@ -59,21 +64,21 @@ function createListActionHandlers<T, E, S>(
         requestState: RequestState.IDLE
       })
     ),
-    on(actions.changePageSize, actions.setPageSize, (state: ListState<S, E>, { pageSize }) => ({
+    on(actions.changePageSize, actions.setPageSize, (state: ListState<S, E, Params>, { pageSize }) => ({
       ...state,
       pagingOptions: { page: DEFAULT_PAGE, pageSize },
       lastPageNumber: undefined
     })),
-    on(actions.changePageNumber, (state: ListState<S, E>, { pageNumber }) => ({
+    on(actions.changePageNumber, (state: ListState<S, E, Params>, { pageNumber }) => ({
       ...state,
       pagingOptions: { ...state.pagingOptions, page: pageNumber }
     })),
-    on(actions.changeSorting, actions.setSorting, (state: ListState<S, E>, { sortingOptions }) => ({
+    on(actions.changeSorting, actions.setSorting, (state: ListState<S, E, Params>, { sortingOptions }) => ({
       ...state,
       sortingOptions,
       pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE }
     })),
-    on(actions.changeFiltering, actions.setFiltering, (state: ListState<S, E>, { filteringOptions }) => ({
+    on(actions.changeFiltering, actions.setFiltering, (state: ListState<S, E, Params>, { filteringOptions }) => ({
       ...state,
       filteringOptions,
       pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE },
@@ -82,21 +87,21 @@ function createListActionHandlers<T, E, S>(
     on(
       actions.changeRequestParams,
       actions.setRequestParams,
-      (state: ListState<S, E>, { params }): ListState<S, E> => ({
+      (state: ListState<S, E, Params>, { params }): ListState<S, E, Params> => ({
         ...state,
         requestParameters: params,
         pagingOptions: { ...state.pagingOptions, page: DEFAULT_PAGE }
       })
     ),
-    on(actions.changeSelectedResources, (state: ListState<S, E>, { selectedResourceIds }) => ({
+    on(actions.changeSelectedResources, (state: ListState<S, E, Params>, { selectedResourceIds }) => ({
       ...state,
       selectedResourceIds
     })),
-    on(actions.loadFirstPage, (state: ListState<S, E>) => ({
+    on(actions.loadFirstPage, (state: ListState<S, E, Params>) => ({
       ...state,
       pagingOptions: { ...state.pagingOptions, page: 1 }
     })),
-    on(actions.loadPageSuccess, (state: ListState<S, E>, { resources, pagingOptions }) => {
+    on(actions.loadPageSuccess, (state: ListState<S, E, Params>, { resources, pagingOptions }) => {
       const lastPageNumber = getLastPageNumber(resources, pagingOptions) || state.lastPageNumber;
       if (lastPageNumber && pagingOptions.page > lastPageNumber) {
         return {
@@ -116,22 +121,22 @@ function createListActionHandlers<T, E, S>(
         selectedResourceIds: []
       });
     }),
-    on(actions.deleteSuccess, (state: ListState<S, E>) => ({
+    on(actions.deleteSuccess, (state: ListState<S, E, Params>) => ({
       ...state,
       selectedResourceIds: [] as string[]
     })),
-    ...createLoadingStateActionHandlers<ListState<S, E>>(
+    ...createLoadingStateActionHandlers<ListState<S, E, Params>>(
       actions.loadPage,
       actions.loadPageSuccess,
       actions.loadPageFailure
     ),
-    ...createRequestStateActionHandlers<ListState<S, E>, E>(
+    ...createRequestStateActionHandlers<ListState<S, E, Params>, E>(
       undefined,
       actions.delete,
       actions.deleteSuccess,
       actions.deleteFailure
     ),
-    ...createRequestStateActionHandlers<ListState<S, E>, E>(
+    ...createRequestStateActionHandlers<ListState<S, E, Params>, E>(
       actions.resetRequestState,
       actions.patch,
       actions.patchSuccess,
