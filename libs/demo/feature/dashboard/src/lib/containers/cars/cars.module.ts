@@ -5,7 +5,7 @@ import { DemoUiCarsModule } from '@demo/demo/ui/cars';
 import { CarsComponent } from './cars.component';
 
 @NgModule({
-  imports: [CommonModule, DemoDataAccessCarsModule.config({ listFeatureKey: ' dashboard.cars' }), DemoUiCarsModule],
+  imports: [CommonModule, DemoDataAccessCarsModule.config({ listFeatureKey: 'dashboard.cars' }), DemoUiCarsModule],
   declarations: [CarsComponent],
   exports: [CarsComponent]
 })

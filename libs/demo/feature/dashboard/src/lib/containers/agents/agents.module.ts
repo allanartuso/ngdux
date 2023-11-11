@@ -7,7 +7,7 @@ import { AgentsComponent } from './agents.component';
 @NgModule({
   imports: [
     CommonModule,
-    DemoDataAccessAgentsModule.config({ listFeatureKey: ' dashboard.agents' }),
+    DemoDataAccessAgentsModule.config({ listFeatureKey: 'dashboard.agents' }),
     DemoUiAgentsModule
   ],
   declarations: [AgentsComponent],

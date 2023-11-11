@@ -16,8 +16,9 @@ import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 
 export const LIST_FEATURE_KEY = new InjectionToken<string>('LIST_FEATURE_KEY');
-export const LIST_SERVICE = new InjectionToken<string>('LIST_SERVICE');
-export const LIST_NOTIFICATION_SERVICE = new InjectionToken<string>('LIST_NOTIFICATION_SERVICE');
+export const LIST_FEATURE_KEYS = new InjectionToken<string>('LIST_FEATURE_KEYS');
+export const LIST_SERVICES = new InjectionToken<string>('LIST_SERVICES');
+export const LIST_NOTIFICATION_SERVICES = new InjectionToken<string>('LIST_NOTIFICATION_SERVICES');
 
 export interface ListState<T, E = unknown> extends EntityState<T>, RequestOptions, ApiRequestState<E>, LoadingState {
   selectedResourceIds: string[];
@@ -166,6 +167,5 @@ export interface ListActions<Entity, Error = unknown, Summary = Entity, Params =
 
 export interface NgduxListStateModuleConfig<T extends { [key: string]: any }, E, S = T> {
   service: Type<ListService<T, S>>;
-  listFeatureKey?: string;
   notificationService?: Type<ListNotificationService<E>>;
 }

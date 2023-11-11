@@ -20,7 +20,7 @@ export const carsRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(carsRoutes), DemoDataAccessCarsModule, DemoUiCarsModule],
+  imports: [CommonModule, RouterModule.forChild(carsRoutes), DemoDataAccessCarsModule.config(), DemoUiCarsModule],
   declarations: [CarsComponent],
   providers: [CarsResolver]
 })

@@ -20,7 +20,7 @@ export const agentsRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(agentsRoutes), DemoDataAccessAgentsModule, DemoUiAgentsModule],
+  imports: [CommonModule, RouterModule.forChild(agentsRoutes), DemoDataAccessAgentsModule.config(), DemoUiAgentsModule],
   declarations: [AgentsComponent],
   providers: [AgentsResolver]
 })

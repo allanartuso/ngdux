@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { CarsFacade } from '@demo/demo/data-access/cars';
+import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { UserFacade } from '@demo/demo/data-access/users';
-import { CarDto } from '@demo/demo/data-model/cars';
 import { Observable, combineLatest, first, map, of } from 'rxjs';
 
 @Injectable()
 export class UserResolver implements Resolve<boolean> {
-  constructor(private readonly userFacade: UserFacade, private readonly carsFacade: CarsFacade<CarDto>) {}
+  constructor(private readonly userFacade: UserFacade, private readonly carsFacade: CarsListFacade) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     const id = route.params['id'];

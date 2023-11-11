@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CarsFacade } from '@demo/demo/data-access/cars';
+import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
-import { ErrorDto, FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
+import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class CarsComponent {
     selectedItems: this.carsFacade.selectedItems$
   });
 
-  constructor(private readonly router: Router, private readonly carsFacade: CarsFacade<CarDto, ErrorDto>) {}
+  constructor(private readonly router: Router, private readonly carsFacade: CarsListFacade) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.carsFacade.changeFiltering({ filteringOptions });

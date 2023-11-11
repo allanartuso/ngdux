@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AgentsFacade } from '@demo/demo/data-access/agents';
+import { AgentsListFacade } from '@demo/demo/data-access/agents';
 import { AgentDto, AGENTS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/agents';
-import { ErrorDto, FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
+import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class AgentsComponent {
     selectedItems: this.agentsFacade.selectedItems$
   });
 
-  constructor(private readonly router: Router, private readonly agentsFacade: AgentsFacade<AgentDto, ErrorDto>) {}
+  constructor(private readonly router: Router, private readonly agentsFacade: AgentsListFacade) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.agentsFacade.changeFiltering({ filteringOptions });
