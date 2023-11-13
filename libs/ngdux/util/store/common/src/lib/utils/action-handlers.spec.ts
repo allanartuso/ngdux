@@ -2,9 +2,10 @@ import { RequestState } from '@ngdux/data-model-common';
 import { Action, createAction, createReducer, props } from '@ngrx/store';
 import {
   ApiRequestState,
+  LoadingState,
   createLoadingStateActionHandlers,
   createRequestStateActionHandlers,
-  LoadingState
+  getLastPageNumber
 } from './action-handlers';
 
 const loadAction = createAction('[Action Handlers Test] Load Action');
@@ -107,5 +108,31 @@ describe('actionHandlers testReducer', () => {
         requestState: RequestState.FAILURE
       });
     });
+  });
+});
+
+describe('getLastPageNumber', () => {
+  it('returns previous page if the current page is empty', () => {
+    const previousPage = 1;
+
+    const lastPage = getLastPageNumber([], { pageSize: 5, page: previousPage + 1 });
+
+    expect(lastPage).toEqual(previousPage);
+  });
+
+  it('returns current page if the current page length is smaller than page size', () => {
+    const currentPage = 2;
+
+    const lastPage = getLastPageNumber([{ id: 'testId' }], { pageSize: 5, page: currentPage });
+
+    expect(lastPage).toEqual(currentPage);
+  });
+
+  it('returns undefined if the current page length is equal than page size', () => {
+    const summaries = [{ id: 'testId1' }, { id: 'testId2' }, { id: 'testId3' }, { id: 'testId4' }, { id: 'testId5' }];
+
+    const lastPage = getLastPageNumber(summaries, { pageSize: summaries.length, page: 2 });
+
+    expect(lastPage).toEqual(undefined);
   });
 });
