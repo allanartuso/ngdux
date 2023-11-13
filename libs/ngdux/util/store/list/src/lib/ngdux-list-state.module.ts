@@ -1,4 +1,4 @@
-import { Inject, ModuleWithProviders, NgModule, Optional } from '@angular/core';
+import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { RegisterEffectsService } from '@ngdux/store-common';
 import { Actions } from '@ngrx/effects';
@@ -29,7 +29,7 @@ export class NgduxListStateModule<
     listStateService: ListStateService<T, Error, S, Params>,
     @Inject(LIST_FEATURE_KEYS) featureKeys: string[],
     @Inject(LIST_SERVICES) services: ListService<T, S, Params>[],
-    @Optional() @Inject(LIST_NOTIFICATION_SERVICES) notificationServices: ListNotificationService<Error>[]
+    @Inject(LIST_NOTIFICATION_SERVICES) notificationServices: ListNotificationService<Error>[]
   ) {
     featureKeys.forEach((featureKey, index) => {
       const listEffects = new ListEffects(
