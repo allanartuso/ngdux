@@ -3,7 +3,7 @@ import { formSelectors } from '../../support/form/form';
 import { stubGetUser, stubUpdateUser, userFormSelectors } from '../../support/users/user-form';
 
 describe('User form', () => {
-  let updatedUser: UserDto;
+  let updatedUser: Required<UserDto>;
 
   beforeEach(() => {
     stubGetUser();

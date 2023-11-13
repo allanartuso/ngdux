@@ -6,6 +6,8 @@
   [pagingOptions]="model.pagingOptions"
   [selectedItems]="model.selectedItems"
   [filteringOptions]="model.filteringOptions"
+  [canEdit]="true"
+  [allowRowSelection]="true"
   (sortingChanged)="onSortingChanged($event)"
   (filteringChanged)="onFilteringChanged($event)"
   (refreshPageSelected)="onRefreshPageSelected()"
