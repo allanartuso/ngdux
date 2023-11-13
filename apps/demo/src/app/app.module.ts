@@ -38,6 +38,10 @@ const ROUTES: Routes = [
     loadChildren: () => import('@demo/demo/feature/agents').then(module => module.DemoFeatureAgentsModule)
   },
   {
+    path: 'smartphones',
+    loadChildren: () => import('@demo/demo/feature/smartphones').then(module => module.DemoFeatureSmartphonesModule)
+  },
+  {
     path: '**',
     redirectTo: 'dashboard'
   }

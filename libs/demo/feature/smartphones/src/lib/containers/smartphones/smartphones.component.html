@@ -1,0 +1,16 @@
+<demo-smartphones-table
+  *ngIf="model$ | async as model"
+  [gridData]="model.smartphones"
+  [totalCount]="model.totalCount"
+  [sortingOptions]="model.sortingOptions"
+  [pagingOptions]="model.pagingOptions"
+  [selectedItems]="model.selectedItems"
+  [filteringOptions]="model.filteringOptions"
+  (sortingChanged)="onSortingChanged($event)"
+  (filteringChanged)="onFilteringChanged($event)"
+  (refreshPageSelected)="onRefreshPageSelected()"
+  (pageOptionsChanged)="onPageOptionsChanged($event)"
+  (rowClicked)="onRowClicked($event)"
+  (rowSelected)="onRowSelected($event)"
+  (deleteSelected)="onDelete()"
+></demo-smartphones-table>
