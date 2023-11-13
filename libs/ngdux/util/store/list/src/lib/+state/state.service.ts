@@ -7,14 +7,14 @@ import { createListEntityAdapter, createListReducer } from '../state-generator/l
 import { createListSelectors } from '../state-generator/list-selectors';
 
 @Injectable()
-export class ListReducerManager<
+export class ListStateService<
   T extends { [key: string]: any },
   Error = unknown,
   S extends { [key: string]: any } = T,
   Params = Record<string, string>
 > {
-  actions: Record<string, ListActions<T, Error, S, Params>> = {};
-  selectors: Record<string, ListSelectors<S, Error, Params>> = {};
+  protected actions: Record<string, ListActions<T, Error, S, Params>> = {};
+  protected selectors: Record<string, ListSelectors<S, Error, Params>> = {};
   private entityAdapter: EntityAdapter<S>;
 
   constructor(private readonly reducerManager: ReducerManager, @Inject(LIST_FEATURE_KEYS) featureKeys: string[]) {

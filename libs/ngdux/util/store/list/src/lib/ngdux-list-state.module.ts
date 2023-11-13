@@ -4,7 +4,7 @@ import { RegisterEffectsService } from '@ngdux/store-common';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ListEffects } from './+state/effects';
-import { ListReducerManager } from './+state/state.service';
+import { ListStateService } from './+state/state.service';
 import {
   LIST_FEATURE_KEYS,
   LIST_NOTIFICATION_SERVICES,
@@ -14,7 +14,7 @@ import {
 import { NotificationServicePlaceholder } from './services/list-notification-service';
 
 @NgModule({
-  providers: [ListReducerManager]
+  providers: [ListStateService]
 })
 export class NgduxListStateModule<
   T extends { [key: string]: any },
@@ -26,7 +26,7 @@ export class NgduxListStateModule<
     registerEffectsService: RegisterEffectsService,
     actions$: Actions,
     store: Store,
-    reducerManager: ListReducerManager<T, Error, S, Params>,
+    listStateService: ListStateService<T, Error, S, Params>,
     @Inject(LIST_FEATURE_KEYS) featureKeys: string[],
     @Inject(LIST_SERVICES) services: ListService<T, S, Params>[],
     @Optional() @Inject(LIST_NOTIFICATION_SERVICES) notificationServices: ListNotificationService<Error>[]
@@ -35,7 +35,7 @@ export class NgduxListStateModule<
       const listEffects = new ListEffects(
         actions$,
         store,
-        reducerManager,
+        listStateService,
         featureKey,
         services[index],
         notificationServices[index]

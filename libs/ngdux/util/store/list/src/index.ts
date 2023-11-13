@@ -1,5 +1,5 @@
 export { ListNotificationService, ListService, RequestOptions, RequestState } from '@ngdux/data-model-common';
-export { ListReducerManager } from './lib/+state/state.service';
+export { ListStateService } from './lib/+state/state.service';
 export * from './lib/models/list.model';
 export * from './lib/ngdux-list-state.module';
 export * from './lib/state-generator/abstract-list-effects';
