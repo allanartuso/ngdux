@@ -1,5 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { getDefaultRequestOptions, ListService, RequestOptions, RequestState } from '@ngdux/data-model-common';
+import {
+  getDefaultRequestOptions,
+  ListNotificationService,
+  ListService,
+  RequestOptions,
+  RequestState
+} from '@ngdux/data-model-common';
 import { createTestResources, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
@@ -15,7 +21,7 @@ import {
   testListSelectors,
   TestListService
 } from '../models/list.fixture';
-import { ListState } from '../models/list.model';
+import { LIST_NOTIFICATION_SERVICES, ListState } from '../models/list.model';
 
 describe('TestEffects', () => {
   let actions$: Observable<Action>;
@@ -25,6 +31,7 @@ describe('TestEffects', () => {
   let resources: TestResource[];
   let initialState: ListState<TestResource, TestErrors>;
   let requestOptions: RequestOptions;
+  let notificationServiceMock: Partial<ListNotificationService<string[]>>;
 
   const tenantId = 2;
   const testErrors: TestErrors = createTestErrors();
@@ -42,11 +49,16 @@ describe('TestEffects', () => {
       errors: undefined
     });
     initialState = testEntityAdapter.addMany(resources, initialState);
+    notificationServiceMock = {
+      onListErrors: jest.fn(),
+      onListDelete: jest.fn()
+    };
 
     TestBed.configureTestingModule({
       providers: [
         TestListEffects,
         TestListService,
+        { provide: LIST_NOTIFICATION_SERVICES, useValue: notificationServiceMock },
         provideMockActions(() => actions$),
         provideMockStore({
           selectors: [
@@ -150,6 +162,15 @@ describe('TestEffects', () => {
     });
   });
 
+  describe('loadFirstPage$', () => {
+    it('emits change page size actions', () => {
+      actions$ = hot('a', { a: testListActions.loadFirstPage() });
+      const expected = hot('a', { a: testListActions.changePageNumber({ pageNumber: 1 }) });
+
+      expect(effects.loadFirstPage$).toBeObservable(expected);
+    });
+  });
+
   describe('delete$', () => {
     let resourceIds: string[];
 
@@ -184,6 +205,33 @@ describe('TestEffects', () => {
       actions$ = hot('a', { a: testListActions.delete({ resourceIds }) });
 
       expect(effects.delete$).toBeObservable(expected);
+    });
+  });
+
+  describe('deleteSuccess$', () => {
+    let resourceIds: string[];
+
+    beforeEach(() => {
+      resourceIds = ['testId1'];
+    });
+
+    it('notifies deletion', () => {
+      actions$ = hot('a', { a: testListActions.deleteSuccess({ resourceIds }) });
+
+      expect(effects.deleteSuccess$).toSatisfyOnFlush(() => {
+        expect(notificationServiceMock.onListDelete).toHaveBeenCalledWith(resourceIds);
+      });
+    });
+  });
+
+  describe('errorsHandler$', () => {
+    it('notifies errors', () => {
+      const errors = ['errorTest'];
+      actions$ = hot('a', { a: testListActions.deleteFailure({ errors }) });
+
+      expect(effects.errorsHandler$).toSatisfyOnFlush(() => {
+        expect(notificationServiceMock.onListErrors).toHaveBeenCalledWith(errors);
+      });
     });
   });
 
