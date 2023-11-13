@@ -1,0 +1,31 @@
+{
+  "name": "demo-ui-smartphones",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/demo/ui/smartphones/src",
+  "prefix": "demo",
+  "tags": ["scope:demo", "type:ui"],
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/demo/ui/smartphones/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/demo/ui/smartphones/**/*.ts", "libs/demo/ui/smartphones/**/*.html"]
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<demo-table
+  #table
+  [dataSource]="gridData"
+  [sortingOptions]="sortingOptions"
+  [columns]="columns"
+  [totalCount]="totalCount"
+  [pagingOptions]="pagingOptions"
+  [allowRowSelection]="allowRowSelection"
+  [canEdit]="canEdit"
+  (sortingChanged)="onSortingChanged($event)"
+  (deleteSelected)="onDelete()"
+  (rowSelected)="onRowSelected($event)"
+  (rowClicked)="onRowClicked($event)"
+  (pageOptionsChanged)="onPageOptionsChanged($event)"
+>
+</demo-table>

@@ -78,12 +78,20 @@ export const BODY_ITEMS: MenuItem[] = [
         display: true,
         link: '/agents'
       }
-      // {
-      //   name: 'Create Car',
-      //   icon: 'add',
-      //   display: true,
-      //   link: '/agents/new'
-      // }
+    ]
+  },
+  {
+    name: 'Smartphones',
+    icon: 'smartphones',
+    display: true,
+    link: '/smartphones',
+    children: [
+      {
+        name: 'Smartphones',
+        icon: 'list',
+        display: true,
+        link: '/smartphones'
+      }
     ]
   }
 ];

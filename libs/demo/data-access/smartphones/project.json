@@ -1,0 +1,31 @@
+{
+  "name": "demo-data-access-smartphones",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/demo/data-access/smartphones/src",
+  "prefix": "demo",
+  "tags": ["scope:demo", "type:data-access"],
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/demo/data-access/smartphones/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/demo/data-access/smartphones/**/*.ts", "libs/demo/data-access/smartphones/**/*.html"]
+      }
+    }
+  }
+}
