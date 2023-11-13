@@ -1,23 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot } from '@angular/router';
+import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { UserFacade } from '@demo/demo/data-access/users';
-import { RequestState } from '@ngdux/data-model-common';
+import { commonFixture } from '@ngdux/data-model-common/test';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { UserResolver } from './user.resolver';
 
 describe('UserResolver', () => {
   let resolver: UserResolver;
-  let facade: Partial<UserFacade>;
+  let facade: Partial<commonFixture.RemoveReadonly<UserFacade>>;
+  let carsFacade: Partial<commonFixture.RemoveReadonly<CarsListFacade>>;
 
   const id = 'testId';
   const mockRouteSnapshot = { params: { id } } as unknown as ActivatedRouteSnapshot;
 
   beforeEach(() => {
     facade = {
-      requestState$: of(RequestState.IDLE),
       isReady$: of(true),
       load: jest.fn()
+    };
+    carsFacade = {
+      isReady$: of(true),
+      initialize: jest.fn(),
+      setPageSize: jest.fn()
     };
 
     TestBed.configureTestingModule({
@@ -31,6 +37,10 @@ describe('UserResolver', () => {
         {
           provide: UserFacade,
           useValue: facade
+        },
+        {
+          provide: CarsListFacade,
+          useValue: carsFacade
         }
       ]
     });
@@ -52,7 +62,7 @@ describe('UserResolver', () => {
   });
 
   it('should wait until the loading state is loaded', () => {
-    (facade as any).isReady$ = of(false);
+    facade.isReady$ = of(false);
     let emitted = false;
 
     resolver.resolve(mockRouteSnapshot).subscribe(() => {

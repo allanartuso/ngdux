@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AgentsFacade } from '@demo/demo/data-access/agents';
+import { AgentsListFacade } from '@demo/demo/data-access/agents';
 import { AgentDto, AGENTS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/agents';
 import { createPersistentAgents } from '@demo/demo/data-model/agents/test';
 import {
@@ -9,7 +9,6 @@ import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   DEFAULT_SORTING_ORDER,
-  ErrorDto,
   FilteringOptions,
   PagingOptions,
   SortingDirection,
@@ -22,7 +21,7 @@ describe('AgentsComponent', () => {
   let component: AgentsComponent;
   let router: Router;
   let agents: AgentDto[];
-  let facade: Partial<AgentsFacade<AgentDto, ErrorDto>>;
+  let facade: Partial<AgentsListFacade>;
 
   beforeEach(() => {
     facade = {
@@ -32,6 +31,7 @@ describe('AgentsComponent', () => {
       pagingOptions$: of({ page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE }),
       sortingOptions$: of({ name: { field: 'name', direction: DEFAULT_SORTING_ORDER } }),
       filteringOptions$: of({ logic: DEFAULT_FILTERING_LOGIC, filters: [] }),
+      initialize: jest.fn(),
       loadPage: jest.fn(),
       changePagingOptions: jest.fn(),
       changeFiltering: jest.fn(),
@@ -42,7 +42,7 @@ describe('AgentsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [AgentsComponent, { provide: AgentsFacade, useValue: facade }]
+      providers: [AgentsComponent, { provide: AgentsListFacade, useValue: facade }]
     });
   });
 

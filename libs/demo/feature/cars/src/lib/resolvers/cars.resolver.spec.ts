@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { CarsFacade } from '@demo/demo/data-access/cars';
-import { CarDto } from '@demo/demo/data-model/cars';
-import { ErrorDto, RequestState } from '@ngdux/data-model-common';
+import { CarsListFacade } from '@demo/demo/data-access/cars';
+import { RequestState } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
 import { of } from 'rxjs';
 import { CarsResolver } from './cars.resolver';
 
 describe('CarsResolver', () => {
   let resolver: CarsResolver;
-  let facade: Partial<commonFixture.RemoveReadonly<CarsFacade<CarDto, ErrorDto>>>;
+  let facade: Partial<commonFixture.RemoveReadonly<CarsListFacade>>;
 
   beforeEach(() => {
     facade = {
@@ -21,7 +20,7 @@ describe('CarsResolver', () => {
       providers: [
         CarsResolver,
         {
-          provide: CarsFacade,
+          provide: CarsListFacade,
           useValue: facade
         }
       ]

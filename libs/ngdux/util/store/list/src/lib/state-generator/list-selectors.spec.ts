@@ -1,5 +1,5 @@
-import { DEFAULT_REQUEST_OPTIONS, RequestState } from '@ngdux/data-model-common';
-import { createTestResources, TestResource } from '@ngdux/store-common/test';
+import { RequestState, getDefaultRequestOptions } from '@ngdux/data-model-common';
+import { TestResource, createTestResources } from '@ngdux/store-common/test';
 import { createFeatureSelector } from '@ngrx/store';
 import { TestErrors } from '../models/list.fixture';
 import { ListState } from '../models/list.model';
@@ -9,14 +9,16 @@ import { createListSelectors } from './list-selectors';
 describe('list selectors', () => {
   let state: ListState<TestResource, TestErrors>;
   let resources: TestResource[];
+  const requestOptions = getDefaultRequestOptions();
 
   const testEntityAdapter = createListEntityAdapter<TestResource>();
   const listSelectors = createListSelectors<TestResource, TestErrors>(
     testEntityAdapter,
     createFeatureSelector('testFeature')
   );
+
   const initialState = testEntityAdapter.getInitialState({
-    ...DEFAULT_REQUEST_OPTIONS,
+    ...requestOptions,
     lastPageNumber: undefined,
     currentResourceId: undefined,
     selectedResourceIds: [],

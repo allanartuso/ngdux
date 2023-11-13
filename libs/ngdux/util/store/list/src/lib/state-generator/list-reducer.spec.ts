@@ -6,17 +6,17 @@ jest.mock('@ngdux/store-common', () => ({
 }));
 
 import {
-  DEFAULT_REQUEST_OPTIONS,
   FilteringField,
   FilteringLogic,
   FilteringOperator,
   FilteringOptions,
   RequestState,
   SortingDirection,
-  SortingOptions
+  SortingOptions,
+  getDefaultRequestOptions
 } from '@ngdux/data-model-common';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
-import { createTestResource, createTestResources, TestResource } from '@ngdux/store-common/test';
+import { TestResource, createTestResource, createTestResources } from '@ngdux/store-common/test';
 import { EntityAdapter } from '@ngrx/entity';
 import { ActionReducer } from '@ngrx/store';
 import { TestErrors } from '../models/list.fixture';
@@ -54,7 +54,7 @@ describe('createListReducer', () => {
     testEntityAdapter = createListEntityAdapter();
     testListActions = createListActions('testFeature');
     testInitialState = testEntityAdapter.getInitialState({
-      ...DEFAULT_REQUEST_OPTIONS,
+      ...getDefaultRequestOptions(),
       lastPageNumber: undefined,
       selectedResourceIds: [],
       loadingState: RequestState.IDLE,

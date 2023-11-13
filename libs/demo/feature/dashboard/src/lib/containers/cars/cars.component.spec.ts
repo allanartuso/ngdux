@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CarsFacade } from '@demo/demo/data-access/cars';
+import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
 import { createPersistentCars } from '@demo/demo/data-model/cars/test';
 import {
@@ -9,7 +9,6 @@ import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   DEFAULT_SORTING_ORDER,
-  ErrorDto,
   FilteringOptions,
   PagingOptions,
   SortingDirection,
@@ -22,7 +21,7 @@ describe('CarsComponent', () => {
   let component: CarsComponent;
   let router: Router;
   let cars: CarDto[];
-  let facade: Partial<CarsFacade<CarDto, ErrorDto>>;
+  let facade: Partial<CarsListFacade>;
 
   beforeEach(() => {
     facade = {
@@ -32,6 +31,7 @@ describe('CarsComponent', () => {
       pagingOptions$: of({ page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE }),
       sortingOptions$: of({ name: { field: 'name', direction: DEFAULT_SORTING_ORDER } }),
       filteringOptions$: of({ logic: DEFAULT_FILTERING_LOGIC, filters: [] }),
+      initialize: jest.fn(),
       loadPage: jest.fn(),
       changePagingOptions: jest.fn(),
       changeFiltering: jest.fn(),
@@ -42,7 +42,7 @@ describe('CarsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [CarsComponent, { provide: CarsFacade, useValue: facade }]
+      providers: [CarsComponent, { provide: CarsListFacade, useValue: facade }]
     });
   });
 
