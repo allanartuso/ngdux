@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { AgentsFacade } from '@demo/demo/data-access/agents';
-import { AgentDto } from '@demo/demo/data-model/agents';
-import { ErrorDto, RequestState } from '@ngdux/data-model-common';
+import { AgentsListFacade } from '@demo/demo/data-access/agents';
+import { RequestState } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
 import { of } from 'rxjs';
 import { AgentsResolver } from './agents.resolver';
 
 describe('AgentsResolver', () => {
   let resolver: AgentsResolver;
-  let facade: Partial<commonFixture.RemoveReadonly<AgentsFacade<AgentDto, ErrorDto>>>;
+  let facade: Partial<commonFixture.RemoveReadonly<AgentsListFacade>>;
 
   beforeEach(() => {
     facade = {
@@ -21,7 +20,7 @@ describe('AgentsResolver', () => {
       providers: [
         AgentsResolver,
         {
-          provide: AgentsFacade,
+          provide: AgentsListFacade,
           useValue: facade
         }
       ]

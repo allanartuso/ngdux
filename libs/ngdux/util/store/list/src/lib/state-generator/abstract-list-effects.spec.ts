@@ -1,19 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-import { DEFAULT_REQUEST_OPTIONS, ListService, RequestState } from '@ngdux/data-model-common';
-import { TestResource, createTestResources } from '@ngdux/store-common/test';
+import { getDefaultRequestOptions, ListService, RequestOptions, RequestState } from '@ngdux/data-model-common';
+import { createTestResources, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jest-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import {
-  TestErrors,
-  TestListEffects,
-  TestListService,
   createTestErrors,
   testEntityAdapter,
+  TestErrors,
   testListActions,
-  testListSelectors
+  TestListEffects,
+  testListSelectors,
+  TestListService
 } from '../models/list.fixture';
 import { ListState } from '../models/list.model';
 
@@ -24,15 +24,17 @@ describe('TestEffects', () => {
   let store: MockStore;
   let resources: TestResource[];
   let initialState: ListState<TestResource, TestErrors>;
+  let requestOptions: RequestOptions;
 
   const tenantId = 2;
   const testErrors: TestErrors = createTestErrors();
 
   beforeEach(() => {
     resources = createTestResources(tenantId);
+    requestOptions = getDefaultRequestOptions();
 
     initialState = testEntityAdapter.getInitialState({
-      ...DEFAULT_REQUEST_OPTIONS,
+      ...requestOptions,
       lastPageNumber: undefined,
       selectedResourceIds: [],
       loadingState: RequestState.IDLE,
@@ -49,10 +51,10 @@ describe('TestEffects', () => {
         provideMockStore({
           selectors: [
             { selector: testListSelectors.isLastPage, value: false },
-            { selector: testListSelectors.getCurrentPageNumber, value: DEFAULT_REQUEST_OPTIONS.pagingOptions.page },
-            { selector: testListSelectors.getPagingOptions, value: DEFAULT_REQUEST_OPTIONS.pagingOptions },
-            { selector: testListSelectors.getSortingOptions, value: DEFAULT_REQUEST_OPTIONS.sortingOptions },
-            { selector: testListSelectors.getFilteringOptions, value: DEFAULT_REQUEST_OPTIONS.filteringOptions },
+            { selector: testListSelectors.getCurrentPageNumber, value: requestOptions.pagingOptions.page },
+            { selector: testListSelectors.getPagingOptions, value: requestOptions.pagingOptions },
+            { selector: testListSelectors.getSortingOptions, value: requestOptions.sortingOptions },
+            { selector: testListSelectors.getFilteringOptions, value: requestOptions.filteringOptions },
             { selector: testListSelectors.getRequestParameters, value: {} }
           ]
         })

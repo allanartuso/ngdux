@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
 import { createPersistentUser } from '@demo/demo/data-model/users/test';
-import { NgilInputComponent } from '@ngil/form-inputs';
+import { NgilInputComponent, NgilSelectComponent } from '@ngil/form-inputs';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {
@@ -15,7 +15,7 @@ describe('UserFormComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, NoopAnimationsModule],
-      declarations: [UserFormComponent, NgilInputComponent],
+      declarations: [UserFormComponent, NgilInputComponent, NgilSelectComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -30,11 +30,13 @@ describe('UserFormComponent', () => {
   it('creates the form', () => {
     component.formViewModel = testUser;
     fixture.detectChanges();
+
     const expectedFormValue: CreateUserDto = {
       email: testUser.email,
       firstName: testUser.firstName,
       lastName: testUser.lastName,
-      birthTime: testUser.birthTime
+      birthTime: testUser.birthTime,
+      cars: testUser.cars
     };
 
     expect(component.form).toBeTruthy();
@@ -43,7 +45,7 @@ describe('UserFormComponent', () => {
 
   it('creates an empty form when the form model is undefined', () => {
     fixture.detectChanges();
-    const expectedFormValue: CreateUserDto = { email: '', firstName: '', lastName: '', birthTime: '' };
+    const expectedFormValue: CreateUserDto = { email: '', firstName: '', lastName: '', birthTime: '', cars: [] };
 
     expect(component.form).toBeTruthy();
     expect(component.form.value).toStrictEqual(expectedFormValue);
