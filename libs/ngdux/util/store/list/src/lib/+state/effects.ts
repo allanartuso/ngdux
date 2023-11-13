@@ -3,7 +3,7 @@ import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { Actions, OnIdentifyEffects } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AbstractListEffects } from '../state-generator/abstract-list-effects';
-import { ListReducerManager } from './state.service';
+import { ListStateService } from './state.service';
 
 export class ListEffects<
     T extends { [key: string]: any },
@@ -17,7 +17,7 @@ export class ListEffects<
   constructor(
     actions$: Actions,
     store: Store,
-    reducerManager: ListReducerManager<T, Error, S, Params>,
+    listStateService: ListStateService<T, Error, S, Params>,
     private readonly featureKey: string,
     service: ListService<T, S, Params>,
     @Optional() notificationService?: ListNotificationService<Error>
@@ -26,8 +26,8 @@ export class ListEffects<
       actions$,
       store,
       service,
-      reducerManager.actions[featureKey],
-      reducerManager.selectors[featureKey],
+      listStateService.getFeatureActions(featureKey),
+      listStateService.getFeatureSelectors(featureKey),
       notificationService
     );
   }

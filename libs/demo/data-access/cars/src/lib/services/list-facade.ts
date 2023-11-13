@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { CarDto } from '@demo/demo/data-model/cars';
 import { ErrorDto } from '@ngdux/data-model-common';
-import { AbstractListFacade, ListReducerManager } from '@ngdux/list';
+import { AbstractListFacade, ListStateService } from '@ngdux/list';
 import { Store } from '@ngrx/store';
 import { CARS_LIST_FEATURE_KEY } from '../models/cars.model';
 
@@ -9,9 +9,9 @@ import { CARS_LIST_FEATURE_KEY } from '../models/cars.model';
 export class CarsListFacade extends AbstractListFacade<CarDto, ErrorDto> {
   constructor(
     store: Store,
-    reducerManager: ListReducerManager<CarDto, ErrorDto>,
+    listStateService: ListStateService<CarDto, ErrorDto>,
     @Inject(CARS_LIST_FEATURE_KEY) featureKey: string
   ) {
-    super(store, reducerManager.getFeatureActions(featureKey), reducerManager.getFeatureSelectors(featureKey));
+    super(store, listStateService.getFeatureActions(featureKey), listStateService.getFeatureSelectors(featureKey));
   }
 }
