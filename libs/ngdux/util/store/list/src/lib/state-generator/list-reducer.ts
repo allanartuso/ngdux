@@ -73,6 +73,10 @@ function createListActionHandlers<T, E, S, Params>(
       ...state,
       pagingOptions: { ...state.pagingOptions, page: pageNumber }
     })),
+    on(actions.changePagingOptions, (state: ListState<S, E, Params>, { pagingOptions }) => ({
+      ...state,
+      pagingOptions
+    })),
     on(actions.changeSorting, actions.setSorting, (state: ListState<S, E, Params>, { sortingOptions }) => ({
       ...state,
       sortingOptions,

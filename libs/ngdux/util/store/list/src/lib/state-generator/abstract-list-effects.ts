@@ -2,7 +2,7 @@ import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, concatMap, exhaustMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, exhaustMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { ListActions, ListSelectors } from '../models/list.model';
 
@@ -18,6 +18,7 @@ export abstract class AbstractListEffects<T, E = unknown, S = T, Params = Record
         this.listActions.changePageSize,
         this.listActions.changeSorting,
         this.listActions.changeFiltering,
+        this.listActions.changePagingOptions,
         this.listActions.changeRequestParams,
         this.listActions.initialize,
         this.listActions.reset,
@@ -57,20 +58,6 @@ export abstract class AbstractListEffects<T, E = unknown, S = T, Params = Record
     )
   );
 
-  changePagingOptions$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(this.listActions.changePagingOptions),
-      withLatestFrom(this.store.pipe(select(this.listSelectors.getPagingOptions))),
-      map(([action, pagingOptions]) => {
-        if (action.pagingOptions.pageSize !== pagingOptions.pageSize) {
-          return this.listActions.changePageSize({ pageSize: action.pagingOptions.pageSize });
-        } else {
-          return this.listActions.changePageNumber({ pageNumber: action.pagingOptions.page });
-        }
-      })
-    )
-  );
-
   loadPage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.listActions.loadPage),
@@ -80,8 +67,7 @@ export abstract class AbstractListEffects<T, E = unknown, S = T, Params = Record
         this.store.pipe(select(this.listSelectors.getFilteringOptions)),
         this.store.pipe(select(this.listSelectors.getRequestParameters))
       ),
-      // TODO: change to switchMap
-      concatMap(([, pagingOptions, sortingOptions, filteringOptions, requestParameters]) => {
+      switchMap(([, pagingOptions, sortingOptions, filteringOptions, requestParameters]) => {
         return this.service
           .loadResources({
             pagingOptions,
@@ -157,7 +143,7 @@ export abstract class AbstractListEffects<T, E = unknown, S = T, Params = Record
     )
   );
 
-  deleteUsersSuccess$ = createEffect(
+  deleteSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(this.listActions.deleteSuccess),
