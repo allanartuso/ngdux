@@ -22,6 +22,8 @@ export abstract class AbstractTableComponent<T> {
   };
   @Input() gridData: T[] = [];
   @Input() selectedItems: T[] = [];
+  @Input() canEdit = false;
+  @Input() allowRowSelection = false;
 
   @Output() sortingChanged = new EventEmitter<SortingField[]>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();

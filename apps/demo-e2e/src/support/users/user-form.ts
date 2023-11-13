@@ -18,13 +18,14 @@ export function stubGetUser(): void {
   }).as(userFormRoutes.getUser);
 }
 
-export function stubUpdateUser(): UserDto {
-  const updatedUser: UserDto = {
+export function stubUpdateUser(): Required<UserDto> {
+  const updatedUser: Required<UserDto> = {
     id: '1',
     email: 'artuso@gmail.com',
     firstName: 'Allan',
     lastName: 'Artuso',
-    birthTime: '13:14:15'
+    birthTime: '13:14:15',
+    cars: []
   };
 
   cy.intercept('PUT', '/api/users/1', req => {
