@@ -10,11 +10,6 @@ import { UsersReducerManager } from './users-state.service';
 
 @Injectable()
 export class UsersEffects extends AbstractListEffects<UserDto, ErrorDto> implements OnIdentifyEffects {
-  override texts = {
-    deleteConfirmationTitle: 'Delete users',
-    deleteConfirmationMessage: 'Are you sure to delete the selected users?'
-  };
-
   constructor(
     actions$: Actions,
     store: Store,

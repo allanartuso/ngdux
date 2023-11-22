@@ -105,11 +105,4 @@ export abstract class AbstractListFacade<T, E, S = T, Params = Record<string, st
   resetRequestState(): void {
     this.store.dispatch(this.listActions.resetRequestState());
   }
-
-  /**
-   * @deprecated The method will be removed. The AbstractFacade will not be responsible for it anymore
-   */
-  showRemovalsConfirmation(): void {
-    this.store.dispatch(this.listActions.showRemovalsConfirmation());
-  }
 }

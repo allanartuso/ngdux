@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersFacade } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
-import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
-import { combineLatest, map } from 'rxjs';
+import { NotificationService } from '@demo/shared/common/util-notification';
+import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
+import { combineLatest, filter, map } from 'rxjs';
 
 @Component({
   selector: 'demo-users',
@@ -20,7 +21,11 @@ export class UsersComponent {
     selectedItems: this.usersFacade.selectedItems$
   });
 
-  constructor(private readonly router: Router, private readonly usersFacade: UsersFacade) {}
+  constructor(
+    private readonly router: Router,
+    private readonly usersFacade: UsersFacade,
+    private readonly notificationService: NotificationService
+  ) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.usersFacade.changeFiltering({ filteringOptions });
@@ -28,9 +33,7 @@ export class UsersComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.usersFacade.changeSorting({
-      sortingOptions: sortingOptions.reduce<SortingOptions>((acc, sortingOption) => {
-        return { ...acc, [sortingOption.field]: sortingOption };
-      }, {})
+      sortingOptions
     });
   }
 
@@ -50,7 +53,15 @@ export class UsersComponent {
     this.router.navigate([USERS_RESOURCE_BASE_PATH, user.id]);
   }
 
-  onDelete(): void {
-    this.usersFacade.showRemovalsConfirmation();
+  onDelete(items: UserDto[]): void {
+    this.notificationService
+      .openConfirmationDialog({
+        title: 'Delete users',
+        message: 'Are you sure to delete the selected users?'
+      })
+      .pipe(filter(confirmed => confirmed))
+      .subscribe(() => {
+        this.usersFacade.delete({ resourceIds: items.map(item => item.id) });
+      });
   }
 }

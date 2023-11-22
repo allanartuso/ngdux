@@ -42,7 +42,7 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   @Output() refreshPageSelected = new EventEmitter<void>();
   @Output() pageOptionsChanged = new EventEmitter<PagingOptions>();
   @Output() rowSelected = new EventEmitter<T[]>();
-  @Output() deleteSelected = new EventEmitter<void>();
+  @Output() deleteSelected = new EventEmitter<T[]>();
   @Output() rowClicked = new EventEmitter<T>();
 
   sortActive = '';
@@ -114,7 +114,7 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   }
 
   onDelete(): void {
-    this.deleteSelected.emit();
+    this.deleteSelected.emit(this.selection.selected);
   }
 
   onRowClicked(item: T) {

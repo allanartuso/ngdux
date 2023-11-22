@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgentsListFacade } from '@demo/demo/data-access/agents';
 import { AgentDto, AGENTS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/agents';
-import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
+import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
 
 @Component({
@@ -32,9 +32,7 @@ export class AgentsComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.agentsFacade.changeSorting({
-      sortingOptions: sortingOptions.reduce<SortingOptions>((acc, sortingOption) => {
-        return { ...acc, [sortingOption.field]: sortingOption };
-      }, {})
+      sortingOptions
     });
   }
 
@@ -52,9 +50,5 @@ export class AgentsComponent {
 
   onRowClicked(user: AgentDto): void {
     this.router.navigate([AGENTS_RESOURCE_BASE_PATH, user.id]);
-  }
-
-  onDelete(): void {
-    this.agentsFacade.showRemovalsConfirmation();
   }
 }

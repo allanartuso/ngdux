@@ -10,6 +10,8 @@
   "peerDependencies": {
     "@ngdux/data-model-common": "^1.0.0",
     "@angular/core": "^16.0.0",
-    "@ngdux/store-common": "^1.0.0"
+    "@ngdux/store-common": "^1.0.0",
+    "@ngrx/store": "^16.0.0",
+    "@ngrx/effects": "^16.0.0"
   }
 }
