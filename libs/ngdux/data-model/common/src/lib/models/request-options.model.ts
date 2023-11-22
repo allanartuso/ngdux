@@ -1,11 +1,11 @@
 import { DEFAULT_FILTERING_LOGIC, FilteringOptions } from './filtering-options.model';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, PagingOptions } from './paging-options.model';
-import { SortingField, SortingOptions } from './sorting-options.model';
+import { SortingField } from './sorting-options.model';
 
 export interface RequestOptions<Params = Record<string, string>> {
   requestParameters?: Params;
   pagingOptions: PagingOptions;
-  sortingOptions: SortingOptions;
+  sortingOptions: SortingField[];
   filteringOptions: FilteringOptions;
 }
 
@@ -22,7 +22,7 @@ export function getDefaultRequestOptions<Params = Record<string, string>>(): Req
       page: DEFAULT_PAGE,
       pageSize: DEFAULT_PAGE_SIZE
     },
-    sortingOptions: {},
+    sortingOptions: [],
     filteringOptions: {
       logic: DEFAULT_FILTERING_LOGIC,
       filters: []

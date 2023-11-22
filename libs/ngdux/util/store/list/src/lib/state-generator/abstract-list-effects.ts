@@ -7,11 +7,6 @@ import { catchError, exhaustMap, filter, map, switchMap, tap, withLatestFrom } f
 import { ListActions, ListSelectors } from '../models/list.model';
 
 export abstract class AbstractListEffects<T, E = unknown, S = T, Params = Record<string, string>> {
-  texts = {
-    deleteConfirmationTitle: 'Delete resources',
-    deleteConfirmationMessage: 'Are you sure to delete the selected resources?'
-  };
-
   reload$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -101,29 +96,6 @@ export abstract class AbstractListEffects<T, E = unknown, S = T, Params = Record
           catchError((errors: E) => of(this.listActions.patchFailure({ errors })))
         );
       })
-    )
-  );
-
-  /**
-   * @deprecated The method will be removed. THe AbstractEffect will not be responsible for it anymore
-   */
-  showRemovalsDialog$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(this.listActions.showRemovalsConfirmation),
-      switchMap(() => {
-        if (this.notificationService?.openConfirmationDialog) {
-          return this.notificationService.openConfirmationDialog({
-            message: this.texts.deleteConfirmationMessage,
-            title: this.texts.deleteConfirmationTitle
-          });
-        }
-
-        return of(true);
-      }),
-      filter(confirmed => confirmed),
-      withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectedResourceIds))),
-      filter(([, resourceIds]) => !!resourceIds.length),
-      map(([, resourceIds]) => this.listActions.delete({ resourceIds }))
     )
   );
 

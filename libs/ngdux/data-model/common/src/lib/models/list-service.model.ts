@@ -16,11 +16,6 @@ export interface ListService<T, S = T, Params = Record<string, string>> {
 }
 
 export interface ListNotificationService<E> {
-  /**
-   * @deprecated
-   * This method will be removed from this interface and the abstract effects will not call it anymore
-   */
-  openConfirmationDialog?: (data: { message: string; title: string }) => Observable<boolean>;
   onListErrors: (errors: E) => void;
   onListDelete: (ids: string[]) => void;
 }

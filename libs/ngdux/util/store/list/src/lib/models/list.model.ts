@@ -8,7 +8,7 @@ import {
   PagingOptions,
   RequestOptions,
   RequestState,
-  SortingOptions
+  SortingField
 } from '@ngdux/data-model-common';
 import { ApiRequestState, LoadingState } from '@ngdux/store-common';
 import { EntityState } from '@ngrx/entity';
@@ -35,7 +35,7 @@ export interface ListSelectors<T, E = unknown, Params = Record<string, string>> 
   isLastPage: MemoizedSelector<object, boolean>;
   getCurrentPageData: MemoizedSelector<object, T[]>;
   getPagingOptions: MemoizedSelector<object, PagingOptions>;
-  getSortingOptions: MemoizedSelector<object, SortingOptions>;
+  getSortingOptions: MemoizedSelector<object, SortingField[]>;
   getFilteringOptions: MemoizedSelector<object, FilteringOptions>;
   getRequestParameters: MemoizedSelector<object, Params | undefined>;
   getCurrentPageNumber: MemoizedSelector<object, number>;
@@ -63,7 +63,7 @@ export interface ListActions<Entity, Error = unknown, Summary = Entity, Params =
    */
   setSorting: ActionCreator<
     string,
-    (props: { sortingOptions: SortingOptions }) => { sortingOptions: SortingOptions } & TypedAction<string>
+    (props: { sortingOptions: SortingField[] }) => { sortingOptions: SortingField[] } & TypedAction<string>
   >;
   /**
    * Set the filtering options without reloading the list
@@ -101,7 +101,7 @@ export interface ListActions<Entity, Error = unknown, Summary = Entity, Params =
    */
   changeSorting: ActionCreator<
     string,
-    (props: { sortingOptions: SortingOptions }) => { sortingOptions: SortingOptions } & TypedAction<string>
+    (props: { sortingOptions: SortingField[] }) => { sortingOptions: SortingField[] } & TypedAction<string>
   >;
   /**
    * Change the filtering options and reload the list
@@ -163,10 +163,6 @@ export interface ListActions<Entity, Error = unknown, Summary = Entity, Params =
    * Reset the request state to idle
    */
   resetRequestState: ActionCreator<string, () => TypedAction<string>>;
-  /**
-   * @deprecated The method will be removed. THe AbstractEffect will not be responsible for it anymore
-   */
-  showRemovalsConfirmation: ActionCreator<string, () => TypedAction<string>>;
 }
 
 export interface NgduxListStateModuleConfig<

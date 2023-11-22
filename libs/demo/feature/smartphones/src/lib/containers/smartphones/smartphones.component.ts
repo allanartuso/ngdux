@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SmartphonesListFacade } from '@demo/demo/data-access/smartphones';
 import { SmartphoneDto, SMARTPHONES_RESOURCE_BASE_PATH } from '@demo/demo/data-model/smartphones';
-import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
+import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
 
 @Component({
@@ -28,9 +28,7 @@ export class SmartphonesComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.smartphonesFacade.changeSorting({
-      sortingOptions: sortingOptions.reduce<SortingOptions>((acc, sortingOption) => {
-        return { ...acc, [sortingOption.field]: sortingOption };
-      }, {})
+      sortingOptions
     });
   }
 
@@ -48,9 +46,5 @@ export class SmartphonesComponent {
 
   onRowClicked(user: SmartphoneDto): void {
     this.router.navigate([SMARTPHONES_RESOURCE_BASE_PATH, user.id]);
-  }
-
-  onDelete(): void {
-    this.smartphonesFacade.showRemovalsConfirmation();
   }
 }

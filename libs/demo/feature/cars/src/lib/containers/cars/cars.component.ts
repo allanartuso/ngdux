@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
-import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
+import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
 
 @Component({
@@ -28,9 +28,7 @@ export class CarsComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.carsFacade.changeSorting({
-      sortingOptions: sortingOptions.reduce<SortingOptions>((acc, sortingOption) => {
-        return { ...acc, [sortingOption.field]: sortingOption };
-      }, {})
+      sortingOptions
     });
   }
 
@@ -48,9 +46,5 @@ export class CarsComponent {
 
   onRowClicked(user: CarDto): void {
     this.router.navigate([CARS_RESOURCE_BASE_PATH, user.id]);
-  }
-
-  onDelete(): void {
-    this.carsFacade.showRemovalsConfirmation();
   }
 }

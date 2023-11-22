@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { PROPERTIES_RESOURCE_BASE_PATH, PropertyDto } from '@demo/demo/data-model/properties';
-import { SortingOptions } from '@ngdux/data-model-common';
+import { NotificationService } from '@demo/shared/common/util-notification';
 import { FilteringOptions, PagingOptions, SortingField } from '@ngil/list';
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, filter, map } from 'rxjs';
 
 @Component({
   selector: 'demo-properties',
@@ -21,7 +21,11 @@ export class PropertiesComponent {
     selectedItems: this.propertiesFacade.selectedItems$
   });
 
-  constructor(private readonly router: Router, private readonly propertiesFacade: PropertiesFacade) {}
+  constructor(
+    private readonly router: Router,
+    private readonly propertiesFacade: PropertiesFacade,
+    private readonly notificationService: NotificationService
+  ) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.propertiesFacade.changeFiltering({ filteringOptions });
@@ -29,9 +33,7 @@ export class PropertiesComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.propertiesFacade.changeSorting({
-      sortingOptions: sortingOptions.reduce<SortingOptions>((acc, sortingOption) => {
-        return { ...acc, [sortingOption.field]: sortingOption };
-      }, {})
+      sortingOptions
     });
   }
 
@@ -51,7 +53,15 @@ export class PropertiesComponent {
     this.router.navigate([PROPERTIES_RESOURCE_BASE_PATH, property.id]);
   }
 
-  onDelete(): void {
-    this.propertiesFacade.showRemovalsConfirmation();
+  onDelete(items: PropertyDto[]): void {
+    this.notificationService
+      .openConfirmationDialog({
+        title: 'Delete properties',
+        message: 'Are you sure to delete the selected properties?'
+      })
+      .pipe(filter(confirmed => confirmed))
+      .subscribe(() => {
+        this.propertiesFacade.delete({ resourceIds: items.map(item => item.id) });
+      });
   }
 }

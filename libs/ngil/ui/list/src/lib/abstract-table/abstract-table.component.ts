@@ -31,7 +31,7 @@ export abstract class AbstractTableComponent<T> {
   @Output() pageOptionsChanged = new EventEmitter<PagingOptions>();
   @Output() rowSelected = new EventEmitter<T[]>();
   @Output() rowClicked = new EventEmitter<T>();
-  @Output() deleteSelected = new EventEmitter<void>();
+  @Output() deleteSelected = new EventEmitter<T[]>();
 
   onSortingChanged(sortingField: SortingField): void {
     if (sortingField.direction) {
@@ -53,8 +53,8 @@ export abstract class AbstractTableComponent<T> {
     this.pageOptionsChanged.emit(pagingOptions);
   }
 
-  onDelete(): void {
-    this.deleteSelected.emit();
+  onDelete(selectedItems: T[]): void {
+    this.deleteSelected.emit(selectedItems);
   }
 
   onRowSelected(selectedItems: T[]): void {
