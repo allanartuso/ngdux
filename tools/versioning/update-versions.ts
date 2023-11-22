@@ -10,8 +10,7 @@ async function updatePublishableLibsVersions() {
 
   await standardVersion({
     skip: {
-      commit: true,
-      changelog: true
+      commit: true
     }
   });
   const nextVersion = await getNextVersion();
@@ -40,7 +39,7 @@ async function getNextVersion(): Promise<string> {
 
 async function updatePubLibsVersion(publishableLibs: ProjectInfo[], nextVersion: string) {
   for (const lib of publishableLibs) {
-    const newPackageJson = { ...lib.packageJson, version: nextVersion };
+    const newPackageJson = { ...lib.packageJson?.default, version: nextVersion };
 
     await fs.promises.writeFile(lib.packageJsonFile, JSON.stringify(newPackageJson));
     console.log(`${lib.projectJson.name} version updated to ${nextVersion}`);

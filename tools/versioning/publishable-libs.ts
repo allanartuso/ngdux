@@ -2,11 +2,7 @@ import { ProjectGraphProjectNode } from 'nx/src/config/project-graph';
 import { createProjectGraphAsync } from 'nx/src/project-graph/project-graph';
 
 export interface PackageJson {
-  name: string;
-  version: string;
-  dependencies: Object;
-  repository: Object;
-  homepage: string;
+  default: { name: string; version: string; dependencies: Object; repository: Object; homepage: string };
 }
 
 export interface ProjectJson {
