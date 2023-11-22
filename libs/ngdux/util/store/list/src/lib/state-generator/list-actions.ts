@@ -1,4 +1,4 @@
-import { ErrorDto, FilteringOptions, PagingOptions, SortingOptions } from '@ngdux/data-model-common';
+import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
 import { createAction, props } from '@ngrx/store';
 import { ListActions } from '../models/list.model';
 
@@ -16,7 +16,7 @@ export function createListActions<T, E, S = T, Params = Record<string, string>>(
   const setPageSize = createAction(`[${featureName} API] Set ${featureName} Page Size`, props<{ pageSize: number }>());
   const setSorting = createAction(
     `[${featureName} API] Set ${featureName} Sorting`,
-    props<{ sortingOptions: SortingOptions }>()
+    props<{ sortingOptions: SortingField[] }>()
   );
   const setFiltering = createAction(
     `[${featureName} API] Set ${featureName} Filtering`,
@@ -43,7 +43,7 @@ export function createListActions<T, E, S = T, Params = Record<string, string>>(
   );
   const changeSorting = createAction(
     `[${featureName} API] Change ${featureName} Sorting`,
-    props<{ sortingOptions: SortingOptions }>()
+    props<{ sortingOptions: SortingField[] }>()
   );
   const changeFiltering = createAction(
     `[${featureName} API] Change ${featureName} Filtering`,
@@ -82,11 +82,6 @@ export function createListActions<T, E, S = T, Params = Record<string, string>>(
   );
   const patchFailure = createAction(`[${featureName} API] Patch ${featureName} Failure`, props<{ errors: E }>());
 
-  /**
-   * @deprecated The method will be removed. The AbstractEffect will not be responsible for it anymore
-   */
-  const showRemovalsConfirmation = createAction(`[${featureName} API] Show ${featureName} Removal Confirmation`);
-
   return {
     initialize,
     reset,
@@ -113,7 +108,6 @@ export function createListActions<T, E, S = T, Params = Record<string, string>>(
     patch,
     patchSuccess,
     patchFailure,
-    resetRequestState,
-    showRemovalsConfirmation
+    resetRequestState
   };
 }

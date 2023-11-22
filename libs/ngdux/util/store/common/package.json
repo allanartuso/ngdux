@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "peerDependencies": {
     "@ngrx/store": "^16.0.0",
-    "@angular/core": "^16.0.0",
+    "@angular/core": "",
     "@ngdux/data-model-common": "^1.0.0",
     "@ngrx/effects": "^16.0.0"
   }

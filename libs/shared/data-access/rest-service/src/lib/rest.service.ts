@@ -7,7 +7,7 @@ import {
   PagingOptions,
   RequestOptions,
   SortingDirection,
-  SortingOptions
+  SortingField
 } from '@ngdux/data-model-common';
 import { Observable } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';
@@ -47,15 +47,15 @@ export class RestService extends AbstractRestService {
     return pagingParameters;
   }
 
-  private getSortingParameters(options: SortingOptions | undefined): Record<string, string> {
+  private getSortingParameters(options: SortingField[] | undefined): Record<string, string> {
     const fieldNames: string[] = [];
     const orders: string[] = [];
 
     if (options) {
-      Object.keys(options).forEach(fieldName => {
-        if (options[fieldName].direction !== SortingDirection.NONE) {
-          fieldNames.push(fieldName);
-          orders.push(options[fieldName].direction);
+      options.forEach(option => {
+        if (option.direction !== SortingDirection.NONE) {
+          fieldNames.push(option.field);
+          orders.push(option.direction);
         }
       });
     }
@@ -95,18 +95,18 @@ export class RestService extends AbstractRestService {
     };
   }
 
-  private getSortingQuery(options: SortingOptions | undefined) {
-    if (!options || Object.keys(options).length === 0) {
+  private getSortingQuery(options: SortingField[] | undefined) {
+    if (!options || options.length === 0) {
       return {};
     }
 
     return {
-      sort: Object.keys(options)
-        .filter(fieldName => options[fieldName].direction !== SortingDirection.NONE)
-        .map(fieldName => {
+      sort: options
+        .filter(option => option.direction !== SortingDirection.NONE)
+        .map(option => {
           return {
-            field: fieldName,
-            direction: options[fieldName].direction === SortingDirection.ASCENDING ? 'asc' : 'desc'
+            field: option.field,
+            direction: option.direction === SortingDirection.ASCENDING ? 'asc' : 'desc'
           };
         })
     };
