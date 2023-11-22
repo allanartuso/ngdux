@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 import { SmartphonesListFacade } from '@demo/demo/data-access/smartphones';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 @Injectable()
-export class SmartphonesResolver implements Resolve<boolean> {
+export class SmartphonesResolver  {
   constructor(private readonly smartphonesFacade: SmartphonesListFacade) {}
 
   resolve(): Observable<boolean> {

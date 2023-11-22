@@ -52,6 +52,7 @@
       "@demo/shared/ui-sidebar": ["libs/shared/ui-sidebar/src/index.ts"],
       "@demo/shared/util-configuration": ["libs/shared/util-configuration/src/index.ts"],
       "@demo/shared/util-store": ["libs/shared/util-store/src/index.ts"],
+      "@demo/workspace-plugin": ["tools/workspace-plugin/src/index.ts"],
       "@ngdux/data-model-common": ["libs/ngdux/data-model/common/src/index.ts"],
       "@ngdux/data-model-common/test": ["libs/ngdux/data-model/common/test/src/index.ts"],
       "@ngdux/form": ["libs/ngdux/util/store/form/src/index.ts"],

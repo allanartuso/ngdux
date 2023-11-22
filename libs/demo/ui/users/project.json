@@ -6,7 +6,7 @@
   "prefix": "demo",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/demo/ui/users"],
       "options": {
         "jestConfig": "libs/demo/ui/users/jest.config.ts",
@@ -14,7 +14,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/demo/ui/users/**/*.ts", "libs/demo/ui/users/**/*.html"]
       }

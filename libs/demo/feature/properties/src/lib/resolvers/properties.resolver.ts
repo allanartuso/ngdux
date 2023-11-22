@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class PropertiesResolver implements Resolve<boolean> {
+export class PropertiesResolver  {
   constructor(private readonly propertiesFacade: PropertiesFacade) {}
 
   resolve(): Observable<boolean> {
