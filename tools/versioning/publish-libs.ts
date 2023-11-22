@@ -7,7 +7,7 @@ export async function publishLibs() {
   const publishableLibs = await getPublishableLibs(BASE_BRANCH);
   const publishableLibNames: string[] = publishableLibs.map(lib => lib.projectJson.name);
   const publishableLibDistFolder: string[] = publishableLibs
-    .filter(lib => lib.projectJson.name !== 'ngil-ui-form-inputs')
+    .filter(lib => lib.projectJson.name !== 'ngil-ui-form-inputs' && lib.projectJson.name !== 'workspace-plugin')
     .map(lib => lib.projectRoot);
 
   execSync(`nx run-many --target=build --projects=${publishableLibNames.join(',')}`, {
