@@ -51,6 +51,10 @@ export function getLogo(): string {
 }
 
 export function getColor(): string {
+  return faker.color.human();
+}
+
+export function getHexColor(): string {
   return faker.internet.color();
 }
 

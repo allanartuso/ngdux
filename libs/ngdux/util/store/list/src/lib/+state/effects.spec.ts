@@ -3,7 +3,7 @@ import { commonFixture } from '@ngdux/data-model-common/test';
 import { TestResource, createTestResources } from '@ngdux/store-common/test';
 import { Action, MemoizedSelector, Store } from '@ngrx/store';
 import { ActionCreator, TypedAction } from '@ngrx/store/src/models';
-import { getMockStore } from '@ngrx/store/testing';
+import { createMockStore } from '@ngrx/store/testing';
 import { Observable, of } from 'rxjs';
 import { ListActions, ListSelectors } from '../models/list.model';
 import { AbstractListEffects } from '../state-generator/abstract-list-effects';
@@ -31,7 +31,7 @@ describe('ListEffects', () => {
     testListSelectors = { getAll: of(createTestResources()) as unknown as MemoizedSelector<object, TestResource[]> };
 
     actions$ = of({ type: 'actions' });
-    storeMock = getMockStore();
+    storeMock = createMockStore();
     listStateServiceMock = {
       getFeatureActions: jest.fn().mockReturnValue(testListActions),
       getFeatureSelectors: jest.fn().mockReturnValue(testListSelectors)

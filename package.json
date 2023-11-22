@@ -11,7 +11,7 @@
     "test": "nx run-many --all --target=test",
     "lint": "nx run-many --all --target=lint",
     "e2e": "ng e2e",
-    "e2e:demo:local": "node ./tools/e2e/cy-integration-local.js && npx cypress run -P ./apps/demo-e2e --headless --config-file=cypress-integration-local.config.ts",
+    "e2e:demo:local": "ts-node -P tools/tsconfig.json ./tools/e2e/cy-integration-local.ts && npx cypress run -P ./apps/demo-e2e --headless --config-file=cypress-integration-local.config.ts",
     "e2e:demo:watch": "npx cypress open -P ./apps/demo-e2e",
     "test:ci": " npx jest --ci",
     "affected:apps": "nx affected:apps",
