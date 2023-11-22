@@ -11,15 +11,19 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-const fs = require('fs');
-const glob = require('glob');
+import { writeFileSync } from 'fs';
+import { glob } from 'glob';
 const root = './apps/demo-e2e/src';
 
-glob(`${root}/integration/**/*.cy.ts`, (err, files) => {
+async function createTestFiles() {
+  const files = await glob(`${root}/integration/**/*.cy.ts`);
+
   let code = '';
   files.forEach(file => {
-    code += `require('${file.replace(root, '..')}');\n`;
+    code += `require('${file.replace(root, '..').replace(/\\/g, '\\\\')}');\n`;
   });
 
-  fs.writeFileSync(`${root}/integration-local/main.cy.ts`, code);
-});
+  writeFileSync(`${root}/integration-local/main.cy.ts`, code);
+}
+
+createTestFiles();
