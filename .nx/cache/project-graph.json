@@ -1,0 +1,3284 @@
+{
+  "nodes": {
+    "shared-common-util-notification": {
+      "name": "shared-common-util-notification",
+      "type": "lib",
+      "data": {
+        "root": "libs/shared/common/util-notification",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/shared/common/util-notification/src/**/*.ts",
+                "libs/shared/common/util-notification/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/shared/common/util-notification"
+            ],
+            "options": {
+              "jestConfig": "libs/shared/common/util-notification/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "shared-common-util-notification",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/shared/common/util-notification/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:shared-common",
+          "type:util"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "shared-data-access-rest-service": {
+      "name": "shared-data-access-rest-service",
+      "type": "lib",
+      "data": {
+        "root": "libs/shared/data-access/rest-service",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/shared/data-access/rest-service/src/**/*.ts",
+                "libs/shared/data-access/rest-service/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/shared/data-access/rest-service"
+            ],
+            "options": {
+              "jestConfig": "libs/shared/data-access/rest-service/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "shared-data-access-rest-service",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/shared/data-access/rest-service/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:shared",
+          "type:data-access"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-access-smartphones": {
+      "name": "demo-data-access-smartphones",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-access/smartphones",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-access/smartphones/**/*.ts",
+                "libs/demo/data-access/smartphones/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-access/smartphones/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-data-access-smartphones",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/data-access/smartphones/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:data-access"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-access-properties": {
+      "name": "demo-data-access-properties",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-access/properties",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-access/properties/**/*.ts",
+                "libs/demo/data-access/properties/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-access/properties/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-data-access-properties",
+        "$schema": "../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/demo/data-access/properties/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:data-access"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-model-smartphones": {
+      "name": "demo-data-model-smartphones",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-model/smartphones",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-model/smartphones/**/*.ts"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-model/smartphones/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-data-model-smartphones",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/data-model/smartphones/src",
+        "projectType": "library",
+        "tags": [
+          "scope:demo",
+          "type:data-model"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-model-properties": {
+      "name": "demo-data-model-properties",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-model/properties",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-model/properties/**/*.ts",
+                "libs/demo/data-model/properties/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-model/properties/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-data-model-properties",
+        "$schema": "../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/demo/data-model/properties/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:data-model"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "shared-util-configuration": {
+      "name": "shared-util-configuration",
+      "type": "lib",
+      "data": {
+        "root": "libs/shared/util-configuration",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/shared/util-configuration/src/**/*.ts",
+                "libs/shared/util-configuration/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/shared/util-configuration"
+            ],
+            "options": {
+              "jestConfig": "libs/shared/util-configuration/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "shared-util-configuration",
+        "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/shared/util-configuration/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:shared-common",
+          "type:util"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-feature-smartphones": {
+      "name": "demo-feature-smartphones",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/feature/smartphones",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/feature/smartphones/**/*.ts",
+                "libs/demo/feature/smartphones/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/feature/smartphones/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-feature-smartphones",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/feature/smartphones/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:feature"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-access-agents": {
+      "name": "demo-data-access-agents",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-access/agents",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-access/agents/**/*.ts",
+                "libs/demo/data-access/agents/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-access/agents/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-data-access-agents",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/data-access/agents/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:data-access"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "demo-feature-properties": {
+      "name": "demo-feature-properties",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/feature/properties",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/feature/properties/**/*.ts",
+                "libs/demo/feature/properties/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/feature/properties/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-feature-properties",
+        "$schema": "../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/demo/feature/properties/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:feature"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "ngdux-data-model-common": {
+      "name": "ngdux-data-model-common",
+      "type": "lib",
+      "data": {
+        "root": "libs/ngdux/data-model/common",
+        "name": "ngdux-data-model-common",
+        "targets": {
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          },
+          "build": {
+            "executor": "@nx/angular:package",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/libs/ngdux/data-model/common"
+            ],
+            "options": {
+              "project": "libs/ngdux/data-model/common/ng-package.json",
+              "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+              "production": {
+                "tsConfig": "libs/ngdux/data-model/common/tsconfig.lib.prod.json"
+              },
+              "development": {
+                "tsConfig": "libs/ngdux/data-model/common/tsconfig.lib.json"
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/ngdux/data-model/common/**/*.ts",
+                "libs/ngdux/data-model/common/**/*.html",
+                "libs/ngdux/data-model/common/test/**/*.ts",
+                "libs/ngdux/data-model/common/test/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/ngdux/data-model/common"
+            ],
+            "options": {
+              "jestConfig": "libs/ngdux/data-model/common/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/ngdux/data-model/common/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:publishable-common",
+          "type:data-model"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "ngdux-util-store-common": {
+      "name": "ngdux-util-store-common",
+      "type": "lib",
+      "data": {
+        "root": "libs/ngdux/util/store/common",
+        "name": "ngdux-util-store-common",
+        "targets": {
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          },
+          "build": {
+            "executor": "@nx/angular:package",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/libs/ngdux/util/store/common"
+            ],
+            "options": {
+              "project": "libs/ngdux/util/store/common/ng-package.json",
+              "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+              "production": {
+                "tsConfig": "libs/ngdux/util/store/common/tsconfig.lib.prod.json"
+              },
+              "development": {
+                "tsConfig": "libs/ngdux/util/store/common/tsconfig.lib.json"
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/ngdux/util/store/common/**/*.ts",
+                "libs/ngdux/util/store/common/**/*.html",
+                "libs/ngdux/util/store/common/test/**/*.ts",
+                "libs/ngdux/util/store/common/test/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/ngdux/util/store/common"
+            ],
+            "options": {
+              "jestConfig": "libs/ngdux/util/store/common/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/ngdux/util/store/common/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:publishable-common",
+          "type:util"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "ngil-ui-common-form-cva": {
+      "name": "ngil-ui-common-form-cva",
+      "type": "lib",
+      "data": {
+        "root": "libs/ngil/ui/common/form-cva",
+        "name": "ngil-ui-common-form-cva",
+        "targets": {
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          },
+          "build": {
+            "executor": "@nx/angular:package",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/{projectRoot}"
+            ],
+            "options": {
+              "project": "libs/ngil/ui/common/form-cva/ng-package.json",
+              "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+              "production": {
+                "tsConfig": "libs/ngil/ui/common/form-cva/tsconfig.lib.prod.json"
+              },
+              "development": {
+                "tsConfig": "libs/ngil/ui/common/form-cva/tsconfig.lib.json"
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/ngil/ui/common/form-cva/**/*.ts",
+                "libs/ngil/ui/common/form-cva/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/ngil/ui/common/form-cva/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "$schema": "../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/ngil/ui/common/form-cva/src",
+        "prefix": "ngil",
+        "tags": [
+          "scope:publishable-common",
+          "type:ui"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-access-users": {
+      "name": "demo-data-access-users",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-access/users",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-access/users/**/*.ts",
+                "libs/demo/data-access/users/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/demo/data-access/users"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-access/users/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "demo-data-access-users",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/demo/data-access/users/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:data-access"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-model-agents": {
+      "name": "demo-data-model-agents",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-model/agents",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-model/agents/**/*.ts"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-model/agents/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-data-model-agents",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/data-model/agents/src",
+        "projectType": "library",
+        "tags": [
+          "scope:demo",
+          "type:data-model"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-feature-dashboard": {
+      "name": "demo-feature-dashboard",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/feature/dashboard",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/feature/dashboard/**/*.ts",
+                "libs/demo/feature/dashboard/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/feature/dashboard/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-feature-dashboard",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/feature/dashboard/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:feature"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-access-cars": {
+      "name": "demo-data-access-cars",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-access/cars",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-access/cars/**/*.ts",
+                "libs/demo/data-access/cars/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-access/cars/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-data-access-cars",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/data-access/cars/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:data-access"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-model-users": {
+      "name": "demo-data-model-users",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-model/users",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-model/users/**/*.ts"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/demo/data-model/users"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-model/users/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "demo-data-model-users",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/data-model/users/src",
+        "projectType": "library",
+        "tags": [
+          "scope:demo",
+          "type:data-model"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "ngdux-util-store-form": {
+      "name": "ngdux-util-store-form",
+      "type": "lib",
+      "data": {
+        "root": "libs/ngdux/util/store/form",
+        "name": "ngdux-util-store-form",
+        "targets": {
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          },
+          "build": {
+            "executor": "@nx/angular:package",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/libs/ngdux/util/store/form"
+            ],
+            "options": {
+              "project": "libs/ngdux/util/store/form/ng-package.json",
+              "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+              "production": {
+                "tsConfig": "libs/ngdux/util/store/form/tsconfig.lib.prod.json"
+              },
+              "development": {
+                "tsConfig": "libs/ngdux/util/store/form/tsconfig.lib.json"
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/ngdux/util/store/form/**/*.ts",
+                "libs/ngdux/util/store/form/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/ngdux/util/store/form"
+            ],
+            "options": {
+              "jestConfig": "libs/ngdux/util/store/form/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/ngdux/util/store/form/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:publishable",
+          "type:util"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "ngdux-util-store-list": {
+      "name": "ngdux-util-store-list",
+      "type": "lib",
+      "data": {
+        "root": "libs/ngdux/util/store/list",
+        "name": "ngdux-util-store-list",
+        "targets": {
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          },
+          "build": {
+            "executor": "@nx/angular:package",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/libs/ngdux/util/store/list"
+            ],
+            "options": {
+              "project": "libs/ngdux/util/store/list/ng-package.json",
+              "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+              "production": {
+                "tsConfig": "libs/ngdux/util/store/list/tsconfig.lib.prod.json"
+              },
+              "development": {
+                "tsConfig": "libs/ngdux/util/store/list/tsconfig.lib.json"
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/ngdux/util/store/list/**/*.ts",
+                "libs/ngdux/util/store/list/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/ngdux/util/store/list"
+            ],
+            "options": {
+              "jestConfig": "libs/ngdux/util/store/list/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/ngdux/util/store/list/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:publishable",
+          "type:util"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-data-model-cars": {
+      "name": "demo-data-model-cars",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/data-model/cars",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/data-model/cars/**/*.ts"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/data-model/cars/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-data-model-cars",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/data-model/cars/src",
+        "projectType": "library",
+        "tags": [
+          "scope:demo",
+          "type:data-model"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-feature-sidebar": {
+      "name": "demo-feature-sidebar",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/feature/sidebar",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/feature/sidebar/src/**/*.ts",
+                "libs/demo/feature/sidebar/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/demo/feature/sidebar"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/feature/sidebar/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "demo-feature-sidebar",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/demo/feature/sidebar/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:feature"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-feature-agents": {
+      "name": "demo-feature-agents",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/feature/agents",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/feature/agents/**/*.ts",
+                "libs/demo/feature/agents/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/feature/agents/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-feature-agents",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/feature/agents/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:feature"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "demo-ui-smartphones": {
+      "name": "demo-ui-smartphones",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/ui/smartphones",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/ui/smartphones/**/*.ts",
+                "libs/demo/ui/smartphones/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/ui/smartphones/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-ui-smartphones",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/ui/smartphones/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:ui"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "ngil-ui-form-inputs": {
+      "name": "ngil-ui-form-inputs",
+      "type": "lib",
+      "data": {
+        "root": "libs/ngil/ui/form-inputs",
+        "name": "ngil-ui-form-inputs",
+        "targets": {
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          },
+          "build": {
+            "executor": "@nx/angular:package",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/libs/ngil/ui/form-inputs"
+            ],
+            "options": {
+              "project": "libs/ngil/ui/form-inputs/ng-package.json",
+              "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+              "production": {
+                "tsConfig": "libs/ngil/ui/form-inputs/tsconfig.lib.prod.json"
+              },
+              "development": {
+                "tsConfig": "libs/ngil/ui/form-inputs/tsconfig.lib.json"
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/ngil/ui/form-inputs/**/*.ts",
+                "libs/ngil/ui/form-inputs/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/ngil/ui/form-inputs"
+            ],
+            "options": {
+              "jestConfig": "libs/ngil/ui/form-inputs/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          },
+          "component-test": {
+            "executor": "@nx/cypress:cypress",
+            "inputs": [
+              "default",
+              "^production"
+            ],
+            "options": {
+              "cypressConfig": "libs/ngil/ui/form-inputs/cypress.config.ts",
+              "testingType": "component",
+              "skipServe": true,
+              "devServerTarget": "demo:build:development"
+            },
+            "configurations": {}
+          }
+        },
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/ngil/ui/form-inputs/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:publishable",
+          "type:ui"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-feature-users": {
+      "name": "demo-feature-users",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/feature/users",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/feature/users/src/**/*.ts",
+                "libs/demo/feature/users/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/demo/feature/users"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/feature/users/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "demo-feature-users",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/demo/feature/users/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:feature"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-ui-properties": {
+      "name": "demo-ui-properties",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/ui/properties",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/ui/properties/**/*.ts",
+                "libs/demo/ui/properties/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/ui/properties/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-ui-properties",
+        "$schema": "../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/demo/ui/properties/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:ui"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-feature-cars": {
+      "name": "demo-feature-cars",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/feature/cars",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/feature/cars/**/*.ts",
+                "libs/demo/feature/cars/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/feature/cars/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-feature-cars",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/feature/cars/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:feature"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "shared-ui-sidebar": {
+      "name": "shared-ui-sidebar",
+      "type": "lib",
+      "data": {
+        "root": "libs/shared/ui-sidebar",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/shared/ui-sidebar/src/**/*.ts",
+                "libs/shared/ui-sidebar/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/shared/ui-sidebar"
+            ],
+            "options": {
+              "jestConfig": "libs/shared/ui-sidebar/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "shared-ui-sidebar",
+        "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/shared/ui-sidebar/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:shared",
+          "type:ui"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "shared-util-store": {
+      "name": "shared-util-store",
+      "type": "lib",
+      "data": {
+        "root": "libs/shared/util-store",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/shared/util-store/src/**/*.ts",
+                "libs/shared/util-store/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/shared/util-store"
+            ],
+            "options": {
+              "jestConfig": "libs/shared/util-store/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "shared-util-store",
+        "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/shared/util-store/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:shared",
+          "type:util"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "workspace-plugin": {
+      "name": "workspace-plugin",
+      "type": "lib",
+      "data": {
+        "root": "tools/workspace-plugin",
+        "name": "workspace-plugin",
+        "targets": {
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          },
+          "build": {
+            "executor": "@nx/js:tsc",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{options.outputPath}"
+            ],
+            "options": {
+              "outputPath": "dist/tools/workspace-plugin",
+              "main": "tools/workspace-plugin/src/index.ts",
+              "tsConfig": "tools/workspace-plugin/tsconfig.lib.json",
+              "assets": [
+                {
+                  "input": "./tools/workspace-plugin/src",
+                  "glob": "**/!(*.ts)",
+                  "output": "./src"
+                },
+                {
+                  "input": "./tools/workspace-plugin/src",
+                  "glob": "**/*.d.ts",
+                  "output": "./src"
+                },
+                {
+                  "input": "./tools/workspace-plugin",
+                  "glob": "generators.json",
+                  "output": "."
+                },
+                {
+                  "input": "./tools/workspace-plugin",
+                  "glob": "executors.json",
+                  "output": "."
+                }
+              ]
+            },
+            "configurations": {}
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "tools/workspace-plugin/**/*.ts",
+                "tools/workspace-plugin/package.json",
+                "tools/workspace-plugin/generators.json"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "tools/workspace-plugin/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "$schema": "../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "tools/workspace-plugin/src",
+        "projectType": "library",
+        "tags": [],
+        "implicitDependencies": []
+      }
+    },
+    "demo-json-server": {
+      "name": "demo-json-server",
+      "type": "app",
+      "data": {
+        "root": "apps/demo-json-server",
+        "targets": {
+          "build": {
+            "executor": "@nx/esbuild:esbuild",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{options.outputPath}"
+            ],
+            "defaultConfiguration": "production",
+            "options": {
+              "platform": "node",
+              "outputPath": "dist/apps/demo-json-server",
+              "format": [
+                "cjs"
+              ],
+              "bundle": false,
+              "main": "apps/demo-json-server/src/main.ts",
+              "tsConfig": "apps/demo-json-server/tsconfig.app.json",
+              "assets": [
+                "apps/demo-json-server/src/assets"
+              ],
+              "generatePackageJson": true,
+              "esbuildOptions": {
+                "sourcemap": true,
+                "outExtension": {
+                  ".js": ".js"
+                }
+              }
+            },
+            "configurations": {
+              "development": {},
+              "production": {
+                "esbuildOptions": {
+                  "sourcemap": false,
+                  "outExtension": {
+                    ".js": ".js"
+                  }
+                }
+              }
+            }
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "apps/demo-json-server/**/*.ts"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "apps/demo-json-server/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          },
+          "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+              "buildTarget": "demo-json-server:build"
+            },
+            "configurations": {
+              "development": {
+                "buildTarget": "demo-json-server:build:development"
+              },
+              "production": {
+                "buildTarget": "demo-json-server:build:production"
+              }
+            }
+          }
+        },
+        "name": "demo-json-server",
+        "$schema": "../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "apps/demo-json-server/src",
+        "projectType": "application",
+        "tags": [],
+        "implicitDependencies": []
+      }
+    },
+    "demo-ui-agents": {
+      "name": "demo-ui-agents",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/ui/agents",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/ui/agents/**/*.ts",
+                "libs/demo/ui/agents/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/ui/agents/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-ui-agents",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/ui/agents/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:ui"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "shared-ui-form": {
+      "name": "shared-ui-form",
+      "type": "lib",
+      "data": {
+        "root": "libs/shared/ui-form",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/shared/ui-form/src/**/*.ts",
+                "libs/shared/ui-form/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/shared/ui-form"
+            ],
+            "options": {
+              "jestConfig": "libs/shared/ui-form/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "shared-ui-form",
+        "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/shared/ui-form/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:shared",
+          "type:ui"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "shared-ui-list": {
+      "name": "shared-ui-list",
+      "type": "lib",
+      "data": {
+        "root": "libs/shared/ui-list",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/shared/ui-list/src/**/*.ts",
+                "libs/shared/ui-list/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/shared/ui-list"
+            ],
+            "options": {
+              "jestConfig": "libs/shared/ui-list/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "shared-ui-list",
+        "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/shared/ui-list/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:shared",
+          "type:ui"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-ui-users": {
+      "name": "demo-ui-users",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/ui/users",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/ui/users/**/*.ts",
+                "libs/demo/ui/users/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/demo/ui/users"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/ui/users/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "name": "demo-ui-users",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/demo/ui/users/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:ui"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-ui-cars": {
+      "name": "demo-ui-cars",
+      "type": "lib",
+      "data": {
+        "root": "libs/demo/ui/cars",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/demo/ui/cars/**/*.ts",
+                "libs/demo/ui/cars/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+              "jestConfig": "libs/demo/ui/cars/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {
+              "ci": {
+                "ci": true,
+                "codeCoverage": true
+              }
+            }
+          }
+        },
+        "name": "demo-ui-cars",
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "libs/demo/ui/cars/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:ui"
+        ],
+        "projectType": "library",
+        "implicitDependencies": []
+      }
+    },
+    "ngil-ui-list": {
+      "name": "ngil-ui-list",
+      "type": "lib",
+      "data": {
+        "root": "libs/ngil/ui/list",
+        "name": "ngil-ui-list",
+        "targets": {
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          },
+          "build": {
+            "executor": "@nx/angular:package",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/libs/ngil/ui/list"
+            ],
+            "options": {
+              "project": "libs/ngil/ui/list/ng-package.json",
+              "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+              "production": {
+                "tsConfig": "libs/ngil/ui/list/tsconfig.lib.prod.json"
+              },
+              "development": {
+                "tsConfig": "libs/ngil/ui/list/tsconfig.lib.json"
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "libs/ngil/ui/list/**/*.ts",
+                "libs/ngil/ui/list/**/*.html"
+              ]
+            },
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/libs/ngil/ui/list"
+            ],
+            "options": {
+              "jestConfig": "libs/ngil/ui/list/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          }
+        },
+        "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "library",
+        "sourceRoot": "libs/ngil/ui/list/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:publishable",
+          "type:ui"
+        ],
+        "implicitDependencies": []
+      }
+    },
+    "demo-e2e": {
+      "name": "demo-e2e",
+      "type": "e2e",
+      "data": {
+        "root": "apps/demo-e2e",
+        "targets": {
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "apps/demo-e2e/**/*.{js,ts}"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "e2e": {
+            "executor": "@nx/cypress:cypress",
+            "inputs": [
+              "default",
+              "^production"
+            ],
+            "options": {
+              "cypressConfig": "apps/demo-e2e/cypress.json",
+              "tsConfig": "apps/demo-e2e/tsconfig.e2e.json",
+              "devServerTarget": "demo:serve:development"
+            },
+            "configurations": {
+              "production": {
+                "devServerTarget": "demo:serve:production"
+              }
+            }
+          }
+        },
+        "name": "demo-e2e",
+        "$schema": "../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "apps/demo-e2e/src",
+        "projectType": "application",
+        "tags": [
+          "scope:demo",
+          "type:e2e"
+        ],
+        "implicitDependencies": [
+          "demo"
+        ]
+      }
+    },
+    "demo": {
+      "name": "demo",
+      "type": "app",
+      "data": {
+        "root": "apps/demo",
+        "targets": {
+          "build": {
+            "executor": "@angular-devkit/build-angular:browser",
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production"
+            ],
+            "outputs": [
+              "{options.outputPath}"
+            ],
+            "options": {
+              "outputPath": "dist/apps/demo",
+              "index": "apps/demo/src/index.html",
+              "main": "apps/demo/src/main.ts",
+              "polyfills": "apps/demo/src/polyfills.ts",
+              "tsConfig": "apps/demo/tsconfig.app.json",
+              "inlineStyleLanguage": "scss",
+              "assets": [
+                "apps/demo/src/favicon.ico",
+                "apps/demo/src/assets"
+              ],
+              "styles": [
+                "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                "apps/demo/src/styles.scss"
+              ],
+              "scripts": []
+            },
+            "configurations": {
+              "production": {
+                "budgets": [
+                  {
+                    "type": "initial",
+                    "maximumWarning": "500kb",
+                    "maximumError": "1mb"
+                  },
+                  {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "2kb",
+                    "maximumError": "4kb"
+                  }
+                ],
+                "fileReplacements": [
+                  {
+                    "replace": "apps/demo/src/environments/environment.ts",
+                    "with": "apps/demo/src/environments/environment.prod.ts"
+                  }
+                ],
+                "outputHashing": "all"
+              },
+              "development": {
+                "buildOptimizer": false,
+                "optimization": false,
+                "vendorChunk": true,
+                "extractLicenses": false,
+                "sourceMap": true,
+                "namedChunks": true
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "lint": {
+            "executor": "@nx/linter:eslint",
+            "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json"
+            ],
+            "options": {
+              "lintFilePatterns": [
+                "apps/demo/src/**/*.ts",
+                "apps/demo/src/**/*.html"
+              ]
+            },
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "configurations": {}
+          },
+          "test": {
+            "executor": "@nx/jest:jest",
+            "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/apps/demo"
+            ],
+            "options": {
+              "jestConfig": "apps/demo/jest.config.ts",
+              "passWithNoTests": true
+            },
+            "configurations": {}
+          },
+          "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+              "production": {
+                "browserTarget": "demo:build:production"
+              },
+              "development": {
+                "browserTarget": "demo:build:development"
+              }
+            },
+            "defaultConfiguration": "development",
+            "options": {}
+          },
+          "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+              "browserTarget": "demo:build"
+            },
+            "configurations": {}
+          }
+        },
+        "name": "demo",
+        "$schema": "../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "application",
+        "sourceRoot": "apps/demo/src",
+        "prefix": "demo",
+        "tags": [
+          "scope:demo",
+          "type:app"
+        ],
+        "implicitDependencies": []
+      }
+    }
+  },
+  "externalNodes": {},
+  "dependencies": {
+    "shared-common-util-notification": [
+      {
+        "source": "shared-common-util-notification",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "shared-data-access-rest-service": [
+      {
+        "source": "shared-data-access-rest-service",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "shared-data-access-rest-service",
+        "target": "shared-util-configuration",
+        "type": "static"
+      }
+    ],
+    "demo-data-access-smartphones": [
+      {
+        "source": "demo-data-access-smartphones",
+        "target": "ngdux-util-store-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-smartphones",
+        "target": "demo-data-model-smartphones",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-smartphones",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-smartphones",
+        "target": "shared-data-access-rest-service",
+        "type": "static"
+      }
+    ],
+    "demo-data-access-properties": [
+      {
+        "source": "demo-data-access-properties",
+        "target": "demo-data-model-properties",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-properties",
+        "target": "shared-common-util-notification",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-properties",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-properties",
+        "target": "ngdux-util-store-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-properties",
+        "target": "ngdux-util-store-form",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-properties",
+        "target": "shared-data-access-rest-service",
+        "type": "static"
+      }
+    ],
+    "demo-data-model-smartphones": [
+      {
+        "source": "demo-data-model-smartphones",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "demo-data-model-properties": [
+      {
+        "source": "demo-data-model-properties",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-model-properties",
+        "target": "demo-data-model-users",
+        "type": "static"
+      }
+    ],
+    "shared-util-configuration": [],
+    "demo-feature-smartphones": [
+      {
+        "source": "demo-feature-smartphones",
+        "target": "demo-data-access-smartphones",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-smartphones",
+        "target": "demo-data-model-smartphones",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-smartphones",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-smartphones",
+        "target": "demo-ui-smartphones",
+        "type": "static"
+      }
+    ],
+    "demo-data-access-agents": [
+      {
+        "source": "demo-data-access-agents",
+        "target": "ngdux-util-store-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-agents",
+        "target": "demo-data-model-agents",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-agents",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-agents",
+        "target": "shared-data-access-rest-service",
+        "type": "static"
+      }
+    ],
+    "demo-feature-properties": [
+      {
+        "source": "demo-feature-properties",
+        "target": "demo-data-access-properties",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-properties",
+        "target": "demo-data-model-properties",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-properties",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-properties",
+        "target": "shared-common-util-notification",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-properties",
+        "target": "ngil-ui-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-properties",
+        "target": "demo-data-access-users",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-properties",
+        "target": "demo-ui-properties",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-properties",
+        "target": "shared-ui-form",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-properties",
+        "target": "shared-ui-list",
+        "type": "static"
+      }
+    ],
+    "ngdux-data-model-common": [],
+    "ngdux-util-store-common": [
+      {
+        "source": "ngdux-util-store-common",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "ngil-ui-common-form-cva": [],
+    "demo-data-access-users": [
+      {
+        "source": "demo-data-access-users",
+        "target": "demo-data-model-users",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-users",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-users",
+        "target": "ngdux-util-store-form",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-users",
+        "target": "shared-common-util-notification",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-users",
+        "target": "ngdux-util-store-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-users",
+        "target": "shared-data-access-rest-service",
+        "type": "static"
+      }
+    ],
+    "demo-data-model-agents": [
+      {
+        "source": "demo-data-model-agents",
+        "target": "demo-data-model-properties",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-model-agents",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "demo-feature-dashboard": [
+      {
+        "source": "demo-feature-dashboard",
+        "target": "demo-data-access-agents",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-dashboard",
+        "target": "demo-data-model-agents",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-dashboard",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-dashboard",
+        "target": "demo-ui-agents",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-dashboard",
+        "target": "demo-data-access-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-dashboard",
+        "target": "demo-data-model-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-dashboard",
+        "target": "demo-ui-cars",
+        "type": "static"
+      }
+    ],
+    "demo-data-access-cars": [
+      {
+        "source": "demo-data-access-cars",
+        "target": "ngdux-util-store-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-cars",
+        "target": "demo-data-model-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-cars",
+        "target": "shared-data-access-rest-service",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-access-cars",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "demo-data-model-users": [
+      {
+        "source": "demo-data-model-users",
+        "target": "demo-data-model-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-data-model-users",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "ngdux-util-store-form": [
+      {
+        "source": "ngdux-util-store-form",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "ngdux-util-store-form",
+        "target": "ngdux-util-store-common",
+        "type": "static"
+      }
+    ],
+    "ngdux-util-store-list": [
+      {
+        "source": "ngdux-util-store-list",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "ngdux-util-store-list",
+        "target": "ngdux-util-store-common",
+        "type": "static"
+      }
+    ],
+    "demo-data-model-cars": [
+      {
+        "source": "demo-data-model-cars",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "demo-feature-sidebar": [
+      {
+        "source": "demo-feature-sidebar",
+        "target": "shared-ui-sidebar",
+        "type": "static"
+      }
+    ],
+    "demo-feature-agents": [
+      {
+        "source": "demo-feature-agents",
+        "target": "demo-data-access-agents",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-agents",
+        "target": "demo-data-model-agents",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-agents",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-agents",
+        "target": "demo-ui-agents",
+        "type": "static"
+      }
+    ],
+    "demo-ui-smartphones": [
+      {
+        "source": "demo-ui-smartphones",
+        "target": "shared-ui-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-smartphones",
+        "target": "demo-data-model-smartphones",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-smartphones",
+        "target": "ngil-ui-list",
+        "type": "static"
+      }
+    ],
+    "ngil-ui-form-inputs": [
+      {
+        "source": "ngil-ui-form-inputs",
+        "target": "ngil-ui-common-form-cva",
+        "type": "static"
+      }
+    ],
+    "demo-feature-users": [
+      {
+        "source": "demo-feature-users",
+        "target": "demo-data-access-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-users",
+        "target": "demo-data-access-users",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-users",
+        "target": "demo-data-model-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-users",
+        "target": "demo-data-model-users",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-users",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-users",
+        "target": "shared-common-util-notification",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-users",
+        "target": "demo-ui-users",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-users",
+        "target": "shared-ui-form",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-users",
+        "target": "shared-ui-list",
+        "type": "static"
+      }
+    ],
+    "demo-ui-properties": [
+      {
+        "source": "demo-ui-properties",
+        "target": "demo-data-model-properties",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-properties",
+        "target": "ngil-ui-common-form-cva",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-properties",
+        "target": "shared-ui-form",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-properties",
+        "target": "shared-ui-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-properties",
+        "target": "ngil-ui-form-inputs",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-properties",
+        "target": "ngil-ui-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-properties",
+        "target": "demo-data-model-users",
+        "type": "static"
+      }
+    ],
+    "demo-feature-cars": [
+      {
+        "source": "demo-feature-cars",
+        "target": "demo-data-access-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-cars",
+        "target": "demo-data-model-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-cars",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-feature-cars",
+        "target": "demo-ui-cars",
+        "type": "static"
+      }
+    ],
+    "shared-ui-sidebar": [],
+    "shared-util-store": [],
+    "workspace-plugin": [],
+    "demo-json-server": [],
+    "demo-ui-agents": [
+      {
+        "source": "demo-ui-agents",
+        "target": "demo-data-model-agents",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-agents",
+        "target": "shared-ui-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-agents",
+        "target": "ngil-ui-list",
+        "type": "static"
+      }
+    ],
+    "shared-ui-form": [
+      {
+        "source": "shared-ui-form",
+        "target": "shared-util-configuration",
+        "type": "static"
+      },
+      {
+        "source": "shared-ui-form",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "shared-ui-form",
+        "target": "ngil-ui-common-form-cva",
+        "type": "static"
+      }
+    ],
+    "shared-ui-list": [
+      {
+        "source": "shared-ui-list",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "demo-ui-users": [
+      {
+        "source": "demo-ui-users",
+        "target": "demo-data-model-users",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-users",
+        "target": "ngil-ui-form-inputs",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-users",
+        "target": "demo-data-model-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-users",
+        "target": "ngil-ui-common-form-cva",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-users",
+        "target": "shared-ui-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-users",
+        "target": "ngil-ui-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-users",
+        "target": "shared-ui-form",
+        "type": "static"
+      }
+    ],
+    "demo-ui-cars": [
+      {
+        "source": "demo-ui-cars",
+        "target": "demo-data-model-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-cars",
+        "target": "shared-ui-list",
+        "type": "static"
+      },
+      {
+        "source": "demo-ui-cars",
+        "target": "ngil-ui-list",
+        "type": "static"
+      }
+    ],
+    "ngil-ui-list": [
+      {
+        "source": "ngil-ui-list",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      }
+    ],
+    "demo-e2e": [
+      {
+        "source": "demo-e2e",
+        "target": "demo",
+        "type": "implicit"
+      },
+      {
+        "source": "demo-e2e",
+        "target": "demo-data-model-agents",
+        "type": "static"
+      },
+      {
+        "source": "demo-e2e",
+        "target": "ngdux-data-model-common",
+        "type": "static"
+      },
+      {
+        "source": "demo-e2e",
+        "target": "demo-data-model-cars",
+        "type": "static"
+      },
+      {
+        "source": "demo-e2e",
+        "target": "demo-data-model-properties",
+        "type": "static"
+      },
+      {
+        "source": "demo-e2e",
+        "target": "demo-data-model-users",
+        "type": "static"
+      },
+      {
+        "source": "demo-e2e",
+        "target": "demo-data-model-smartphones",
+        "type": "static"
+      }
+    ],
+    "demo": [
+      {
+        "source": "demo",
+        "target": "demo-feature-sidebar",
+        "type": "static"
+      },
+      {
+        "source": "demo",
+        "target": "shared-util-configuration",
+        "type": "static"
+      },
+      {
+        "source": "demo",
+        "target": "shared-util-store",
+        "type": "static"
+      },
+      {
+        "source": "demo",
+        "target": "demo-feature-dashboard",
+        "type": "dynamic"
+      },
+      {
+        "source": "demo",
+        "target": "demo-feature-users",
+        "type": "dynamic"
+      },
+      {
+        "source": "demo",
+        "target": "demo-feature-properties",
+        "type": "dynamic"
+      },
+      {
+        "source": "demo",
+        "target": "demo-feature-cars",
+        "type": "dynamic"
+      },
+      {
+        "source": "demo",
+        "target": "demo-feature-agents",
+        "type": "dynamic"
+      },
+      {
+        "source": "demo",
+        "target": "demo-feature-smartphones",
+        "type": "dynamic"
+      }
+    ]
+  },
+  "version": "6.0"
+}
