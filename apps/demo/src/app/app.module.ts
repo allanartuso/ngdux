@@ -56,7 +56,7 @@ const ROUTES: Routes = [
       scrollPositionRestoration: 'enabled'
     }),
     SharedUtilStoreModule,
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument({connectInZone: true}) : [],
     SharedUtilConfigurationModule,
     BrowserAnimationsModule,
     DemoFeatureSidebarModule

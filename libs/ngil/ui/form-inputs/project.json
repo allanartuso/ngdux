@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngil/ui/form-inputs"],
       "options": {
-        "project": "libs/ngil/ui/form-inputs/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/ngil/ui/form-inputs/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -26,15 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/ngil/ui/form-inputs"],
       "options": {
-        "jestConfig": "libs/ngil/ui/form-inputs/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ngil/ui/form-inputs/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/ngil/ui/form-inputs/**/*.ts", "libs/ngil/ui/form-inputs/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "component-test": {
       "executor": "@nx/cypress:cypress",

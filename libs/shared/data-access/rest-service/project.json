@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/data-access/rest-service"],
       "options": {
-        "jestConfig": "libs/shared/data-access/rest-service/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/shared/data-access/rest-service/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/data-access/rest-service/src/**/*.ts",
-          "libs/shared/data-access/rest-service/src/**/*.html"
-        ]
-      },
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
   },

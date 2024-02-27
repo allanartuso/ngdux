@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngil/ui/list"],
       "options": {
-        "project": "libs/ngil/ui/list/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/ngil/ui/list/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -26,15 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/ngil/ui/list"],
       "options": {
-        "jestConfig": "libs/ngil/ui/list/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ngil/ui/list/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/ngil/ui/list/**/*.ts", "libs/ngil/ui/list/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:publishable", "type:ui"]

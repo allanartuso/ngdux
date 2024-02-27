@@ -9,18 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/common/util-notification"],
       "options": {
-        "jestConfig": "libs/shared/common/util-notification/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/shared/common/util-notification/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/common/util-notification/src/**/*.ts",
-          "libs/shared/common/util-notification/src/**/*.html"
-        ]
-      },
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
   },

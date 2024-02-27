@@ -9,15 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/demo/ui/users"],
       "options": {
-        "jestConfig": "libs/demo/ui/users/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/demo/ui/users/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/demo/ui/users/**/*.ts", "libs/demo/ui/users/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:demo", "type:ui"]
