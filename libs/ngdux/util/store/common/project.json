@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngdux/util/store/common"],
       "options": {
-        "project": "libs/ngdux/util/store/common/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/ngdux/util/store/common/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -26,20 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/ngdux/util/store/common"],
       "options": {
-        "jestConfig": "libs/ngdux/util/store/common/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ngdux/util/store/common/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/ngdux/util/store/common/**/*.ts",
-          "libs/ngdux/util/store/common/**/*.html",
-          "libs/ngdux/util/store/common/test/**/*.ts",
-          "libs/ngdux/util/store/common/test/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["scope:publishable-common", "type:util"]

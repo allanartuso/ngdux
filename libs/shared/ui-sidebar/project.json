@@ -9,15 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/ui-sidebar"],
       "options": {
-        "jestConfig": "libs/shared/ui-sidebar/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/shared/ui-sidebar/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/shared/ui-sidebar/src/**/*.ts", "libs/shared/ui-sidebar/src/**/*.html"]
-      },
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
   },

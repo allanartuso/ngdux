@@ -9,15 +9,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/ui-list"],
       "options": {
-        "jestConfig": "libs/shared/ui-list/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/shared/ui-list/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/shared/ui-list/src/**/*.ts", "libs/shared/ui-list/src/**/*.html"]
-      },
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
   },
