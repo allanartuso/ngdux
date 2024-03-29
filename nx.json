@@ -1,7 +1,4 @@
 {
-  "affected": {
-    "defaultBase": "master"
-  },
   "defaultProject": "demo",
   "generators": {
     "@nx/angular:application": {
@@ -77,5 +74,6 @@
       "!{projectRoot}/cypress.config.[jt]s"
     ]
   },
-  "parallel": 1
+  "parallel": 1,
+  "defaultBase": "master"
 }
