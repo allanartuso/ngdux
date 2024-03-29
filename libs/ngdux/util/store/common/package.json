@@ -2,9 +2,9 @@
   "name": "@ngdux/store-common",
   "version": "2.0.0",
   "peerDependencies": {
-    "@ngrx/store": "^16.0.0",
+    "@ngrx/store": "^17.0.0",
     "@angular/core": "",
-    "@ngdux/data-model-common": "^1.0.0",
-    "@ngrx/effects": "^16.0.0"
+    "@ngdux/data-model-common": "^3.0.0",
+    "@ngrx/effects": "^17.0.0"
   }
 }

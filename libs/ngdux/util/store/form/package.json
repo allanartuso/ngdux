@@ -8,10 +8,10 @@
   },
   "homepage": "https://github.com/allanartuso/ngdux/tree/master/libs/ngdux/util/store/form#readme",
   "peerDependencies": {
-    "@ngdux/data-model-common": "^1.0.0",
-    "@angular/core": "^16.0.0",
-    "@ngdux/store-common": "^1.0.0",
-    "@ngrx/store": "^16.0.0",
-    "@ngrx/effects": "^16.0.0"
+    "@ngdux/data-model-common": "^3.0.0",
+    "@angular/core": "^17.0.0",
+    "@ngdux/store-common": "^3.0.0",
+    "@ngrx/store": "^17.0.0",
+    "@ngrx/effects": "^17.0.0"
   }
 }
