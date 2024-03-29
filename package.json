@@ -45,7 +45,7 @@
     "@angular/compiler": "17.2.2",
     "@angular/core": "17.2.2",
     "@angular/forms": "17.2.2",
-    "@angular/material": "^16.2.0",
+    "@angular/material": "17.2.1",
     "@angular/platform-browser": "17.2.2",
     "@angular/platform-browser-dynamic": "17.2.2",
     "@angular/router": "17.2.2",
@@ -60,7 +60,7 @@
     "zone.js": "0.14.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "17.2.1",
+    "@angular-devkit/build-angular": "^17.3.2",
     "@angular-devkit/core": "17.2.1",
     "@angular-devkit/schematics": "17.2.1",
     "@angular-eslint/eslint-plugin": "17.2.1",
@@ -94,7 +94,7 @@
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
     "autoprefixer": "^10.4.0",
-    "cypress": "^13.6.6",
+    "cypress": "^13.7.1",
     "dotenv": "^16.4.5",
     "esbuild": "^0.19.2",
     "eslint": "8.57.0",
