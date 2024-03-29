@@ -16,6 +16,10 @@ export function stubGetUser(): void {
   cy.intercept('GET', '/api/users/1', {
     fixture: 'user'
   }).as(userFormRoutes.getUser);
+
+  cy.intercept('GET', '/api/cars?*', {
+    fixture: 'cars'
+  }).as(userFormRoutes.getUser);
 }
 
 export function stubUpdateUser(): Required<UserDto> {
