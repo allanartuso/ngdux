@@ -35,6 +35,15 @@
       "options": {
         "lintFilePatterns": ["libs/ngil/ui/form-inputs/**/*.ts", "libs/ngil/ui/form-inputs/**/*.html"]
       }
+    },
+    "component-test": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "libs/ngil/ui/form-inputs/cypress/cypress.config.ts",
+        "testingType": "component",
+        "skipServe": true,
+        "devServerTarget": "demo:build:development"
+      }
     }
   },
   "tags": ["scope:publishable", "type:ui"]

@@ -1,4 +1,12 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output
+} from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractInputComponent } from '@ngil/form-cva';
 import { takeUntil } from 'rxjs/operators';
@@ -18,6 +26,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class NgilInputComponent extends AbstractInputComponent<string | number> implements AfterViewInit {
   @Input() type = 'text';
+  @Output() changed = new EventEmitter<string | number>();
 
   control = new FormControl();
 
@@ -35,6 +44,7 @@ export class NgilInputComponent extends AbstractInputComponent<string | number> 
     if (this.type === 'number') {
       value = +value;
     }
+    this.changed.emit(value);
     if (this.onChange) {
       this.onChange(value);
     }
