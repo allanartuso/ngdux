@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/allanartuso/ngdux/compare/v2.0.0...v3.0.0) (2024-03-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* update libs dependencies versions
+
+### Bug Fixes
+
+* material deprecations ([459ff87](https://github.com/allanartuso/ngdux/commit/459ff8766b5e610f24586469c48cc73db6f4a8a0))
+* user form cypress test ([320b432](https://github.com/allanartuso/ngdux/commit/320b4325292dddbc6789572a286940ab9f8ad339))
+
+
+* update libs dependencies versions ([d298c6a](https://github.com/allanartuso/ngdux/commit/d298c6a2439aa3d3392e31ecf0be68b5a32e3161))
+
 ## [2.0.0](https://github.com/allanartuso/ngdux/compare/v1.4.0...v2.0.0) (2023-11-22)
 
 ### ⚠ BREAKING CHANGES
