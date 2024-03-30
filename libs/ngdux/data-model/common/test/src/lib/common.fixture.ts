@@ -1,4 +1,4 @@
-import { Casing, faker } from '@faker-js/faker';
+import { Casing, allLocales, faker } from '@faker-js/faker';
 
 export type RemoveReadonly<T> = {
   -readonly [P in keyof T]: T[P];
@@ -23,7 +23,7 @@ export function getWord(): string {
 }
 
 export function getUniqueWord(): string {
-  return faker.unique(faker.random.word, undefined, { maxTime: 100, maxRetries: 100 });
+  return faker.helpers.unique(faker.random.word, undefined, { maxTime: 100, maxRetries: 100 });
 }
 
 export function getFirstName(): string {
@@ -176,7 +176,7 @@ export function getSemverVersion(): string {
 }
 
 export function getLocale(): string {
-  return faker.random.locale();
+  return faker.helpers.objectKey(allLocales);
 }
 
 export function getYear(): number {
