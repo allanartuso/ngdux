@@ -2,7 +2,7 @@ import { Directive, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { AbstractControl, ControlContainer, ControlValueAccessor, FormArray } from '@angular/forms';
 import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { getErrorMessage } from '../error-messages';
+import { NgilErrorMessagesService } from '../error-messages.service';
 
 @Directive()
 export abstract class AbstractInputComponent<T = string> implements OnInit, ControlValueAccessor, OnDestroy {
@@ -25,7 +25,10 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
     errorMessage: this.errorMessage$
   });
 
-  constructor(@Optional() private readonly controlContainer?: ControlContainer) {}
+  constructor(
+    private readonly errorMessagesService: NgilErrorMessagesService,
+    @Optional() private readonly controlContainer?: ControlContainer
+  ) {}
 
   ngOnInit(): void {
     if (this.controlContainer?.control instanceof FormArray) {
@@ -78,7 +81,7 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
       const errorKey = Object.keys(this.parentControl?.errors)[0];
       const errorObj = this.parentControl?.errors[`${errorKey}`];
       this.errorMessage$.next(
-        getErrorMessage(errorKey, {
+        this.errorMessagesService.getErrorMessage(errorKey, {
           fieldName: this.label,
           ...errorObj
         })
