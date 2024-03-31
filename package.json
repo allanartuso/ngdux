@@ -31,8 +31,8 @@
     "help": "nx help",
     "ngdux:build": "nx build ngdux-util-store-form --configuration=production && nx build ngdux-util-store-list --configuration=production",
     "ngdux:publish": "npm publish dist/libs/ngdux/data-model/common && npm publish dist/libs/ngdux/util/store/common && npm publish dist/libs/ngdux/util/store/form && npm publish dist/libs/ngdux/util/store/list",
-    "ngil:build": "nx build ngil-ui-common-form-cva --configuration=production && nx build ngil-ui-list --configuration=production",
-    "ngil:publish": "npm publish dist/libs/ngil/ui/common/form-cva && npm publish dist/libs/ngil/ui/list",
+    "ngil:build": "nx build ngil-ui-common-form-cva --configuration=production && nx build ngil-ui-list --configuration=production && nx build ngil-ui-form-inputs --configuration=production",
+    "ngil:publish": "npm publish dist/libs/ngil/ui/common/form-cva && npm publish dist/libs/ngil/ui/list && npm publish dist/libs/ngil/ui/form-inputs",
     "update-versions": "ts-node -P tools/tsconfig.json tools/versioning/update-versions.ts",
     "publish": "ts-node -P tools/tsconfig.json tools/versioning/publish-libs.ts",
     "generate:db": "ts-node -P tools/tsconfig.json tools/generators/db-json.ts"
