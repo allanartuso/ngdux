@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/allanartuso/ngdux/compare/v3.1.0...v3.0.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* add error messages services to public api ([dafe136](https://github.com/allanartuso/ngdux/commit/dafe136bc734e97e8bb3dad4d168afcb18e68ad9))
+
 ## [3.0.0](https://github.com/allanartuso/ngdux/compare/v2.0.0...v3.0.0) (2024-03-30)
 
 
