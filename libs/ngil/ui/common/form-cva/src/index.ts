@@ -1,3 +1,5 @@
+export * from './lib/error-messages.model';
+export * from './lib/error-messages.service';
 export * from './lib/models/abstract-form-array-component';
 export * from './lib/models/abstract-form-component';
 export * from './lib/models/abstract-form-group.component';
