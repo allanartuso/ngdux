@@ -18,7 +18,8 @@
     }
 
     &__label {
-      display: block;
+      display: flex;
+      gap: 0.5rem;
     }
 
     &__input {
@@ -31,6 +32,8 @@
 
     &__field {
       display: flex;
+      gap: 0.5rem;
+      align-items: center;
     }
 
     &__error-message {
