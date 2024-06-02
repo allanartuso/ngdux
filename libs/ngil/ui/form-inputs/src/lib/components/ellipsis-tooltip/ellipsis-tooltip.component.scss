@@ -1,0 +1,17 @@
+.text-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-container .has-ellipsis {
+  position: relative;
+}
+
+.text-container .has-ellipsis::after {
+  content: '...';
+  position: absolute;
+  right: 0;
+  top: 0;
+}

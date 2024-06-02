@@ -1,0 +1,5 @@
+<div [ngilTooltip]="text" [ngilTooltipDisabled]="!hasEllipsis">
+  <div class="text-container" #textContainer>
+    <span [ngClass]="{ 'has-ellipsis': hasEllipsis }">{{ text }}</span>
+  </div>
+</div>
