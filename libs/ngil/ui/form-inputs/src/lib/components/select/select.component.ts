@@ -1,6 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AbstractInputComponent } from '@ngil/form-cva';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  Optional,
+  ViewChild,
+  forwardRef
+} from '@angular/core';
+import { ControlContainer, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractInputComponent, NgilErrorMessagesService } from '@ngil/form-cva';
 import { NgilOverlayComponent } from '../overlay/overlay.component';
 
 @Component({
@@ -36,8 +44,17 @@ export class NgilSelectComponent<T> extends AbstractInputComponent<T | T[]> {
     return this.value;
   }
 
+  constructor(
+    private readonly cdr: ChangeDetectorRef,
+    errorMessagesService: NgilErrorMessagesService,
+    @Optional() controlContainer?: ControlContainer
+  ) {
+    super(errorMessagesService, controlContainer);
+  }
+
   writeValue(value: T): void {
     this.value = value;
+    this.cdr.markForCheck();
   }
 
   onItemSelected(item: T | T[]) {
