@@ -1,10 +1,8 @@
-import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgilOverlayComponent, NgilOverlayToggleDirective } from '@ngil/components';
 import { NgilInputComponent } from './components/input/input.component';
-import { OverlayToggleDirective } from './components/overlay/overlay-toggle.directive';
-import { NgilOverlayComponent } from './components/overlay/overlay.component';
 import { NgilSelectOptionsComponent } from './components/select-options/select-options.component';
 import { NgilSelectComponent } from './components/select/select.component';
 import { NgilTextareaComponent } from './components/textarea/textarea.component';
@@ -15,7 +13,7 @@ import { TimePickerDirective } from './components/time-picker/time-picker.direct
 import { NumberRotationDirective } from './directives/number-rotation.directive';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, OverlayModule],
+  imports: [CommonModule, ReactiveFormsModule, NgilOverlayToggleDirective, NgilOverlayComponent],
   declarations: [
     NgilInputComponent,
     NgilTimePickerComponent,
@@ -25,9 +23,7 @@ import { NumberRotationDirective } from './directives/number-rotation.directive'
     TimePickerDirective,
     NgilSelectComponent,
     NgilTextareaComponent,
-    NgilSelectOptionsComponent,
-    NgilOverlayComponent,
-    OverlayToggleDirective
+    NgilSelectOptionsComponent
   ],
   exports: [
     NgilInputComponent,

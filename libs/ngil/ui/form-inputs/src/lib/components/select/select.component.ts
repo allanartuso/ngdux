@@ -8,8 +8,8 @@ import {
   forwardRef
 } from '@angular/core';
 import { ControlContainer, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgilOverlayComponent } from '@ngil/components';
 import { AbstractInputComponent, NgilErrorMessagesService } from '@ngil/form-cva';
-import { NgilOverlayComponent } from '../overlay/overlay.component';
 
 @Component({
   selector: 'ngil-select',

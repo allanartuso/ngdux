@@ -3,9 +3,10 @@ import { NgilOverlayComponent } from './overlay.component';
 
 @Directive({
   selector: '[ngilOverlayToggle]',
-  exportAs: 'ngilOverlayToggle'
+  exportAs: 'ngilOverlayToggle',
+  standalone: true
 })
-export class OverlayToggleDirective implements OnInit {
+export class NgilOverlayToggleDirective implements OnInit {
   @Input() set ngilOverlayToggle(overlay: NgilOverlayComponent) {
     this.overlay = overlay;
   }

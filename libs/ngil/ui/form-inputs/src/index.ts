@@ -1,4 +1,3 @@
-export * from './lib/components/ellipsis-tooltip/ellipsis-tooltip.component';
 export * from './lib/components/input/input.component';
 export * from './lib/components/select/select.component';
 export * from './lib/components/textarea/textarea.component';

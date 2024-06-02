@@ -4,6 +4,7 @@ import {
   GlobalPositionStrategy,
   Overlay,
   OverlayConfig,
+  OverlayModule,
   OverlayRef
 } from '@angular/cdk/overlay';
 import { DomPortal } from '@angular/cdk/portal';
@@ -23,7 +24,9 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './overlay.component.html',
   styleUrls: ['./overlay.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [OverlayModule]
 })
 export class NgilOverlayComponent implements OnDestroy {
   @ViewChild('contentWrapper') el?: ElementRef;
