@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostListener,
   Input,
   ViewChild
 } from '@angular/core';
@@ -21,16 +22,28 @@ import { NgilTooltipDirective } from '../tooltip/tooltip.directive';
 export class EllipsisTooltipComponent implements AfterViewInit {
   @ViewChild('textContainer') textContainer?: ElementRef<HTMLDivElement>;
 
-  @Input() text = '';
+  @Input() set text(text: string) {
+    this._text = text;
+    this.setHasEllipsis();
+  }
+  get text() {
+    return this._text;
+  }
+  private _text = '';
   hasEllipsis = false;
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
-
-  ngAfterViewInit() {
+  @HostListener('window:resize')
+  private setHasEllipsis() {
     const textContainer = this.textContainer?.nativeElement;
     if (textContainer) {
       this.hasEllipsis = textContainer.scrollWidth > textContainer.clientWidth;
     }
-    this.cdr.markForCheck();
+  }
+
+  constructor(private readonly cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit() {
+    this.setHasEllipsis();
+    this.cdr.detectChanges();
   }
 }
