@@ -21,7 +21,7 @@
     <small class="ngil-select__error-message">{{ model.errorMessage }}</small>
   </div>
 
-  <ngil-overlay #overlay>
+  <ngil-overlay #overlay [overwriteConfig]="{ maxHeight: 500 }">
     <ngil-select-options
       ngilOverlay
       class="ngil-select__dropdown"

@@ -1,4 +1,5 @@
 import {
+  ConnectedPosition,
   FlexibleConnectedPositionStrategy,
   GlobalPositionStrategy,
   Overlay,
@@ -27,28 +28,31 @@ import { Subject, takeUntil } from 'rxjs';
 export class NgilOverlayComponent implements OnDestroy {
   @ViewChild('contentWrapper') el?: ElementRef;
   @Input() overwriteConfig: Partial<OverlayConfig> = {};
+  @Input() positions: ConnectedPosition[] | undefined = undefined;
 
   private readonly destroy$ = new Subject<void>();
-  private readonly maxHeight = 500;
   private overlayRef?: OverlayRef;
 
-  origin?: ElementRef<HTMLInputElement>;
+  origin?: ElementRef<HTMLElement>;
   isOpened = false;
 
   constructor(private readonly overlay: Overlay) {}
 
   open(): void {
-    this.overlayRef = this.overlay.create(this.getOverlayConfig());
+    const config = this.getOverlayConfig();
+    this.overlayRef = this.overlay.create(config);
 
     const portal = new DomPortal(this.el);
     this.overlayRef.attach(portal);
 
-    this.overlayRef
-      .backdropClick()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.close();
-      });
+    if (config.hasBackdrop) {
+      this.overlayRef
+        .backdropClick()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.close();
+        });
+    }
 
     this.isOpened = true;
   }
@@ -59,7 +63,6 @@ export class NgilOverlayComponent implements OnDestroy {
       hasBackdrop: true,
       backdropClass: this.origin ? 'cdk-overlay-transparent-backdrop' : 'cdk-overlay-dark-backdrop',
       panelClass: ['ngil-overlay-panel'],
-      maxHeight: this.maxHeight,
       minWidth: this.origin?.nativeElement.offsetWidth,
       ...this.overwriteConfig
     };
@@ -78,32 +81,34 @@ export class NgilOverlayComponent implements OnDestroy {
     return this.overlay
       .position()
       .flexibleConnectedTo(this.origin)
-      .withPositions([
-        {
-          originX: primaryX,
-          originY: secondaryY,
-          overlayX: primaryX,
-          overlayY: primaryY
-        },
-        {
-          originX: primaryX,
-          originY: primaryY,
-          overlayX: primaryX,
-          overlayY: secondaryY
-        },
-        {
-          originX: secondaryX,
-          originY: secondaryY,
-          overlayX: secondaryX,
-          overlayY: primaryY
-        },
-        {
-          originX: secondaryX,
-          originY: primaryY,
-          overlayX: secondaryX,
-          overlayY: secondaryY
-        }
-      ]);
+      .withPositions(
+        this.positions || [
+          {
+            originX: primaryX,
+            originY: secondaryY,
+            overlayX: primaryX,
+            overlayY: primaryY
+          },
+          {
+            originX: primaryX,
+            originY: primaryY,
+            overlayX: primaryX,
+            overlayY: secondaryY
+          },
+          {
+            originX: secondaryX,
+            originY: secondaryY,
+            overlayX: secondaryX,
+            overlayY: primaryY
+          },
+          {
+            originX: secondaryX,
+            originY: primaryY,
+            overlayX: secondaryX,
+            overlayY: secondaryY
+          }
+        ]
+      );
   }
 
   close(): void {
