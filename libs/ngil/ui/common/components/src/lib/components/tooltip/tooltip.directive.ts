@@ -1,4 +1,4 @@
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { OverlayConfig } from '@angular/cdk/overlay';
 import {
   ComponentRef,
   Directive,
@@ -11,7 +11,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { NgilOverlayComponent } from '../overlay/overlay.component';
-import { TooltipComponent } from './tooltip.component';
+import { NgilTooltipComponent } from './tooltip.component';
 
 @Directive({
   selector: '[ngilTooltip]',
@@ -23,15 +23,14 @@ export class NgilTooltipDirective implements OnDestroy {
 
   @HostBinding('style.position') position = 'relative';
 
-  private tooltipComponentRef?: ComponentRef<TooltipComponent>;
+  private tooltipComponentRef?: ComponentRef<NgilTooltipComponent>;
   private overlayComponentRef: ComponentRef<NgilOverlayComponent> =
     this.viewContainerRef.createComponent(NgilOverlayComponent);
 
   constructor(
     private elementRef: ElementRef<HTMLElement>,
     private viewContainerRef: ViewContainerRef,
-    private renderer: Renderer2,
-    private readonly overlay: Overlay
+    private renderer: Renderer2
   ) {
     this.renderOverlayComponentRef();
   }
@@ -92,7 +91,7 @@ export class NgilTooltipDirective implements OnDestroy {
   };
 
   private createTooltipComponentRef() {
-    const tooltipComponentRef = this.viewContainerRef.createComponent(TooltipComponent);
+    const tooltipComponentRef = this.viewContainerRef.createComponent(NgilTooltipComponent);
     this.renderer.appendChild(
       this.overlayComponentRef.location.nativeElement,
       tooltipComponentRef.location.nativeElement

@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterContentChecked,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
-  Input,
+  OnDestroy,
   ViewChild
 } from '@angular/core';
 import { NgilTooltipDirective } from '../tooltip/tooltip.directive';
@@ -19,31 +20,54 @@ import { NgilTooltipDirective } from '../tooltip/tooltip.directive';
   styleUrl: './ellipsis-tooltip.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EllipsisTooltipComponent implements AfterViewInit {
+export class EllipsisTooltipComponent implements AfterViewInit, AfterContentChecked, OnDestroy {
   @ViewChild('textContainer') textContainer?: ElementRef<HTMLDivElement>;
 
-  @Input() set text(text: string) {
-    this._text = text;
-    this.setHasEllipsis();
-  }
-  get text() {
-    return this._text;
-  }
-  private _text = '';
   hasEllipsis = false;
+  content = '';
+  private debounceTimeOut = 0;
 
   @HostListener('window:resize')
-  private setHasEllipsis() {
-    const textContainer = this.textContainer?.nativeElement;
-    if (textContainer) {
-      this.hasEllipsis = textContainer.scrollWidth > textContainer.clientWidth;
-    }
+  onResize() {
+    this.setHasEllipsis();
   }
 
   constructor(private readonly cdr: ChangeDetectorRef) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
+    this.content = this.textContainer?.nativeElement.innerHTML || '';
+    this.updateView();
+  }
+
+  ngAfterContentChecked(): void {
+    const content = this.textContainer?.nativeElement.innerHTML || '';
+    if (content !== this.content) {
+      this.content = content;
+      this.updateView();
+    }
+  }
+
+  private updateView() {
     this.setHasEllipsis();
-    this.cdr.detectChanges();
+  }
+
+  private setHasEllipsis() {
+    clearTimeout(this.debounceTimeOut);
+
+    this.debounceTimeOut = setTimeout(() => {
+      const textContainer = this.textContainer?.nativeElement;
+      if (textContainer) {
+        const hasEllipsis = textContainer.scrollWidth > textContainer.clientWidth;
+
+        if (this.hasEllipsis !== hasEllipsis) {
+          this.hasEllipsis = hasEllipsis;
+          this.cdr.detectChanges();
+        }
+      }
+    }, 300);
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.debounceTimeOut);
   }
 }

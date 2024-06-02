@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: './tooltip.component.html',
   styleUrl: './tooltip.component.scss'
 })
-export class TooltipComponent {
+export class NgilTooltipComponent {
   @Input() text = '';
 }
