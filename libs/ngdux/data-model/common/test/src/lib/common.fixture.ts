@@ -184,6 +184,16 @@ export function getYear(): number {
   return date.getFullYear();
 }
 
+export function getPastDate(years = 20): string {
+  return faker.date.past({ years }).toISOString();
+}
+
+export function getBirthDate(from = 18, to = 90): string {
+  const years = getNumberInRange(from, to);
+  const date = faker.date.past({ years });
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
+}
+
 export function getIso8601Date(): string {
   return faker.date.recent().toISOString();
 }

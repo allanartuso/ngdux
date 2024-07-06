@@ -23,12 +23,14 @@ export function createTransientUser(): CreateUserDto {
   const firstName = commonFixture.getFirstName();
   const lastName = commonFixture.getLastName();
   const birthTime = commonFixture.getTime();
+  const birthDate = commonFixture.getBirthDate();
 
   return {
     email: commonFixture.getEmail(firstName, lastName),
     firstName,
     lastName,
     birthTime,
+    birthDate,
     cars: createPersistentCars()
   };
 }
