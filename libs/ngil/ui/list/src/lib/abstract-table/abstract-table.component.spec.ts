@@ -5,7 +5,7 @@ import {
   SortingDirection,
   SortingField
 } from '@ngdux/data-model-common';
-import { createSummaries, TestTableComponent } from './abstract-table.component.fixture';
+import { TestTableComponent, createSummaries } from './abstract-table.component.fixture';
 
 describe('ListComponent', () => {
   let component: TestTableComponent;
@@ -73,10 +73,17 @@ describe('ListComponent', () => {
   describe('deleteSelected', () => {
     it('emits an event when deleting', () => {
       jest.spyOn(component.deleteSelected, 'emit');
+      const items = [
+        {
+          id: 'testId',
+          name: 'testName',
+          count: 1
+        }
+      ];
 
-      component.onDelete();
+      component.onDelete(items);
 
-      expect(component.deleteSelected.emit).toHaveBeenCalled();
+      expect(component.deleteSelected.emit).toHaveBeenCalledWith(items);
     });
   });
 });

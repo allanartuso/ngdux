@@ -29,15 +29,14 @@ describe('CarsComponent', () => {
       selectedItems$: of([]),
       totalCount$: of(5),
       pagingOptions$: of({ page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE }),
-      sortingOptions$: of({ name: { field: 'name', direction: DEFAULT_SORTING_ORDER } }),
+      sortingOptions$: of([{ field: 'name', direction: DEFAULT_SORTING_ORDER }]),
       filteringOptions$: of({ logic: DEFAULT_FILTERING_LOGIC, filters: [] }),
       initialize: jest.fn(),
       loadPage: jest.fn(),
       changePagingOptions: jest.fn(),
       changeFiltering: jest.fn(),
       changeSorting: jest.fn(),
-      changeSelectedResources: jest.fn(),
-      showRemovalsConfirmation: jest.fn()
+      changeSelectedResources: jest.fn()
     };
 
     TestBed.configureTestingModule({

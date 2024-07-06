@@ -12,7 +12,7 @@ import {
   FilteringOptions,
   RequestState,
   SortingDirection,
-  SortingOptions,
+  SortingField,
   getDefaultRequestOptions
 } from '@ngdux/data-model-common';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
@@ -104,7 +104,7 @@ describe('createListReducer', () => {
   });
 
   it('sets the sorting options', () => {
-    const sortingOptions: SortingOptions = { name: { field: 'name', direction: SortingDirection.ASCENDING } };
+    const sortingOptions: SortingField[] = [{ field: 'name', direction: SortingDirection.ASCENDING }];
     const testAction = testListActions.changeSorting({ sortingOptions });
 
     const state = testReducer(undefined, testAction);

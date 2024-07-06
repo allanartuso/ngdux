@@ -92,12 +92,7 @@ describe('RestService', () => {
         page: testPage,
         pageSize: testPageSize
       },
-      sortingOptions: {
-        [testSortingFieldName]: {
-          field: testSortingFieldName,
-          direction: SortingDirection.DESCENDING
-        }
-      },
+      sortingOptions: [{ field: testSortingFieldName, direction: SortingDirection.DESCENDING }],
       filteringOptions: {
         logic: FilteringLogic.OR,
         filters: [
@@ -177,7 +172,7 @@ describe('RestService', () => {
 
     it('applies request parameters when request options with empty sorting options are provided', done => {
       const expectedRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: {}
+        sortingOptions: []
       };
 
       restService
@@ -194,12 +189,12 @@ describe('RestService', () => {
 
     it('applies request parameters when request options with one ascending sorting field is provided', done => {
       const expectedRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: {
-          [testSortingFieldName]: {
+        sortingOptions: [
+          {
             field: testSortingFieldName,
             direction: SortingDirection.ASCENDING
           }
-        }
+        ]
       };
 
       restService
@@ -218,12 +213,12 @@ describe('RestService', () => {
 
     it('applies request parameters when request options with one descending sorting field are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: {
-          [testSortingFieldName]: {
+        sortingOptions: [
+          {
             field: testSortingFieldName,
             direction: SortingDirection.DESCENDING
           }
-        }
+        ]
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -241,16 +236,16 @@ describe('RestService', () => {
     it('applies request parameters when request options with multiple sorting fields are provided', done => {
       const testSortingFieldName2 = 'testSortingFieldName12';
       const testRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: {
-          [testSortingFieldName]: {
+        sortingOptions: [
+          {
             field: testSortingFieldName,
             direction: SortingDirection.ASCENDING
           },
-          [testSortingFieldName2]: {
+          {
             field: testSortingFieldName2,
             direction: SortingDirection.DESCENDING
           }
-        }
+        ]
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -377,16 +372,16 @@ describe('RestService', () => {
         page: testPage,
         pageSize: testPageSize
       },
-      sortingOptions: {
-        [testSortingFieldName]: {
+      sortingOptions: [
+        {
           field: testSortingFieldName,
           direction: SortingDirection.DESCENDING
         },
-        [testSortingFieldName2]: {
+        {
           field: testSortingFieldName2,
           direction: SortingDirection.ASCENDING
         }
-      },
+      ],
       filteringOptions: {
         logic: FilteringLogic.OR,
         filters: [
@@ -467,12 +462,12 @@ describe('RestService', () => {
 
     it('applies query parameters when request options with one ascending sorting field are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: {
-          [testSortingFieldName]: {
+        sortingOptions: [
+          {
             field: testSortingFieldName,
             direction: SortingDirection.ASCENDING
           }
-        }
+        ]
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -495,12 +490,12 @@ describe('RestService', () => {
 
     it('applies query parameters when request options with one descending sorting field are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: {
-          [testSortingFieldName2]: {
+        sortingOptions: [
+          {
             field: testSortingFieldName2,
             direction: SortingDirection.DESCENDING
           }
-        }
+        ]
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -523,7 +518,7 @@ describe('RestService', () => {
 
     it('applies query parameters when request options with multiple sorting fields are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: { ...defaultRequestOptions.sortingOptions }
+        sortingOptions: [...defaultRequestOptions.sortingOptions]
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {

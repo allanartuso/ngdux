@@ -6,10 +6,10 @@ import {
   PagingOptions,
   RequestState,
   SortingDirection,
-  SortingOptions
+  SortingField
 } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
-import { createTestResource, createTestResources, TestResource } from '@ngdux/store-common/test';
+import { TestResource, createTestResource, createTestResources } from '@ngdux/store-common/test';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jest-marbles';
@@ -119,7 +119,7 @@ describe('TestListFacade', () => {
   });
 
   it('triggers changeSorting action', () => {
-    const sortingOptions: SortingOptions = { field: { field: 'field', direction: SortingDirection.ASCENDING } };
+    const sortingOptions: SortingField[] = [{ field: 'field', direction: SortingDirection.ASCENDING }];
 
     facade.changeSorting({ sortingOptions });
 
@@ -175,11 +175,5 @@ describe('TestListFacade', () => {
     facade.resetRequestState();
 
     expect(store.dispatch).toHaveBeenCalledWith(testListActions.resetRequestState());
-  });
-
-  it('triggers showRemovalsConfirmation action', () => {
-    facade.showRemovalsConfirmation();
-
-    expect(store.dispatch).toHaveBeenCalledWith(testListActions.showRemovalsConfirmation());
   });
 });

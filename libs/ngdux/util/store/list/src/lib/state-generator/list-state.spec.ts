@@ -51,7 +51,7 @@ describe('listState', () => {
             page: 1,
             pageSize: 10
           },
-          sortingOptions: {},
+          sortingOptions: [],
           filteringOptions: { filters: [], logic: FilteringLogic.AND }
         },
         { type: '' }

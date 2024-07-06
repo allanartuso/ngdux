@@ -27,7 +27,6 @@ export class TestListService implements ListService<TestResource> {
 }
 
 export const mockNotificationService: ListNotificationService<TestErrors> = {
-  openConfirmationDialog: jest.fn(),
   onListErrors: jest.fn(),
   onListDelete: jest.fn()
 };
