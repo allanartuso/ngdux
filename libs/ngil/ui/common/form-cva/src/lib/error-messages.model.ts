@@ -1,5 +1,10 @@
 export interface NgilErrorMessageConfig {
-  useDefaultReplacer: boolean;
+  /**
+   * @deprecated
+   * set replacer property to override the default replacer
+   */
+  useDefaultReplacer?: boolean;
+  replacer?: (i18nKey: string, replacements: Record<string, string>) => string;
 }
 
 export const DEFAULT_ERROR_MESSAGES: Record<string, string> = {

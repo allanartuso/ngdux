@@ -1,8 +1,3 @@
-const mockErrorMessage = 'mockErrorMessage';
-jest.mock('../error-messages', () => ({
-  getErrorMessage: jest.fn().mockReturnValue(mockErrorMessage)
-}));
-
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
@@ -14,6 +9,8 @@ import {
   Validators
 } from '@angular/forms';
 import { hot } from 'jest-marbles';
+import { of } from 'rxjs';
+import { NgilErrorMessagesService } from '../error-messages.service';
 import { AbstractInputComponent } from './abstract-input-component';
 
 @Component({
@@ -42,6 +39,7 @@ describe('AbstractInputComponent', () => {
   const onTouchedMock = jest.fn();
   let form: FormGroup<{ testControl: FormControl }>;
   const formDirective = new FormGroupDirective([], []);
+  const mockErrorMessage = 'mockErrorMessage';
 
   beforeEach(waitForAsync(() => {
     const control = new FormControl('', { validators: [Validators.required] });
@@ -57,6 +55,13 @@ describe('AbstractInputComponent', () => {
         {
           provide: ControlContainer,
           useValue: formDirective
+        },
+        {
+          provide: NgilErrorMessagesService,
+          useValue: {
+            getErrorMessage: jest.fn().mockReturnValue(mockErrorMessage),
+            errorMessagesChanged$: of(undefined)
+          }
         }
       ]
     }).compileComponents();

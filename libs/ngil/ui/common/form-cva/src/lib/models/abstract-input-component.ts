@@ -38,6 +38,7 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
     }
     this.setRequiredState();
     this.listenStatusChanges();
+    this.listenErrorMessagesChanges();
   }
 
   private setRequiredState(): void {
@@ -74,6 +75,10 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
 
   protected listenStatusChanges(): void {
     this.parentControl?.statusChanges.pipe(takeUntil(this.destroy$)).subscribe(() => this.setErrors());
+  }
+
+  protected listenErrorMessagesChanges() {
+    this.errorMessagesService.errorMessagesChanged$.pipe(takeUntil(this.destroy$)).subscribe(() => this.setErrors());
   }
 
   protected setErrors(): void {
