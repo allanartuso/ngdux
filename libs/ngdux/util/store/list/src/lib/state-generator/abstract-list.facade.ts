@@ -1,5 +1,7 @@
+import { RequestState } from '@ngdux/data-model-common';
 import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
+import { map } from 'rxjs';
 import { ListActions, ListSelectors } from '../models/list.model';
 
 export abstract class AbstractListFacade<T, E, S = T, Params = Record<string, string>> {
@@ -19,6 +21,10 @@ export abstract class AbstractListFacade<T, E, S = T, Params = Record<string, st
   readonly sortingOptions$ = this.store.pipe(select(this.listSelectors.getSortingOptions));
   readonly selectedItems$ = this.store.pipe(select(this.listSelectors.getSelectedItems));
   readonly totalCount$ = this.store.pipe(select(this.listSelectors.getTotalCount));
+  readonly isLoading$ = this.store.pipe(
+    select(this.listSelectors.getLoadingState),
+    map(loadingState => loadingState === RequestState.IN_PROGRESS)
+  );
 
   constructor(
     protected readonly store: Store,

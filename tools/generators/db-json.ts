@@ -5,7 +5,7 @@ import { createPersistentSmartphones } from '@demo/demo/data-model/smartphones/t
 import { createPersistentUsers } from '@demo/demo/data-model/users/test';
 import * as fs from 'fs';
 
-const properties = createPersistentProperties(100);
+const properties = createPersistentProperties(5000);
 const users = createPersistentUsers(30);
 const cars = createPersistentCars(30);
 const agents = createPersistentAgents(30);

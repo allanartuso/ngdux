@@ -24,6 +24,7 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   @Input() totalCount = 0;
   @Input() pageSizeOptions = [5, 10, 20, 30, 50];
   @Input() dataSource: T[] = [];
+  @Input() loading = false;
   @Input() canEdit = false;
   @Input() allowRowSelection = false;
   @Input() set sortingOptions(sortingOptions: SortingField[]) {
@@ -36,6 +37,7 @@ export class TableComponent<T> implements OnInit, OnDestroy {
     this.pageNumber = pagingOptions.page;
     this.pageSize = pagingOptions.pageSize;
   }
+  matTable = false;
 
   @Output() sortingChanged = new EventEmitter<SortingField>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();

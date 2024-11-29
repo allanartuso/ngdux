@@ -4,7 +4,7 @@ import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { PROPERTIES_RESOURCE_BASE_PATH, PropertyDto } from '@demo/demo/data-model/properties';
 import { NotificationService } from '@demo/shared/common/util-notification';
 import { FilteringOptions, PagingOptions, SortingField } from '@ngil/list';
-import { combineLatest, filter, map } from 'rxjs';
+import { combineLatest, filter, map, tap } from 'rxjs';
 
 @Component({
   selector: 'demo-properties',
@@ -18,7 +18,8 @@ export class PropertiesComponent {
     pagingOptions: this.propertiesFacade.pagingOptions$,
     sortingOptions: this.propertiesFacade.sortingOptions$.pipe(map(sortingOptions => Object.values(sortingOptions))),
     filteringOptions: this.propertiesFacade.filteringOptions$,
-    selectedItems: this.propertiesFacade.selectedItems$
+    selectedItems: this.propertiesFacade.selectedItems$,
+    loading: this.propertiesFacade.isLoading$.pipe(tap(isLoading => console.log('isLoading', isLoading)))
   });
 
   constructor(

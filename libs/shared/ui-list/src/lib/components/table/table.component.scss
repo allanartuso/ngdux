@@ -16,6 +16,11 @@ table {
   }
 }
 
+.demo-list__table {
+  overflow: auto;
+  height: 60vh;
+}
+
 ::ng-deep {
   .mat-paginator-navigation-last {
     display: none !important;
