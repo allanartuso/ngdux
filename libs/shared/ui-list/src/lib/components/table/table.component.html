@@ -10,8 +10,18 @@
     <div class="demo-list__table">
       @if (!matTable) {
         <table>
-          <ng-container *ngFor="let row of dataSource">
+          <ng-container *ngFor="let row of matDataSource._pageData(matDataSource.data)">
             <tr>
+              <td>
+                <mat-checkbox
+                  role="checkbox"
+                  (click)="$event.stopPropagation()"
+                  (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)"
+                >
+                </mat-checkbox>
+                <button mat-icon-button><mat-icon>drag_handle</mat-icon></button>
+              </td>
               <ng-container *ngFor="let column of columns">
                 <td>{{ $any(row)[column.key] }}</td>
               </ng-container>
@@ -22,7 +32,7 @@
         <table
           mat-table
           matSort
-          [dataSource]="dataSource"
+          [dataSource]="matDataSource"
           [matSortActive]="sortActive"
           [matSortDirection]="sortDirection"
           (matSortChange)="onSortingChanged($event)"
@@ -47,7 +57,6 @@
             <td mat-cell *matCellDef="let row">
               <mat-checkbox
                 role="checkbox"
-                [aria-label]="row.email"
                 (click)="$event.stopPropagation()"
                 (change)="$event ? selection.toggle(row) : null"
                 [checked]="selection.isSelected(row)"
@@ -65,15 +74,16 @@
         </table>
       }
     </div>
-
-    <mat-paginator
-      [pageSizeOptions]="pageSizeOptions"
-      [showFirstLastButtons]="true"
-      [pageIndex]="pageNumber - 1"
-      [pageSize]="pageSize"
-      [length]="totalCount"
-      (page)="onPageEvent($event)"
-    >
-    </mat-paginator>
   </div>
 }
+
+<mat-paginator
+  [pageSizeOptions]="sizeOptions"
+  [showFirstLastButtons]="true"
+  [pageIndex]="pageNumber - 1"
+  [pageSize]="pageSize"
+  [length]="totalCount"
+>
+</mat-paginator>
+
+<button (click)="onClick()"><mat-icon>on/off</mat-icon></button>

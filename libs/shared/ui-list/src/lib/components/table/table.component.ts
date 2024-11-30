@@ -1,7 +1,8 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
@@ -20,10 +21,17 @@ import { TableColumn } from '../../models/table.model';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent<T> implements OnInit, OnDestroy {
+  @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
+    this.matDataSource.paginator = paginator;
+  }
+  matDataSource = new MatTableDataSource<T>([]);
+
   @Input() columns: TableColumn[] = [];
   @Input() totalCount = 0;
   @Input() pageSizeOptions = [5, 10, 20, 30, 50];
-  @Input() dataSource: T[] = [];
+  @Input() set dataSource(dataSource: T[]) {
+    this.matDataSource.data = dataSource;
+  }
   @Input() loading = false;
   @Input() canEdit = false;
   @Input() allowRowSelection = false;
@@ -38,6 +46,9 @@ export class TableComponent<T> implements OnInit, OnDestroy {
     this.pageSize = pagingOptions.pageSize;
   }
   matTable = false;
+  get sizeOptions(): number[] {
+    return [...this.pageSizeOptions, 200, 500, 1000];
+  }
 
   @Output() sortingChanged = new EventEmitter<SortingField>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();
@@ -126,5 +137,9 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  onClick() {
+    this.matTable = !this.matTable;
   }
 }
