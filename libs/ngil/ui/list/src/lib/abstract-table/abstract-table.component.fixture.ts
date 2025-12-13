@@ -9,8 +9,9 @@ interface Summary {
 }
 
 @Component({
-  selector: 'demo-list',
-  template: ``
+    selector: 'demo-list',
+    template: ``,
+    standalone: false
 })
 export class TestTableComponent extends AbstractTableComponent<Summary> {}
 

@@ -12,17 +12,18 @@ import { AbstractInputComponent } from '@ngil/form-cva';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'ngil-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NgilInputComponent),
-      multi: true
-    }
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'ngil-input',
+    templateUrl: './input.component.html',
+    styleUrls: ['./input.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => NgilInputComponent),
+            multi: true
+        }
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NgilInputComponent extends AbstractInputComponent<string | number> implements AfterViewInit {
   @Input() type = 'text';

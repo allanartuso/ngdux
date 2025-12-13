@@ -5,10 +5,11 @@ import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
 import { AbstractFormComponent, FlatFormControlsOf } from '@ngil/form-cva';
 
 @Component({
-  selector: 'demo-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'demo-user-form',
+    templateUrl: './user-form.component.html',
+    styleUrls: ['./user-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UserFormComponent extends AbstractFormComponent<UserDto> {
   @Input() cars: CarDto[] = [];

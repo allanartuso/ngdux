@@ -5,10 +5,11 @@ import { CreateUserDto, UserDto, isUserDto } from '@demo/demo/data-model/users';
 import { combineLatest } from 'rxjs';
 
 @Component({
-  selector: 'demo-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'demo-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UserComponent {
   model$ = combineLatest({

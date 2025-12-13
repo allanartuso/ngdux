@@ -4,17 +4,18 @@ import { AbstractInputComponent } from '@ngil/form-cva';
 import { takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'ngil-textarea',
-  templateUrl: './textarea.component.html',
-  styleUrls: ['./textarea.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NgilTextareaComponent),
-      multi: true
-    }
-  ]
+    selector: 'ngil-textarea',
+    templateUrl: './textarea.component.html',
+    styleUrls: ['./textarea.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => NgilTextareaComponent),
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class NgilTextareaComponent extends AbstractInputComponent<string> implements AfterViewInit {
   control = new FormControl();

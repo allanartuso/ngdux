@@ -15,9 +15,10 @@ interface PropertyForm {
 }
 
 @Component({
-  selector: 'demo-property-form',
-  templateUrl: './property-form.component.html',
-  styleUrls: ['./property-form.component.scss']
+    selector: 'demo-property-form',
+    templateUrl: './property-form.component.html',
+    styleUrls: ['./property-form.component.scss'],
+    standalone: false
 })
 export class PropertyFormComponent extends AbstractFormComponent<PropertyDto> {
   @Input() users: UserDto[] = [];

@@ -4,9 +4,10 @@ import { TableColumn } from '@demo/shared/ui-list';
 import { AbstractTableComponent } from '@ngil/list';
 
 @Component({
-  selector: 'demo-smartphones-table',
-  templateUrl: './smartphones-table.component.html',
-  styleUrls: ['./smartphones-table.component.scss']
+    selector: 'demo-smartphones-table',
+    templateUrl: './smartphones-table.component.html',
+    styleUrls: ['./smartphones-table.component.scss'],
+    standalone: false
 })
 export class SmartphonesTableComponent extends AbstractTableComponent<SmartphoneDto> {
   columns: TableColumn[] = [

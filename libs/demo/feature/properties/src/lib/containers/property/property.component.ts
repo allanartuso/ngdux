@@ -5,9 +5,10 @@ import { CreatePropertyDto, PropertyDto, isPropertyDto } from '@demo/demo/data-m
 import { combineLatest } from 'rxjs';
 
 @Component({
-  selector: 'demo-property',
-  templateUrl: './property.component.html',
-  styleUrls: ['./property.component.scss']
+    selector: 'demo-property',
+    templateUrl: './property.component.html',
+    styleUrls: ['./property.component.scss'],
+    standalone: false
 })
 export class PropertyComponent {
   model$ = combineLatest({

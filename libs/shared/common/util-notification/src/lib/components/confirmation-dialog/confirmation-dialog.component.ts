@@ -6,9 +6,10 @@ export interface DialogData {
   message: string;
 }
 @Component({
-  selector: 'demo-confirmation-dialog',
-  templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css']
+    selector: 'demo-confirmation-dialog',
+    templateUrl: './confirmation-dialog.component.html',
+    styleUrls: ['./confirmation-dialog.component.css'],
+    standalone: false
 })
 export class ConfirmationDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}

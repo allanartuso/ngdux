@@ -12,17 +12,18 @@ import { NgilOverlayComponent } from '@ngil/components';
 import { AbstractInputComponent, NgilErrorMessagesService } from '@ngil/form-cva';
 
 @Component({
-  selector: 'ngil-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NgilSelectComponent),
-      multi: true
-    }
-  ]
+    selector: 'ngil-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => NgilSelectComponent),
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class NgilSelectComponent<T> extends AbstractInputComponent<T | T[]> {
   @ViewChild(NgilOverlayComponent) overlay?: NgilOverlayComponent;

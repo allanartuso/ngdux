@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { RequestState } from '@ngdux/data-model-common';
 
 @Component({
-  selector: 'demo-submit-button',
-  templateUrl: './submit-button.component.html',
-  styleUrls: ['./submit-button.component.scss']
+    selector: 'demo-submit-button',
+    templateUrl: './submit-button.component.html',
+    styleUrls: ['./submit-button.component.scss'],
+    standalone: false
 })
 export class DemoSubmitButtonComponent {
   state: RequestState = RequestState.IDLE;

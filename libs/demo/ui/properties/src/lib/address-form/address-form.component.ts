@@ -4,11 +4,12 @@ import { AddressDto } from '@demo/demo/data-model/properties';
 import { AbstractFormGroupComponent, FlatFormControlsOf, createControlValueAccessorProviders } from '@ngil/form-cva';
 
 @Component({
-  selector: 'demo-address-form',
-  templateUrl: './address-form.component.html',
-  styleUrls: ['./address-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: createControlValueAccessorProviders(AddressFormComponent)
+    selector: 'demo-address-form',
+    templateUrl: './address-form.component.html',
+    styleUrls: ['./address-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: createControlValueAccessorProviders(AddressFormComponent),
+    standalone: false
 })
 export class AddressFormComponent extends AbstractFormGroupComponent<AddressDto> {
   validators: Partial<Record<keyof AddressDto, ValidatorFn[]>> = {

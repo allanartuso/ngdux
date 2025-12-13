@@ -2,7 +2,8 @@ import { AfterViewInit, Directive, ElementRef, HostListener, Input, OnDestroy, O
 import { NgControl } from '@angular/forms';
 
 @Directive({
-  selector: 'input[ngilNumberRotation]'
+    selector: 'input[ngilNumberRotation]',
+    standalone: false
 })
 export class NumberRotationDirective implements AfterViewInit, OnDestroy, OnInit {
   @Input() min = 0;

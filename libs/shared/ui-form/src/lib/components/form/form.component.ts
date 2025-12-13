@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RequestState } from '@ngdux/data-model-common';
 
 @Component({
-  selector: 'demo-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+    selector: 'demo-form',
+    templateUrl: './form.component.html',
+    styleUrls: ['./form.component.scss'],
+    standalone: false
 })
 export class DemoFormComponent {
   @Input() isSubmitDisabled = false;

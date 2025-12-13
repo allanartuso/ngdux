@@ -9,8 +9,8 @@ export const listSelectors = {
 };
 
 export function assertPagingCorrectly(alias: string) {
-  cy.get(listSelectors.firstPageButton).should('be.disabled');
-  cy.get(listSelectors.previousPageButton).should('be.disabled');
+  cy.get(listSelectors.firstPageButton).should('have.attr', 'aria-disabled', 'true');
+  cy.get(listSelectors.previousPageButton).should('have.attr', 'aria-disabled', 'true');
 
   cy.get(listSelectors.nextPageButton).click();
   assertCorrectGetRequested(alias, 2);
@@ -24,7 +24,7 @@ export function assertPagingCorrectly(alias: string) {
   cy.get(listSelectors.nextPageButton).click();
   assertCorrectGetRequested(alias, 4);
 
-  cy.get(listSelectors.nextPageButton).should('be.disabled');
+  cy.get(listSelectors.nextPageButton).should('have.attr', 'aria-disabled', 'true');
 
   cy.get(listSelectors.previousPageButton).click();
   assertCorrectGetRequested(alias, 3);
@@ -34,8 +34,8 @@ export function assertPagingCorrectly(alias: string) {
   cy.get(listSelectors.firstPageButton).click();
   assertCorrectGetRequested(alias, 1);
 
-  cy.get(listSelectors.firstPageButton).should('be.disabled');
-  cy.get(listSelectors.previousPageButton).should('be.disabled');
+  cy.get(listSelectors.firstPageButton).should('have.attr', 'aria-disabled', 'true');
+  cy.get(listSelectors.previousPageButton).should('have.attr', 'aria-disabled', 'true');
 }
 
 export function assertCorrectQueryRequested(alias: string, page: number, sort?: SortingField[]): void {

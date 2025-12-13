@@ -4,9 +4,10 @@ import { TableColumn } from '@demo/shared/ui-list';
 import { AbstractTableComponent } from '@ngil/list';
 
 @Component({
-  selector: 'demo-agents-table',
-  templateUrl: './agents-table.component.html',
-  styleUrls: ['./agents-table.component.scss']
+    selector: 'demo-agents-table',
+    templateUrl: './agents-table.component.html',
+    styleUrls: ['./agents-table.component.scss'],
+    standalone: false
 })
 export class AgentsTableComponent extends AbstractTableComponent<AgentDto> {
   columns: TableColumn[] = [

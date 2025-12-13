@@ -5,9 +5,10 @@ import { FOOTER_ITEMS } from '../../models/sidebar-footer.model';
 import { HEADER_DATA } from '../../models/sidebar-header.model';
 
 @Component({
-  selector: 'demo-sidebar-container',
-  templateUrl: './sidebar-container.component.html',
-  styleUrls: ['./sidebar-container.component.scss']
+    selector: 'demo-sidebar-container',
+    templateUrl: './sidebar-container.component.html',
+    styleUrls: ['./sidebar-container.component.scss'],
+    standalone: false
 })
 export class SidebarContainerComponent {
   bodyItems: MenuItem[] = BODY_ITEMS;

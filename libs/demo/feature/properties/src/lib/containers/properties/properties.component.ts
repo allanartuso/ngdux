@@ -7,9 +7,10 @@ import { FilteringOptions, PagingOptions, SortingField } from '@ngil/list';
 import { combineLatest, filter, map } from 'rxjs';
 
 @Component({
-  selector: 'demo-properties',
-  templateUrl: './properties.component.html',
-  styleUrls: ['./properties.component.scss']
+    selector: 'demo-properties',
+    templateUrl: './properties.component.html',
+    styleUrls: ['./properties.component.scss'],
+    standalone: false
 })
 export class PropertiesComponent {
   model$ = combineLatest({

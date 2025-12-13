@@ -5,16 +5,17 @@ import { takeUntil } from 'rxjs/operators';
 import { TimePickerValue } from './time-picker.model';
 
 @Component({
-  selector: 'ngil-time-picker',
-  templateUrl: './time-picker.component.html',
-  styleUrls: ['./time-picker.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: NgilTimePickerComponent,
-      multi: true
-    }
-  ]
+    selector: 'ngil-time-picker',
+    templateUrl: './time-picker.component.html',
+    styleUrls: ['./time-picker.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: NgilTimePickerComponent,
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerValue> implements AfterViewInit {
   private defaultValue: TimePickerValue = { hour: 0, minute: 0, second: 0 };

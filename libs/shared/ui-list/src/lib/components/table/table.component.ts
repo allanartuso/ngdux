@@ -15,9 +15,10 @@ import { takeUntil } from 'rxjs/operators';
 import { TableColumn } from '../../models/table.model';
 
 @Component({
-  selector: 'demo-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+    selector: 'demo-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.scss'],
+    standalone: false
 })
 export class TableComponent<T> implements OnInit, OnDestroy {
   @Input() columns: TableColumn[] = [];

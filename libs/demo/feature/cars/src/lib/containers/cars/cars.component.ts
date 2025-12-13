@@ -6,9 +6,10 @@ import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model
 import { combineLatest, map } from 'rxjs';
 
 @Component({
-  selector: 'demo-cars',
-  templateUrl: './cars.component.html',
-  styleUrls: ['./cars.component.scss']
+    selector: 'demo-cars',
+    templateUrl: './cars.component.html',
+    styleUrls: ['./cars.component.scss'],
+    standalone: false
 })
 export class CarsComponent {
   model$ = combineLatest({

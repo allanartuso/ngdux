@@ -20,13 +20,12 @@ import {
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'ngil-overlay',
-  templateUrl: './overlay.component.html',
-  styleUrls: ['./overlay.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [OverlayModule]
+    selector: 'ngil-overlay',
+    templateUrl: './overlay.component.html',
+    styleUrls: ['./overlay.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    imports: [OverlayModule]
 })
 export class NgilOverlayComponent implements OnDestroy {
   @ViewChild('contentWrapper') el?: ElementRef;

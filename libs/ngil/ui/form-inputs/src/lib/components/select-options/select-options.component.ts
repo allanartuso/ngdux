@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Out
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'ngil-select-options',
-  templateUrl: './select-options.component.html',
-  styleUrls: ['./select-options.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'ngil-select-options',
+    templateUrl: './select-options.component.html',
+    styleUrls: ['./select-options.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NgilSelectOptionsComponent<T> implements OnDestroy {
   @Input() selectedItems: T | T[] | null = null;

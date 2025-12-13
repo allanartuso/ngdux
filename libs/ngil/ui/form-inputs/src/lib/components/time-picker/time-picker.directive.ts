@@ -18,7 +18,8 @@ import { NgilTimePickerOverlayComponent } from '../time-picker-overlay/time-pick
 import { TimePickerValue } from './time-picker.model';
 
 @Directive({
-  selector: '[ngilTimePicker]'
+    selector: '[ngilTimePicker]',
+    standalone: false
 })
 export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
   @Input() picker?: NgilTimePickerOverlayComponent;

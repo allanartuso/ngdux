@@ -1,4 +1,4 @@
-import { NextFunction, ParamsDictionary, Request, RequestHandler, Response } from 'express-serve-static-core';
+import { NextFunction } from 'express-serve-static-core';
 
 const keyMap = {
   page: '_page',
@@ -21,11 +21,7 @@ function transformPageParams(query: Record<string, string>) {
   }, {});
 }
 
-export const pageMiddleware: RequestHandler = (
-  req: Request<ParamsDictionary, unknown, unknown, Record<string, string>>,
-  res: Response,
-  next: NextFunction
-) => {
+export const pageMiddleware = (req, res, next: NextFunction) => {
   req.query = transformPageParams(req.query);
   console.log(req.query);
   next();

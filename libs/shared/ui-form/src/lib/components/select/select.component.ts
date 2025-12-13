@@ -3,16 +3,17 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractInputComponent } from '@ngil/form-cva';
 
 @Component({
-  selector: 'demo-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DemoSelectComponent),
-      multi: true
-    }
-  ]
+    selector: 'demo-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => DemoSelectComponent),
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class DemoSelectComponent extends AbstractInputComponent {
   @Input() items: { value: string; text?: string }[] = [];
