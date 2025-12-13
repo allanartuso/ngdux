@@ -2,7 +2,7 @@ import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
 import { TestResource, createTestResources } from '@ngdux/store-common/test';
 import { Action, MemoizedSelector, Store } from '@ngrx/store';
-import { ActionCreator, TypedAction } from '@ngrx/store/src/models';
+import { ActionCreator } from '@ngrx/store/src/models';
 import { createMockStore } from '@ngrx/store/testing';
 import { Observable, of } from 'rxjs';
 import { ListActions, ListSelectors } from '../models/list.model';
@@ -27,7 +27,7 @@ describe('ListEffects', () => {
 
   beforeEach(() => {
     featureKeyMock = commonFixture.getAlpha(10);
-    testListActions = { loadPage: (() => ({ type: '' })) as ActionCreator<string, () => TypedAction<string>> };
+    testListActions = { loadPage: (() => ({ type: '' })) as ActionCreator<string, () => Action<string>> };
     testListSelectors = { getAll: of(createTestResources()) as unknown as MemoizedSelector<object, TestResource[]> };
 
     actions$ = of({ type: 'actions' });

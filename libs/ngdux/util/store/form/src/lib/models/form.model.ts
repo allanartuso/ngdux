@@ -1,8 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { RequestState } from '@ngdux/data-model-common';
 import { ApiRequestState, LoadingState } from '@ngdux/store-common';
-import { ActionCreator, MemoizedSelector } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
+import { Action, ActionCreator, MemoizedSelector } from '@ngrx/store';
 
 export const FORM_FEATURE_KEY = new InjectionToken<string>('FORM_FEATURE_KEY');
 
@@ -19,21 +18,21 @@ export interface FormSelectors<T, E> {
 }
 
 export interface FormActions<DTO, ERROR, CREATE_DTO = DTO> {
-  load: ActionCreator<string, (props: { id: string }) => { id: string } & TypedAction<string>>;
-  loadSuccess: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & TypedAction<string>>;
-  loadFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & TypedAction<string>>;
+  load: ActionCreator<string, (props: { id: string }) => { id: string } & Action<string>>;
+  loadSuccess: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & Action<string>>;
+  loadFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & Action<string>>;
 
-  save: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & TypedAction<string>>;
-  saveSuccess: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & TypedAction<string>>;
-  saveFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & TypedAction<string>>;
+  save: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & Action<string>>;
+  saveSuccess: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & Action<string>>;
+  saveFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & Action<string>>;
 
-  delete: ActionCreator<string, (props: { id: string }) => { id: string } & TypedAction<string>>;
-  deleteSuccess: ActionCreator<string, (props: { id: string }) => { id: string } & TypedAction<string>>;
-  deleteFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & TypedAction<string>>;
+  delete: ActionCreator<string, (props: { id: string }) => { id: string } & Action<string>>;
+  deleteSuccess: ActionCreator<string, (props: { id: string }) => { id: string } & Action<string>>;
+  deleteFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & Action<string>>;
 
-  create: ActionCreator<string, (props: { resource: CREATE_DTO }) => { resource: CREATE_DTO } & TypedAction<string>>;
-  createSuccess: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & TypedAction<string>>;
-  createFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & TypedAction<string>>;
+  create: ActionCreator<string, (props: { resource: CREATE_DTO }) => { resource: CREATE_DTO } & Action<string>>;
+  createSuccess: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & Action<string>>;
+  createFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & Action<string>>;
 
-  reset: ActionCreator<string, () => TypedAction<string>>;
+  reset: ActionCreator<string, () => Action<string>>;
 }

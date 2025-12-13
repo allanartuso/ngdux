@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -49,14 +49,14 @@ const ROUTES: Routes = [
 
 @NgModule({
   declarations: [AppComponent],
+  bootstrap: [AppComponent],
   imports: [
-    HttpClientModule,
     BrowserModule,
     RouterModule.forRoot(ROUTES, {
       scrollPositionRestoration: 'enabled'
     }),
     SharedUtilStoreModule,
-    !environment.production ? StoreDevtoolsModule.instrument({connectInZone: true}) : [],
+    !environment.production ? StoreDevtoolsModule.instrument({ connectInZone: true }) : [],
     SharedUtilConfigurationModule,
     BrowserAnimationsModule,
     DemoFeatureSidebarModule
@@ -65,8 +65,8 @@ const ROUTES: Routes = [
     {
       provide: APP_CONFIGURATION,
       useFactory: getAppConfiguration
-    }
-  ],
-  bootstrap: [AppComponent]
+    },
+    provideHttpClient(withInterceptorsFromDi())
+  ]
 })
 export class AppModule {}
