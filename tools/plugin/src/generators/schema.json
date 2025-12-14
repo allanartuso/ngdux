@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "DemoLib",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Library name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "scope": {
+      "type": "string",
+      "description": "Library scope",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": {
+        "message": "Enter the library scope (e.g., demo, shared, ngdux, ngil)",
+        "type": "list",
+        "items": [
+          {
+            "value": "demo",
+            "label": "Demo"
+          },
+          {
+            "value": "shared",
+            "label": "Shared"
+          },
+          {
+            "value": "ngdux",
+            "label": "Ngdux"
+          },
+          {
+            "value": "ngil",
+            "label": "Ngil"
+          }
+        ]
+      }
+    },
+    "type": {
+      "type": "string",
+      "description": "Library type",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      },
+      "x-prompt": {
+        "message": "Select the type of library",
+        "type": "list",
+        "items": [
+          {
+            "value": "feature",
+            "label": "Feature Library"
+          },
+          {
+            "value": "data-access",
+            "label": "Data Access Library"
+          },
+          {
+            "value": "ui",
+            "label": "UI Library"
+          },
+          {
+            "value": "data-model",
+            "label": "Data Model Library"
+          },
+          {
+            "value": "util",
+            "label": "Utility Library"
+          }
+        ]
+      }
+    },
+    "publishable": {
+      "type": "boolean",
+      "description": "Whether the library is publishable",
+      "default": false,
+      "x-prompt": "Is this library publishable?"
+    },
+    "isCommon": {
+      "type": "boolean",
+      "description": "Whether the library is a common library",
+      "default": false,
+      "x-prompt": "Is this a common library?"
+    }
+  },
+  "required": ["name", "scope", "type"]
+}
