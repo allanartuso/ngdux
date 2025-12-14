@@ -3,8 +3,8 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/demo/data-access/agents/src",
   "prefix": "demo",
-  "tags": ["scope:demo", "type:data-access"],
   "projectType": "library",
+  "tags": ["scope:demo", "type:data-access"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

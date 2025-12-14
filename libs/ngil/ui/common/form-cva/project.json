@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/ngil/ui/common/form-cva/src",
   "prefix": "ngil",
+  "tags": ["scope:publishable-common", "type:ui"],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -32,6 +33,5 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": ["scope:publishable-common", "type:ui"]
+  }
 }

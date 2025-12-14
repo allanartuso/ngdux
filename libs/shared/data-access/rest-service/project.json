@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/shared/data-access/rest-service/src",
   "prefix": "demo",
+  "tags": ["scope:shared", "type:data-access"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -16,6 +17,5 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": ["scope:shared", "type:data-access"]
+  }
 }

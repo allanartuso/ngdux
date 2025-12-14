@@ -16,19 +16,18 @@ import { glob } from 'glob';
 const root = './apps/demo-e2e/src';
 
 async function createTestFiles() {
-  glob(`${root}/integration/**/*.cy.ts`, (err, files) => {
-    let code = '';
-    files.forEach(file => {
-      code += `require('${file.replace(root, '..').replace(/\\/g, '\\\\')}');\n`;
-    });
-
-    const dir = `${root}/integration-local`;
-    if (!existsSync(dir)) {
-      mkdirSync(dir);
-    }
-
-    writeFileSync(`${dir}/main.cy.ts`, code);
+  const files = await glob(`${root}/integration/**/*.cy.ts`);
+  let code = '';
+  files.forEach(file => {
+    code += `require('${file.replace(root, '..').replace(/\\/g, '\\\\')}');\n`;
   });
+
+  const dir = `${root}/integration-local`;
+  if (!existsSync(dir)) {
+    mkdirSync(dir);
+  }
+
+  writeFileSync(`${dir}/main.cy.ts`, code);
 }
 
 createTestFiles();

@@ -3,8 +3,8 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/demo/feature/cars/src",
   "prefix": "demo",
-  "tags": ["scope:demo", "type:feature"],
   "projectType": "library",
+  "tags": ["scope:demo", "type:feature"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

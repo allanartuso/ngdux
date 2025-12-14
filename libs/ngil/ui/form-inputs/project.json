@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/ngil/ui/form-inputs/src",
   "prefix": "demo",
+  "tags": ["scope:publishable", "type:ui"],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -40,6 +41,5 @@
         "devServerTarget": "demo:build:development"
       }
     }
-  },
-  "tags": ["scope:publishable", "type:ui"]
+  }
 }

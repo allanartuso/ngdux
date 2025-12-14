@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/demo/src",
   "prefix": "demo",
+  "tags": ["scope:demo", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -62,7 +63,8 @@
           "buildTarget": "demo:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -81,6 +83,5 @@
         "jestConfig": "apps/demo/jest.config.ts"
       }
     }
-  },
-  "tags": ["scope:demo", "type:app"]
+  }
 }

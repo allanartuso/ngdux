@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/demo/ui/users/src",
   "prefix": "demo",
+  "tags": ["scope:demo", "type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -15,6 +16,5 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["scope:demo", "type:ui"]
+  }
 }

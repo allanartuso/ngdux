@@ -3,6 +3,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/demo/data-model/agents/src",
   "projectType": "library",
+  "tags": ["scope:demo", "type:data-model"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -15,6 +16,5 @@
         "jestConfig": "libs/demo/data-model/agents/jest.config.ts"
       }
     }
-  },
-  "tags": ["scope:demo", "type:data-model"]
+  }
 }
