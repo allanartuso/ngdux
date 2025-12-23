@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { RequestOptions, RequestState } from '@ngdux/data-model-common';
 import { EntityAdapter } from '@ngrx/entity';
 import { DefaultProjectorFn, MemoizedSelector, createSelector } from '@ngrx/store';
@@ -60,13 +59,16 @@ export function createListSelectors<T, E, Params = Record<string, string>>(
     getSelectedResourceIds,
     createSelector(getListState, entityAdapter.getSelectors().selectEntities),
     (selectedResourceIds, resources): Record<string, T> =>
-      selectedResourceIds.reduce((selected, selectedResourceId) => {
-        const resource = resources[selectedResourceId];
-        if (resource) {
-          selected[selectedResourceId] = resource;
-        }
-        return selected;
-      }, {} as Record<string, T>)
+      selectedResourceIds.reduce(
+        (selected, selectedResourceId) => {
+          const resource = resources[selectedResourceId];
+          if (resource) {
+            selected[selectedResourceId] = resource;
+          }
+          return selected;
+        },
+        {} as Record<string, T>
+      )
   );
 
   const getRequestState = createSelector(getListState, state => state.requestState);

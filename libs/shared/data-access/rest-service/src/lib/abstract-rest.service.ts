@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RequestOptions } from '@ngdux/data-model-common';
 import { Observable } from 'rxjs';
@@ -18,7 +17,10 @@ export abstract class AbstractRestService {
    * @param apiBaseUrl The backend API base URL.
    *                   Defaults to an empty string if no value is provided.
    */
-  protected constructor(private readonly http: HttpClient, private readonly apiBaseUrl: string = '') {}
+  protected constructor(
+    private readonly http: HttpClient,
+    private readonly apiBaseUrl = ''
+  ) {}
 
   /**
    * Loads the resource from the given resource path of the API.
@@ -185,7 +187,7 @@ export abstract class AbstractRestService {
    *             Must never be null or undefined.
    * @returns An observable that emits the patched resources.
    */
-  public patchResources<T, P>(resourcePath: string = '', dtos: P[]): Observable<T[]> {
+  public patchResources<T, P>(resourcePath = '', dtos: P[]): Observable<T[]> {
     const url = this.createUrl(resourcePath);
     return this.http.patch<T[]>(url, dtos);
   }
@@ -213,7 +215,7 @@ export abstract class AbstractRestService {
    *                    Must never be null or undefined.
    * @returns An observable that emits the deleted resources.
    */
-  public deleteResources<T>(resourcePath: string = '', resourceIds: string[]): Observable<T[]> {
+  public deleteResources<T>(resourcePath = '', resourceIds: string[]): Observable<T[]> {
     const url = this.createUrl(resourcePath);
     return this.http.request<T[]>('delete', url, { body: resourceIds });
   }
