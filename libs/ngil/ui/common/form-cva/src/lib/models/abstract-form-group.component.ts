@@ -17,7 +17,8 @@ import { FlatFormControlsOf, FormValueOf } from './form.model';
 export abstract class AbstractFormGroupComponent<
   T extends { [K in keyof T]: any },
   F extends { [K in keyof T]: AbstractControl<any, any> } = FlatFormControlsOf<T>
-> implements ControlValueAccessor, Validator, OnDestroy, AfterViewInit
+>
+  implements ControlValueAccessor, Validator, OnDestroy, AfterViewInit
 {
   abstract formGroup: FormGroup<F>;
 
@@ -54,7 +55,11 @@ export abstract class AbstractFormGroupComponent<
   }
 
   setDisabledState(isDisabled: boolean): void {
-    isDisabled ? this.formGroup.disable({ emitEvent: false }) : this.formGroup.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.formGroup.disable({ emitEvent: false });
+    } else {
+      this.formGroup.enable({ emitEvent: false });
+    }
   }
 
   validate(): ValidationErrors | null {

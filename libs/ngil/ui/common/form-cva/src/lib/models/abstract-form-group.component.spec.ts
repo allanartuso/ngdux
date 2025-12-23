@@ -56,8 +56,8 @@ describe('AbstractFormGroupComponent', () => {
     fixture = TestBed.createComponent(MockFormGroupComponent);
     component = fixture.componentInstance;
 
-    (testFormValue = { firstName: 'testFirstName1', lastName: 'testLastName1' }),
-      component.registerOnChange(onChangeMock);
+    testFormValue = { firstName: 'testFirstName1', lastName: 'testLastName1' };
+    component.registerOnChange(onChangeMock);
     component.registerOnTouched(onTouchedMock);
     component.writeValue(testFormValue);
     component.ngAfterViewInit();

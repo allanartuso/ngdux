@@ -6,6 +6,5 @@
     "source.organizeImports": "explicit"
   },
   "editor.formatOnSave": true,
-  "cSpell.words": ["ngdux", "ngil"],
-  "eslint.validate": ["json"]
+  "cSpell.words": ["ngdux", "ngil"]
 }

@@ -62,7 +62,11 @@ export abstract class AbstractFormArrayComponent<F extends AbstractControl<any>>
   }
 
   setDisabledState(isDisabled: boolean): void {
-    isDisabled ? this.formGroup.disable({ emitEvent: false }) : this.formGroup.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.formGroup.disable({ emitEvent: false });
+    } else {
+      this.formGroup.enable({ emitEvent: false });
+    }
   }
 
   validate(): ValidationErrors | null {
