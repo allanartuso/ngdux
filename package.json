@@ -36,6 +36,7 @@
     "update-versions": "ts-node -P tools/tsconfig.json tools/versioning/update-versions.ts",
     "publish": "ts-node -P tools/tsconfig.json",
     "generate:db": "ts-node -P tools/tsconfig.json tools/generators/db-json.ts",
+    "lint-staged": "eslint .",
     "prepare": "husky"
   },
   "private": true,
@@ -111,6 +112,7 @@
     "jest-util": "30.2.0",
     "json-server": "^0.17.4",
     "jsonc-eslint-parser": "^2.4.2",
+    "lint-staged": "^16.2.7",
     "ng-packagr": "20.3.2",
     "nx": "22.2.3",
     "postcss": "^8.5.6",
