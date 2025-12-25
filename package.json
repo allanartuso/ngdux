@@ -36,7 +36,7 @@
     "update-versions": "ts-node -P tools/tsconfig.json tools/versioning/update-versions.ts",
     "publish": "ts-node -P tools/tsconfig.json",
     "generate:db": "ts-node -P tools/tsconfig.json tools/generators/db-json.ts",
-    "lint-staged": "eslint .",
+    "lint-staged": "ts-node -P tools/tsconfig.json tools/scripts/lint-progress.ts $(git diff --cached --name-only)",
     "prepare": "husky"
   },
   "private": true,
