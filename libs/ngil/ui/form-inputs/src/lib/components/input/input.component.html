@@ -1,4 +1,4 @@
-<ng-container *ngIf="model$ | async as model">
+@if (model$ | async; as model) {
   <div class="ngil-input" [class.ngil-input--error]="!!model.errorMessage">
     <label class="ngil-input__label" [for]="formControlName">
       <ng-content select="[labelPrefix]"></ng-content>
@@ -23,4 +23,4 @@
 
     <small class="ngil-input__error-message">{{ model.errorMessage }}</small>
   </div>
-</ng-container>
+}

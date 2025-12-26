@@ -1,21 +1,23 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { AbstractInputComponent } from '@ngil/form-cva';
 import { takeUntil } from 'rxjs/operators';
+import { NumberRotationDirective } from '../../directives/number-rotation.directive';
 import { TimePickerValue } from './time-picker.model';
 
 @Component({
-    selector: 'ngil-time-picker',
-    templateUrl: './time-picker.component.html',
-    styleUrls: ['./time-picker.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: NgilTimePickerComponent,
-            multi: true
-        }
-    ],
-    standalone: false
+  selector: 'ngil-time-picker',
+  templateUrl: './time-picker.component.html',
+  styleUrls: ['./time-picker.component.scss'],
+  imports: [ReactiveFormsModule, NumberRotationDirective, NgTemplateOutlet],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: NgilTimePickerComponent,
+      multi: true
+    }
+  ]
 })
 export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerValue> implements AfterViewInit {
   private defaultValue: TimePickerValue = { hour: 0, minute: 0, second: 0 };

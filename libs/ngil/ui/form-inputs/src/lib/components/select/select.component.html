@@ -1,4 +1,4 @@
-<ng-container *ngIf="model$ | async as model">
+@if (model$ | async; as model) {
   <div class="ngil-select" [class.ngil-select--error]="!!model.errorMessage">
     <label class="ngil-select__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
 
@@ -34,4 +34,4 @@
       (itemSelected)="onItemSelected($event)"
     ></ngil-select-options>
   </ngil-overlay>
-</ng-container>
+}

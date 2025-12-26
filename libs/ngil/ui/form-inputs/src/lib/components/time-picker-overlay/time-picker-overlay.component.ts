@@ -7,9 +7,8 @@ import { NgilTimePickerComponent } from '../time-picker/time-picker.component';
 import { TimePickerValue } from '../time-picker/time-picker.model';
 
 @Component({
-    selector: 'ngil-time-picker-overlay',
-    template: '',
-    standalone: false
+  selector: 'ngil-time-picker-overlay',
+  template: ''
 })
 export class NgilTimePickerOverlayComponent implements OnDestroy {
   origin?: ElementRef<HTMLInputElement>;

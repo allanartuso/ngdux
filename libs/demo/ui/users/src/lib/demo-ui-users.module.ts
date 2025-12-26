@@ -17,9 +17,10 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
     SharedUiListModule,
     NgilUiFormModule,
     OverlayModule,
-    EllipsisTooltipComponent
+    EllipsisTooltipComponent,
+    UsersTableComponent
   ],
-  declarations: [UserFormComponent, UsersTableComponent],
+  declarations: [UserFormComponent],
   exports: [UserFormComponent, UsersTableComponent]
 })
 export class DemoUiUsersModule {}

@@ -1,4 +1,4 @@
-<ng-container *ngIf="model$ | async as model">
+@if (model$ | async; as model) {
   <div class="ngil-textarea" [class.ngil-textarea--error]="!!model.errorMessage">
     <label class="ngil-textarea__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
 
@@ -17,4 +17,4 @@
 
     <small class="ngil-textarea__error-message">{{ model.errorMessage }}</small>
   </div>
-</ng-container>
+}

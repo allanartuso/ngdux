@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -8,22 +9,23 @@ import {
   forwardRef
 } from '@angular/core';
 import { ControlContainer, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgilOverlayComponent } from '@ngil/components';
+import { NgilOverlayComponent, NgilOverlayToggleDirective } from '@ngil/components';
 import { AbstractInputComponent, NgilErrorMessagesService } from '@ngil/form-cva';
+import { NgilSelectOptionsComponent } from '../select-options/select-options.component';
 
 @Component({
-    selector: 'ngil-select',
-    templateUrl: './select.component.html',
-    styleUrls: ['./select.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NgilSelectComponent),
-            multi: true
-        }
-    ],
-    standalone: false
+  selector: 'ngil-select',
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgilOverlayComponent, NgilOverlayToggleDirective, NgilSelectOptionsComponent, AsyncPipe],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => NgilSelectComponent),
+      multi: true
+    }
+  ]
 })
 export class NgilSelectComponent<T> extends AbstractInputComponent<T | T[]> {
   @ViewChild(NgilOverlayComponent) overlay?: NgilOverlayComponent;

@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgilOverlayComponent, NgilOverlayToggleDirective } from '@ngil/components';
 import { NgilInputComponent } from './components/input/input.component';
 import { NgilSelectOptionsComponent } from './components/select-options/select-options.component';
@@ -13,15 +11,16 @@ import { TimePickerDirective } from './components/time-picker/time-picker.direct
 import { NumberRotationDirective } from './directives/number-rotation.directive';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, NgilOverlayToggleDirective, NgilOverlayComponent],
-  declarations: [
+  imports: [
+    NgilOverlayToggleDirective,
+    NgilOverlayComponent,
     NgilInputComponent,
+    NgilSelectComponent,
     NgilTimePickerComponent,
     NgilTimePickerOverlayComponent,
     PickerToggleComponent,
     NumberRotationDirective,
     TimePickerDirective,
-    NgilSelectComponent,
     NgilTextareaComponent,
     NgilSelectOptionsComponent
   ],
