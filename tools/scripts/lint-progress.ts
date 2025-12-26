@@ -1,8 +1,8 @@
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { spawn } from 'child_process';
 
 // Get the list of files from lint-staged
 const files = process.argv.slice(2);
+let progress = 0;
 
 if (files.length === 0) {
   console.error('No files found to lint.');
@@ -17,6 +17,7 @@ async function lintFiles(fileList: string[]) {
   const chunks = createChunks(fileList, 5);
   const totalChunks = chunks.length;
   const startTime = Date.now();
+  let errors: string[] = [];
 
   for (let index = 0; index < chunks.length; index++) {
     const chunk = chunks[index];
@@ -25,7 +26,15 @@ async function lintFiles(fileList: string[]) {
     console.log('');
     console.log(`\x1b[36m🚀 Processing chunk ${chunkIndex} of ${totalChunks}\x1b[0m`);
     console.log('');
-    await execLintChunk(chunk);
+    const chunkErrors = await execLintChunk(chunk);
+    errors = [...errors, ...chunkErrors];
+
+    if (chunkErrors.length > 0) {
+      chunkErrors.forEach(error => {
+        console.log(`\x1b[31m${error}\x1b[0m`);
+      });
+    }
+
     const chunkTotalTime = Date.now() - chunkStartTime;
     const percentage = (chunkIndex / totalChunks) * 100;
 
@@ -36,6 +45,11 @@ async function lintFiles(fileList: string[]) {
   }
 
   const totalTime = Date.now() - startTime;
+
+  if (errors.length > 0) {
+    process.exit(1);
+  }
+
   console.log('');
   console.log(`✅ Linting process completed - ${totalTime}ms`);
 }
@@ -48,35 +62,69 @@ function createChunks(fileList: string[], chunkSize: number) {
   return chunks;
 }
 
-async function execLintChunk(files: string[]) {
-  // Use Promise.all with timeout handling
+async function execLintChunk(files: string[]): Promise<string[]> {
+  const errors: string[] = [];
+  progress = 0;
   await Promise.all(
     files.map(async file => {
-      const startTime = Date.now();
-
       try {
-        const eslintCommand = `npx eslint --fix "${file}"`;
-
-        // Set timeout for 60 seconds per file
-        const execPromise = promisify(exec);
-        await execPromise(eslintCommand, { timeout: 60000 });
-
-        logProgress(startTime, file);
+        await runEslintWithSpawn(file);
+        progress++;
+        logProgress(files.length);
+        console.log(`\x1b[32m✅ ${file}`);
       } catch (error) {
-        console.error(`\x1b[31m❌ Error linting file ${file}: \x1b[0m${error.message}`);
-        // Continue processing other files even if one fails
+        progress++;
+        logProgress(files.length);
+        console.log(`\x1b[32m❌ ${file}`);
+        errors.push(`Linting failed for ${file}: \n ${error.message}`);
       }
     })
   );
+
+  return errors;
 }
 
-// Function to log progress with fancy real-time visualization
-function logProgress(startTime: number, file: string): void {
-  const elapsed = Date.now() - startTime;
-  const percentage = (elapsed / 60000) * 100; // Assuming max 60s per file
+async function runEslintWithSpawn(file: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    let response = '';
+    const child = spawn(`npx eslint --fix "${file}"`, {
+      shell: true,
+      timeout: 60000,
+      stdio: 'pipe'
+    });
 
-  // Create a visual progress bar
-  const progressBar = '█'.repeat(Math.floor(percentage / 10)) + '·'.repeat(10 - Math.floor(percentage / 10));
+    const timer = setTimeout(() => {
+      child.kill();
+      reject(new Error(`Timeout exceeded for ${file}`));
+    }, 60000);
 
-  console.log(`\x1b[32m✅ ${file} - \x1b[36m${elapsed}ms\x1b[0m [\x1b[34m${progressBar}\x1b[0m]`);
+    // Stream output to parent process
+    child.stdout.on('data', data => {
+      response = data;
+    });
+
+    child.stderr.on('data', data => {
+      response = data;
+    });
+
+    child.on('error', err => {
+      clearTimeout(timer);
+      reject(err);
+    });
+
+    child.on('exit', code => {
+      clearTimeout(timer);
+      if (code === 0) {
+        resolve(response);
+      } else {
+        reject(new Error(response));
+      }
+    });
+  });
+}
+
+function logProgress(totalFiles: number): void {
+  const percentage = (progress / totalFiles) * 100;
+  const progressBar = '█'.repeat(Math.floor(percentage / 5)) + '·'.repeat(20 - Math.floor(percentage / 5));
+  process.stdout.write(`\r[\x1b[34m${progressBar}\x1b[0m] `);
 }
