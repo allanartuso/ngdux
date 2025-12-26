@@ -1,18 +1,32 @@
-import { spawn } from 'child_process';
+import { exec, spawn } from 'child_process';
+import { promisify } from 'util';
 
-// Get the list of files from lint-staged
-const files = process.argv.slice(2);
 let progress = 0;
+const execPromise = promisify(exec);
+start();
 
-if (files.length === 0) {
-  console.error('No files found to lint.');
-  process.exit(1);
-} else {
-  // Continue with the files provided as arguments
-  lintFiles(files);
+async function start() {
+  const files = process.argv.slice(2);
+
+  if (files.length === 0) {
+    console.error('No files found to lint.');
+    process.exit(1);
+  } else {
+    // Continue with the files provided as arguments
+    // Get the list of files from lint-staged and handle unstaged changes
+    try {
+      console.log('\x1b[36m🚀 Stashing unstaged changes...\x1b[0m');
+      execPromise('git stash push -k -u -m "Un-staged changes"');
+      console.log('Stashed');
+    } catch (error) {
+      console.error(`\x1b[31m❌ Failed to stash changes: ${error.message}\x1b[0m`);
+      process.exit(1);
+    }
+    lintChecks(files);
+  }
 }
 
-async function lintFiles(fileList: string[]) {
+async function lintChecks(fileList: string[]) {
   console.log(`🚀 Starting linting process for ${fileList.length} files`);
   const chunks = createChunks(fileList, 5);
   const totalChunks = chunks.length;
@@ -45,13 +59,20 @@ async function lintFiles(fileList: string[]) {
   }
 
   const totalTime = Date.now() - startTime;
+  console.log('reset...');
+  await execPromise('git reset --hard');
+  console.log('restoring unstaged changes...');
+  await execPromise('git stash pop --index');
+  console.log('');
 
   if (errors.length > 0) {
+    console.log(`❌ Linting process failed - ${totalTime}ms`);
     process.exit(1);
   }
 
-  console.log('');
   console.log(`✅ Linting process completed - ${totalTime}ms`);
+
+  // Apply stashed changes if any were made
 }
 
 function createChunks(fileList: string[], chunkSize: number) {
