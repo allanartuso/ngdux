@@ -1,1 +1,10 @@
-{"name":"@ngdux/store-common","version":"3.0.1","peerDependencies":{"@ngrx/store":"^17.0.0","@angular/core":"","@ngdux/data-model-common":"^3.0.0","@ngrx/effects":"^17.0.0"}}
+{
+  "name": "@ngdux/store-common",
+  "version": "4.0.0",
+  "peerDependencies": {
+    "@ngrx/store": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@ngdux/data-model-common": "^3.0.0",
+    "@ngrx/effects": "^20.0.0"
+  }
+}
