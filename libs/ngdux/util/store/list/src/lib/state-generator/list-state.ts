@@ -1,6 +1,12 @@
-import { Action, createFeatureSelector } from '@ngrx/store';
-import { ListState } from '../models/list.model';
+import { inject, InjectionToken, ProviderToken } from '@angular/core';
+import { ListNotificationService, ListService } from '@ngdux/data-model-common';
+import { provideEffects } from '@ngrx/effects';
+import { Action, createFeatureSelector, provideState } from '@ngrx/store';
+import { ListFacade, ListState } from '../models/list.model';
+import { NotificationServicePlaceholder } from '../services/list-notification-service';
 import { createListActions } from './list-actions';
+import { createListEffects } from './list-effects';
+import { provideListFacade } from './list-facade';
 import { createListEntityAdapter, createListReducer } from './list-reducer';
 import { createListSelectors } from './list-selectors';
 
@@ -22,4 +28,33 @@ export function createListState<
     selectors,
     entityAdapter
   };
+}
+
+export function provideListState<
+  Data extends { [key: string]: any },
+  Error = unknown,
+  Summary extends { [key: string]: any } = Data,
+  Params = Record<string, string>
+>(
+  featureKey: string,
+  facadeToken: InjectionToken<ListFacade<Data, Error, Summary, Params>>,
+  service: ProviderToken<ListService<Data, Summary, Params>>,
+  notificationService: ProviderToken<ListNotificationService<Error>> = NotificationServicePlaceholder<Error>
+) {
+  const { actions, selectors, reducer } = createListState<Data, Error, Summary, Params>(featureKey);
+
+  return [
+    provideState(featureKey, reducer),
+    provideListFacade(facadeToken, actions, selectors),
+    provideEffects([
+      createListEffects(
+        actions,
+        selectors,
+        () => inject(service),
+        () => inject(notificationService)
+      )
+    ]),
+    service,
+    notificationService
+  ];
 }

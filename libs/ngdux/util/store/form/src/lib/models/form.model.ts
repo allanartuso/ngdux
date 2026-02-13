@@ -1,7 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { RequestState } from '@ngdux/data-model-common';
-import { ApiRequestState, LoadingState } from '@ngdux/store-common';
+import { ActionPayload, ApiRequestState, LoadingState } from '@ngdux/store-common';
 import { Action, ActionCreator, MemoizedSelector } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 export const FORM_FEATURE_KEY = new InjectionToken<string>('FORM_FEATURE_KEY');
 
@@ -35,4 +36,18 @@ export interface FormActions<DTO, ERROR, CREATE_DTO = DTO> {
   createFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & Action<string>>;
 
   reset: ActionCreator<string, () => Action<string>>;
+}
+
+export interface FormFacade<DTO, ERROR, CREATE_DTO = DTO> {
+  resource$: Observable<DTO | undefined>;
+  loadingState$: Observable<RequestState>;
+  requestState$: Observable<RequestState>;
+  errors$: Observable<ERROR | undefined>;
+  isReady$: Observable<boolean>;
+
+  create(props: ActionPayload<FormActions<DTO, ERROR, CREATE_DTO>['create']>): void;
+  load(props: ActionPayload<FormActions<DTO, ERROR, CREATE_DTO>['load']>): void;
+  save(props: ActionPayload<FormActions<DTO, ERROR, CREATE_DTO>['save']>): void;
+  delete(props: ActionPayload<FormActions<DTO, ERROR, CREATE_DTO>['delete']>): void;
+  reset(): void;
 }

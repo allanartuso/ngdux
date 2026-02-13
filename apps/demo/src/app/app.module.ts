@@ -6,8 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DemoFeatureSidebarModule } from '@demo/demo/feature/sidebar';
 import { APP_CONFIGURATION, SharedUtilConfigurationModule } from '@demo/shared/util-configuration';
 import { SharedUtilStoreModule } from '@demo/shared/util-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { getAppConfiguration } from './environment-configuration.model';
 
@@ -56,7 +56,6 @@ const ROUTES: Routes = [
       scrollPositionRestoration: 'enabled'
     }),
     SharedUtilStoreModule,
-    !environment.production ? StoreDevtoolsModule.instrument({ connectInZone: true }) : [],
     SharedUtilConfigurationModule,
     BrowserAnimationsModule,
     DemoFeatureSidebarModule
@@ -66,7 +65,9 @@ const ROUTES: Routes = [
       provide: APP_CONFIGURATION,
       useFactory: getAppConfiguration
     },
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    provideStore(),
+    provideStoreDevtools({})
   ]
 })
 export class AppModule {}

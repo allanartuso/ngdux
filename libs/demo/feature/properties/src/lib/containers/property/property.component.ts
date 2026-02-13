@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
-import { UsersFacade } from '@demo/demo/data-access/users';
 import { CreatePropertyDto, PropertyDto, isPropertyDto } from '@demo/demo/data-model/properties';
 import { combineLatest } from 'rxjs';
+import { PropertyUsersListFacade } from '../../demo-feature-properties.module';
 
 @Component({
-    selector: 'demo-property',
-    templateUrl: './property.component.html',
-    styleUrls: ['./property.component.scss'],
-    standalone: false
+  selector: 'demo-property',
+  templateUrl: './property.component.html',
+  styleUrls: ['./property.component.scss'],
+  standalone: false
 })
 export class PropertyComponent {
   model$ = combineLatest({
@@ -17,7 +17,10 @@ export class PropertyComponent {
     users: this.usersFacade.resources$
   });
 
-  constructor(private readonly propertyFacade: PropertyFacade, private readonly usersFacade: UsersFacade) {}
+  constructor(
+    private readonly propertyFacade: PropertyFacade,
+    private readonly usersFacade: PropertyUsersListFacade
+  ) {}
 
   onSaved(property: PropertyDto | CreatePropertyDto): void {
     if (isPropertyDto(property)) {

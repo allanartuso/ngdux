@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DemoDataAccessCarsModule } from '@demo/demo/data-access/cars';
+import { provideDemoDataAccessCarsModule } from '@demo/demo/data-access/cars';
 import { DemoUiCarsModule } from '@demo/demo/ui/cars';
 import { CarsComponent } from './containers/cars/cars.component';
 import { CarsResolver } from './resolvers/cars.resolver';
@@ -20,8 +20,8 @@ export const carsRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(carsRoutes), DemoDataAccessCarsModule.config(), DemoUiCarsModule],
+  imports: [CommonModule, RouterModule.forChild(carsRoutes), DemoUiCarsModule],
   declarations: [CarsComponent],
-  providers: [CarsResolver]
+  providers: [CarsResolver, provideDemoDataAccessCarsModule()]
 })
 export class DemoFeatureCarsModule {}

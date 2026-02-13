@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CarsListFacade } from '@demo/demo/data-access/cars';
-import { UserFacade } from '@demo/demo/data-access/users';
+import { UserFormFacade } from '@demo/demo/data-access/users';
 import { CreateUserDto, UserDto, isUserDto } from '@demo/demo/data-model/users';
 import { combineLatest } from 'rxjs';
+import { UserCarsListFacade } from '../../demo-feature-users.module';
 
 @Component({
-    selector: 'demo-user',
-    templateUrl: './user.component.html',
-    styleUrls: ['./user.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'demo-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class UserComponent {
   model$ = combineLatest({
@@ -18,7 +18,10 @@ export class UserComponent {
     cars: this.carsFacade.resources$
   });
 
-  constructor(private readonly userFacade: UserFacade, private readonly carsFacade: CarsListFacade) {}
+  constructor(
+    private readonly userFacade: UserFormFacade,
+    private readonly carsFacade: UserCarsListFacade
+  ) {}
 
   onSaved(user: UserDto | CreateUserDto): void {
     if (isUserDto(user)) {

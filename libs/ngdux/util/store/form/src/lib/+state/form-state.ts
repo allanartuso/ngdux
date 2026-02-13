@@ -1,6 +1,11 @@
-import { Action, createFeatureSelector } from '@ngrx/store';
-import { FormState } from '../models/form.model';
+import { InjectionToken, ProviderToken, inject } from '@angular/core';
+import { FormNotificationService, FormService } from '@ngdux/data-model-common';
+import { provideEffects } from '@ngrx/effects';
+import { Action, createFeatureSelector, provideState } from '@ngrx/store';
+import { FormFacade, FormState } from '../models/form.model';
 import { createFormActions } from './form-actions';
+import { createFormEffects } from './form-effects';
+import { provideFormFacade } from './form-facade';
 import { createFormReducer } from './form-reducer';
 import { createFormSelectors } from './form-selectors';
 
@@ -15,4 +20,27 @@ export function createFormState<DTO, ERROR, CREATE_DTO = DTO>(featureName: strin
     reducer: (state: FormState<DTO, ERROR>, action: Action): FormState<DTO, ERROR> => reducer(state, action),
     selectors
   };
+}
+
+export function provideFormState<DTO, ERROR, CREATE_DTO = DTO>(
+  featureKey: string,
+  facadeToken: InjectionToken<FormFacade<DTO, ERROR, CREATE_DTO>>,
+  service: ProviderToken<FormService<DTO, CREATE_DTO>>,
+  notificationService: ProviderToken<FormNotificationService<ERROR>>
+) {
+  const { actions, selectors, reducer } = createFormState<DTO, ERROR, CREATE_DTO>(featureKey);
+
+  return [
+    provideState(featureKey, reducer),
+    provideFormFacade(facadeToken, actions, selectors),
+    provideEffects([
+      createFormEffects(
+        actions,
+        () => inject(service),
+        () => inject(notificationService)
+      )
+    ]),
+    service,
+    notificationService
+  ];
 }

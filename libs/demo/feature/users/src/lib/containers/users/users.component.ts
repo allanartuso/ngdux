@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsersFacade } from '@demo/demo/data-access/users';
+import { UsersListFacade } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
 import { NotificationService } from '@demo/shared/common/util-notification';
 import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
 import { combineLatest, filter, map } from 'rxjs';
 
 @Component({
-    selector: 'demo-users',
-    templateUrl: './users.component.html',
-    styleUrls: ['./users.component.scss'],
-    standalone: false
+  selector: 'demo-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss'],
+  standalone: false
 })
 export class UsersComponent {
   model$ = combineLatest({
@@ -24,7 +24,7 @@ export class UsersComponent {
 
   constructor(
     private readonly router: Router,
-    private readonly usersFacade: UsersFacade,
+    private readonly usersFacade: UsersListFacade,
     private readonly notificationService: NotificationService
   ) {}
 

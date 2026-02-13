@@ -1,13 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { DemoDataAccessPropertiesModule } from '@demo/demo/data-access/properties';
-import { DemoDataAccessUsersModule } from '@demo/demo/data-access/users';
+import {
+  provideDemoDataAccessPropertiesModule,
+  provideDemoDataAccessPropertyModule
+} from '@demo/demo/data-access/properties';
+import { provideDemoDataAccessUsersModule } from '@demo/demo/data-access/users';
+import { UserDto } from '@demo/demo/data-model/users';
 import { DemoUiPropertiesModule } from '@demo/demo/ui/properties';
 import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
+import { ErrorDto } from '@ngdux/data-model-common';
+import { ListFacade } from '@ngdux/list';
 import { PropertiesComponent } from './containers/properties/properties.component';
 import { PropertyComponent } from './containers/property/property.component';
 import { PropertiesResolver } from './resolvers/properties.resolver';
@@ -36,6 +42,9 @@ export const usersRoutes: Routes = [
   }
 ];
 
+export type PropertyUsersListFacade = ListFacade<UserDto, ErrorDto>;
+export const PropertyUsersListFacade = new InjectionToken<PropertyUsersListFacade>('PropertyUsersListFacade');
+
 @NgModule({
   imports: [
     CommonModule,
@@ -44,11 +53,15 @@ export const usersRoutes: Routes = [
     SharedUiFormModule,
     SharedUiListModule,
     SharedUtilNotificationModule,
-    DemoDataAccessPropertiesModule,
-    DemoDataAccessUsersModule.config({ listFeatureKey: 'property.users' }),
     DemoUiPropertiesModule
   ],
   declarations: [PropertyComponent, PropertiesComponent],
-  providers: [PropertyResolver, PropertiesResolver]
+  providers: [
+    PropertyResolver,
+    PropertiesResolver,
+    provideDemoDataAccessPropertyModule(),
+    provideDemoDataAccessPropertiesModule(),
+    provideDemoDataAccessUsersModule('property.users', PropertyUsersListFacade)
+  ]
 })
 export class DemoFeaturePropertiesModule {}

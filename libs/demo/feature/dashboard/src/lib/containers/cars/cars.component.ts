@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
 import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
 import { combineLatest, map } from 'rxjs';
+import { DashboardCarsListFacade } from './cars.module';
 
 @Component({
-    selector: 'demo-cars',
-    templateUrl: './cars.component.html',
-    styleUrls: ['./cars.component.scss'],
-    standalone: false
+  selector: 'demo-cars',
+  templateUrl: './cars.component.html',
+  styleUrls: ['./cars.component.scss'],
+  standalone: false
 })
 export class CarsComponent {
   model$ = combineLatest({
@@ -23,7 +23,10 @@ export class CarsComponent {
 
   isReady$ = this.carsFacade.isReady$;
 
-  constructor(private readonly router: Router, private readonly carsFacade: CarsListFacade) {
+  constructor(
+    private readonly router: Router,
+    private readonly carsFacade: DashboardCarsListFacade
+  ) {
     this.carsFacade.initialize();
   }
 

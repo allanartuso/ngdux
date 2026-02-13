@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ErrorDto, ListNotificationService } from '@ngdux/data-model-common';
+import { ListNotificationService } from '@ngdux/data-model-common';
 import { Observable, of } from 'rxjs';
 
 @Injectable()
-export class NotificationServicePlaceholder implements ListNotificationService<ErrorDto> {
-  onListErrors(errors: ErrorDto): void {
+export class NotificationServicePlaceholder<Error> implements ListNotificationService<Error> {
+  onListErrors(errors: Error): void {
     console.error('ERROR', errors);
   }
 

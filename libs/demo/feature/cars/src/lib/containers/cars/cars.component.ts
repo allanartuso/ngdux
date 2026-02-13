@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
@@ -6,12 +6,15 @@ import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model
 import { combineLatest, map } from 'rxjs';
 
 @Component({
-    selector: 'demo-cars',
-    templateUrl: './cars.component.html',
-    styleUrls: ['./cars.component.scss'],
-    standalone: false
+  selector: 'demo-cars',
+  templateUrl: './cars.component.html',
+  styleUrls: ['./cars.component.scss'],
+  standalone: false
 })
 export class CarsComponent {
+  private readonly router = inject(Router);
+  private readonly carsFacade = inject(CarsListFacade);
+
   model$ = combineLatest({
     cars: this.carsFacade.currentPageData$,
     totalCount: this.carsFacade.totalCount$,
@@ -20,8 +23,6 @@ export class CarsComponent {
     filteringOptions: this.carsFacade.filteringOptions$,
     selectedItems: this.carsFacade.selectedItems$
   });
-
-  constructor(private readonly router: Router, private readonly carsFacade: CarsListFacade) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.carsFacade.changeFiltering({ filteringOptions });
@@ -45,7 +46,7 @@ export class CarsComponent {
     this.carsFacade.changeSelectedResources({ selectedResourceIds: cars.map(user => user.id) });
   }
 
-  onRowClicked(user: CarDto): void {
-    this.router.navigate([CARS_RESOURCE_BASE_PATH, user.id]);
+  onRowClicked(car: CarDto): void {
+    this.router.navigate([CARS_RESOURCE_BASE_PATH, car.id]);
   }
 }

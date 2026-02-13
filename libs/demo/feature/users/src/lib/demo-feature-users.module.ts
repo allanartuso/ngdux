@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { DemoDataAccessUsersModule } from '@demo/demo/data-access/users';
+import { provideDemoDataAccessUserModule, provideDemoDataAccessUsersModule } from '@demo/demo/data-access/users';
 import { DemoUiUsersModule } from '@demo/demo/ui/users';
 import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
 
-import { DemoDataAccessCarsModule } from '@demo/demo/data-access/cars';
+import { provideDemoDataAccessCarsModule } from '@demo/demo/data-access/cars';
+import { CarDto } from '@demo/demo/data-model/cars';
+import { ErrorDto } from '@ngdux/data-model-common';
+import { ListFacade } from '@ngdux/list';
 import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
 import { UserResolver } from './resolvers/user.resolver';
@@ -37,6 +40,9 @@ export const usersRoutes: Routes = [
   }
 ];
 
+export type UserCarsListFacade = ListFacade<CarDto, ErrorDto>;
+export const UserCarsListFacade = new InjectionToken<UserCarsListFacade>('UserCarsListFacade');
+
 @NgModule({
   imports: [
     CommonModule,
@@ -45,11 +51,15 @@ export const usersRoutes: Routes = [
     SharedUiFormModule,
     SharedUiListModule,
     SharedUtilNotificationModule,
-    DemoDataAccessUsersModule,
-    DemoUiUsersModule,
-    DemoDataAccessCarsModule.config({ listFeatureKey: 'user.cars' })
+    DemoUiUsersModule
   ],
   declarations: [UserComponent, UsersComponent],
-  providers: [UserResolver, UsersResolver]
+  providers: [
+    UserResolver,
+    UsersResolver,
+    provideDemoDataAccessUserModule(),
+    provideDemoDataAccessUsersModule(),
+    provideDemoDataAccessCarsModule('user.cars', UserCarsListFacade)
+  ]
 })
 export class DemoFeatureUsersModule {}
