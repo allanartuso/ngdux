@@ -13,6 +13,9 @@ import {
 } from './models/list.model';
 import { NotificationServicePlaceholder } from './services/list-notification-service';
 
+/**
+ * @deprecated This NgModule is deprecated and will be removed in a future release. Use `provideListState` and `createListState` instead to set up your list state in a more modular way.
+ */
 @NgModule({
   providers: [ListStateService]
 })

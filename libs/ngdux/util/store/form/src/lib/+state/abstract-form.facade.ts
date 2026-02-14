@@ -2,6 +2,9 @@ import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
 import { FormActions, FormSelectors } from '../models/form.model';
 
+/**
+ * @deprecated This class is deprecated and will be removed in a future release. Please use `provideFormFacade` or `createFormFacade` instead.
+ */
 export abstract class AbstractFormFacade<DTO, E, CREATE_DTO = DTO> {
   readonly resource$ = this.store.pipe(select(this.formSelectors.getResource));
   readonly loadingState$ = this.store.pipe(select(this.formSelectors.getLoadingState));

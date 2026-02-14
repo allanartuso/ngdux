@@ -6,6 +6,9 @@ import { createListActions } from './list-actions';
 import { createListEntityAdapter, createListReducer } from './list-reducer';
 import { createListSelectors } from './list-selectors';
 
+/**
+ * @deprecated This class is deprecated and will be removed in a future release.
+ */
 @Injectable()
 export abstract class AbstractListReducerManager<
   T extends { [key: string]: any },

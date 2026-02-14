@@ -5,6 +5,9 @@ import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';
 import { createFormSelectors } from './form-selectors';
 
+/**
+ * @deprecated This class is deprecated and will be removed in a future release.
+ */
 @Injectable()
 export abstract class AbstractFormReducerManager<DTO, ERROR, CREATE_DTO = DTO> {
   actions: FormActions<DTO, ERROR, CREATE_DTO>;

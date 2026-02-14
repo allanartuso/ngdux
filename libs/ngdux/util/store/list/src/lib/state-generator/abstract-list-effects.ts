@@ -6,6 +6,9 @@ import { catchError, exhaustMap, filter, map, switchMap, tap, withLatestFrom } f
 
 import { ListActions, ListSelectors } from '../models/list.model';
 
+/**
+ * @deprecated This class is deprecated and will be removed in a future release. Please use `createListEffects` instead.
+ */
 export abstract class AbstractListEffects<T, E = unknown, S = T, Params = Record<string, string>> {
   reload$ = createEffect(() =>
     this.actions$.pipe(

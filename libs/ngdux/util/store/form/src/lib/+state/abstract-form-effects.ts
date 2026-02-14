@@ -5,6 +5,9 @@ import { of } from 'rxjs';
 import { catchError, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 import { FormActions } from '../models/form.model';
 
+/**
+ * @deprecated This class is deprecated and will be removed in a future release. Please use `createFormEffects` instead.
+ */
 export abstract class AbstractFormEffects<DTO, ERROR, CREATE_DTO = DTO> {
   load$ = createEffect(() =>
     this.actions$.pipe(

@@ -2,6 +2,9 @@ import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
 import { ListActions, ListSelectors } from '../models/list.model';
 
+/**
+ * @deprecated This class is deprecated and will be removed in a future release. Please use `provideListFacade` or `createListFacade` instead.
+ */
 export abstract class AbstractListFacade<T, E, S = T, Params = Record<string, string>> {
   readonly resources$ = this.store.pipe(select(this.listSelectors.getAll));
   readonly loadingState$ = this.store.pipe(select(this.listSelectors.getLoadingState));
