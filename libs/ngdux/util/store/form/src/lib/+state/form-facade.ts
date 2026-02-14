@@ -1,7 +1,7 @@
 import { inject, InjectionToken } from '@angular/core';
-import { FormActions, FormFacade, FormSelectors } from '@ngdux/form';
 import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
+import { FormActions, FormFacade, FormSelectors } from '../models/form.model';
 
 export function provideFormFacade<DTO, ERROR, CREATE_DTO = DTO>(
   token: InjectionToken<FormFacade<DTO, ERROR, CREATE_DTO>>,
