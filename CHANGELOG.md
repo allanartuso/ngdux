@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/allanartuso/ngdux/compare/v4.0.0...v4.1.0) (2026-02-14)
+
+### Features
+
+- **ngdux:** add function state approach ([b60f5bd](https://github.com/allanartuso/ngdux/commit/b60f5bd7ab8d08c5ac96706835fb15eab5d83129))
+
 ## [4.0.0](https://github.com/allanartuso/ngdux/compare/v3.0.1...v3.1.0) (2026-01-26)
 
 ### Features
