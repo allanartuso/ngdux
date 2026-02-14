@@ -1,18 +1,19 @@
-<demo-properties-table
-  *ngIf="model$ | async as model"
-  [gridData]="model.resources"
-  [totalCount]="model.totalCount"
-  [sortingOptions]="model.sortingOptions"
-  [pagingOptions]="model.pagingOptions"
-  [selectedItems]="model.selectedItems"
-  [filteringOptions]="model.filteringOptions"
-  [canEdit]="true"
-  [allowRowSelection]="true"
-  (sortingChanged)="onSortingChanged($event)"
-  (filteringChanged)="onFilteringChanged($event)"
-  (refreshPageSelected)="onRefreshPageSelected()"
-  (pageOptionsChanged)="onPageOptionsChanged($event)"
-  (rowClicked)="onRowClicked($event)"
-  (rowSelected)="onRowSelected($event)"
-  (deleteSelected)="onDelete($event)"
-></demo-properties-table>
+@if (model$ | async; as model) {
+  <demo-properties-table
+    [gridData]="model.resources"
+    [totalCount]="model.totalCount"
+    [sortingOptions]="model.sortingOptions"
+    [pagingOptions]="model.pagingOptions"
+    [selectedItems]="model.selectedItems"
+    [filteringOptions]="model.filteringOptions"
+    [canEdit]="true"
+    [allowRowSelection]="true"
+    (sortingChanged)="onSortingChanged($event)"
+    (filteringChanged)="onFilteringChanged($event)"
+    (refreshPageSelected)="onRefreshPageSelected()"
+    (pageOptionsChanged)="onPageOptionsChanged($event)"
+    (rowClicked)="onRowClicked($event)"
+    (rowSelected)="onRowSelected($event)"
+    (deleteSelected)="onDelete($event)"
+  ></demo-properties-table>
+}

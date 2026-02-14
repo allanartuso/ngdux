@@ -1,7 +1,6 @@
-<ng-container *ngIf="model$ | async as model">
+@if (model$ | async; as model) {
   <div class="ngil-select" [class.ngil-select--error]="!!model.errorMessage">
     <label class="ngil-select__label" [for]="formControlName">{{ label }}{{ required ? '*' : '' }}</label>
-
     <div class="ngil-select__field">
       <div class="ngil-select__field-content">
         <input
@@ -12,26 +11,23 @@
           [id]="formControlName"
           (blur)="onBlur()"
           [ngilOverlayToggle]="overlay"
-        />
+          />
+        </div>
+        <ng-content select="[suffix]"></ng-content>
       </div>
-
-      <ng-content select="[suffix]"></ng-content>
+      <small class="ngil-select__error-message">{{ model.errorMessage }}</small>
     </div>
-
-    <small class="ngil-select__error-message">{{ model.errorMessage }}</small>
-  </div>
-
-  <ngil-overlay #overlay [overwriteConfig]="{ maxHeight: 500 }">
-    <ngil-select-options
-      ngilOverlay
-      class="ngil-select__dropdown"
-      data-test="ngil-select-options"
-      [display]="overlay.isOpened"
-      [multiple]="multiple"
-      [items]="items"
-      [displayKey]="displayKey"
-      [selectedItems]="value"
-      (itemSelected)="onItemSelected($event)"
-    ></ngil-select-options>
-  </ngil-overlay>
-</ng-container>
+    <ngil-overlay #overlay [overwriteConfig]="{ maxHeight: 500 }">
+      <ngil-select-options
+        ngilOverlay
+        class="ngil-select__dropdown"
+        data-test="ngil-select-options"
+        [display]="overlay.isOpened"
+        [multiple]="multiple"
+        [items]="items"
+        [displayKey]="displayKey"
+        [selectedItems]="value"
+        (itemSelected)="onItemSelected($event)"
+      ></ngil-select-options>
+    </ngil-overlay>
+  }

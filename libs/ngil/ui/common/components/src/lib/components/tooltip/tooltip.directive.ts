@@ -57,7 +57,7 @@ export class NgilTooltipDirective implements OnDestroy {
     );
   }
 
-  @HostListener('mouseenter', ['$event'])
+  @HostListener('mouseenter')
   onMouseOver() {
     if (!this.disabled && !this.tooltipComponentRef) {
       const overwriteConfig: Partial<OverlayConfig> = {

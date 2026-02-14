@@ -11,7 +11,7 @@ export class CustomRouterStateSerializer extends MinimalRouterStateSerializer {
 
   override serialize(routerState: RouterStateSnapshot): CustomRouterStateSnapshot {
     let extrasState = {};
-    const navigationState = this.router.getCurrentNavigation();
+    const navigationState = this.router.currentNavigation();
     if (navigationState) {
       extrasState = navigationState.extras.state || {};
     }

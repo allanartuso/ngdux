@@ -1,18 +1,19 @@
-<demo-users-table
-  *ngIf="model$ | async as model"
-  [gridData]="model.users"
-  [totalCount]="model.totalCount"
-  [sortingOptions]="model.sortingOptions"
-  [pagingOptions]="model.pagingOptions"
-  [selectedItems]="model.selectedItems"
-  [canEdit]="true"
-  [allowRowSelection]="true"
-  [filteringOptions]="model.filteringOptions"
-  (sortingChanged)="onSortingChanged($event)"
-  (filteringChanged)="onFilteringChanged($event)"
-  (refreshPageSelected)="onRefreshPageSelected()"
-  (pageOptionsChanged)="onPageOptionsChanged($event)"
-  (rowClicked)="onRowClicked($event)"
-  (rowSelected)="onRowSelected($event)"
-  (deleteSelected)="onDelete($event)"
-></demo-users-table>
+@if (model$ | async; as model) {
+  <demo-users-table
+    [gridData]="model.users"
+    [totalCount]="model.totalCount"
+    [sortingOptions]="model.sortingOptions"
+    [pagingOptions]="model.pagingOptions"
+    [selectedItems]="model.selectedItems"
+    [canEdit]="true"
+    [allowRowSelection]="true"
+    [filteringOptions]="model.filteringOptions"
+    (sortingChanged)="onSortingChanged($event)"
+    (filteringChanged)="onFilteringChanged($event)"
+    (refreshPageSelected)="onRefreshPageSelected()"
+    (pageOptionsChanged)="onPageOptionsChanged($event)"
+    (rowClicked)="onRowClicked($event)"
+    (rowSelected)="onRowSelected($event)"
+    (deleteSelected)="onDelete($event)"
+  ></demo-users-table>
+}

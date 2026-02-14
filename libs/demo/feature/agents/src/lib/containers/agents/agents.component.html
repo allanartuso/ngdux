@@ -1,15 +1,16 @@
-<demo-agents-table
-  *ngIf="model$ | async as model"
-  [gridData]="model.agents"
-  [totalCount]="model.totalCount"
-  [sortingOptions]="model.sortingOptions"
-  [pagingOptions]="model.pagingOptions"
-  [selectedItems]="model.selectedItems"
-  [filteringOptions]="model.filteringOptions"
-  (sortingChanged)="onSortingChanged($event)"
-  (filteringChanged)="onFilteringChanged($event)"
-  (refreshPageSelected)="onRefreshPageSelected()"
-  (pageOptionsChanged)="onPageOptionsChanged($event)"
-  (rowClicked)="onRowClicked($event)"
-  (rowSelected)="onRowSelected($event)"
-></demo-agents-table>
+@if (model$ | async; as model) {
+  <demo-agents-table
+    [gridData]="model.agents"
+    [totalCount]="model.totalCount"
+    [sortingOptions]="model.sortingOptions"
+    [pagingOptions]="model.pagingOptions"
+    [selectedItems]="model.selectedItems"
+    [filteringOptions]="model.filteringOptions"
+    (sortingChanged)="onSortingChanged($event)"
+    (filteringChanged)="onFilteringChanged($event)"
+    (refreshPageSelected)="onRefreshPageSelected()"
+    (pageOptionsChanged)="onPageOptionsChanged($event)"
+    (rowClicked)="onRowClicked($event)"
+    (rowSelected)="onRowSelected($event)"
+  ></demo-agents-table>
+}

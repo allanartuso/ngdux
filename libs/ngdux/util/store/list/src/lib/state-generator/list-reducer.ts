@@ -5,8 +5,7 @@ import {
   getLastPageNumber
 } from '@ngdux/store-common';
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { ActionReducer, createReducer, on, ReducerTypes } from '@ngrx/store';
-import { ActionCreator } from '@ngrx/store/src/models';
+import { ActionCreator, ActionReducer, createReducer, on, ReducerTypes } from '@ngrx/store';
 
 import { ListActions, ListState } from '../models/list.model';
 

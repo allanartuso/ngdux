@@ -2,11 +2,13 @@
   <ng-content></ng-content>
 </div>
 
-<div class="demo-form__buttons" *ngIf="canEdit">
-  <demo-cancel-button (click)="onCancel()" [disabled]="isCancelDisabled"></demo-cancel-button>
-  <demo-submit-button
-    [requestState]="formRequestState"
-    [disabled]="isSubmitDisabled"
-    (click)="onSubmit()"
-  ></demo-submit-button>
-</div>
+@if (canEdit) {
+  <div class="demo-form__buttons">
+    <demo-cancel-button (click)="onCancel()" [disabled]="isCancelDisabled"></demo-cancel-button>
+    <demo-submit-button
+      [requestState]="formRequestState"
+      [disabled]="isSubmitDisabled"
+      (click)="onSubmit()"
+    ></demo-submit-button>
+  </div>
+}

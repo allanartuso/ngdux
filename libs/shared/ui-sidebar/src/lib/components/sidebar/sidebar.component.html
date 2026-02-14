@@ -4,38 +4,40 @@
   </div>
 
   <ul class="demo-sidebar-body-container demo-menu">
-    <li
-      *ngFor="let menuItem of bodyItems"
-      [class.demo-menu-item-group]="menuItem.group"
-      class="demo-menu-item"
-      [class.active]="menuItem.hover === true"
-    >
-      <demo-sidebar-menu-item
-        [menuItem]="menuItem"
-        [expanded]="expanded"
-        (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
-        (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
-        (menuItemClicked)="onMenuItemClicked($event)"
-        (menuItemToggled)="onMenuItemToggled($event)"
-      ></demo-sidebar-menu-item>
-    </li>
+    @for (menuItem of bodyItems; track menuItem) {
+      <li
+        [class.demo-menu-item-group]="menuItem.group"
+        class="demo-menu-item"
+        [class.active]="menuItem.hover === true"
+        >
+        <demo-sidebar-menu-item
+          [menuItem]="menuItem"
+          [expanded]="expanded"
+          (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
+          (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
+          (menuItemClicked)="onMenuItemClicked($event)"
+          (menuItemToggled)="onMenuItemToggled($event)"
+        ></demo-sidebar-menu-item>
+      </li>
+    }
   </ul>
 
   <ul class="demo-sidebar-footer-container demo-menu">
-    <li
-      *ngFor="let menuItem of footerItems"
-      [class.demo-menu-item-group]="menuItem.group"
-      class="demo-menu-item"
-      [class.active]="menuItem.hover === true"
-    >
-      <demo-sidebar-menu-item
-        [menuItem]="menuItem"
-        [expanded]="expanded"
-        (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
-        (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
-        (menuItemClicked)="onMenuItemClicked($event)"
-        (menuItemToggled)="onMenuItemToggled($event)"
-      ></demo-sidebar-menu-item>
-    </li>
+    @for (menuItem of footerItems; track menuItem) {
+      <li
+        [class.demo-menu-item-group]="menuItem.group"
+        class="demo-menu-item"
+        [class.active]="menuItem.hover === true"
+        >
+        <demo-sidebar-menu-item
+          [menuItem]="menuItem"
+          [expanded]="expanded"
+          (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
+          (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
+          (menuItemClicked)="onMenuItemClicked($event)"
+          (menuItemToggled)="onMenuItemToggled($event)"
+        ></demo-sidebar-menu-item>
+      </li>
+    }
   </ul>
 </div>
