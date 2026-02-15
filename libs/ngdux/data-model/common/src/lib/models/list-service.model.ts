@@ -10,7 +10,7 @@ export interface BulkOperationSuccess {
 export interface ListService<T, S = T, Params = Record<string, string>> {
   loadResources(options: RequestOptions<Params>): Observable<S[]>;
 
-  deleteResources?(resourceIds: string[]): Observable<Array<T | ErrorDto>>;
+  deleteResources?(resourceIds: string[]): Observable<Array<T | ErrorDto | void>>;
 
   patchResources?(resourceIds: string[], resource: Partial<T>): Observable<Array<T | ErrorDto>>;
 }

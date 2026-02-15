@@ -7,7 +7,7 @@ import {
   PagingOptions,
   RequestOptions,
   RequestState,
-  SortingField
+  SortingField,
 } from '@ngdux/data-model-common';
 import { ActionPayload, ApiRequestState, LoadingState } from '@ngdux/store-common';
 import { EntityState } from '@ngrx/entity';
@@ -162,7 +162,7 @@ export interface NgduxListStateModuleConfig<
   T extends { [key: string]: any },
   E,
   S = T,
-  Params = Record<string, string>
+  Params = Record<string, string>,
 > {
   service: Type<ListService<T, S, Params>>;
   notificationService?: Type<ListNotificationService<E>>;
@@ -185,6 +185,7 @@ export interface ListFacade<Data, Error = unknown, Summary = Data, Params = Reco
   sortingOptions$: Observable<SortingField[]>;
   selectedItems$: Observable<Summary[]>;
   totalCount$: Observable<number>;
+  isLoading$: Observable<boolean>;
 
   setPageSize(props: ActionPayload<ListActions<Data, Error, Summary, Params>['setPageSize']>): void;
   setFiltering(props: ActionPayload<ListActions<Data, Error, Summary, Params>['setFiltering']>): void;
@@ -195,7 +196,7 @@ export interface ListFacade<Data, Error = unknown, Summary = Data, Params = Reco
   changePageSize(props: ActionPayload<ListActions<Data, Error, Summary, Params>['changePageSize']>): void;
   changePageNumber(props: ActionPayload<ListActions<Data, Error, Summary, Params>['changePageNumber']>): void;
   changeSelectedResources(
-    props: ActionPayload<ListActions<Data, Error, Summary, Params>['changeSelectedResources']>
+    props: ActionPayload<ListActions<Data, Error, Summary, Params>['changeSelectedResources']>,
   ): void;
   changeSorting(props: ActionPayload<ListActions<Data, Error, Summary, Params>['changeSorting']>): void;
   changeRequestParams(props: ActionPayload<ListActions<Data, Error, Summary, Params>['changeRequestParams']>): void;

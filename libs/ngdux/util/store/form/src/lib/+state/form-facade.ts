@@ -1,4 +1,5 @@
 import { inject, InjectionToken } from '@angular/core';
+import { RequestState } from '@ngdux/data-model-common';
 import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
 import { FormActions, FormFacade, FormSelectors } from '../models/form.model';
@@ -6,26 +7,28 @@ import { FormActions, FormFacade, FormSelectors } from '../models/form.model';
 export function provideFormFacade<DTO, ERROR, CREATE_DTO = DTO>(
   token: InjectionToken<FormFacade<DTO, ERROR, CREATE_DTO>>,
   formActions: FormActions<DTO, ERROR, CREATE_DTO>,
-  formSelectors: FormSelectors<DTO, ERROR>
+  formSelectors: FormSelectors<DTO, ERROR>,
 ) {
   return {
     provide: token,
-    useFactory: () => createFormFacade(formActions, formSelectors, inject(Store))
+    useFactory: () => createFormFacade(formActions, formSelectors, inject(Store)),
   };
 }
 
 export function createFormFacade<DTO, ERROR, CREATE_DTO = DTO>(
   formActions: FormActions<DTO, ERROR, CREATE_DTO>,
   formSelectors: FormSelectors<DTO, ERROR>,
-  store: Store
+  store: Store,
 ): FormFacade<DTO, ERROR, CREATE_DTO> {
   const resource$ = store.pipe(select(formSelectors.getResource));
   const loadingState$ = store.pipe(select(formSelectors.getLoadingState));
   const requestState$ = store.pipe(select(formSelectors.getRequestState));
   const errors$ = store.pipe(select(formSelectors.getErrors));
   const isReady$ = store.pipe(select(formSelectors.isReady));
+  const isLoading$ = loadingState$.pipe(select(state => state === RequestState.IN_PROGRESS));
 
   return {
+    isLoading$,
     resource$,
     loadingState$,
     requestState$,
@@ -45,6 +48,6 @@ export function createFormFacade<DTO, ERROR, CREATE_DTO = DTO>(
     },
     reset(): void {
       store.dispatch(formActions.reset());
-    }
+    },
   };
 }

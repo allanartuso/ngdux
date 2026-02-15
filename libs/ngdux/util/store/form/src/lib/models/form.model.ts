@@ -44,6 +44,7 @@ export interface FormFacade<DTO, ERROR, CREATE_DTO = DTO> {
   requestState$: Observable<RequestState>;
   errors$: Observable<ERROR | undefined>;
   isReady$: Observable<boolean>;
+  isLoading$: Observable<boolean>;
 
   create(props: ActionPayload<FormActions<DTO, ERROR, CREATE_DTO>['create']>): void;
   load(props: ActionPayload<FormActions<DTO, ERROR, CREATE_DTO>['load']>): void;

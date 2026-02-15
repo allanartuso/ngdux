@@ -1,4 +1,5 @@
 import { inject, InjectionToken } from '@angular/core';
+import { RequestState } from '@ngdux/data-model-common';
 import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
 import { ListActions, ListFacade, ListSelectors } from '../models/list.model';
@@ -6,18 +7,18 @@ import { ListActions, ListFacade, ListSelectors } from '../models/list.model';
 export function provideListFacade<Data, Error = unknown, Summary = Data, Params = Record<string, string>>(
   token: InjectionToken<ListFacade<Data, Error, Summary, Params>>,
   listActions: ListActions<Data, Error, Summary, Params>,
-  listSelectors: ListSelectors<Summary, Error, Params>
+  listSelectors: ListSelectors<Summary, Error, Params>,
 ) {
   return {
     provide: token,
-    useFactory: () => createListFacade(listActions, listSelectors, inject(Store))
+    useFactory: () => createListFacade(listActions, listSelectors, inject(Store)),
   };
 }
 
 export function createListFacade<Data, Error = unknown, Summary = Data, Params = Record<string, string>>(
   listActions: ListActions<Data, Error, Summary, Params>,
   listSelectors: ListSelectors<Summary, Error, Params>,
-  store: Store
+  store: Store,
 ): ListFacade<Data, Error, Summary, Params> {
   const resources$ = store.pipe(select(listSelectors.getAll));
   const loadingState$ = store.pipe(select(listSelectors.getLoadingState));
@@ -35,6 +36,7 @@ export function createListFacade<Data, Error = unknown, Summary = Data, Params =
   const sortingOptions$ = store.pipe(select(listSelectors.getSortingOptions));
   const selectedItems$ = store.pipe(select(listSelectors.getSelectedItems));
   const totalCount$ = store.pipe(select(listSelectors.getTotalCount));
+  const isLoading$ = loadingState$.pipe(select(state => state === RequestState.IN_PROGRESS));
 
   return {
     resources$,
@@ -53,6 +55,7 @@ export function createListFacade<Data, Error = unknown, Summary = Data, Params =
     sortingOptions$,
     selectedItems$,
     totalCount$,
+    isLoading$,
     setPageSize(props: ActionPayload<ListActions<Data, Error, Summary, Params>['setPageSize']>): void {
       store.dispatch(listActions.setPageSize(props));
     },
@@ -82,7 +85,7 @@ export function createListFacade<Data, Error = unknown, Summary = Data, Params =
       store.dispatch(listActions.changePageNumber(props));
     },
     changeSelectedResources(
-      props: ActionPayload<ListActions<Data, Error, Summary, Params>['changeSelectedResources']>
+      props: ActionPayload<ListActions<Data, Error, Summary, Params>['changeSelectedResources']>,
     ): void {
       store.dispatch(listActions.changeSelectedResources(props));
     },
@@ -125,6 +128,6 @@ export function createListFacade<Data, Error = unknown, Summary = Data, Params =
     },
     resetRequestState(): void {
       store.dispatch(listActions.resetRequestState());
-    }
+    },
   };
 }

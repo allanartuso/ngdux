@@ -16,7 +16,7 @@ export interface FormService<DTO, CREATE_DTO = DTO> {
 
   saveResource?(resource: DTO): Observable<DTO>;
 
-  deleteResource?(id: string): Observable<DTO>;
+  deleteResource?(id: string): Observable<DTO | void>;
 
   createResource?(resource: CREATE_DTO): Observable<DTO>;
 }

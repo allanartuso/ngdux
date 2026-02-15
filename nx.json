@@ -85,5 +85,8 @@
     ]
   },
   "parallel": 1,
-  "defaultBase": "master"
+  "defaultBase": "master",
+  "tui": {
+    "enabled": false
+  }
 }

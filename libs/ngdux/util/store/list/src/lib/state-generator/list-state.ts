@@ -1,4 +1,4 @@
-import { inject, InjectionToken, ProviderToken } from '@angular/core';
+import { AbstractType, EnvironmentProviders, inject, InjectionToken, Provider } from '@angular/core';
 import { ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { provideEffects } from '@ngrx/effects';
 import { Action, createFeatureSelector, provideState } from '@ngrx/store';
@@ -14,7 +14,7 @@ export function createListState<
   T extends { [key: string]: any },
   E,
   S extends { [key: string]: any } = T,
-  Params = Record<string, string>
+  Params = Record<string, string>,
 >(featureName: string, idKey?: string) {
   const actions = createListActions<T, E, S, Params>(featureName);
   const entityAdapter = createListEntityAdapter<S>(idKey);
@@ -26,7 +26,7 @@ export function createListState<
     actions,
     reducer: (state: ListState<S, E, Params>, action: Action): ListState<S, E, Params> => reducer(state, action),
     selectors,
-    entityAdapter
+    entityAdapter,
   };
 }
 
@@ -34,13 +34,13 @@ export function provideListState<
   Data extends { [key: string]: any },
   Error = unknown,
   Summary extends { [key: string]: any } = Data,
-  Params = Record<string, string>
+  Params = Record<string, string>,
 >(
   featureKey: string,
   facadeToken: InjectionToken<ListFacade<Data, Error, Summary, Params>>,
-  service: ProviderToken<ListService<Data, Summary, Params>>,
-  notificationService: ProviderToken<ListNotificationService<Error>> = NotificationServicePlaceholder<Error>
-) {
+  service: AbstractType<ListService<Data, Summary, Params>>,
+  notificationService: AbstractType<ListNotificationService<Error>> = NotificationServicePlaceholder<Error>,
+): (Provider | EnvironmentProviders)[] {
   const { actions, selectors, reducer } = createListState<Data, Error, Summary, Params>(featureKey);
 
   return [
@@ -51,10 +51,10 @@ export function provideListState<
         actions,
         selectors,
         () => inject(service),
-        () => inject(notificationService)
-      )
+        () => inject(notificationService),
+      ),
     ]),
-    service,
-    notificationService
+    service as Provider,
+    notificationService as Provider,
   ];
 }
