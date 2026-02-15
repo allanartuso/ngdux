@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/allanartuso/ngdux/compare/v5.1.0...v5.2.0) (2026-02-15)
+
+
+### Features
+
+* **ngdux:** add isLoading to the facades ([0ee0b79](https://github.com/allanartuso/ngdux/commit/0ee0b79c776c4cd4cda0c4aa70766e03c68857b6))
+
 ## [5.1.0](https://github.com/allanartuso/ngdux/compare/v5.0.1...v5.1.0) (2026-02-15)
 
 
