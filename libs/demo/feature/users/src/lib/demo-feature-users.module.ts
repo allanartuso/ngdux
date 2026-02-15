@@ -24,20 +24,20 @@ export const usersRoutes: Routes = [
       {
         path: '',
         resolve: [UsersResolver],
-        component: UsersComponent
+        component: UsersComponent,
       },
       {
         path: `new`,
         resolve: [UserResolver],
-        component: UserComponent
+        component: UserComponent,
       },
       {
         path: `:id`,
         resolve: [UserResolver],
-        component: UserComponent
-      }
-    ]
-  }
+        component: UserComponent,
+      },
+    ],
+  },
 ];
 
 export type UserCarsListFacade = ListFacade<CarDto, ErrorDto>;
@@ -51,15 +51,15 @@ export const UserCarsListFacade = new InjectionToken<UserCarsListFacade>('UserCa
     SharedUiFormModule,
     SharedUiListModule,
     SharedUtilNotificationModule,
-    DemoUiUsersModule
+    DemoUiUsersModule,
   ],
-  declarations: [UserComponent, UsersComponent],
+  declarations: [UsersComponent],
   providers: [
     UserResolver,
     UsersResolver,
     provideDemoDataAccessUserModule(),
     provideDemoDataAccessUsersModule(),
-    provideDemoDataAccessCarsModule('user.cars', UserCarsListFacade)
-  ]
+    provideDemoDataAccessCarsModule('user.cars', UserCarsListFacade),
+  ],
 })
 export class DemoFeatureUsersModule {}

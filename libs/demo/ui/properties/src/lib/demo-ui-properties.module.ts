@@ -20,9 +20,9 @@ import { PropertyFormComponent } from './property-form/property-form.component';
     NgilUiFormModule,
     MatSelectModule,
     TextFieldModule,
-    MatInputModule
+    MatInputModule,
   ],
   declarations: [PropertyFormComponent, PropertiesTableComponent, AddressFormComponent],
-  exports: [PropertyFormComponent, PropertiesTableComponent]
+  exports: [PropertyFormComponent, PropertiesTableComponent],
 })
 export class DemoUiPropertiesModule {}

@@ -10,6 +10,12 @@ export interface UserDto {
   birthDate?: string;
   birthTime?: string;
   cars: CarDto[];
+  gender?: Gender;
+}
+
+export enum Gender {
+  Male = 'Male',
+  Female = 'Female'
 }
 
 export type CreateUserDto = Omit<UserDto, 'id'>;
