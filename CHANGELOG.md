@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.1](https://github.com/allanartuso/ngdux/compare/v5.2.0...v5.2.1) (2026-02-15)
+
+
+### Bug Fixes
+
+* **ngil:** update dependencies ([1bdd9be](https://github.com/allanartuso/ngdux/commit/1bdd9be1dde171c8ffe3bd9a71ad80b0978153a0))
+
 ## [5.2.0](https://github.com/allanartuso/ngdux/compare/v5.1.0...v5.2.0) (2026-02-15)
 
 
