@@ -11,7 +11,7 @@
   },
   "homepage": "https://github.com/allanartuso/ngdux/tree/master/libs/ngil/ui/list#readme",
   "peerDependencies": {
-    "@ngdux/data-model-common": ">=3.0.0",
+    "@ngdux/data-model-common": ">=5.0.0",
     "@angular/core": ">=17.0.0",
     "rxjs": ">=7.0.0"
   }

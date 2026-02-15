@@ -4,7 +4,7 @@
   "peerDependencies": {
     "@ngrx/store": ">=21.0.0",
     "@angular/core": ">=21.0.0",
-    "@ngdux/data-model-common": ">=3.0.0",
+    "@ngdux/data-model-common": ">=5.0.0",
     "@ngrx/effects": ">=21.0.0"
   }
 }

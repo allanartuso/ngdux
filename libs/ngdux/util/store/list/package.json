@@ -8,8 +8,8 @@
   },
   "homepage": "https://github.com/allanartuso/ngdux/tree/master/libs/ngdux/util/store/list#readme",
   "peerDependencies": {
-    "@ngdux/store-common": ">=3.0.0",
-    "@ngdux/data-model-common": ">=3.0.0",
+    "@ngdux/store-common": ">=5.0.0",
+    "@ngdux/data-model-common": ">=5.0.0",
     "@ngrx/entity": ">=21.0.0",
     "@ngrx/store": ">=21.0.0",
     "@angular/core": ">=21.0.0",
