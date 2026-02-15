@@ -1,4 +1,5 @@
 export * from './lib/components/input/input.component';
+export * from './lib/components/radio/radio.component';
 export * from './lib/components/select/select.component';
 export * from './lib/components/textarea/textarea.component';
 export * from './lib/components/time-picker-overlay/picker-toggle';

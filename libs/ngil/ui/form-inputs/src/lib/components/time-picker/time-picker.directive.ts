@@ -8,7 +8,7 @@ import {
   OnDestroy,
   OnInit,
   Optional,
-  Output
+  Output,
 } from '@angular/core';
 import { AbstractControl, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -18,10 +18,9 @@ import { NgilTimePickerOverlayComponent } from '../time-picker-overlay/time-pick
 import { TimePickerValue } from './time-picker.model';
 
 @Directive({
-    selector: '[ngilTimePicker]',
-    standalone: false
+  selector: '[ngilTimePicker]',
 })
-export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
+export class NgilTimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
   @Input() picker?: NgilTimePickerOverlayComponent;
 
   @Output() changed = new EventEmitter<TimePickerValue>();
@@ -42,7 +41,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private readonly elementRef: ElementRef<HTMLInputElement>,
     @Optional() private readonly inputComponent?: NgilInputComponent,
-    @Optional() private readonly ngControl?: NgControl
+    @Optional() private readonly ngControl?: NgControl,
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +54,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
     this.picker?.setValue({
       hour: +parsedValue.hour,
       minute: +parsedValue.minute || 0,
-      second: +parsedValue.second || 0
+      second: +parsedValue.second || 0,
     });
   }
 
@@ -64,19 +63,19 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
       const value = this.getTimePickerValue(control.value);
       if (this.itemHasError(value.hour, 23)) {
         return {
-          invalidHour: true
+          invalidHour: true,
         };
       }
 
       if (this.itemHasError(value.minute, 59)) {
         return {
-          invalidMinute: true
+          invalidMinute: true,
         };
       }
 
       if (this.itemHasError(value.second, 59)) {
         return {
-          invalidSecond: true
+          invalidSecond: true,
         };
       }
 
@@ -98,7 +97,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
     return {
       hour: split ? split[0] : '00',
       minute: split ? split[1] : '00',
-      second: split ? split[2] : '00'
+      second: split ? split[2] : '00',
     };
   }
 
@@ -114,7 +113,7 @@ export class TimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
 
   private setInputText(value: TimePickerValue): void {
     const text = [this.getItemText(value.hour), this.getItemText(value.minute), this.getItemText(value.second)].join(
-      ':'
+      ':',
     );
     this.inputComponent?.control.setValue(text);
     this.elementRef.nativeElement.value = text;

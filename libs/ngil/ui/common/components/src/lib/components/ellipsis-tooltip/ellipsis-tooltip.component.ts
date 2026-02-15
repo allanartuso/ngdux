@@ -8,18 +8,18 @@ import {
   ElementRef,
   HostListener,
   OnDestroy,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { NgilTooltipDirective } from '../tooltip/tooltip.directive';
 
 @Component({
-    selector: 'ngil-ellipsis-tooltip',
-    imports: [CommonModule, NgilTooltipDirective],
-    templateUrl: './ellipsis-tooltip.component.html',
-    styleUrl: './ellipsis-tooltip.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'ngil-ellipsis-tooltip',
+  imports: [CommonModule, NgilTooltipDirective],
+  templateUrl: './ellipsis-tooltip.component.html',
+  styleUrl: './ellipsis-tooltip.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EllipsisTooltipComponent implements AfterViewInit, AfterContentChecked, OnDestroy {
+export class NgilEllipsisTooltipComponent implements AfterViewInit, AfterContentChecked, OnDestroy {
   @ViewChild('textContainer') textContainer?: ElementRef<HTMLDivElement>;
 
   hasEllipsis = false;

@@ -1,0 +1,10 @@
+@for (item of items; track item) {
+  <input
+    type="radio"
+    [value]="item"
+    [(ngModel)]="value"
+    (ngModelChange)="updateModel()"
+    (blur)="onBlur()"
+    (focus)="onFocus()"
+  />{{ item }}
+}

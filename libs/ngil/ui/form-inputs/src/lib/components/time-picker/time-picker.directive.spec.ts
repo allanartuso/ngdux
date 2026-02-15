@@ -1,18 +1,18 @@
 import { ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgilInputComponent } from '../input/input.component';
-import { TimePickerDirective } from './time-picker.directive';
+import { NgilTimePickerDirective } from './time-picker.directive';
 
 describe('TimePickerDirective', () => {
-  let directive: TimePickerDirective;
+  let directive: NgilTimePickerDirective;
   const elementRef = {
-    nativeElement: { value: '' }
+    nativeElement: { value: '' },
   };
 
   const inputComponent = { value: '', control: new FormControl() } as unknown as NgilInputComponent;
 
   beforeEach(() => {
-    directive = new TimePickerDirective(elementRef as ElementRef<HTMLInputElement>, inputComponent);
+    directive = new NgilTimePickerDirective(elementRef as ElementRef<HTMLInputElement>, inputComponent);
   });
 
   it('creates', () => {
