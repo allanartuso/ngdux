@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/allanartuso/ngdux/compare/v5.0.1...v5.1.0) (2026-02-15)
+
+
+### Features
+
+* **FE:** use ngil radio ([4246126](https://github.com/allanartuso/ngdux/commit/4246126c4177e96c5cab988703f4e3bd18dd179c))
+* **ngil:** add ng radio component ([ade7504](https://github.com/allanartuso/ngdux/commit/ade7504e9289a28de4aa39b1a60ff27cfa09b701))
+
 ### [5.0.1](https://github.com/allanartuso/ngdux/compare/v5.0.0...v5.0.1) (2026-02-15)
 
 
