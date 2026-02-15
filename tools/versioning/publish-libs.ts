@@ -12,11 +12,11 @@ export async function publishLibs() {
 
   execSync(`nx run-many --target=build --projects=${publishableLibNames.join(',')}`, {
     stdio: 'inherit',
-    timeout: 1000 * 60 * 15
+    timeout: 1000 * 60 * 15,
   });
 
   const publishCmd = publishableLibDistFolder
-    .map(folder => `npm publish dist/${folder.replace('{workspaceRoot}/', '')}`)
+    .map(folder => `npm publish --access public dist/${folder.replace('{workspaceRoot}/', '')}`)
     .join(' && ');
 
   execSync(publishCmd, { stdio: 'inherit', timeout: 1000 * 60 * 5 });
