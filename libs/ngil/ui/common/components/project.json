@@ -1,5 +1,5 @@
 {
-  "name": "components",
+  "name": "ngil-ui-common-components",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ngil/ui/common/components/src",
   "prefix": "lib",
