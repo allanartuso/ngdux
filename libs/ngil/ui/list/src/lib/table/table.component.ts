@@ -1,27 +1,42 @@
 import { SelectionModel } from '@angular/cdk/collections';
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { Sort, SortDirection } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatSortModule, Sort, SortDirection } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingField
+  SortingField,
 } from '@ngdux/data-model-common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TableColumn } from '../../models/table.model';
+import { DemoMatPaginatorIntl } from './custom-paginator.service';
+import { NgilTableColumn } from './table.model';
 
 @Component({
-    selector: 'demo-table',
-    templateUrl: './table.component.html',
-    styleUrls: ['./table.component.scss'],
-    standalone: false
+  selector: 'ngil-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss'],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatSortModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
+  providers: [{ provide: MatPaginatorIntl, useClass: DemoMatPaginatorIntl }],
 })
-export class TableComponent<T> implements OnInit, OnDestroy {
-  @Input() columns: TableColumn[] = [];
+export class NgilTableComponent<T> implements OnInit, OnDestroy {
+  @Input() columns: NgilTableColumn[] = [];
   @Input() totalCount = 0;
   @Input() pageSizeOptions = [5, 10, 20, 30, 50];
   @Input() dataSource: T[] = [];
@@ -95,7 +110,7 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   onSortingChanged(sortingField: Sort): void {
     this.sortingChanged.emit({
       field: sortingField.active,
-      direction: sortingField.direction as SortingDirection
+      direction: sortingField.direction as SortingDirection,
     });
   }
 
@@ -110,7 +125,7 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   onPageEvent(pageEvent: PageEvent): void {
     this.pageOptionsChanged.emit({
       page: pageEvent.pageIndex + 1,
-      pageSize: pageEvent.pageSize
+      pageSize: pageEvent.pageSize,
     });
   }
 

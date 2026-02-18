@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
 import { PropertyDto } from '@demo/demo/data-model/properties';
-import { TableColumn } from '@demo/shared/ui-list';
-import { AbstractTableComponent } from '@ngil/list';
+import { AbstractTableComponent, NgilTableColumn } from '@ngil/list';
 
 @Component({
-    selector: 'demo-properties-table',
-    templateUrl: './properties-table.component.html',
-    styleUrls: ['./properties-table.component.scss'],
-    standalone: false
+  selector: 'demo-properties-table',
+  templateUrl: './properties-table.component.html',
+  styleUrls: ['./properties-table.component.scss'],
+  standalone: false,
 })
 export class PropertiesTableComponent extends AbstractTableComponent<PropertyDto> {
-  columns: TableColumn[] = [
+  columns: NgilTableColumn[] = [
     { key: 'price', name: 'Price' },
     { key: 'size', name: 'Size' },
-    { key: 'availableFrom', name: 'Available from' }
+    { key: 'availableFrom', name: 'Available from' },
   ];
 }

@@ -5,8 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
-import { SharedUiListModule } from '@demo/shared/ui-list';
 import { NgilUiFormModule } from '@ngil/form-inputs';
+import { NgilTableComponent } from '@ngil/list';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { PropertiesTableComponent } from './properties-table/properties-table.component';
 import { PropertyFormComponent } from './property-form/property-form.component';
@@ -16,11 +16,11 @@ import { PropertyFormComponent } from './property-form/property-form.component';
     CommonModule,
     ReactiveFormsModule,
     SharedUiFormModule,
-    SharedUiListModule,
     NgilUiFormModule,
     MatSelectModule,
     TextFieldModule,
     MatInputModule,
+    NgilTableComponent,
   ],
   declarations: [PropertyFormComponent, PropertiesTableComponent, AddressFormComponent],
   exports: [PropertyFormComponent, PropertiesTableComponent],

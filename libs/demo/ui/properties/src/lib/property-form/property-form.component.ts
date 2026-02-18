@@ -15,10 +15,10 @@ interface PropertyForm {
 }
 
 @Component({
-    selector: 'demo-property-form',
-    templateUrl: './property-form.component.html',
-    styleUrls: ['./property-form.component.scss'],
-    standalone: false
+  selector: 'demo-property-form',
+  templateUrl: './property-form.component.html',
+  styleUrls: ['./property-form.component.scss'],
+  standalone: false,
 })
 export class PropertyFormComponent extends AbstractFormComponent<PropertyDto> {
   @Input() users: UserDto[] = [];
@@ -32,6 +32,6 @@ export class PropertyFormComponent extends AbstractFormComponent<PropertyDto> {
     availableFrom: new FormControl(),
     features: new FormControl(),
     description: new FormControl(),
-    contact: new FormControl()
+    contact: new FormControl(),
   });
 }

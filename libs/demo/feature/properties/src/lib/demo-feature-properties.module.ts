@@ -4,16 +4,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import {
   provideDemoDataAccessPropertiesModule,
-  provideDemoDataAccessPropertyModule
+  provideDemoDataAccessPropertyModule,
 } from '@demo/demo/data-access/properties';
 import { provideDemoDataAccessUsersModule } from '@demo/demo/data-access/users';
 import { UserDto } from '@demo/demo/data-model/users';
 import { DemoUiPropertiesModule } from '@demo/demo/ui/properties';
 import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
-import { SharedUiListModule } from '@demo/shared/ui-list';
 import { ErrorDto } from '@ngdux/data-model-common';
 import { ListFacade } from '@ngdux/list';
+import { NgilTableComponent } from '@ngil/list';
 import { PropertiesComponent } from './containers/properties/properties.component';
 import { PropertyComponent } from './containers/property/property.component';
 import { PropertiesResolver } from './resolvers/properties.resolver';
@@ -26,20 +26,20 @@ export const usersRoutes: Routes = [
       {
         path: '',
         resolve: [PropertiesResolver],
-        component: PropertiesComponent
+        component: PropertiesComponent,
       },
       {
         path: `new`,
         resolve: [PropertyResolver],
-        component: PropertyComponent
+        component: PropertyComponent,
       },
       {
         path: `:id`,
         resolve: [PropertyResolver],
-        component: PropertyComponent
-      }
-    ]
-  }
+        component: PropertyComponent,
+      },
+    ],
+  },
 ];
 
 export type PropertyUsersListFacade = ListFacade<UserDto, ErrorDto>;
@@ -51,9 +51,9 @@ export const PropertyUsersListFacade = new InjectionToken<PropertyUsersListFacad
     ReactiveFormsModule,
     RouterModule.forChild(usersRoutes),
     SharedUiFormModule,
-    SharedUiListModule,
+    NgilTableComponent,
     SharedUtilNotificationModule,
-    DemoUiPropertiesModule
+    DemoUiPropertiesModule,
   ],
   declarations: [PropertyComponent, PropertiesComponent],
   providers: [
@@ -61,7 +61,7 @@ export const PropertyUsersListFacade = new InjectionToken<PropertyUsersListFacad
     PropertiesResolver,
     provideDemoDataAccessPropertyModule(),
     provideDemoDataAccessPropertiesModule(),
-    provideDemoDataAccessUsersModule('property.users', PropertyUsersListFacade)
-  ]
+    provideDemoDataAccessUsersModule('property.users', PropertyUsersListFacade),
+  ],
 })
 export class DemoFeaturePropertiesModule {}

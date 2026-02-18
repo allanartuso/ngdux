@@ -6,12 +6,12 @@ import { provideDemoDataAccessUserModule, provideDemoDataAccessUsersModule } fro
 import { DemoUiUsersModule } from '@demo/demo/ui/users';
 import { SharedUtilNotificationModule } from '@demo/shared/common/util-notification';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
-import { SharedUiListModule } from '@demo/shared/ui-list';
 
 import { provideDemoDataAccessCarsModule } from '@demo/demo/data-access/cars';
 import { CarDto } from '@demo/demo/data-model/cars';
 import { ErrorDto } from '@ngdux/data-model-common';
 import { ListFacade } from '@ngdux/list';
+import { NgilTableComponent } from '@ngil/list';
 import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
 import { UserResolver } from './resolvers/user.resolver';
@@ -49,7 +49,7 @@ export const UserCarsListFacade = new InjectionToken<UserCarsListFacade>('UserCa
     ReactiveFormsModule,
     RouterModule.forChild(usersRoutes),
     SharedUiFormModule,
-    SharedUiListModule,
+    NgilTableComponent,
     SharedUtilNotificationModule,
     DemoUiUsersModule,
   ],
