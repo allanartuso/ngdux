@@ -2,7 +2,7 @@
   class="demo-menu-item-content"
   (mouseenter)="onMenuItemHoveredOn(menuItem)"
   (mouseleave)="onMenuItemHoveredOff(menuItem)"
-  >
+>
   @if (menuItem.group) {
     <span>
       @if (menuItem.icon) {
@@ -21,7 +21,7 @@
       [class.active]="menuItem.selected"
       class="demo-menu-item-link"
       [attr.data-test]="'ar-page-sidebar-' + menuItem.name + '-menu-item'"
-      >
+    >
       @if (menuItem.icon) {
         <mat-icon class="demo-menu-item-icon">{{ menuItem.icon }}</mat-icon>
       }
@@ -38,7 +38,7 @@
       (click)="onMenuItemClicked(menuItem)"
       class="demo-menu-item-link"
       [attr.data-test]="'ar-page-sidebar-' + menuItem.name + '-menu-item'"
-      >
+    >
       @if (menuItem.icon) {
         <mat-icon class="demo-menu-item-icon">{{ menuItem.icon }}</mat-icon>
       }
@@ -54,7 +54,7 @@
       [class.active]="menuItem.selected"
       (click)="$event.preventDefault(); onMenuItemToggled(menuItem)"
       href="#"
-      >
+    >
       @if (menuItem.icon) {
         <mat-icon class="demo-menu-item-icon">{{ menuItem.icon }}</mat-icon>
       }
@@ -77,15 +77,15 @@
           [class.demo-menu-item-group]="menuItem.group"
           class="demo-menu-item"
           [class.active]="menuItem.displayChildren === true"
-          >
-          <demo-sidebar-menu-item
+        >
+          <ngil-sidebar-menu-item
             [menuItem]="menuItem"
             [expanded]="expanded"
             (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
             (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
             (menuItemClicked)="onMenuItemClicked($event)"
             (menuItemToggled)="onMenuItemToggled($event)"
-          ></demo-sidebar-menu-item>
+          ></ngil-sidebar-menu-item>
         </li>
       }
     </ul>

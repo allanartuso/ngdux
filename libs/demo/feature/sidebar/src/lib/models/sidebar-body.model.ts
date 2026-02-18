@@ -1,10 +1,10 @@
-import { MenuItem } from '@demo/shared/ui-sidebar';
+import { MenuItem } from '@ngil/components';
 
 export const BODY_ITEMS: MenuItem[] = [
   {
     name: 'Home',
     icon: 'home',
-    link: '/home'
+    link: '/home',
   },
   {
     name: 'Users',
@@ -16,15 +16,15 @@ export const BODY_ITEMS: MenuItem[] = [
         name: 'Users',
         icon: 'list',
         display: true,
-        link: '/users'
+        link: '/users',
       },
       {
         name: 'Create User',
         icon: 'add',
         display: true,
-        link: '/users/new'
-      }
-    ]
+        link: '/users/new',
+      },
+    ],
   },
   {
     name: 'Properties',
@@ -36,15 +36,15 @@ export const BODY_ITEMS: MenuItem[] = [
         name: 'Properties',
         icon: 'list',
         display: true,
-        link: '/properties'
+        link: '/properties',
       },
       {
         name: 'Create Property',
         icon: 'add',
         display: true,
-        link: '/properties/new'
-      }
-    ]
+        link: '/properties/new',
+      },
+    ],
   },
   {
     name: 'Cars',
@@ -56,15 +56,15 @@ export const BODY_ITEMS: MenuItem[] = [
         name: 'Cars',
         icon: 'list',
         display: true,
-        link: '/cars'
-      }
+        link: '/cars',
+      },
       // {
       //   name: 'Create Car',
       //   icon: 'add',
       //   display: true,
       //   link: '/cars/new'
       // }
-    ]
+    ],
   },
   {
     name: 'Agents',
@@ -76,9 +76,9 @@ export const BODY_ITEMS: MenuItem[] = [
         name: 'Agents',
         icon: 'list',
         display: true,
-        link: '/agents'
-      }
-    ]
+        link: '/agents',
+      },
+    ],
   },
   {
     name: 'Smartphones',
@@ -90,8 +90,8 @@ export const BODY_ITEMS: MenuItem[] = [
         name: 'Smartphones',
         icon: 'list',
         display: true,
-        link: '/smartphones'
-      }
-    ]
-  }
+        link: '/smartphones',
+      },
+    ],
+  },
 ];

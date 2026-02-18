@@ -9,6 +9,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 @NgModule({
   imports: [CommonModule, MatIconModule, RouterModule],
   declarations: [SidebarComponent, SidebarHeaderComponent, SidebarMenuItemComponent],
-  exports: [SidebarComponent]
+  exports: [SidebarComponent],
 })
-export class SharedUiSidebarModule {}
+export class NgilSidebarModule {}

@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MenuItem } from '../../models/sidebar.models';
 
 @Component({
-    selector: 'demo-sidebar-menu-item',
-    templateUrl: './sidebar-menu-item.component.html',
-    styleUrls: ['./sidebar-menu-item.component.scss'],
-    standalone: false
+  selector: 'ngil-sidebar-menu-item',
+  templateUrl: './sidebar-menu-item.component.html',
+  styleUrls: ['./sidebar-menu-item.component.scss'],
+  standalone: false,
 })
 export class SidebarMenuItemComponent {
   @Input() menuItem: MenuItem = { name: '' };

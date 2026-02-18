@@ -1,42 +1,34 @@
 <div class="demo-sidebar" [class.expanded]="expanded" [class.collapsed]="!expanded">
   <div class="demo-sidebar-header-container">
-    <demo-sidebar-header [expanded]="expanded" [header]="header"></demo-sidebar-header>
+    <ngil-sidebar-header [expanded]="expanded" [header]="header"></ngil-sidebar-header>
   </div>
 
   <ul class="demo-sidebar-body-container demo-menu">
     @for (menuItem of bodyItems; track menuItem) {
-      <li
-        [class.demo-menu-item-group]="menuItem.group"
-        class="demo-menu-item"
-        [class.active]="menuItem.hover === true"
-        >
-        <demo-sidebar-menu-item
+      <li [class.demo-menu-item-group]="menuItem.group" class="demo-menu-item" [class.active]="menuItem.hover === true">
+        <ngil-sidebar-menu-item
           [menuItem]="menuItem"
           [expanded]="expanded"
           (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
           (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
           (menuItemClicked)="onMenuItemClicked($event)"
           (menuItemToggled)="onMenuItemToggled($event)"
-        ></demo-sidebar-menu-item>
+        ></ngil-sidebar-menu-item>
       </li>
     }
   </ul>
 
   <ul class="demo-sidebar-footer-container demo-menu">
     @for (menuItem of footerItems; track menuItem) {
-      <li
-        [class.demo-menu-item-group]="menuItem.group"
-        class="demo-menu-item"
-        [class.active]="menuItem.hover === true"
-        >
-        <demo-sidebar-menu-item
+      <li [class.demo-menu-item-group]="menuItem.group" class="demo-menu-item" [class.active]="menuItem.hover === true">
+        <ngil-sidebar-menu-item
           [menuItem]="menuItem"
           [expanded]="expanded"
           (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
           (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
           (menuItemClicked)="onMenuItemClicked($event)"
           (menuItemToggled)="onMenuItemToggled($event)"
-        ></demo-sidebar-menu-item>
+        ></ngil-sidebar-menu-item>
       </li>
     }
   </ul>

@@ -1,3 +1,3 @@
-import { MenuItem } from '@demo/shared/ui-sidebar';
+import { MenuItem } from '@ngil/components';
 
 export const FOOTER_ITEMS: MenuItem[] = [];

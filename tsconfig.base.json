@@ -49,7 +49,6 @@
       "@demo/shared/data-access/rest-service/test": ["libs/shared/data-access/rest-service/src/index-test.ts"],
       "@demo/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
       "@demo/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
-      "@demo/shared/ui-sidebar": ["libs/shared/ui-sidebar/src/index.ts"],
       "@demo/shared/util-configuration": ["libs/shared/util-configuration/src/index.ts"],
       "@demo/shared/util-store": ["libs/shared/util-store/src/index.ts"],
       "@ngdux/data-model-common": ["libs/ngdux/data-model/common/src/index.ts"],

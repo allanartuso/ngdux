@@ -1,1 +1,6 @@
-<demo-sidebar [header]="header" [bodyItems]="bodyItems" [footerItems]="footerItems"></demo-sidebar>
+<ngil-sidebar
+  [header]="header"
+  [bodyItems]="bodyItems"
+  [footerItems]="footerItems"
+  (menuItemClicked)="onMenuItemClicked($event)"
+></ngil-sidebar>

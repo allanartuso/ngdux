@@ -1,3 +1,4 @@
-export * from './lib/components/ellipsis-tooltip';
-export * from './lib/components/overlay';
-export * from './lib/components/tooltip';
+export * from './lib/ellipsis-tooltip';
+export * from './lib/overlay';
+export * from './lib/sidebar';
+export * from './lib/tooltip';

@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ClickActionType, MenuHeader, MenuItem } from '../../models/sidebar.models';
 
 @Component({
-    selector: 'demo-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss'],
-    standalone: false
+  selector: 'ngil-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
+  standalone: false,
 })
 export class SidebarComponent {
   @Input() expanded = false;
@@ -19,7 +19,7 @@ export class SidebarComponent {
       items.push({
         name: 'Logout',
         icon: 'logout',
-        clickAction: ClickActionType.LOGOUT
+        clickAction: ClickActionType.LOGOUT,
       });
     }
 
@@ -28,8 +28,8 @@ export class SidebarComponent {
       {
         name: 'Collapse',
         icon: 'chevron_right',
-        clickAction: ClickActionType.SIDE_BAR_TOGGLE
-      }
+        clickAction: ClickActionType.SIDE_BAR_TOGGLE,
+      },
     ];
   }
   get footerItems(): MenuItem[] {
