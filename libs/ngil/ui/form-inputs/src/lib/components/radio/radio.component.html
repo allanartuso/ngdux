@@ -1,5 +1,6 @@
 @for (item of items; track item) {
   <input
+    [attr.data-test]="'ngil-radio-' + formControlName + '-' + item"
     type="radio"
     [value]="item"
     [(ngModel)]="value"

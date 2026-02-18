@@ -3,7 +3,7 @@ import { formSelectors } from '../../support/form/form';
 import { stubGetUser, stubUpdateUser, userFormSelectors } from '../../support/users/user-form';
 
 describe('User form', () => {
-  let updatedUser: Required<UserDto>;
+  let updatedUser: UserDto;
 
   beforeEach(() => {
     stubGetUser();
@@ -13,9 +13,10 @@ describe('User form', () => {
 
   it('updates the form', () => {
     cy.get(userFormSelectors.emailInput).updateInputValue(updatedUser.email);
-    cy.get(userFormSelectors.firstNameInput).updateInputValue(updatedUser.firstName);
-    cy.get(userFormSelectors.lastNameInput).updateInputValue(updatedUser.lastName);
-    cy.get(userFormSelectors.birthTimeInput).updateInputValue(updatedUser.birthTime);
+    cy.get(userFormSelectors.firstNameInput).updateInputValue(updatedUser.firstName!);
+    cy.get(userFormSelectors.lastNameInput).updateInputValue(updatedUser.lastName!);
+    cy.get(userFormSelectors.birthTimeInput).updateInputValue(updatedUser.birthTime!);
+    cy.get(userFormSelectors.genderInput(updatedUser.gender!)).check();
     cy.get(formSelectors.submitButton).click();
   });
 });
