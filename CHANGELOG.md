@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/allanartuso/ngdux/compare/v5.3.0...v5.4.0) (2026-02-18)
+
+
+### Features
+
+* **ngil:** add table component to ngil list ([a5124ca](https://github.com/allanartuso/ngdux/commit/a5124ca93a501730ae6911e6babbd6fd78c78931))
+
 ## [5.3.0](https://github.com/allanartuso/ngdux/compare/v5.2.1...v5.3.0) (2026-02-18)
 
 
