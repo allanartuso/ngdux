@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/allanartuso/ngdux/compare/v5.2.1...v5.3.0) (2026-02-18)
+
+
+### Features
+
+* **ngil:** add sidebar to ngil ([4020f54](https://github.com/allanartuso/ngdux/commit/4020f54024b5bd32081301b144626e1646a000ec))
+
+
+### Bug Fixes
+
+* user form cypress test ([8a92e66](https://github.com/allanartuso/ngdux/commit/8a92e66ccf12af68c0c4c5e568ca44418da94484))
+
 ### [5.2.1](https://github.com/allanartuso/ngdux/compare/v5.2.0...v5.2.1) (2026-02-15)
 
 

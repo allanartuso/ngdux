@@ -1,1 +1,1 @@
-{"name":"@ngil/lib-generator","version":"5.2.1","type":"commonjs","main":"./src/index.js","types":"./src/index.d.ts","dependencies":{"@nx/devkit":">=20.8.3","tslib":">=2.3.0"},"generators":"./generators.json"}
+{"name":"@ngil/lib-generator","version":"5.3.0","type":"commonjs","main":"./src/index.js","types":"./src/index.d.ts","dependencies":{"@nx/devkit":">=20.8.3","tslib":">=2.3.0"},"generators":"./generators.json"}
