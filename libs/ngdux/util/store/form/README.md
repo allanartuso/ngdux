@@ -16,171 +16,86 @@ https://github.com/allanartuso/ngdux/tree/master/libs/demo/data-access/propertie
 ### State
 
 ```
-import { User, Error } from '.../models';
-import { createFormState } from '@ngdux/form';
+import { InjectionToken } from '@angular/core';
+import { CreateUserDto, UserDto } from '@demo/demo/data-model/users';
+import { NotificationService } from '@demo/shared/common/util-notification';
+import { ErrorDto } from '@ngdux/data-model-common';
+import { FormFacade, provideFormState } from '@ngdux/form';
+import { UserService } from './services/user.service';
 
-export const USER_FEATURE_KEY = 'user';
-export const {
-  actions: userActions,
-  selectors: userSelectors,
-  reducer: userReducer
-} = createFormState<User, Error>(USER_FEATURE_KEY);
-```
+export const USER_DEFAULT_FEATURE_KEY = 'user';
 
-### Facade
+export type UserFormFacade = FormFacade<UserDto, ErrorDto, CreateUserDto>;
+export const UserFormFacade = new InjectionToken<UserFormFacade>('UserFormFacade');
 
-```
-import { Injectable } from '@angular/core';
-import { AbstractFormFacade } from '@ngdux/form';
-import { Store } from '@ngrx/store';
-import { userActions, userSelectors } from './user.state';
-
-@Injectable()
-export class UserFacade extends AbstractFormFacade<User, Error> {
-  constructor(store: Store) {
-    super(store, userActions, userSelectors);
-  }
+// Passing a different feature key and facade token will create another state for this same feature, without copy and paste code
+export function provideDemoDataAccessUserModule(
+  featureKey: string = USER_DEFAULT_FEATURE_KEY,
+  facadeToken: InjectionToken<UserFormFacade> = UserFormFacade,
+) {
+  return provideFormState(featureKey, facadeToken, UserService, NotificationService);
 }
 ```
 
 ## Option 2 - Separated creators for actions, reducer and selectors
 
-### Actions
+### State
 
 ```
-import { createFormActions } from '@ngdux/form';
-import { User, Error } from '.../models';
+import { AbstractType, EnvironmentProviders, inject, InjectionToken, Provider } from '@angular/core';
+import { FormNotificationService, FormService } from '@ngdux/data-model-common';
+import { provideEffects } from '@ngrx/effects';
+import { Action, createFeatureSelector, provideState, Store } from '@ngrx/store';
+import { FormFacade, FormState } from '../models/form.model';
+import { createFormActions } from './form-actions';
+import { createFormEffects } from './form-effects';
+import { createFormFacade } from './form-facade';
+import { createFormReducer } from './form-reducer';
+import { createFormSelectors } from './form-selectors';
 
-export const userActions = createFormActions<User, Error>('User');
-```
+export function provideFormState<DTO, ERROR, CREATE_DTO = DTO>(
+  featureKey: string,
+  facadeToken: InjectionToken<FormFacade<DTO, ERROR, CREATE_DTO>>,
+  service: AbstractType<FormService<DTO, CREATE_DTO>>,
+  notificationService: AbstractType<FormNotificationService<ERROR>>,
+): (Provider | EnvironmentProviders)[] {
+  const actions = {
+    ...createFormActions<DTO, ERROR, CREATE_DTO>(featureKey),
+    // Custom actions can be added here
+  };
+  const formReducer = createFormReducer(actions, [
+    // Custom on(...) handlers can be added here
+  ]);
+  const getState = createFeatureSelector<FormState<DTO, ERROR>>(featureKey);
+  const selectors = {
+    ...createFormSelectors(getState),
+    // Custom selectors can be added here
+  };
 
-### Reducer
+  const reducer = (state: FormState<DTO, ERROR>, action: Action): FormState<DTO, ERROR> => formReducer(state, action);
 
-```
-import { createFormReducer, FormState } from '@ngdux/form';
-import { Action } from '@ngrx/store';
-import { User, Error } from '.../models';
-import { formActions } from './user.actions';
-
-export const USER_FEATURE_KEY = 'user';
-const reducer = createFormReducer(formActions);
-
-export function userReducer(state: FormState<User, Error>, action: Action): FormState<User, Error> {
-  return reducer(state, action);
-}
-```
-
-### Selectors
-
-```
-import { createFormSelectors, FormState } from '@ngdux/form';
-import { createFeatureSelector } from '@ngrx/store';
-import { User, Error } from '.../models';
-import { USER_FEATURE_KEY } from './user.reducer';
-
-const getState = createFeatureSelector<FormState<User, Error>>(USER_FEATURE_KEY);
-
-export const userSelectors = createFormSelectors(getState);
-```
-
-### Facade
-
-```
-import { Injectable } from '@angular/core';
-import { AbstractFormFacade } from '@ngdux/form';
-import { Store } from '@ngrx/store';
-import { userActions } from './user.actions';
-import { userSelectors } from './user.selectors';
-
-@Injectable()
-export class UserFacade extends AbstractFormFacade<User, Error> {
-  constructor(store: Store) {
-    super(store, userActions, userSelectors);
-  }
-}
-```
-
-## Option 3 - Dynamic feature key
-
-https://github.com/allanartuso/ngdux/blob/master/libs/demo/data-access/users/src/lib/%2Bstate/user/user-state.service.ts
-
-### Reducer manager service
-
-```
-import { Injectable } from '@angular/core';
-import { User, Error } from '.../models';
-import { AbstractFormReducerManager } from '@ngdux/form';
-
-@Injectable()
-export class UserReducerManager extends AbstractFormReducerManager<User, Error> {}
-```
-
-### Facade
-
-```
-import { Injectable } from '@angular/core';
-import { AbstractFormFacade } from '@ngdux/form';
-import { Store } from '@ngrx/store';
-import { UserReducerManager } from './user-state.service';
-
-@Injectable()
-export class UserFacade extends AbstractFormFacade<User, Error> {
-  constructor(store: Store, userReducerManager: UserReducerManager) {
-    super(store, userReducerManager.actions, userReducerManager.selectors);
-  }
+  return [
+    provideState(featureKey, reducer),
+    {
+      provide: facadeToken,
+      useFactory: () => ({
+        ...createFormFacade(actions, selectors, inject(Store)),
+        // Custom facade properties and methods can be added here
+      }),
+    },
+    provideEffects([
+      createFormEffects(
+        actions,
+        () => inject(service),
+        () => inject(notificationService),
+      ),
+      // custom effects can be added here
+    ]),
+    service as Provider,
+    notificationService as Provider,
+  ];
 }
 
-```
-
-### Module
-
-```
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { FORM_FEATURE_KEY } from '@ngdux/form';
-import { UserReducerManager } from './+state/user/user-state.service';
-import { UserFacade } from './+state/user/user.facade';
-
-@NgModule({
-  providers: [
-    UserReducerManager,
-    UserFacade
-  ]
-})
-export class UserModule {
-  static config(formFeatureKey: string): ModuleWithProviders<UserModule> {
-    return {
-      ngModule: UserModule,
-      providers: [
-        { provide: FORM_FEATURE_KEY, useValue: formFeatureKey  },
-      ]
-    };
-  }
-}
-```
-
-## Effects
-
-```
-import { Injectable } from '@angular/core';
-import { AbstractFormEffects } from '@ngdux/form';
-import { Actions } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { User, Error } from '.../models';
-import { FormNotificationService } from '../notification';
-import { UserService } from '../../services/user.service';
-import { formActions } from './user.actions';
-
-@Injectable()
-export class UserEffects extends AbstractFormEffects<User, Error> {
-  constructor(
-      actions$: Actions,
-      store: Store,
-      userService: UserService,
-      formNotificationService: FormNotificationService
-    ) {
-      super(actions$, store, userService, formActions, formNotificationService);
-  }
-}
 ```
 
 ## Service

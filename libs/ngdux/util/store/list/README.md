@@ -16,182 +16,118 @@ https://github.com/allanartuso/ngdux/tree/master/libs/demo/data-access/propertie
 ### State
 
 ```
+import { InjectionToken } from '@angular/core';
 import { UserDto } from '@demo/demo/data-model/users';
+import { NotificationService } from '@demo/shared/common/util-notification';
 import { ErrorDto } from '@ngdux/data-model-common';
-import { createListState } from '@ngdux/list';
+import { ListFacade, provideListState } from '@ngdux/list';
+import { UserService } from './services/user.service';
 
-export const USERS_FEATURE_KEY = 'users';
-export const {
-  actions: usesActions,
-  selectors: usersSelectors,
-  reducer: usersReducer,
-  entityAdapter: usersEntityAdapter
-} = createListState<UserDto, ErrorDto>(USERS_FEATURE_KEY);
-```
+export const USERS_DEFAULT_FEATURE_KEY = 'users';
 
-### Facade
+export type UsersListFacade = ListFacade<UserDto, ErrorDto>;
+export const UsersListFacade = new InjectionToken<UsersListFacade>('UsersListFacade');
 
-```
-import { Injectable } from '@angular/core';
-import { AbstractListFacade } from '@ngdux/list';
-import { Store } from '@ngrx/store';
-import { usersActions, usersSelectors } from './users.state';
-import { User, Error } from './models';
-
-@Injectable()
-export class UsersFacade extends AbstractListFacade<User, Error> {
-  constructor(store: Store) {
-    super(store, usersActions, usersSelectors);
-  }
+// Passing a different feature key and facade token will create another state for this same feature, without copy and paste code
+export function provideDemoDataAccessUsersModule(
+  featureKey: string = USERS_DEFAULT_FEATURE_KEY,
+  facadeToken: InjectionToken<UsersListFacade> = UsersListFacade,
+) {
+  return provideListState(featureKey, facadeToken, UserService, NotificationService);
 }
+
 ```
 
 ## Option 2 - Separated creators for actions, reducer and selectors
 
-### Actions
+### State
 
 ```
-import { createListActions } from '@ngdux/list';
-import { User, Error } from './models';
+import { AbstractType, EnvironmentProviders, inject, InjectionToken, Provider } from '@angular/core';
+import { ListNotificationService, ListService } from '@ngdux/data-model-common';
+import { provideEffects } from '@ngrx/effects';
+import { Action, createFeatureSelector, provideState, Store } from '@ngrx/store';
+import { ListFacade, ListState } from '../models/list.model';
+import { NotificationServicePlaceholder } from '../services/list-notification-service';
+import { createListActions } from './list-actions';
+import { createListEffects } from './list-effects';
+import { createListFacade } from './list-facade';
+import { createListEntityAdapter, createListReducer } from './list-reducer';
+import { createListSelectors } from './list-selectors';
 
-export const usersActions = createListActions<User, Error>('Users');
-```
+export function createListState<
+  T extends { [key: string]: any },
+  E,
+  S extends { [key: string]: any } = T,
+  Params = Record<string, string>,
+>(featureName: string, idKey?: string) {
+  const actions = createListActions<T, E, S, Params>(featureName);
+  const entityAdapter = createListEntityAdapter<S>(idKey);
+  const reducer = createListReducer<T, E, S, Params>(entityAdapter, actions);
+  const getState = createFeatureSelector<ListState<S, E, Params>>(featureName);
+  const selectors = createListSelectors<S, E, Params>(entityAdapter, getState);
 
-### Reducer
-
-```
-import { createListEntityAdapter, createListReducer, ListState } from '@ngdux/list';
-import { Action } from '@ngrx/store';
-import { User, Error } from './models';
-import { usersActions } from './users.actions';
-
-export const USERS_FEATURE_KEY = 'users';
-export const entityAdapter = createListEntityAdapter<User>();
-
-const reducer = createListReducer<User, Error>(entityAdapter, usersActions);
-
-export function usersReducer(state: ListState<User, Error>, action: Action): ListState<User, Error> {
-  return reducer(state, action);
-}
-```
-
-### Selectors
-
-```
-import { createListSelectors, ListState } from '@ngdux/list';
-import { createFeatureSelector } from '@ngrx/store';
-import { User, Error } from './models';
-import { entityAdapter, USERS_FEATURE_KEY } from './users.reducer';
-
-const getState = createFeatureSelector<ListState<User, Error>>(USERS_FEATURE_KEY);
-
-export const usersSelectors = createListSelectors(entityAdapter, getState);
-```
-
-### Facade
-
-```
-import { Injectable } from '@angular/core';
-import { AbstractListFacade } from '@ngdux/list';
-import { Store } from '@ngrx/store';
-import { usersActions } from './users.actions';
-import { usersSelectors } from './users.selectors';
-
-@Injectable()
-export class UsersFacade extends AbstractListFacade<User, Error> {
-  constructor(store: Store) {
-    super(store, userActions, usersSelectors);
-  }
-}
-```
-
-## Option 3 - Dynamic feature key
-
-https://github.com/allanartuso/ngdux/tree/master/libs/demo/data-access/users/src/lib/%2Bstate/users
-
-### Reducer manager service
-
-```
-import { Injectable } from '@angular/core';
-import { User, Error } from '.../models';
-import { AbstractListReducerManager } from '@ngdux/list';
-
-@Injectable()
-export class UsersReducerManager extends AbstractListReducerManager<User, Error> {}
-```
-
-### Facade
-
-```
-import { Injectable } from '@angular/core';
-import { AbstractListFacade } from '@ngdux/list';
-import { Store } from '@ngrx/store';
-import { UsersReducerManager } from './users-state.service';
-
-@Injectable()
-export class UsersFacade extends AbstractListFacade<User, Error> {
-  constructor(store: Store, usersReducerManager: UsersReducerManager) {
-    super(store, usersReducerManager.actions, usersReducerManager.selectors);
-  }
+  return {
+    actions,
+    reducer: (state: ListState<S, E, Params>, action: Action): ListState<S, E, Params> => reducer(state, action),
+    selectors,
+    entityAdapter,
+  };
 }
 
-```
-
-### Module
-
-```
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { LIST_FEATURE_KEY } from '@ngdux/list';
-import { UsersReducerManager } from './+state/users/users-state.service';
-import { UsersFacade } from './+state/users/users.facade';
-
-@NgModule({
-  providers: [
-    UsersReducerManager,
-    UsersFacade
-  ]
-})
-export class UsersModule {
-  static config(listFeatureKey: string): ModuleWithProviders<UsersModule> {
-    return {
-      ngModule: UsersModule,
-      providers: [
-        { provide: LIST_FEATURE_KEY, useValue: listFeatureKey  },
-      ]
-    };
-  }
-}
-```
-
-## Effects
-
-```
-import { Injectable } from '@angular/core';
-import { NotificationService } from '@demo/shared/util-notification';
-import { AbstractListEffects } from '@ngdux/list';
-import { Actions } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { UserService } from '../../services/user.service';
-import { usersActions } from './users.actions';
-import { usersSelectors } from './users.selectors';
-import { User, Error } from './models';
-
-@Injectable()
-export class UsersEffects extends AbstractListEffects<User, Error> {
-  override texts = {
-    deleteConfirmationTitle: 'Delete users',
-    deleteConfirmationMessage: 'Are you sure to delete the selected users?',
-    deletedMessage: 'The users were deleted successfully.'
+export function provideListState<
+  Data extends { [key: string]: any },
+  Error = unknown,
+  Summary extends { [key: string]: any } = Data,
+  Params = Record<string, string>,
+>(
+  featureKey: string,
+  facadeToken: InjectionToken<ListFacade<Data, Error, Summary, Params>>,
+  service: AbstractType<ListService<Data, Summary, Params>>,
+  notificationService: AbstractType<ListNotificationService<Error>> = NotificationServicePlaceholder<Error>,
+  idKey?: string,
+): (Provider | EnvironmentProviders)[] {
+  const actions = {
+    ...createListActions<Data, Error, Summary, Params>(featureKey),
+    // Custom actions can be added here
+  };
+  const entityAdapter = createListEntityAdapter<Summary>(idKey);
+  const listReducer = createListReducer<Data, Error, Summary, Params>(
+    entityAdapter,
+    actions,
+    // Custom handlers
+    // [on(actions.myAction, () => {})]
+  );
+  const getState = createFeatureSelector<ListState<Summary, Error, Params>>(featureKey);
+  const selectors = {
+    ...createListSelectors<Summary, Error, Params>(entityAdapter, getState),
+    // Custom selectors can be added here
   };
 
-  constructor(
-    actions$: Actions,
-    store: Store,
-    usersService: UserService,
-    notificationService: NotificationService
-  ) {
-    super(actions$, store, usersService, usersActions, usersSelectors, notificationService);
-  }
+  const reducer = (state: ListState<Summary, Error, Params>, action: Action): ListState<Summary, Error, Params> =>
+    listReducer(state, action);
+
+  return [
+    provideState(featureKey, reducer),
+    {
+      provide: facadeToken,
+      useFactory: () => ({
+        ...createListFacade(actions, selectors, inject(Store)),
+        // Custom facade properties and methods can be added here
+      }),
+    },
+    provideEffects([
+      createListEffects(
+        actions,
+        selectors,
+        () => inject(service),
+        () => inject(notificationService),
+      ),
+      // custom effects can be added here
+    ]),
+    service as Provider,
+    notificationService as Provider,
+  ];
 }
 ```
 
