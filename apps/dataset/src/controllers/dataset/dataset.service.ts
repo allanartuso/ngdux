@@ -6,14 +6,16 @@ import { ClassDeclaration, Project } from 'ts-morph';
 export class DatasetService {
   private readonly lmStudioUrl = 'http://localhost:1234/v1/chat/completions';
 
+  private readonly systemPrompt = `You are an elite dataset engineer for Angular applications. Look at this snippet of TypeScript code.
+Output ONLY a raw JSON object matching this schema:
+{
+  "instruction": "A realistic user prompt that a human developer would actually write in an IDE chat to ask you to create this functionality. Avoid listing technical variables explicitly unless absolutely necessary. Avoid listing to much details to the functionality, otherwise the user could do it by himself.",
+  "system_message": "A short, professional system prompt specifying the technology stack."
+}
+Do not include markdown code blocks. Output pure JSON.`;
+
   async generateDescription(fileContent: string) {
     // 3. Craft the prompt for fine-tuning formats
-    const systemPrompt = `You are a dataset engineering assistant. You must output ONLY a raw JSON object matching this schema:
-    {
-      "instruction": "A highly precise user prompt asking a developer to write this exact piece of code from scratch, detailing all its specific features, patterns, and framework dependencies.",
-      "system_message": "A short, professional system prompt defining the AI persona for this technology stack."
-    }
-    Do not include markdown code blocks, and do not write conversational text. Output pure JSON.`;
 
     const userPrompt = `Analyze this code file:
     Extension: ts
@@ -26,7 +28,7 @@ export class DatasetService {
       const response = await axios.post(this.lmStudioUrl, {
         model: 'local-model',
         messages: [
-          { role: 'system', content: systemPrompt },
+          { role: 'system', content: this.systemPrompt },
           { role: 'user', content: userPrompt },
         ],
         temperature: 0.2, // Low temperature for more structured, predictable output
@@ -73,21 +75,13 @@ export class DatasetService {
 
     // 2. Loop through each block and generate a tailored dataset item
     for (const block of blocks) {
-      const systemPrompt = `You are a dataset engineering assistant. Look at this snippet of TypeScript code.
-      Output ONLY a raw JSON object matching this schema:
-      {
-        "instruction": "A highly precise user prompt asking a developer to write this exact block/function/class of code from scratch.",
-        "system_message": "A short, professional system prompt specifying the technology stack (e.g., Angular Component, NestJS Service, TypeScript Utility)."
-      }
-      Do not include markdown code blocks. Output pure JSON.`;
-
       const userPrompt = `Analyze this code fragment:\n\n${block}`;
 
       try {
         const response = await axios.post(this.lmStudioUrl, {
           model: 'local-model',
           messages: [
-            { role: 'system', content: systemPrompt },
+            { role: 'system', content: this.systemPrompt },
             { role: 'user', content: userPrompt },
           ],
           temperature: 0.2,

@@ -12,7 +12,7 @@ export class DatasetController {
   constructor(private readonly datasetService: DatasetService) {}
 
   private getDatasetFilePath() {
-    const datasetFilePath = path.resolve(__dirname, `../../dataset${Date.now()}.jsonl`);
+    const datasetFilePath = path.resolve(__dirname, `../../../fine-tuning/dataset-${Date.now()}.jsonl`);
 
     return datasetFilePath;
   }
@@ -37,9 +37,7 @@ export class DatasetController {
     const { filePath } = body;
     if (!filePath) throw new BadRequestException('filePath is required.');
 
-    const absolutePath = path.resolve(
-      'D:\\dev\\Allan\\ngdux\\libs\\ngil\\ui\\common\\form-cva\\src\\lib\\models\\abstract-form-component.ts',
-    );
+    const absolutePath = path.resolve(body.filePath);
     if (!fs.existsSync(absolutePath)) throw new BadRequestException('File not found.');
 
     if (path.extname(absolutePath).substring(1) !== 'ts') {
@@ -59,16 +57,82 @@ export class DatasetController {
 
   @Post('generate-split')
   async generateFromSplitFile(@Body() body: GenerateDatasetDto) {
-    const { generatedItems, blocks } = await this.datasetService.generateFromSplitFile(body.filePath);
+    const allItems = await this.generateDatasetForFileAndBlocks(body);
 
-    fs.appendFileSync(this.getDatasetFilePath(), JSON.stringify(generatedItems) + '\n', 'utf8');
+    const savePath = this.getDatasetFilePath();
+    fs.appendFileSync(savePath, JSON.stringify(allItems), 'utf8');
 
     return {
       success: true,
-      generatedItems,
-      totalSnippetsCreated: generatedItems.length,
+      allItems,
+      totalSnippetsCreated: allItems.length,
       fileProcessed: body.filePath,
-      blocks,
     };
+  }
+
+  private async generateDatasetForFileAndBlocks(body: GenerateDatasetDto) {
+    const fileContent: string = this.getFileContent(body);
+    const { finalTrainingItem } = await this.datasetService.generateDescription(fileContent);
+    const { generatedItems } = await this.datasetService.generateFromSplitFile(body.filePath);
+
+    return [finalTrainingItem, ...generatedItems];
+  }
+
+  @Post('generate-folder')
+  async generateFromFolder(@Body() body: GenerateDatasetDto) {
+    const folder = body.filePath;
+    const files: string[] = this.getTypeScriptFilesRecursive(folder);
+    const responses: any[] = [];
+
+    for (const file of files) {
+      const response = await this.generateDatasetForFileAndBlocks({ filePath: file });
+      responses.push(response);
+    }
+
+    const savePath = this.getDatasetFilePath();
+    fs.appendFileSync(savePath, JSON.stringify(responses), 'utf8');
+
+    return {
+      success: true,
+      totalSnippetsCreated: responses.length,
+      files,
+      responses,
+    };
+  }
+
+  private getTypeScriptFilesRecursive(dirPath: string): string[] {
+    let tsFiles: string[] = [];
+    const absoluteDir = path.resolve(dirPath);
+
+    // Read all items inside the directory
+    const items = fs.readdirSync(absoluteDir);
+
+    for (const item of items) {
+      const fullPath = path.join(absoluteDir, item);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory()) {
+        // Skip node_modules or hidden folders (like .git) to save processing cycles
+        if (item === 'node_modules' || item.startsWith('.')) {
+          continue;
+        }
+        // Recursively crawl subdirectories and merge results
+        tsFiles = tsFiles.concat(this.getTypeScriptFilesRecursive(fullPath));
+      } else if (stat.isFile()) {
+        const isTypeScript = item.endsWith('.ts');
+        const isSpec =
+          item.endsWith('.spec.ts') ||
+          item.endsWith('.test.ts') ||
+          item.endsWith('.mock.ts') ||
+          item.endsWith('.stories.ts');
+
+        // Only retain true implementation files
+        if (isTypeScript && !isSpec) {
+          tsFiles.push(fullPath);
+        }
+      }
+    }
+
+    return tsFiles;
   }
 }
