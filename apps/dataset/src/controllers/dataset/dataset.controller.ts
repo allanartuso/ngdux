@@ -1,6 +1,7 @@
 import { BadRequestException, Body, Controller, InternalServerErrorException, Post } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
+import { AngularDocsDatasetService } from './angular-docs-dataset.service';
 import { DatasetTypescriptService } from './dataset-typescript.service';
 
 interface GenerateDatasetDto {
@@ -9,7 +10,10 @@ interface GenerateDatasetDto {
 
 @Controller('dataset')
 export class DatasetController {
-  constructor(private readonly datasetService: DatasetTypescriptService) {}
+  constructor(
+    private readonly datasetService: DatasetTypescriptService,
+    private readonly docsService: AngularDocsDatasetService,
+  ) {}
 
   private getDatasetFilePath(fileName: string = `dataset-${Date.now()}`) {
     const datasetFilePath = path.resolve(__dirname, `../../../fine-tuning/${fileName}.jsonl`);
@@ -89,7 +93,7 @@ export class DatasetController {
       try {
         const response = await this.generateDatasetForFileAndBlocks({ filePath: file });
         responses.push(response);
-        fs.appendFileSync(this.getDatasetFilePath('partial'), JSON.stringify(responses), 'utf8');
+        fs.appendFileSync(this.getDatasetFilePath('partial'), JSON.stringify(response) + '\n', 'utf8');
       } catch (error) {
         console.error(`Error generating dataset for file ${file}:`, error);
       }
@@ -142,5 +146,15 @@ export class DatasetController {
     }
 
     return tsFiles;
+  }
+
+  @Post('process-angular-docs')
+  async runDocsProcessor() {
+    try {
+      const result = await this.docsService.processAngularDocs();
+      return result;
+    } catch (error: any) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 }
