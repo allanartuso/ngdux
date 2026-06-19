@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, InternalServerErrorException, Post } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
-import { DatasetService } from './dataset.service';
+import { DatasetTypescriptService } from './dataset-typescript.service';
 
 interface GenerateDatasetDto {
   filePath: string;
@@ -9,10 +9,10 @@ interface GenerateDatasetDto {
 
 @Controller('dataset')
 export class DatasetController {
-  constructor(private readonly datasetService: DatasetService) {}
+  constructor(private readonly datasetService: DatasetTypescriptService) {}
 
-  private getDatasetFilePath() {
-    const datasetFilePath = path.resolve(__dirname, `../../../fine-tuning/dataset-${Date.now()}.jsonl`);
+  private getDatasetFilePath(fileName: string = `dataset-${Date.now()}`) {
+    const datasetFilePath = path.resolve(__dirname, `../../../fine-tuning/${fileName}.jsonl`);
 
     return datasetFilePath;
   }
@@ -85,8 +85,14 @@ export class DatasetController {
     const responses: any[] = [];
 
     for (const file of files) {
-      const response = await this.generateDatasetForFileAndBlocks({ filePath: file });
-      responses.push(response);
+      console.log(`Processing file: ${file}`);
+      try {
+        const response = await this.generateDatasetForFileAndBlocks({ filePath: file });
+        responses.push(response);
+        fs.appendFileSync(this.getDatasetFilePath('partial'), JSON.stringify(responses), 'utf8');
+      } catch (error) {
+        console.error(`Error generating dataset for file ${file}:`, error);
+      }
     }
 
     const savePath = this.getDatasetFilePath();
@@ -124,6 +130,8 @@ export class DatasetController {
           item.endsWith('.spec.ts') ||
           item.endsWith('.test.ts') ||
           item.endsWith('.mock.ts') ||
+          item.endsWith('jest.config.ts') ||
+          item.endsWith('index.ts') ||
           item.endsWith('.stories.ts');
 
         // Only retain true implementation files

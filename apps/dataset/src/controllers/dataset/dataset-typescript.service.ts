@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ClassDeclaration, Project } from 'ts-morph';
 
 @Injectable()
-export class DatasetService {
+export class DatasetTypescriptService {
   private readonly lmStudioUrl = 'http://localhost:1234/v1/chat/completions';
 
   private readonly systemPrompt = `You are an elite dataset engineer for Angular applications. Look at this snippet of TypeScript code.

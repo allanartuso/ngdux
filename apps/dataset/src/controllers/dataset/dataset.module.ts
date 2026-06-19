@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
+import { DatasetTypescriptService } from './dataset-typescript.service';
 import { DatasetController } from './dataset.controller';
-import { DatasetService } from './dataset.service';
 
 @Module({
   imports: [],
   controllers: [DatasetController],
-  providers: [DatasetService],
+  providers: [DatasetTypescriptService],
 })
 export class DatasetModule {}
