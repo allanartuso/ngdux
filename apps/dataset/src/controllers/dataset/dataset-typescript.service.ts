@@ -1,18 +1,37 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import axios from 'axios';
 import { ClassDeclaration, Project } from 'ts-morph';
+import { DatasetItem, TrainingItem } from './types';
 
 @Injectable()
 export class DatasetTypescriptService {
   private readonly lmStudioUrl = 'http://localhost:1234/v1/chat/completions';
 
-  private readonly systemPrompt = `You are an elite dataset engineer for Angular applications. Look at this snippet of TypeScript code.
+  private readonly systemPrompts = [
+    `You are an elite dataset engineer for Angular applications. Look at this snippet of TypeScript code.
 Output ONLY a raw JSON object matching this schema:
 {
   "instruction": "A realistic user prompt that a human developer would actually write in an IDE chat to ask you to create this functionality. Avoid listing technical variables explicitly unless absolutely necessary. Avoid listing to much details to the functionality, otherwise the user could do it by himself.",
   "system_message": "A short, professional system prompt specifying the technology stack."
 }
-Do not include markdown code blocks. Output pure JSON.`;
+Do not include markdown code blocks. Output pure JSON.`,
+
+    `You are an elite dataset engineer for Angular applications. Look at this snippet of TypeScript code.
+Output ONLY a raw JSON object matching this schema:
+{
+  "instruction": "A realistic, casual conversational question that a human developer would type out in an open chat window because they forgot our architecture layout rules and need help building this feature. Avoid listing technical variables explicitly unless absolutely necessary.",
+  "system_message": "You are a first-class Angular dev"
+}
+Do not include markdown code blocks. Output pure JSON.`,
+
+    `You are an elite dataset engineer for Angular applications. Look at this snippet of TypeScript code.
+Output ONLY a raw JSON object matching this schema:
+{
+  "instruction": "A very brief 3 to 5 word raw keyword search string with no conversational filler, punctuation, or helper verbs (e.g., 'angular custom input controlvalueaccessor'). It must represent exactly how a lazy developer searches docs for this functionality.",
+  "system_message": "You are a business analyst for Angular applications"
+}
+Do not include markdown code blocks. Output pure JSON.`,
+  ];
 
   async generateDescription(fileContent: string) {
     // 3. Craft the prompt for fine-tuning formats
@@ -23,35 +42,40 @@ Do not include markdown code blocks. Output pure JSON.`;
     ${fileContent}`;
 
     try {
-      // 4. Send request to LM Studio
-      // Note: "model" can be any string, LM Studio defaults to whichever model you currently have loaded in the UI.
-      const response = await axios.post(this.lmStudioUrl, {
-        model: 'local-model',
-        messages: [
-          { role: 'system', content: this.systemPrompt },
-          { role: 'user', content: userPrompt },
-        ],
-        temperature: 0.2, // Low temperature for more structured, predictable output
-      });
+      let items: DatasetItem[] = [];
+      for (const systemPrompt of this.systemPrompts) {
+        // 4. Send request to LM Studio
+        // Note: "model" can be any string, LM Studio defaults to whichever model you currently have loaded in the UI.
+        const response = await axios.post(this.lmStudioUrl, {
+          model: 'local-model',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+          ],
+          temperature: 0.2, // Low temperature for more structured, predictable output
+        });
 
-      const rawText = response.data.choices[0].message.content.trim();
+        const rawText = response.data.choices[0].message.content.trim();
 
-      // 5. Parse local LLM text output into JSON dataset format
-      const datasetItem = JSON.parse(rawText);
+        // 5. Parse local LLM text output into JSON dataset format
+        const datasetItem = JSON.parse(rawText);
 
-      const finalTrainingItem = {
-        messages: [
-          { role: 'system', content: datasetItem.system_message },
-          { role: 'user', content: datasetItem.instruction },
-          { role: 'assistant', content: `\`\`\`typescript\n${fileContent}\n\`\`\`` }, // Your real code!
-        ],
-      };
+        const finalTrainingItem: TrainingItem = {
+          messages: [
+            { role: 'system', content: 'You are a first-class Angular dev coding like MyGuy-260621' },
+            { role: 'user', content: datasetItem.instruction },
+            { role: 'assistant', content: `\`\`\`typescript\n${fileContent}\n\`\`\`` }, // Your real code!
+          ],
+        };
 
-      return {
-        success: true,
-        dataset: datasetItem,
-        finalTrainingItem,
-      };
+        items.push({
+          success: true,
+          dataset: datasetItem,
+          finalTrainingItem,
+        });
+      }
+
+      return items;
     } catch (error: any) {
       if (error instanceof SyntaxError) {
         throw new InternalServerErrorException(`LLM failed to output valid JSON. Raw response was: ${error.message}`);
@@ -81,7 +105,7 @@ Do not include markdown code blocks. Output pure JSON.`;
         const response = await axios.post(this.lmStudioUrl, {
           model: 'local-model',
           messages: [
-            { role: 'system', content: this.systemPrompt },
+            { role: 'system', content: this.systemPrompts[0] },
             { role: 'user', content: userPrompt },
           ],
           temperature: 0.2,

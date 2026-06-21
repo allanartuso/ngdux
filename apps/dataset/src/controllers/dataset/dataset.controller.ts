@@ -25,15 +25,14 @@ export class DatasetController {
   async generateDescription(@Body() body: GenerateDatasetDto) {
     const fileContent: string = this.getFileContent(body);
 
-    const { dataset, finalTrainingItem } = await this.datasetService.generateDescription(fileContent);
+    const items = await this.datasetService.generateDescription(fileContent);
 
-    fs.appendFileSync(this.getDatasetFilePath(), JSON.stringify(finalTrainingItem) + '\n', 'utf8');
+    fs.appendFileSync(this.getDatasetFilePath(), JSON.stringify(items) + '\n', 'utf8');
 
     return {
       success: true,
       filePath: body.filePath,
-      dataset,
-      finalTrainingItem,
+      items,
     };
   }
 
@@ -76,10 +75,11 @@ export class DatasetController {
 
   private async generateDatasetForFileAndBlocks(body: GenerateDatasetDto) {
     const fileContent: string = this.getFileContent(body);
-    const { finalTrainingItem } = await this.datasetService.generateDescription(fileContent);
+    const items = await this.datasetService.generateDescription(fileContent);
+    return items;
     const { generatedItems } = await this.datasetService.generateFromSplitFile(body.filePath);
 
-    return [finalTrainingItem, ...generatedItems];
+    return [...items, ...generatedItems];
   }
 
   @Post('generate-folder')
