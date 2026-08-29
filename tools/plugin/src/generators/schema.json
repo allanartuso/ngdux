@@ -20,28 +20,7 @@
         "$source": "argv",
         "index": 1
       },
-      "x-prompt": {
-        "message": "Enter the library scope (e.g., demo, shared, ngdux, ngil)",
-        "type": "list",
-        "items": [
-          {
-            "value": "demo",
-            "label": "Demo"
-          },
-          {
-            "value": "shared",
-            "label": "Shared"
-          },
-          {
-            "value": "ngdux",
-            "label": "Ngdux"
-          },
-          {
-            "value": "ngil",
-            "label": "Ngil"
-          }
-        ]
-      }
+      "x-prompt": "Enter the library scope"
     },
     "type": {
       "type": "string",
