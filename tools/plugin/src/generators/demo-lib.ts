@@ -1,4 +1,4 @@
-import { libraryGenerator } from '@nx/angular/generators';
+import { libraryGenerator, UnitTestRunner } from '@nx/angular/generators';
 import { formatFiles, generateFiles, Tree } from '@nx/devkit';
 import { DemoLibGeneratorSchema } from './schema';
 import path = require('path');
@@ -10,7 +10,8 @@ export async function demoLibGenerator(tree: Tree, options: DemoLibGeneratorSche
     publishable: options.publishable,
     importPath: getImportPath(options),
     changeDetection: 'OnPush' as const,
-    style: 'scss' as const
+    style: 'scss' as const,
+    unitTestRunner: options.unitTestRunner as UnitTestRunner,
   };
 
   await libraryGenerator(tree, angularLibOptions);
@@ -47,7 +48,7 @@ async function createIndexFile(tree: Tree, projectRoot: string, options: DemoLib
   generateFiles(tree, path.join(__dirname, 'files'), projectRoot, {
     ...options,
     template: '',
-    rootOffset
+    rootOffset,
   });
   await formatFiles(tree);
 }

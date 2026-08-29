@@ -56,6 +56,36 @@
         ]
       }
     },
+    "unitTestRunner": {
+      "type": "string",
+      "description": "Unit test runner",
+      "$default": {
+        "$source": "argv",
+        "index": 3
+      },
+      "x-prompt": {
+        "message": "Select the unit test runner",
+        "type": "list",
+        "items": [
+          {
+            "value": "jest",
+            "label": "Jest"
+          },
+          {
+            "value": "vitest-angular",
+            "label": "Vitest Angular"
+          },
+          {
+            "value": "vitest-analog",
+            "label": "Vitest Analog"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ]
+      }
+    },
     "publishable": {
       "type": "boolean",
       "description": "Whether the library is publishable",
@@ -69,5 +99,5 @@
       "x-prompt": "Is this a common library?"
     }
   },
-  "required": ["name", "scope", "type"]
+  "required": ["name", "scope", "type", "unitTestRunner"]
 }
