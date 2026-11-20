@@ -3,6 +3,7 @@ export interface DemoLibGeneratorSchema {
   publishable?: boolean;
   isCommon?: boolean;
   scope: string;
+  importPrefix?: string;
   type: 'feature' | 'data-access' | 'data-model' | 'util' | 'ui';
   unitTestRunner: 'jest' | 'none' | 'vitest-angular' | 'vitest-analog';
 }

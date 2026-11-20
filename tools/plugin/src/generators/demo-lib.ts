@@ -31,7 +31,7 @@ function getDirectory(options: DemoLibGeneratorSchema): string {
 }
 
 function getImportPath(options: DemoLibGeneratorSchema): string {
-  let importPath = `@demo/${options.scope}`;
+  let importPath = `${options.importPrefix ?? '@demo'}/${options.scope}`;
   if (options.isCommon) {
     importPath = `${importPath}/common`;
   }

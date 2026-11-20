@@ -22,6 +22,12 @@
       },
       "x-prompt": "Enter the library scope"
     },
+    "importPrefix": {
+      "type": "string",
+      "description": "Prefix for library imports, including @ for scoped imports (e.g. @my-org)",
+      "default": "@demo",
+      "x-prompt": "Enter the library import prefix (e.g. @my-org)"
+    },
     "type": {
       "type": "string",
       "description": "Library type",
