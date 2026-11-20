@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { TableComponent } from './table.component';
+import { NgilTableComponent } from './table.component';
 
-describe('TableComponent', () => {
-  let component: TableComponent<unknown>;
+describe('NgilTableComponent', () => {
+  let component: NgilTableComponent<unknown>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TableComponent]
+      imports: [NgilTableComponent],
     }).compileComponents();
 
-    component = TestBed.inject(TableComponent);
+    component = TestBed.createComponent(NgilTableComponent).componentInstance;
   });
 
   it('should create', () => {

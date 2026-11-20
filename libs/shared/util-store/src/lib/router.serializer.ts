@@ -1,13 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { MinimalRouterStateSerializer } from '@ngrx/router-store';
 import { CustomRouterStateSnapshot } from './models/store.model';
 
 @Injectable()
 export class CustomRouterStateSerializer extends MinimalRouterStateSerializer {
-  constructor(private readonly router: Router) {
-    super();
-  }
+  private readonly router = inject(Router);
 
   override serialize(routerState: RouterStateSnapshot): CustomRouterStateSnapshot {
     let extrasState = {};
@@ -18,7 +16,7 @@ export class CustomRouterStateSerializer extends MinimalRouterStateSerializer {
 
     return {
       ...super.serialize(routerState),
-      extrasState
+      extrasState,
     };
   }
 }

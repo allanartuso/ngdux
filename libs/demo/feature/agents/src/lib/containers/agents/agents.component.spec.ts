@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { AgentsListFacade } from '@demo/demo/data-access/agents';
 import { AgentDto, AGENTS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/agents';
 import { createPersistentAgents } from '@demo/demo/data-model/agents/test';
@@ -39,8 +38,11 @@ describe('AgentsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [AgentsComponent, { provide: AgentsListFacade, useValue: facade }],
+      providers: [
+        provideRouter([{ path: '**', redirectTo: '' }]),
+        AgentsComponent,
+        { provide: AgentsListFacade, useValue: facade },
+      ],
     });
   });
 

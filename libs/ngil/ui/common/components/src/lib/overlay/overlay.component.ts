@@ -5,29 +5,32 @@ import {
   Overlay,
   OverlayConfig,
   OverlayModule,
-  OverlayRef
+  OverlayRef,
 } from '@angular/cdk/overlay';
 import { DomPortal } from '@angular/cdk/portal';
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'ngil-overlay',
-    templateUrl: './overlay.component.html',
-    styleUrls: ['./overlay.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    imports: [OverlayModule]
+  selector: 'ngil-overlay',
+  templateUrl: './overlay.component.html',
+  styleUrls: ['./overlay.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  imports: [OverlayModule],
 })
 export class NgilOverlayComponent implements OnDestroy {
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly overlay = inject(Overlay);
+
   @ViewChild('contentWrapper') el?: ElementRef;
   @Input() overwriteConfig: Partial<OverlayConfig> = {};
   @Input() positions: ConnectedPosition[] | undefined = undefined;
@@ -37,8 +40,6 @@ export class NgilOverlayComponent implements OnDestroy {
 
   origin?: ElementRef<HTMLElement>;
   isOpened = false;
-
-  constructor(private readonly overlay: Overlay) {}
 
   open(): void {
     const config = this.getOverlayConfig();
@@ -57,6 +58,7 @@ export class NgilOverlayComponent implements OnDestroy {
     }
 
     this.isOpened = true;
+    this.cdr.markForCheck();
   }
 
   private getOverlayConfig(): OverlayConfig {
@@ -66,7 +68,7 @@ export class NgilOverlayComponent implements OnDestroy {
       backdropClass: this.origin ? 'cdk-overlay-transparent-backdrop' : 'cdk-overlay-dark-backdrop',
       panelClass: ['ngil-overlay-panel'],
       minWidth: this.origin?.nativeElement.offsetWidth,
-      ...this.overwriteConfig
+      ...this.overwriteConfig,
     };
   }
 
@@ -89,27 +91,27 @@ export class NgilOverlayComponent implements OnDestroy {
             originX: primaryX,
             originY: secondaryY,
             overlayX: primaryX,
-            overlayY: primaryY
+            overlayY: primaryY,
           },
           {
             originX: primaryX,
             originY: primaryY,
             overlayX: primaryX,
-            overlayY: secondaryY
+            overlayY: secondaryY,
           },
           {
             originX: secondaryX,
             originY: secondaryY,
             overlayX: secondaryX,
-            overlayY: primaryY
+            overlayY: primaryY,
           },
           {
             originX: secondaryX,
             originY: primaryY,
             overlayX: secondaryX,
-            overlayY: secondaryY
-          }
-        ]
+            overlayY: secondaryY,
+          },
+        ],
       );
   }
 
@@ -118,6 +120,7 @@ export class NgilOverlayComponent implements OnDestroy {
     this.overlayRef?.dispose();
     this.overlayRef = undefined;
     this.isOpened = false;
+    this.cdr.markForCheck();
   }
 
   toggle(): void {

@@ -1,4 +1,3 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ErrorDto } from '@ngdux/data-model-common';
 
 export function createErrorDto(): ErrorDto {
@@ -6,6 +5,6 @@ export function createErrorDto(): ErrorDto {
     statusCode: 400,
     error: 'TEST_ERROR_CODE',
     message: 'test message',
-    fieldErrors: []
+    fieldErrors: [],
   };
 }

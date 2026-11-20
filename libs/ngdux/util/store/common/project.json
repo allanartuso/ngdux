@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngdux/util/store/common"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/ngdux/util/store/common/ng-package.json"
       },
@@ -19,18 +20,7 @@
         "development": {
           "tsConfig": "libs/ngdux/util/store/common/tsconfig.lib.json"
         }
-      },
-      "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/ngdux/util/store/common"],
-      "options": {
-        "jestConfig": "libs/ngdux/util/store/common/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

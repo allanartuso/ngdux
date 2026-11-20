@@ -5,17 +5,6 @@
   "sourceRoot": "libs/demo/feature/users/src",
   "prefix": "demo",
   "tags": ["scope:demo", "type:feature"],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/demo/feature/users"],
-      "options": {
-        "jestConfig": "libs/demo/feature/users/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    }
-  }
+  "// targets": "to see all targets run: nx show project demo-feature-users --web",
+  "targets": {}
 }

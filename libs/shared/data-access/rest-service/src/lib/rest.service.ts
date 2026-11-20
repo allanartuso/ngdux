@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import {
   FilteringField,
@@ -7,14 +7,17 @@ import {
   PagingOptions,
   RequestOptions,
   SortingDirection,
-  SortingField
+  SortingField,
 } from '@ngdux/data-model-common';
 import { Observable } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';
 
 @Injectable({ providedIn: 'root' })
 export class RestService extends AbstractRestService {
-  constructor(http: HttpClient, configurationService: ConfigurationService) {
+  constructor() {
+    const http = inject(HttpClient);
+    const configurationService = inject(ConfigurationService);
+
     const configuration = configurationService.getConfiguration();
     super(http, configuration?.apiBaseUrl);
   }
@@ -32,7 +35,7 @@ export class RestService extends AbstractRestService {
       ...(options.requestParameters || {}),
       ...this.getPagingParameters(options.pagingOptions),
       ...this.getSortingParameters(options.sortingOptions),
-      ...this.getFilteringParameters(options.filteringOptions)
+      ...this.getFilteringParameters(options.filteringOptions),
     };
   }
 
@@ -66,7 +69,7 @@ export class RestService extends AbstractRestService {
 
     return {
       _sort: fieldNames.join(','),
-      _order: orders.join(',')
+      _order: orders.join(','),
     };
   }
 
@@ -91,7 +94,7 @@ export class RestService extends AbstractRestService {
       ...(options.requestParameters || {}),
       ...(options.pagingOptions || {}),
       ...this.getSortingQuery(options.sortingOptions),
-      ...this.getFilteringQuery(options.filteringOptions)
+      ...this.getFilteringQuery(options.filteringOptions),
     };
   }
 
@@ -106,9 +109,9 @@ export class RestService extends AbstractRestService {
         .map(option => {
           return {
             field: option.field,
-            direction: option.direction === SortingDirection.ASCENDING ? 'asc' : 'desc'
+            direction: option.direction === SortingDirection.ASCENDING ? 'asc' : 'desc',
           };
-        })
+        }),
     };
   }
 

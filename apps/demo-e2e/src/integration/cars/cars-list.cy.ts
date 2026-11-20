@@ -1,13 +1,10 @@
-import { CarDto } from '@demo/demo/data-model/cars';
 import { SortingDirection, SortingField } from '@ngdux/data-model-common';
 import { carsListRoutes, stubCars } from '../../support/cars/cars-list';
 import { assertCorrectGetRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
 
 describe('Cars list', () => {
-  let cars: CarDto[];
-
   beforeEach(() => {
-    cars = stubCars();
+    stubCars();
 
     cy.visit('/cars');
     assertCorrectGetRequested(carsListRoutes.getCars, 1);

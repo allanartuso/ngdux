@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersListFacade } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
@@ -10,23 +10,21 @@ import { combineLatest, filter, map } from 'rxjs';
   selector: 'demo-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class UsersComponent {
+  private readonly router = inject(Router);
+  private readonly usersFacade = inject(UsersListFacade);
+  private readonly notificationService = inject(NotificationService);
+
   model$ = combineLatest({
     users: this.usersFacade.currentPageData$,
     totalCount: this.usersFacade.totalCount$,
     pagingOptions: this.usersFacade.pagingOptions$,
     sortingOptions: this.usersFacade.sortingOptions$.pipe(map(sortingOptions => Object.values(sortingOptions))),
     filteringOptions: this.usersFacade.filteringOptions$,
-    selectedItems: this.usersFacade.selectedItems$
+    selectedItems: this.usersFacade.selectedItems$,
   });
-
-  constructor(
-    private readonly router: Router,
-    private readonly usersFacade: UsersListFacade,
-    private readonly notificationService: NotificationService
-  ) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.usersFacade.changeFiltering({ filteringOptions });
@@ -34,7 +32,7 @@ export class UsersComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.usersFacade.changeSorting({
-      sortingOptions
+      sortingOptions,
     });
   }
 
@@ -58,7 +56,7 @@ export class UsersComponent {
     this.notificationService
       .openConfirmationDialog({
         title: 'Delete users',
-        message: 'Are you sure to delete the selected users?'
+        message: 'Are you sure to delete the selected users?',
       })
       .pipe(filter(confirmed => confirmed))
       .subscribe(() => {

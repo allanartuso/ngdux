@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, Input, ViewEncapsulation } from '@angular/core';
 import { NgilTimePickerOverlayComponent } from './time-picker-overlay.component';
 
 @Component({
@@ -6,7 +6,6 @@ import { NgilTimePickerOverlayComponent } from './time-picker-overlay.component'
   templateUrl: 'picker-toggle.html',
   styleUrls: ['picker-toggle.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgilPickerToggleComponent {
   @Input() picker: NgilTimePickerOverlayComponent | undefined;

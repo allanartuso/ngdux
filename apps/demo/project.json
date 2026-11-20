@@ -7,13 +7,14 @@
   "tags": ["scope:demo", "type:app"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath.base}"],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/demo",
+        "outputPath": { "base": "dist/apps/demo", "browser": "" },
         "index": "apps/demo/src/index.html",
-        "main": "apps/demo/src/main.ts",
-        "polyfills": "apps/demo/src/polyfills.ts",
+        "browser": "apps/demo/src/main.ts",
+        "polyfills": ["apps/demo/src/polyfills.ts"],
         "tsConfig": "apps/demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
@@ -43,18 +44,17 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
       "configurations": {
         "production": {
           "buildTarget": "demo:build:production"
@@ -63,24 +63,14 @@
           "buildTarget": "demo:build:development"
         }
       },
-      "defaultConfiguration": "development",
-      "continuous": true
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "demo:build"
+      "readyWhen": {
+        "signal": true
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/demo"],
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
       "options": {
-        "jestConfig": "apps/demo/jest.config.ts"
+        "buildTarget": "demo:build"
       }
     }
   }

@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngil/ui/list"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/ngil/ui/list/ng-package.json"
       },
@@ -19,18 +20,7 @@
         "development": {
           "tsConfig": "libs/ngil/ui/list/tsconfig.lib.json"
         }
-      },
-      "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/ngil/ui/list"],
-      "options": {
-        "jestConfig": "libs/ngil/ui/list/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

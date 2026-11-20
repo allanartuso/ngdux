@@ -1,7 +1,15 @@
-<label>{{ label }}</label>
-<select [(ngModel)]="value" (ngModelChange)="updateModel()" (blur)="onBlur()">
-  @for (item of items; track item) {
-    <option [value]="item.value">{{ item.text || item.value }}</option>
-  }
-</select>
-<small>{{ errorMessage }}</small>
+<label
+  >{{ label }}
+  <select
+    [disabled]="disabled"
+    [(ngModel)]="value"
+    [ngModelOptions]="{ standalone: true }"
+    (ngModelChange)="updateModel()"
+    (blur)="onBlur()"
+  >
+    @for (item of items; track item) {
+      <option [value]="item.value">{{ item.text || item.value }}</option>
+    }
+  </select>
+</label>
+<small>{{ (model$ | async)?.errorMessage }}</small>

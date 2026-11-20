@@ -5,17 +5,6 @@
   "sourceRoot": "libs/demo/data-model/properties/src",
   "prefix": "demo",
   "tags": ["scope:demo", "type:data-model"],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/demo/data-model/properties/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    }
-  }
+  "// targets": "to see all targets run: nx show project demo-data-model-properties --web",
+  "targets": {}
 }

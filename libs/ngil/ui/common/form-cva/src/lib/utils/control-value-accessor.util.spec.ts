@@ -1,8 +1,10 @@
 import { Component, forwardRef } from '@angular/core';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { createControlValueAccessorProviders } from './control-value-accessor.util';
 
-@Component({})
+@Component({
+  imports: [ReactiveFormsModule],
+})
 class TestComponent {}
 
 describe('createControlValueAccessorProviders', () => {
@@ -11,13 +13,13 @@ describe('createControlValueAccessorProviders', () => {
       {
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => TestComponent),
-        multi: true
+        multi: true,
       },
       {
         provide: NG_VALIDATORS,
         useExisting: forwardRef(() => TestComponent),
-        multi: true
-      }
+        multi: true,
+      },
     ];
 
     const providers = createControlValueAccessorProviders(TestComponent);

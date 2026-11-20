@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { CarsListFacade } from '@demo/demo/data-access/cars';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
 import { createPersistentCars } from '@demo/demo/data-model/cars/test';
@@ -12,7 +11,7 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingField
+  SortingField,
 } from '@ngdux/data-model-common';
 import { of } from 'rxjs';
 import { CarsComponent } from './cars.component';
@@ -36,12 +35,15 @@ describe('CarsComponent', () => {
       changePagingOptions: jest.fn(),
       changeFiltering: jest.fn(),
       changeSorting: jest.fn(),
-      changeSelectedResources: jest.fn()
+      changeSelectedResources: jest.fn(),
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [CarsComponent, { provide: CarsListFacade, useValue: facade }]
+      providers: [
+        provideRouter([{ path: '**', redirectTo: '' }]),
+        CarsComponent,
+        { provide: CarsListFacade, useValue: facade },
+      ],
     });
   });
 
@@ -74,7 +76,7 @@ describe('CarsComponent', () => {
   it('emits change cars filtering action when filtering', () => {
     const filteringOptions: FilteringOptions = {
       logic: DEFAULT_FILTERING_LOGIC,
-      filters: []
+      filters: [],
     };
 
     component.onFilteringChanged(filteringOptions);
@@ -88,7 +90,7 @@ describe('CarsComponent', () => {
     component.onSortingChanged(sortingOptions);
 
     expect(facade.changeSorting).toHaveBeenCalledWith({
-      sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] }
+      sortingOptions,
     });
   });
 

@@ -16,5 +16,6 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "include": ["**/*.spec.ts", "**/*.d.ts", "**/*.fixture.ts", "**/index-test.ts"]
+  "include": ["**/*.spec.ts", "**/*.d.ts", "**/*.fixture.ts", "**/index-test.ts"],
+  "exclude": ["**/cypress/**", "**/*.cy.ts", "**/*.cy.tsx", "node_modules", "tmp", "dist", "apps/demo-e2e"]
 }

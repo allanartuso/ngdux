@@ -1,7 +1,6 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { DemoFeatureSidebarModule } from '@demo/demo/feature/sidebar';
 import { APP_CONFIGURATION, SharedUtilConfigurationModule } from '@demo/shared/util-configuration';
@@ -15,36 +14,36 @@ const ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'dashboard'
+    redirectTo: 'dashboard',
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('@demo/demo/feature/dashboard').then(module => module.DemoFeatureDashboardModule)
+    loadChildren: () => import('@demo/demo/feature/dashboard').then(module => module.DemoFeatureDashboardModule),
   },
   {
     path: 'users',
-    loadChildren: () => import('@demo/demo/feature/users').then(module => module.DemoFeatureUsersModule)
+    loadChildren: () => import('@demo/demo/feature/users').then(module => module.DemoFeatureUsersModule),
   },
   {
     path: 'properties',
-    loadChildren: () => import('@demo/demo/feature/properties').then(module => module.DemoFeaturePropertiesModule)
+    loadChildren: () => import('@demo/demo/feature/properties').then(module => module.DemoFeaturePropertiesModule),
   },
   {
     path: 'cars',
-    loadChildren: () => import('@demo/demo/feature/cars').then(module => module.DemoFeatureCarsModule)
+    loadChildren: () => import('@demo/demo/feature/cars').then(module => module.DemoFeatureCarsModule),
   },
   {
     path: 'agents',
-    loadChildren: () => import('@demo/demo/feature/agents').then(module => module.DemoFeatureAgentsModule)
+    loadChildren: () => import('@demo/demo/feature/agents').then(module => module.DemoFeatureAgentsModule),
   },
   {
     path: 'smartphones',
-    loadChildren: () => import('@demo/demo/feature/smartphones').then(module => module.DemoFeatureSmartphonesModule)
+    loadChildren: () => import('@demo/demo/feature/smartphones').then(module => module.DemoFeatureSmartphonesModule),
   },
   {
     path: '**',
-    redirectTo: 'dashboard'
-  }
+    redirectTo: 'dashboard',
+  },
 ];
 
 @NgModule({
@@ -53,21 +52,20 @@ const ROUTES: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES, {
-      scrollPositionRestoration: 'enabled'
+      scrollPositionRestoration: 'enabled',
     }),
     SharedUtilStoreModule,
     SharedUtilConfigurationModule,
-    BrowserAnimationsModule,
-    DemoFeatureSidebarModule
+    DemoFeatureSidebarModule,
   ],
   providers: [
     {
       provide: APP_CONFIGURATION,
-      useFactory: getAppConfiguration
+      useFactory: getAppConfiguration,
     },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
     provideStore(),
-    provideStoreDevtools({})
-  ]
+    provideStoreDevtools({}),
+  ],
 })
 export class AppModule {}

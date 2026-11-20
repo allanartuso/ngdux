@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Inject, NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { AppConfiguration, APP_CONFIGURATION } from './configuration.model';
 import { ConfigurationService } from './configuration.service';
 
 @NgModule({
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class SharedUtilConfigurationModule {
-  constructor(@Inject(APP_CONFIGURATION) configuration: AppConfiguration, configurationService: ConfigurationService) {
+  constructor() {
+    const configuration = inject<AppConfiguration>(APP_CONFIGURATION);
+    const configurationService = inject(ConfigurationService);
+
     configurationService.setConfiguration(configuration);
   }
 }

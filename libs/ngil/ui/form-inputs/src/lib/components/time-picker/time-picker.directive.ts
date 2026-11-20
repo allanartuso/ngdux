@@ -7,8 +7,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
+  inject,
 } from '@angular/core';
 import { AbstractControl, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -21,6 +21,10 @@ import { TimePickerValue } from './time-picker.model';
   selector: '[ngilTimePicker]',
 })
 export class NgilTimePickerDirective implements AfterViewInit, OnDestroy, OnInit {
+  private readonly elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
+  private readonly inputComponent = inject(NgilInputComponent, { optional: true });
+  private readonly ngControl = inject(NgControl, { optional: true });
+
   @Input() picker?: NgilTimePickerOverlayComponent;
 
   @Output() changed = new EventEmitter<TimePickerValue>();
@@ -37,12 +41,6 @@ export class NgilTimePickerDirective implements AfterViewInit, OnDestroy, OnInit
   @HostListener('input', ['$event']) onInput = (event: InputEvent): void => {
     this.setPickerValue((event.target as HTMLInputElement).value);
   };
-
-  constructor(
-    private readonly elementRef: ElementRef<HTMLInputElement>,
-    @Optional() private readonly inputComponent?: NgilInputComponent,
-    @Optional() private readonly ngControl?: NgControl,
-  ) {}
 
   ngOnInit(): void {
     this.ngControl?.control?.setValidators([this.timeValidator()]);

@@ -1,21 +1,20 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import { AfterViewInit, Component, forwardRef } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractInputComponent } from '@ngil/form-cva';
 import { takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'ngil-textarea',
-    templateUrl: './textarea.component.html',
-    styleUrls: ['./textarea.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NgilTextareaComponent),
-            multi: true
-        }
-    ],
-    standalone: false
+  selector: 'ngil-textarea',
+  templateUrl: './textarea.component.html',
+  styleUrls: ['./textarea.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => NgilTextareaComponent),
+      multi: true,
+    },
+  ],
+  standalone: false,
 })
 export class NgilTextareaComponent extends AbstractInputComponent<string> implements AfterViewInit {
   control = new FormControl();
@@ -26,8 +25,18 @@ export class NgilTextareaComponent extends AbstractInputComponent<string> implem
     });
   }
 
+  override setDisabledState(isDisabled: boolean): void {
+    super.setDisabledState(isDisabled);
+    if (isDisabled) {
+      this.control.disable({ emitEvent: false });
+    } else {
+      this.control.enable({ emitEvent: false });
+    }
+  }
+
   writeValue(value: string): void {
-    this.control.setValue(value);
+    this.control.setValue(value, { emitEvent: false });
+    this.cdr.markForCheck();
   }
 
   onChangeInput(value: string): void {

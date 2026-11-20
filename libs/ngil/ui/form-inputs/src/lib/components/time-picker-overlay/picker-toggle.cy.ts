@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
-import { PickerToggleComponent } from './picker-toggle';
+import { NgilPickerToggleComponent } from './picker-toggle';
 
-describe(PickerToggleComponent.name, () => {
+describe(NgilPickerToggleComponent.name, () => {
   beforeEach(() => {
-    TestBed.overrideComponent(PickerToggleComponent, {
+    TestBed.overrideComponent(NgilPickerToggleComponent, {
       add: {
         imports: [],
-        providers: []
-      }
+        providers: [],
+      },
     });
   });
 
   it('renders', () => {
-    cy.mount(PickerToggleComponent);
+    cy.mount(NgilPickerToggleComponent);
   });
 });

@@ -1,17 +1,19 @@
 import { ElementRef } from '@angular/core';
-import { OverlayToggleDirective } from './overlay-toggle.directive';
+import { TestBed } from '@angular/core/testing';
+import { NgilOverlayToggleDirective } from './overlay-toggle.directive';
 import { NgilOverlayComponent } from './overlay.component';
 
-describe('OverlayToggleDirective', () => {
-  let directive: OverlayToggleDirective;
+describe('NgilOverlayToggleDirective', () => {
+  let directive: NgilOverlayToggleDirective;
   let overlayComponentMock: Partial<NgilOverlayComponent>;
   const elementRef = {
-    nativeElement: { value: '' }
+    nativeElement: { value: '' },
   };
 
   beforeEach(() => {
     overlayComponentMock = { origin: undefined, open: jest.fn() };
-    directive = new OverlayToggleDirective(elementRef as ElementRef<HTMLInputElement>);
+    TestBed.configureTestingModule({ providers: [{ provide: ElementRef, useValue: elementRef }] });
+    directive = TestBed.runInInjectionContext(() => new NgilOverlayToggleDirective());
     directive.ngilOverlayToggle = overlayComponentMock as NgilOverlayComponent;
   });
 

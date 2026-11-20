@@ -17,7 +17,7 @@ describe('UsersService', () => {
     mockRestService = restServiceFixture.getMockRestService(user, users);
 
     TestBed.configureTestingModule({
-      providers: [UserService, { provide: RestService, useValue: mockRestService }]
+      providers: [UserService, { provide: RestService, useValue: mockRestService }],
     });
 
     service = TestBed.inject(UserService);
@@ -73,10 +73,10 @@ describe('UsersService', () => {
     const options: RequestOptions = {
       pagingOptions: {
         page: 1,
-        pageSize: 10
+        pageSize: 10,
       },
-      sortingOptions: {},
-      filteringOptions: { logic: FilteringLogic.AND, filters: [] }
+      sortingOptions: [],
+      filteringOptions: { logic: FilteringLogic.AND, filters: [] },
     };
     const expected = cold('(u|)', { u: users });
 
@@ -110,8 +110,8 @@ describe('UsersService', () => {
       USERS_RESOURCE_BASE_PATH,
       ids.map(id => ({
         id,
-        resource: user
-      }))
+        resource: user,
+      })),
     );
   });
 });

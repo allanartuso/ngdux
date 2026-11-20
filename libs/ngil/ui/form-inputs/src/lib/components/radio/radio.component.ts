@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, forwardRef, Input, inject } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -10,42 +10,50 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NgilRadioComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class NgilRadioComponent implements ControlValueAccessor {
-  @Input() formControlName: string = '';
-  @Input() label: string = '';
+  @Input() formControlName = '';
+  @Input() label = '';
   @Input() items: string[] = [];
 
-  value: string = '';
+  value = '';
 
-  private onChangeCallback = (_: any) => {};
+  private readonly cdr = inject(ChangeDetectorRef);
+  private onChangeCallback?: (value: string) => void;
 
-  private onTouchedCallback = () => {};
+  private onTouchedCallback?: () => void;
+  disabled = false;
 
   onBlur(): void {
-    this.onTouchedCallback();
+    this.onTouchedCallback?.();
   }
 
   onFocus(): void {
-    this.onTouchedCallback();
+    this.onTouchedCallback?.();
   }
 
   writeValue(value: string): void {
     this.value = value;
+    this.cdr.markForCheck();
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChangeCallback = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouchedCallback = fn;
   }
 
+  setDisabledState(disabled: boolean): void {
+    this.disabled = disabled;
+    this.cdr.markForCheck();
+  }
+
   updateModel() {
-    this.onChangeCallback(this.value);
+    this.onChangeCallback?.(this.value);
   }
 }

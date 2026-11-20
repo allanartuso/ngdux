@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgilSelectComponent } from './select.component';
 
 describe('NgilSelectComponent', () => {
@@ -8,11 +7,10 @@ describe('NgilSelectComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NgilSelectComponent],
-      imports: [ReactiveFormsModule]
+      imports: [NgilSelectComponent],
     });
 
-    component = TestBed.inject(NgilSelectComponent);
+    component = TestBed.createComponent(NgilSelectComponent<string>).componentInstance;
   });
 
   it('should create', () => {

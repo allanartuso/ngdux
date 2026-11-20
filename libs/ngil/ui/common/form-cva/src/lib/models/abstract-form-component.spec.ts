@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AbstractFormComponent } from './abstract-form-component';
@@ -10,6 +10,7 @@ interface TestFormModel {
 }
 
 @Component({
+  imports: [ReactiveFormsModule],
   template: `
     <form [formGroup]="form">
       <input formControlName="name" label="Name" />
@@ -18,9 +19,10 @@ interface TestFormModel {
         <input formControlName="city" label="City" />
       </div>
     </form>
-  `
+  `,
 })
 class MockFormComponent extends AbstractFormComponent<TestFormModel> {
+  private readonly fb = inject(FormBuilder);
   i18nScope = 'testI18nScope';
   form = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -30,15 +32,11 @@ class MockFormComponent extends AbstractFormComponent<TestFormModel> {
         '',
         {
           validators: [Validators.required],
-          updateOn: 'blur'
-        }
-      ]
-    })
+          updateOn: 'blur',
+        },
+      ],
+    }),
   });
-
-  constructor(private readonly fb: FormBuilder) {
-    super();
-  }
 }
 
 describe('AbstractFormComponent', () => {
@@ -48,8 +46,7 @@ describe('AbstractFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [MockFormComponent]
+      imports: [MockFormComponent],
     }).compileComponents();
   }));
 
@@ -60,7 +57,7 @@ describe('AbstractFormComponent', () => {
     testFormValues = {
       name: 'testName',
       jobTitle: '',
-      address: { city: 'testCity' }
+      address: { city: 'testCity' },
     };
     component.formViewModel = testFormValues;
 

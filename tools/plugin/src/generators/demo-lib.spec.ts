@@ -9,7 +9,7 @@ describe('demo-lib generator', () => {
   const options: DemoLibGeneratorSchema = { name: 'test', scope: 'demo', type: 'feature', unitTestRunner: 'none' };
 
   beforeEach(() => {
-    tree = createTreeWithEmptyWorkspace();
+    tree = createTreeWithEmptyWorkspace({ formatter: 'none' });
   });
 
   it('should run successfully', async () => {
@@ -17,7 +17,7 @@ describe('demo-lib generator', () => {
     const config = readProjectConfiguration(tree, 'test');
     expect(config).toBeDefined();
     expect(readJson(tree, 'tsconfig.base.json').compilerOptions.paths['@demo/demo/feature/test']).toEqual([
-      'libs/demo/feature/test/src/index.ts',
+      './libs/demo/feature/test/src/index.ts',
     ]);
   });
 
@@ -29,7 +29,7 @@ describe('demo-lib generator', () => {
     expect(config.root).toBe(`libs/demo${commonPath}/feature/test`);
     const paths = readJson(tree, 'tsconfig.base.json').compilerOptions.paths;
     expect(paths[`@my-org/demo${commonPath}/feature/test`]).toEqual([
-      `libs/demo${commonPath}/feature/test/src/index.ts`,
+      `./libs/demo${commonPath}/feature/test/src/index.ts`,
     ]);
     expect(paths[`@demo/demo${commonPath}/feature/test`]).toBeUndefined();
   });

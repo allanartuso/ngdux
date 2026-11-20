@@ -5,17 +5,17 @@ import { takeUntil } from 'rxjs/operators';
 import { TimePickerValue } from './time-picker.model';
 
 @Component({
-    selector: 'ngil-time-picker',
-    templateUrl: './time-picker.component.html',
-    styleUrls: ['./time-picker.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: NgilTimePickerComponent,
-            multi: true
-        }
-    ],
-    standalone: false
+  selector: 'ngil-time-picker',
+  templateUrl: './time-picker.component.html',
+  styleUrls: ['./time-picker.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: NgilTimePickerComponent,
+      multi: true,
+    },
+  ],
+  standalone: false,
 })
 export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerValue> implements AfterViewInit {
   private defaultValue: TimePickerValue = { hour: 0, minute: 0, second: 0 };
@@ -24,7 +24,7 @@ export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerVa
   formGroup = new FormGroup({
     hour: new FormControl<number>(this.defaultValue.hour, { nonNullable: true }),
     minute: new FormControl<number>(this.defaultValue.minute, { nonNullable: true }),
-    second: new FormControl<number>(this.defaultValue.second, { nonNullable: true })
+    second: new FormControl<number>(this.defaultValue.second, { nonNullable: true }),
   });
 
   ngAfterViewInit(): void {
@@ -38,10 +38,19 @@ export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerVa
         this.onChange({
           hour: value.hour ?? this.defaultValue.hour,
           minute: value.minute ?? this.defaultValue.minute,
-          second: value.second ?? this.defaultValue.second
+          second: value.second ?? this.defaultValue.second,
         });
       }
     });
+  }
+
+  override setDisabledState(isDisabled: boolean): void {
+    super.setDisabledState(isDisabled);
+    if (isDisabled) {
+      this.formGroup.disable({ emitEvent: false });
+    } else {
+      this.formGroup.enable({ emitEvent: false });
+    }
   }
 
   writeValue(value: TimePickerValue): void {
@@ -49,12 +58,13 @@ export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerVa
       this.formGroup.setValue(
         {
           ...this.defaultValue,
-          ...value
+          ...value,
         },
-        { emitEvent: false }
+        { emitEvent: false },
       );
     } else {
       this.formGroup.reset(this.defaultValue, { emitEvent: false });
     }
+    this.cdr.markForCheck();
   }
 }

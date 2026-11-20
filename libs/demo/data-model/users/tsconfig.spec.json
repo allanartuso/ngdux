@@ -6,7 +6,6 @@
     "types": ["jest", "node"]
   },
   "include": [
-    "jest.config.ts",
     "**/*.fixture.ts",
     "**/*.test.ts",
     "**/*.spec.ts",
@@ -17,5 +16,6 @@
     "**/*.test.jsx",
     "**/*.spec.jsx",
     "**/*.d.ts"
-  ]
+  ],
+  "exclude": ["**/cypress/**", "**/*.cy.ts", "**/*.cy.tsx"]
 }

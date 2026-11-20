@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { AgentsListFacade } from '@demo/demo/data-access/agents';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 @Injectable()
-export class AgentsResolver  {
-  constructor(private readonly agentsFacade: AgentsListFacade) {}
+export class AgentsResolver {
+  private readonly agentsFacade = inject(AgentsListFacade);
 
   resolve(): Observable<boolean> {
     this.agentsFacade.initialize();

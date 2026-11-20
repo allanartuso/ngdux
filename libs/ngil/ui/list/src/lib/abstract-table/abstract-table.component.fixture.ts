@@ -9,9 +9,9 @@ interface Summary {
 }
 
 @Component({
-    selector: 'demo-list',
-    template: ``,
-    standalone: false
+  selector: 'ngil-test-list',
+  template: ``,
+  standalone: false,
 })
 export class TestTableComponent extends AbstractTableComponent<Summary> {}
 
@@ -30,11 +30,11 @@ export function createSummaries(nbOfOrganizationRestrictionSummaries = 3): Summa
 function createSummary(
   id: string = commonFixture.getWord(),
   name: string = commonFixture.getWord(),
-  count: number = commonFixture.getNumberInRange(1, 10)
+  count: number = commonFixture.getNumberInRange(1, 10),
 ): Summary {
   return {
     id,
     name,
-    count
+    count,
   };
 }

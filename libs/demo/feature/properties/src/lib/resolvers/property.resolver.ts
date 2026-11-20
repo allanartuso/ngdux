@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
 import { Observable, combineLatest, first, map } from 'rxjs';
@@ -6,10 +6,8 @@ import { PropertyUsersListFacade } from '../demo-feature-properties.module';
 
 @Injectable()
 export class PropertyResolver {
-  constructor(
-    private readonly propertyFacade: PropertyFacade,
-    private readonly usersFacade: PropertyUsersListFacade
-  ) {}
+  private readonly propertyFacade = inject(PropertyFacade);
+  private readonly usersFacade = inject(PropertyUsersListFacade);
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     const id = route.params['id'];
@@ -21,7 +19,7 @@ export class PropertyResolver {
 
       return combineLatest([this.propertyFacade.isReady$, this.usersFacade.isReady$]).pipe(
         first(items => items.every(isReady => isReady)),
-        map(() => true)
+        map(() => true),
       );
     } else {
       this.propertyFacade.reset();

@@ -4,17 +4,6 @@
   "sourceRoot": "libs/demo/data-model/users/src",
   "projectType": "library",
   "tags": ["scope:demo", "type:data-model"],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/demo/data-model/users"],
-      "options": {
-        "jestConfig": "libs/demo/data-model/users/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project demo-data-model-users --web",
+  "targets": {}
 }

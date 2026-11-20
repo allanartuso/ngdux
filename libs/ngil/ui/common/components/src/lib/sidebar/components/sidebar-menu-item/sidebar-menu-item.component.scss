@@ -2,11 +2,19 @@
   width: 100%;
 
   .demo-menu-item-content {
+    button {
+      background: none;
+      border: 0;
+      font: inherit;
+      text-align: inherit;
+    }
+
     flex-wrap: nowrap;
     flex-direction: column;
     width: 100%;
 
-    a {
+    a,
+    button {
       display: flex;
       color: inherit;
       text-decoration: none;
@@ -57,7 +65,8 @@
     padding: 0rem;
     width: 100%;
 
-    a {
+    a,
+    button {
       align-items: flex-end;
       justify-content: center;
     }

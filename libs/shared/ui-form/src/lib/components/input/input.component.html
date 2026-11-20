@@ -6,11 +6,12 @@
       matInput
       [required]="required"
       [readonly]="readonly"
+      [disabled]="disabled"
       [type]="type"
       [value]="value"
       (blur)="onBlur()"
       (keyup)="onChangeInput($event)"
     />
-    <mat-error>{{ errorMessage }}</mat-error>
+    <mat-error>{{ (model$ | async)?.errorMessage }}</mat-error>
   </mat-form-field>
 </div>

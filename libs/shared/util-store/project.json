@@ -5,17 +5,6 @@
   "sourceRoot": "libs/shared/util-store/src",
   "prefix": "demo",
   "tags": ["scope:shared", "type:util"],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/shared/util-store"],
-      "options": {
-        "jestConfig": "libs/shared/util-store/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    }
-  }
+  "// targets": "to see all targets run: nx show project shared-util-store --web",
+  "targets": {}
 }

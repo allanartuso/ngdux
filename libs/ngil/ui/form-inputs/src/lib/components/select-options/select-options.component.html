@@ -1,15 +1,26 @@
 @if (display) {
-  <div class="ngil-dropdown" role="listbox" data-test="ngil-select-options-list">
+  <div
+    class="ngil-dropdown"
+    role="listbox"
+    [attr.aria-label]="label"
+    [attr.aria-multiselectable]="multiple"
+    data-test="ngil-select-options-list"
+  >
     @for (item of items; track item) {
       <div
         role="option"
+        tabindex="0"
+        (keydown)="onOptionKeydown($event)"
+        [attr.aria-selected]="isSelected(item)"
+        (keydown.enter)="onItemSelected(item)"
+        (keydown.space)="$event.preventDefault(); onItemSelected(item)"
         class="ngil-dropdown__item"
         data-test="ngil-select-option"
         [attr.value]="item"
         [attr.displayValue]="displayKey ? item[displayKey] : item"
         (click)="onItemSelected(item)"
         [class.ngil-dropdown__item--selected]="isSelected(item)"
-        >
+      >
         {{ displayKey ? item[displayKey] : item }}
       </div>
     }

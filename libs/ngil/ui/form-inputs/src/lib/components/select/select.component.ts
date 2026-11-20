@@ -1,23 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  Optional,
-  ViewChild,
-  forwardRef,
-} from '@angular/core';
-import { ControlContainer, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, ViewChild, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgilOverlayComponent, NgilOverlayToggleDirective } from '@ngil/components';
-import { AbstractInputComponent, NgilErrorMessagesService } from '@ngil/form-cva';
+import { AbstractInputComponent } from '@ngil/form-cva';
 import { NgilSelectOptionsComponent } from '../select-options/select-options.component';
 
 @Component({
   selector: 'ngil-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -47,14 +38,6 @@ export class NgilSelectComponent<T> extends AbstractInputComponent<T | T[]> {
     return this.value;
   }
 
-  constructor(
-    private readonly cdr: ChangeDetectorRef,
-    errorMessagesService: NgilErrorMessagesService,
-    @Optional() controlContainer?: ControlContainer,
-  ) {
-    super(errorMessagesService, controlContainer);
-  }
-
   writeValue(value: T): void {
     this.value = value;
     this.cdr.markForCheck();
@@ -69,6 +52,15 @@ export class NgilSelectComponent<T> extends AbstractInputComponent<T | T[]> {
 
     if (this.onChange) {
       this.onChange(this.value);
+    }
+  }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+      event.preventDefault();
+      this.overlay?.open();
+    } else if (event.key === 'Escape') {
+      this.overlay?.close();
     }
   }
 

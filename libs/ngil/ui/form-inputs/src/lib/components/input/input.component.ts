@@ -1,13 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  Output,
-} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { AbstractInputComponent } from '@ngil/form-cva';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +8,6 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'ngil-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe, ReactiveFormsModule],
   providers: [
     {
@@ -38,8 +29,18 @@ export class NgilInputComponent extends AbstractInputComponent<string | number> 
     });
   }
 
+  override setDisabledState(isDisabled: boolean): void {
+    super.setDisabledState(isDisabled);
+    if (isDisabled) {
+      this.control.disable({ emitEvent: false });
+    } else {
+      this.control.enable({ emitEvent: false });
+    }
+  }
+
   writeValue(value: string | number): void {
-    this.control.setValue(value);
+    this.control.setValue(value, { emitEvent: false });
+    this.cdr.markForCheck();
   }
 
   onChangeInput(value: string | number): void {

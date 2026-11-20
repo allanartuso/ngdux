@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { EffectSources, EffectsRunner, OnIdentifyEffects, rootEffectsInit } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 @Injectable({ providedIn: 'root' })
 export class RegisterEffectsService {
-  constructor(
-    private readonly store: Store,
-    private readonly effectSources: EffectSources,
-    private readonly effectsRunner: EffectsRunner
-  ) {}
+  private readonly store = inject(Store);
+  private readonly effectSources = inject(EffectSources);
+  private readonly effectsRunner = inject(EffectsRunner);
 
   registerEffects(effectSourceInstances: OnIdentifyEffects[]) {
     const shouldInitEffects = !this.effectsRunner.isStarted;

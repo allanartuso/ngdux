@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
-import { UsersFacade } from '@demo/demo/data-access/users';
+import { PropertyUsersListFacade } from '../demo-feature-properties.module';
 import { RequestState } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
 import { of } from 'rxjs';
@@ -10,7 +10,7 @@ import { PropertyResolver } from './property.resolver';
 describe('PropertyResolver', () => {
   let resolver: PropertyResolver;
   let propertyFacade: Partial<commonFixture.RemoveReadonly<PropertyFacade>>;
-  let usersFacade: Partial<commonFixture.RemoveReadonly<UsersFacade>>;
+  let usersFacade: Partial<commonFixture.RemoveReadonly<PropertyUsersListFacade>>;
 
   const id = 'testId';
   const mockRouteSnapshot = { params: { id } } as unknown as ActivatedRouteSnapshot;
@@ -19,13 +19,13 @@ describe('PropertyResolver', () => {
     propertyFacade = {
       requestState$: of(RequestState.IDLE),
       isReady$: of(true),
-      load: jest.fn()
+      load: jest.fn(),
     };
     usersFacade = {
       setPageSize: jest.fn(),
       initialize: jest.fn(),
       resources$: of([]),
-      isReady$: of(true)
+      isReady$: of(true),
     };
 
     TestBed.configureTestingModule({
@@ -33,17 +33,17 @@ describe('PropertyResolver', () => {
         PropertyResolver,
         {
           provide: ActivatedRouteSnapshot,
-          useValue: mockRouteSnapshot
+          useValue: mockRouteSnapshot,
         },
         {
           provide: PropertyFacade,
-          useValue: propertyFacade
+          useValue: propertyFacade,
         },
         {
-          provide: UsersFacade,
-          useValue: usersFacade
-        }
-      ]
+          provide: PropertyUsersListFacade,
+          useValue: usersFacade,
+        },
+      ],
     });
 
     resolver = TestBed.inject(PropertyResolver);

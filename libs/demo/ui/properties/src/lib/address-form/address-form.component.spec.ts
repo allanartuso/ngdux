@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
+import { DemoUiPropertiesModule } from '../demo-ui-properties.module';
 import { AddressFormComponent } from './address-form.component';
 
 describe('AddressFormComponent', () => {
@@ -7,10 +8,10 @@ describe('AddressFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AddressFormComponent]
+      imports: [DemoUiPropertiesModule],
     }).compileComponents();
 
-    component = TestBed.inject(AddressFormComponent);
+    component = TestBed.createComponent(AddressFormComponent).componentInstance;
   });
 
   it('should create', () => {

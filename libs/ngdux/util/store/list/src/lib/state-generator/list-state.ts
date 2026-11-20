@@ -10,12 +10,10 @@ import { provideListFacade } from './list-facade';
 import { createListEntityAdapter, createListReducer } from './list-reducer';
 import { createListSelectors } from './list-selectors';
 
-export function createListState<
-  T extends { [key: string]: any },
-  E,
-  S extends { [key: string]: any } = T,
-  Params = Record<string, string>,
->(featureName: string, idKey?: string) {
+export function createListState<T extends object, E, S extends object = T, Params = Record<string, string>>(
+  featureName: string,
+  idKey?: string,
+) {
   const actions = createListActions<T, E, S, Params>(featureName);
   const entityAdapter = createListEntityAdapter<S>(idKey);
   const reducer = createListReducer<T, E, S, Params>(entityAdapter, actions);
@@ -31,9 +29,9 @@ export function createListState<
 }
 
 export function provideListState<
-  Data extends { [key: string]: any },
+  Data extends object,
   Error = unknown,
-  Summary extends { [key: string]: any } = Data,
+  Summary extends object = Data,
   Params = Record<string, string>,
 >(
   featureKey: string,

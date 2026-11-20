@@ -1,4 +1,3 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { RequestState } from '@ngdux/data-model-common';
 import { DemoCancelButtonComponent } from '../cancel-button/cancel-button.component';
@@ -15,15 +14,15 @@ export default {
     formRequestState: {
       control: {
         type: 'select',
-        options: RequestState
-      }
-    }
-  }
+        options: RequestState,
+      },
+    },
+  },
 };
 
 const template = (args: DemoFormComponent) => ({
   moduleMetadata: {
-    imports: [BrowserAnimationsModule],
+    imports: [],
     declarations: [DemoFormComponent, DemoInputComponent, DemoCancelButtonComponent, DemoSubmitButtonComponent],
     providers: [
       {
@@ -33,12 +32,12 @@ const template = (args: DemoFormComponent) => ({
             i18n: {
               availableLanguages: ['en'],
               defaultLanguage: 'en',
-              production: false
-            }
-          })
-        }
-      }
-    ]
+              production: false,
+            },
+          }),
+        },
+      },
+    ],
   },
   template: `
   <demo-form
@@ -53,7 +52,7 @@ const template = (args: DemoFormComponent) => ({
     <demo-input name="lastName" [readonly]="!canEdit" label="Last name"></demo-input>
   </demo-form>
   `,
-  props: args
+  props: args,
 });
 
 export const Form = template.bind({});

@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CarsListFacade } from '@demo/demo/data-access/cars';
-import { UserFacade } from '@demo/demo/data-access/users';
+import { UserCarsListFacade } from '../../demo-feature-users.module';
+import { UserFormFacade } from '@demo/demo/data-access/users';
 import { CarDto } from '@demo/demo/data-model/cars';
 import { createPersistentCars } from '@demo/demo/data-model/cars/test';
 import { UserDto } from '@demo/demo/data-model/users';
@@ -16,8 +16,8 @@ describe('UserComponent', () => {
   let fixture: ComponentFixture<UserComponent>;
   let user: UserDto;
   let cars: CarDto[];
-  let facade: Partial<commonFixture.RemoveReadonly<UserFacade>>;
-  let carsFacade: Partial<commonFixture.RemoveReadonly<CarsListFacade>>;
+  let facade: Partial<commonFixture.RemoveReadonly<UserFormFacade>>;
+  let carsFacade: Partial<commonFixture.RemoveReadonly<UserCarsListFacade>>;
 
   beforeEach(waitForAsync(() => {
     user = createPersistentUser();
@@ -27,19 +27,19 @@ describe('UserComponent', () => {
       resource$: of(user),
       requestState$: of(RequestState.IDLE),
       save: jest.fn(),
-      create: jest.fn()
+      create: jest.fn(),
     };
     carsFacade = {
-      resources$: of(cars)
+      resources$: of(cars),
     };
 
     TestBed.configureTestingModule({
-      declarations: [UserComponent],
+      imports: [UserComponent],
       providers: [
-        { provide: UserFacade, useValue: facade },
-        { provide: CarsListFacade, useValue: carsFacade }
+        { provide: UserFormFacade, useValue: facade },
+        { provide: UserCarsListFacade, useValue: carsFacade },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

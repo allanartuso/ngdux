@@ -5,17 +5,6 @@
   "sourceRoot": "libs/shared/data-access/rest-service/src",
   "prefix": "demo",
   "tags": ["scope:shared", "type:data-access"],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/shared/data-access/rest-service"],
-      "options": {
-        "jestConfig": "libs/shared/data-access/rest-service/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    }
-  }
+  "// targets": "to see all targets run: nx show project shared-data-access-rest-service --web",
+  "targets": {}
 }

@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngil/ui/form-inputs"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/ngil/ui/form-inputs/ng-package.json"
       },
@@ -19,26 +20,11 @@
         "development": {
           "tsConfig": "libs/ngil/ui/form-inputs/tsconfig.lib.json"
         }
-      },
-      "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/ngil/ui/form-inputs"],
-      "options": {
-        "jestConfig": "libs/ngil/ui/form-inputs/jest.config.ts"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
     "component-test": {
-      "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "libs/ngil/ui/form-inputs/cypress.config.ts",
-        "testingType": "component",
-        "skipServe": true,
-        "devServerTarget": "demo:build:development"
+        "config-file": "./cypress.config.ts"
       }
     }
   }

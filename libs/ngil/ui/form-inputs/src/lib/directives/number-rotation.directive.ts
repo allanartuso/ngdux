@@ -1,11 +1,14 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
-    selector: 'input[ngilNumberRotation]',
-    standalone: false
+  selector: 'input[ngilNumberRotation]',
+  standalone: false,
 })
 export class NumberRotationDirective implements AfterViewInit, OnDestroy, OnInit {
+  private readonly elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
+  private readonly ngControl = inject(NgControl);
+
   @Input() min = 0;
   @Input() max = 10;
   @Input() buttonUp?: HTMLElement;
@@ -28,8 +31,6 @@ export class NumberRotationDirective implements AfterViewInit, OnDestroy, OnInit
     }
     this.setValue(+value);
   };
-
-  constructor(private readonly elementRef: ElementRef<HTMLInputElement>, private readonly ngControl: NgControl) {}
 
   ngOnInit(): void {
     this.elementRef.nativeElement.value = this.elementRef.nativeElement.value.toString().padStart(this.length, '0');

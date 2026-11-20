@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   AfterContentChecked,
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
   OnDestroy,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { NgilTooltipDirective } from '../tooltip/tooltip.directive';
 
@@ -17,21 +17,20 @@ import { NgilTooltipDirective } from '../tooltip/tooltip.directive';
   imports: [CommonModule, NgilTooltipDirective],
   templateUrl: './ellipsis-tooltip.component.html',
   styleUrl: './ellipsis-tooltip.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgilEllipsisTooltipComponent implements AfterViewInit, AfterContentChecked, OnDestroy {
+  private readonly cdr = inject(ChangeDetectorRef);
+
   @ViewChild('textContainer') textContainer?: ElementRef<HTMLDivElement>;
 
   hasEllipsis = false;
   content = '';
-  private debounceTimeOut = 0;
+  private debounceTimeOut?: ReturnType<typeof setTimeout>;
 
   @HostListener('window:resize')
   onResize() {
     this.setHasEllipsis();
   }
-
-  constructor(private readonly cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.content = this.textContainer?.nativeElement.innerHTML || '';
@@ -60,7 +59,7 @@ export class NgilEllipsisTooltipComponent implements AfterViewInit, AfterContent
 
         if (this.hasEllipsis !== hasEllipsis) {
           this.hasEllipsis = hasEllipsis;
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         }
       }
     }, 300);

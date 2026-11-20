@@ -14,7 +14,10 @@ export default defineConfig({
   watchForFileChanges: false,
   numTestsKeptInMemory: 10,
   e2e: {
-    ...nxE2EPreset(__dirname),
+    ...nxE2EPreset(__dirname, {
+      bundler: 'vite',
+      viteConfigOverrides: { resolve: { tsconfigPaths: true } },
+    }),
     baseUrl: 'http://localhost:4200',
     specPattern: './src/integration-local/**/*.cy.{js,jsx,ts,tsx}'
   }

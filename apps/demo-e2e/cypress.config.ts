@@ -14,8 +14,15 @@ export default defineConfig({
   watchForFileChanges: false,
   numTestsKeptInMemory: 10,
   e2e: {
-    ...nxE2EPreset(__dirname),
+    ...nxE2EPreset(__dirname, {
+      bundler: 'vite',
+      viteConfigOverrides: { resolve: { tsconfigPaths: true } },
+      webServerCommands: {
+        default: 'npx nx run demo:serve:development',
+        production: 'npx nx run demo:serve:production',
+      },
+    }),
     baseUrl: 'http://localhost:4200',
-    specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}'
-  }
+    specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
+  },
 });

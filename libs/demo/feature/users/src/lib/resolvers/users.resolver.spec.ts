@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { UsersFacade } from '@demo/demo/data-access/users';
+import { UsersListFacade } from '@demo/demo/data-access/users';
 import { RequestState } from '@ngdux/data-model-common';
 import { commonFixture } from '@ngdux/data-model-common/test';
 import { of } from 'rxjs';
@@ -7,23 +7,23 @@ import { UsersResolver } from './users.resolver';
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;
-  let facade: Partial<commonFixture.RemoveReadonly<UsersFacade>>;
+  let facade: Partial<commonFixture.RemoveReadonly<UsersListFacade>>;
 
   beforeEach(() => {
     facade = {
       requestState$: of(RequestState.IDLE),
       isReady$: of(true),
-      initialize: jest.fn()
+      initialize: jest.fn(),
     };
 
     TestBed.configureTestingModule({
       providers: [
         UsersResolver,
         {
-          provide: UsersFacade,
-          useValue: facade
-        }
-      ]
+          provide: UsersListFacade,
+          useValue: facade,
+        },
+      ],
     });
 
     resolver = TestBed.inject(UsersResolver);

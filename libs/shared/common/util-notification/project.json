@@ -5,17 +5,6 @@
   "sourceRoot": "libs/shared/common/util-notification/src",
   "prefix": "demo",
   "tags": ["scope:shared-common", "type:util"],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/shared/common/util-notification"],
-      "options": {
-        "jestConfig": "libs/shared/common/util-notification/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    }
-  }
+  "// targets": "to see all targets run: nx show project shared-common-util-notification --web",
+  "targets": {}
 }

@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
   selector: 'ngil-select-options',
   templateUrl: './select-options.component.html',
   styleUrls: ['./select-options.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgilSelectOptionsComponent<T> implements OnDestroy {
+  @Input() label = 'Options';
   @Input() selectedItems: T | T[] | null = null;
   @Input() items: T[] = [];
   @Input() displayKey?: keyof T;
@@ -32,6 +32,29 @@ export class NgilSelectOptionsComponent<T> implements OnDestroy {
     }
 
     this.itemSelected.emit(newSelection);
+  }
+
+  onOptionKeydown(event: KeyboardEvent): void {
+    const target = event.currentTarget as HTMLElement;
+    let next: Element | null | undefined;
+    switch (event.key) {
+      case 'ArrowDown':
+        next = target.nextElementSibling ?? target.parentElement?.firstElementChild;
+        break;
+      case 'ArrowUp':
+        next = target.previousElementSibling ?? target.parentElement?.lastElementChild;
+        break;
+      case 'Home':
+        next = target.parentElement?.firstElementChild;
+        break;
+      case 'End':
+        next = target.parentElement?.lastElementChild;
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+    if (next instanceof HTMLElement) next.focus();
   }
 
   isSelected(item: T) {

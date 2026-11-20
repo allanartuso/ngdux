@@ -17,36 +17,39 @@ describe('NgilOverlayComponent', () => {
     originMock = {
       nativeElement: {
         offsetWidth: 30,
-        parentNode: {}
-      }
+        parentNode: {},
+      },
     };
 
     overlayRefMock = {
       backdropClick: jest.fn().mockReturnValue(backDropClickMock),
       attach: jest.fn(),
-      dispose: jest.fn()
+      dispose: jest.fn(),
     };
 
     overlayMock = {
       create: jest.fn().mockReturnValue(overlayRefMock),
       position: jest.fn().mockReturnValue({
         flexibleConnectedTo: jest.fn().mockReturnValue({
-          withPositions: jest.fn()
-        })
-      })
+          withPositions: jest.fn(),
+        }),
+      }),
     };
 
     TestBed.configureTestingModule({
+      imports: [NgilOverlayComponent],
       providers: [
-        NgilOverlayComponent,
         {
           provide: Overlay,
-          useValue: overlayMock
-        }
-      ]
+          useValue: overlayMock,
+        },
+      ],
     });
 
-    component = TestBed.inject(NgilOverlayComponent);
+    TestBed.overrideProvider(Overlay, { useValue: overlayMock });
+    const fixture = TestBed.createComponent(NgilOverlayComponent);
+    fixture.detectChanges();
+    component = fixture.componentInstance;
     component.origin = originMock;
   });
 
@@ -59,8 +62,8 @@ describe('NgilOverlayComponent', () => {
     expect(overlayMock.create).toHaveBeenCalledWith(
       expect.objectContaining({
         minWidth: originMock.nativeElement.offsetWidth,
-        maxHeight
-      })
+        maxHeight,
+      }),
     );
     expect(overlayRefMock.attach).toHaveBeenCalled();
     expect(overlayRefMock.backdropClick).toHaveBeenCalled();

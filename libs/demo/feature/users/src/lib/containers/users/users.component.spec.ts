@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { UsersFacade } from '@demo/demo/data-access/users';
+import { Router, provideRouter } from '@angular/router';
+import { UsersListFacade } from '@demo/demo/data-access/users';
 import { USERS_RESOURCE_BASE_PATH, UserDto } from '@demo/demo/data-model/users';
 import { createPersistentUsers } from '@demo/demo/data-model/users/test';
 import {
@@ -12,16 +11,17 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingField
+  SortingField,
 } from '@ngdux/data-model-common';
 import { of } from 'rxjs';
+import { NotificationService } from '@demo/shared/common/util-notification';
 import { UsersComponent } from './users.component';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
   let router: Router;
   let users: UserDto[];
-  let facade: Partial<UsersFacade>;
+  let facade: Partial<UsersListFacade>;
 
   beforeEach(() => {
     facade = {
@@ -29,19 +29,23 @@ describe('UsersComponent', () => {
       selectedItems$: of([]),
       totalCount$: of(5),
       pagingOptions$: of({ page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE }),
-      sortingOptions$: of({ name: { field: 'name', direction: DEFAULT_SORTING_ORDER } }),
+      sortingOptions$: of([{ field: 'name', direction: DEFAULT_SORTING_ORDER }]),
       filteringOptions$: of({ logic: DEFAULT_FILTERING_LOGIC, filters: [] }),
       loadPage: jest.fn(),
       changePagingOptions: jest.fn(),
       changeFiltering: jest.fn(),
       changeSorting: jest.fn(),
       changeSelectedResources: jest.fn(),
-      showRemovalsConfirmation: jest.fn()
+      delete: jest.fn(),
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [UsersComponent, { provide: UsersFacade, useValue: facade }]
+      providers: [
+        provideRouter([{ path: '**', redirectTo: '' }]),
+        { provide: NotificationService, useValue: { openConfirmationDialog: jest.fn(() => of(true)) } },
+        UsersComponent,
+        { provide: UsersListFacade, useValue: facade },
+      ],
     });
   });
 
@@ -74,7 +78,7 @@ describe('UsersComponent', () => {
   it('emits change users filtering action when filtering', () => {
     const filteringOptions: FilteringOptions = {
       logic: DEFAULT_FILTERING_LOGIC,
-      filters: []
+      filters: [],
     };
 
     component.onFilteringChanged(filteringOptions);
@@ -88,7 +92,7 @@ describe('UsersComponent', () => {
     component.onSortingChanged(sortingOptions);
 
     expect(facade.changeSorting).toHaveBeenCalledWith({
-      sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] }
+      sortingOptions,
     });
   });
 

@@ -2,6 +2,22 @@
 
 This project was generated using [Nx](https://nx.dev).
 
+## Development requirements
+
+The workspace uses Nx 24.0.6, Angular 22.3.0, and NgRx 22.0.1.
+
+Use Node.js 22.22.3 or newer in the Node 22 release line, Node 24.15.0 or newer in the Node 24 release line, or Node 26+. The `.nvmrc` file pins Node 26.13.1, the version used to validate this workspace. Select that version with your Node version manager, then run `npm ci`.
+
+Angular 22 requires TypeScript 6. Keep the compiler within the supported `>=6.0 <6.1` range when updating dependencies.
+
+Nx 24.0.6 imports an Angular Architect subpath that Angular 22.3 no longer exports. `npm ci` applies the versioned patch in `patches/nx+24.0.6.patch` to use the public `@angular-devkit/architect/node` entry point. Remove the patch when an Nx release includes this fix.
+
+The demo builds and serves with `@angular/build`. Cypress end-to-end tests use Vite to resolve the workspace's TypeScript aliases.
+
+Cypress component tests use the workspace's `@cypress/webpack-dev-server` adapter because the adapter bundled with Cypress does not support Angular 22's webpack-dev-server 6. The Nx component testing preset still supplies the project build configuration.
+
+Components use Angular 22's default OnPush change detection. Custom form controls and overlays notify Angular when programmatic updates affect their views. TypeScript configurations use supported module resolution. Jest uses CommonJS configs to avoid the legacy TypeScript config loader. Jest, ESLint, and Cypress targets are inferred by the plugins registered in `nx.json`.
+
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
 🔎 **Smart, Extensible Build Framework**

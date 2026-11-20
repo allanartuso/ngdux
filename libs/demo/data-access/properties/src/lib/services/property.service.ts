@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CreatePropertyDto, PROPERTIES_RESOURCE_BASE_PATH, PropertyDto } from '@demo/demo/data-model/properties';
 import { RestService } from '@demo/shared/data-access/rest-service';
 import { ErrorDto, ListService, RequestOptions } from '@ngdux/data-model-common';
@@ -6,10 +6,10 @@ import { FormService } from '@ngdux/form';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PropertyService implements FormService<PropertyDto, CreatePropertyDto>, ListService<PropertyDto> {
-  constructor(private readonly restService: RestService) {}
+  private readonly restService = inject(RestService);
 
   loadResource(id: string): Observable<PropertyDto> {
     return this.restService.loadResource(`${PROPERTIES_RESOURCE_BASE_PATH}/${id}`);
@@ -38,7 +38,7 @@ export class PropertyService implements FormService<PropertyDto, CreatePropertyD
   patchResources(ids: string[], resource: Partial<PropertyDto>): Observable<Array<PropertyDto | ErrorDto>> {
     return this.restService.patchResources(
       PROPERTIES_RESOURCE_BASE_PATH,
-      ids.map(id => ({ id, resource }))
+      ids.map(id => ({ id, resource })),
     );
   }
 }

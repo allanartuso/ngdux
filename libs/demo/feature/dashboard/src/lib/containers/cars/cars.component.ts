@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
 import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model-common';
@@ -9,24 +9,24 @@ import { DashboardCarsListFacade } from './cars.module';
   selector: 'demo-cars',
   templateUrl: './cars.component.html',
   styleUrls: ['./cars.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class CarsComponent {
+  private readonly router = inject(Router);
+  private readonly carsFacade = inject(DashboardCarsListFacade);
+
   model$ = combineLatest({
     cars: this.carsFacade.currentPageData$,
     totalCount: this.carsFacade.totalCount$,
     pagingOptions: this.carsFacade.pagingOptions$,
     sortingOptions: this.carsFacade.sortingOptions$.pipe(map(sortingOptions => Object.values(sortingOptions))),
     filteringOptions: this.carsFacade.filteringOptions$,
-    selectedItems: this.carsFacade.selectedItems$
+    selectedItems: this.carsFacade.selectedItems$,
   });
 
   isReady$ = this.carsFacade.isReady$;
 
-  constructor(
-    private readonly router: Router,
-    private readonly carsFacade: DashboardCarsListFacade
-  ) {
+  constructor() {
     this.carsFacade.initialize();
   }
 
@@ -36,7 +36,7 @@ export class CarsComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.carsFacade.changeSorting({
-      sortingOptions
+      sortingOptions,
     });
   }
 

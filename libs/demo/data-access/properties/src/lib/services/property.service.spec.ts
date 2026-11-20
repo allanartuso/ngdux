@@ -3,7 +3,7 @@ import { PROPERTIES_RESOURCE_BASE_PATH } from '@demo/demo/data-model/properties'
 import {
   createPersistentProperties,
   createPersistentProperty,
-  createTransientProperty
+  createTransientProperty,
 } from '@demo/demo/data-model/properties/test';
 import { RestService } from '@demo/shared/data-access/rest-service';
 import { restServiceFixture } from '@demo/shared/data-access/rest-service/test';
@@ -21,7 +21,7 @@ describe('PropertiesService', () => {
     mockRestService = restServiceFixture.getMockRestService(property, properties);
 
     TestBed.configureTestingModule({
-      providers: [PropertyService, { provide: RestService, useValue: mockRestService }]
+      providers: [PropertyService, { provide: RestService, useValue: mockRestService }],
     });
 
     service = TestBed.inject(PropertyService);
@@ -61,7 +61,7 @@ describe('PropertiesService', () => {
       expect(mockRestService.updateResource).toHaveBeenCalledTimes(1);
       expect(mockRestService.updateResource).toHaveBeenCalledWith(
         `${PROPERTIES_RESOURCE_BASE_PATH}/${property.id}`,
-        property
+        property,
       );
     });
   });
@@ -80,13 +80,13 @@ describe('PropertiesService', () => {
     const options: RequestOptions = {
       pagingOptions: {
         page: 1,
-        pageSize: 10
+        pageSize: 10,
       },
-      sortingOptions: {},
+      sortingOptions: [],
       filteringOptions: {
         filters: [],
-        logic: FilteringLogic.AND
-      }
+        logic: FilteringLogic.AND,
+      },
     };
     const expected = cold('(u|)', { u: properties });
 
@@ -120,8 +120,8 @@ describe('PropertiesService', () => {
       PROPERTIES_RESOURCE_BASE_PATH,
       ids.map(id => ({
         id,
-        resource: property
-      }))
+        resource: property,
+      })),
     );
   });
 });

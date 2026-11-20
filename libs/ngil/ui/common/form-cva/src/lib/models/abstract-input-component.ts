@@ -1,4 +1,4 @@
-import { Directive, Input, OnDestroy, OnInit, Optional } from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { AbstractControl, ControlContainer, ControlValueAccessor, FormArray } from '@angular/forms';
 import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -6,6 +6,10 @@ import { NgilErrorMessagesService } from '../error-messages.service';
 
 @Directive()
 export abstract class AbstractInputComponent<T = string> implements OnInit, ControlValueAccessor, OnDestroy {
+  protected readonly cdr = inject(ChangeDetectorRef);
+  private readonly errorMessagesService = inject(NgilErrorMessagesService);
+  private readonly controlContainer = inject(ControlContainer, { optional: true });
+
   @Input() formControlName = '';
   @Input() set errorMessage(errorMessage: string) {
     this.errorMessage$.next(errorMessage);
@@ -22,13 +26,8 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
   protected readonly errorMessage$ = new BehaviorSubject<string>('');
 
   model$ = combineLatest({
-    errorMessage: this.errorMessage$
+    errorMessage: this.errorMessage$,
   });
-
-  constructor(
-    private readonly errorMessagesService: NgilErrorMessagesService,
-    @Optional() private readonly controlContainer?: ControlContainer
-  ) {}
 
   ngOnInit(): void {
     if (this.controlContainer?.control instanceof FormArray) {
@@ -69,6 +68,7 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   abstract writeValue(value: T): void;
@@ -88,8 +88,8 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
       this.errorMessage$.next(
         this.errorMessagesService.getErrorMessage(errorKey, {
           fieldName: this.label,
-          ...errorObj
-        })
+          ...errorObj,
+        }),
       );
     } else {
       this.errorMessage$.next('');

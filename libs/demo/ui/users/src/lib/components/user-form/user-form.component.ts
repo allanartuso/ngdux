@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarDto } from '@demo/demo/data-model/cars';
 import { CreateUserDto, Gender, UserDto } from '@demo/demo/data-model/users';
@@ -18,7 +18,6 @@ import {
   selector: 'demo-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
     SharedUiFormModule,

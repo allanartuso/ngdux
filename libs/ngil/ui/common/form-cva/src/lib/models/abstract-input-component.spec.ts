@@ -6,7 +6,8 @@ import {
   FormGroup,
   FormGroupDirective,
   NG_VALUE_ACCESSOR,
-  Validators
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { hot } from 'jest-marbles';
 import { of } from 'rxjs';
@@ -14,15 +15,16 @@ import { NgilErrorMessagesService } from '../error-messages.service';
 import { AbstractInputComponent } from './abstract-input-component';
 
 @Component({
+  imports: [ReactiveFormsModule],
   selector: 'ngil-test-input',
   template: '',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: TestInputComponent,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class TestInputComponent extends AbstractInputComponent<string> {
   value = '';
@@ -44,26 +46,25 @@ describe('AbstractInputComponent', () => {
   beforeEach(waitForAsync(() => {
     const control = new FormControl('', { validators: [Validators.required] });
     form = new FormGroup({
-      testControl: control
+      testControl: control,
     });
     formDirective.form = form;
 
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [TestInputComponent],
+      imports: [TestInputComponent],
       providers: [
         {
           provide: ControlContainer,
-          useValue: formDirective
+          useValue: formDirective,
         },
         {
           provide: NgilErrorMessagesService,
           useValue: {
             getErrorMessage: jest.fn().mockReturnValue(mockErrorMessage),
-            errorMessagesChanged$: of(undefined)
-          }
-        }
-      ]
+            errorMessagesChanged$: of(undefined),
+          },
+        },
+      ],
     }).compileComponents();
   }));
 

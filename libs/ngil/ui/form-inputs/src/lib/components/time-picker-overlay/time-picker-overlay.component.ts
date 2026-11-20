@@ -1,6 +1,6 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Component, ElementRef, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NgilTimePickerComponent } from '../time-picker/time-picker.component';
@@ -8,9 +8,12 @@ import { TimePickerValue } from '../time-picker/time-picker.model';
 
 @Component({
   selector: 'ngil-time-picker-overlay',
-  template: ''
+  template: '',
 })
 export class NgilTimePickerOverlayComponent implements OnDestroy {
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly overlay = inject(Overlay);
+
   origin?: ElementRef<HTMLInputElement>;
   valueChanges$ = new Subject<TimePickerValue>();
   isOpen = false;
@@ -21,8 +24,6 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
   protected componentInstance: undefined | NgilTimePickerComponent;
   private overlayRef?: OverlayRef;
 
-  constructor(private readonly overlay: Overlay) {}
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -32,7 +33,7 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
     this.overlayRef = this.overlay.create({
       positionStrategy: this.getStrategy(),
       hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop'
+      backdropClass: 'cdk-overlay-transparent-backdrop',
     });
     const portal = new ComponentPortal(this.contentComponent);
     const componentRef = this.overlayRef.attach(portal);
@@ -44,7 +45,7 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
       this.valueChanges$.next({
         hour: value?.hour ?? 0,
         minute: value?.minute ?? 0,
-        second: value?.second ?? 0
+        second: value?.second ?? 0,
       });
     });
 
@@ -56,6 +57,7 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
       });
 
     this.isOpen = true;
+    this.cdr.markForCheck();
   }
 
   close(): void {
@@ -69,6 +71,7 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
     this.componentInstance = undefined;
     this.overlayRef = undefined;
     this.isOpen = false;
+    this.cdr.markForCheck();
   }
 
   setValue(value: TimePickerValue): void {
@@ -97,26 +100,26 @@ export class NgilTimePickerOverlayComponent implements OnDestroy {
           originX: primaryX,
           originY: secondaryY,
           overlayX: primaryX,
-          overlayY: primaryY
+          overlayY: primaryY,
         },
         {
           originX: primaryX,
           originY: primaryY,
           overlayX: primaryX,
-          overlayY: secondaryY
+          overlayY: secondaryY,
         },
         {
           originX: secondaryX,
           originY: secondaryY,
           overlayX: secondaryX,
-          overlayY: primaryY
+          overlayY: primaryY,
         },
         {
           originX: secondaryX,
           originY: primaryY,
           overlayX: secondaryX,
-          overlayY: secondaryY
-        }
+          overlayY: secondaryY,
+        },
       ]);
 
     return strategy;

@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,6 +36,8 @@ import { NgilTableColumn } from './table.model';
   providers: [{ provide: MatPaginatorIntl, useClass: DemoMatPaginatorIntl }],
 })
 export class NgilTableComponent<T> implements OnInit, OnDestroy {
+  private readonly cdr = inject(ChangeDetectorRef);
+
   @Input() columns: NgilTableColumn[] = [];
   @Input() totalCount = 0;
   @Input() pageSizeOptions = [5, 10, 20, 30, 50];
@@ -80,6 +82,7 @@ export class NgilTableComponent<T> implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.selection.changed.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.cdr.markForCheck();
       this.rowSelected.emit(this.selection.selected);
     });
   }

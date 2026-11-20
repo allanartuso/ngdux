@@ -8,16 +8,21 @@ import {
   Input,
   OnDestroy,
   Renderer2,
-  ViewContainerRef
+  ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { NgilOverlayComponent } from '../overlay/overlay.component';
 import { NgilTooltipComponent } from './tooltip.component';
 
 @Directive({
   selector: '[ngilTooltip]',
-  standalone: true
+  standalone: true,
 })
 export class NgilTooltipDirective implements OnDestroy {
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private viewContainerRef = inject(ViewContainerRef);
+  private renderer = inject(Renderer2);
+
   @Input('ngilTooltip') tooltipText = '';
   @Input('ngilTooltipDisabled') disabled = false;
 
@@ -27,11 +32,7 @@ export class NgilTooltipDirective implements OnDestroy {
   private overlayComponentRef: ComponentRef<NgilOverlayComponent> =
     this.viewContainerRef.createComponent(NgilOverlayComponent);
 
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private viewContainerRef: ViewContainerRef,
-    private renderer: Renderer2
-  ) {
+  constructor() {
     this.renderOverlayComponentRef();
   }
 
@@ -42,18 +43,18 @@ export class NgilTooltipDirective implements OnDestroy {
         originX: 'start',
         originY: 'bottom',
         overlayX: 'start',
-        overlayY: 'top'
+        overlayY: 'top',
       },
       {
         originX: 'start',
         originY: 'top',
         overlayX: 'start',
-        overlayY: 'bottom'
-      }
+        overlayY: 'bottom',
+      },
     ];
     this.renderer.appendChild(
       this.viewContainerRef.element.nativeElement,
-      this.overlayComponentRef.location.nativeElement
+      this.overlayComponentRef.location.nativeElement,
     );
   }
 
@@ -62,7 +63,7 @@ export class NgilTooltipDirective implements OnDestroy {
     if (!this.disabled && !this.tooltipComponentRef) {
       const overwriteConfig: Partial<OverlayConfig> = {
         hasBackdrop: false,
-        maxWidth: this.elementRef.nativeElement.offsetWidth
+        maxWidth: this.elementRef.nativeElement.offsetWidth,
       };
 
       this.tooltipComponentRef = this.createTooltipComponentRef();
@@ -94,7 +95,7 @@ export class NgilTooltipDirective implements OnDestroy {
     const tooltipComponentRef = this.viewContainerRef.createComponent(NgilTooltipComponent);
     this.renderer.appendChild(
       this.overlayComponentRef.location.nativeElement,
-      tooltipComponentRef.location.nativeElement
+      tooltipComponentRef.location.nativeElement,
     );
     tooltipComponentRef.setInput('text', this.tooltipText);
     return tooltipComponentRef;

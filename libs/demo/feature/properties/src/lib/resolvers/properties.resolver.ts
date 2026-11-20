@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class PropertiesResolver  {
-  constructor(private readonly propertiesFacade: PropertiesFacade) {}
+export class PropertiesResolver {
+  private readonly propertiesFacade = inject(PropertiesFacade);
 
   resolve(): Observable<boolean> {
     this.propertiesFacade.initialize();

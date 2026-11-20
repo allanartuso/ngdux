@@ -1,13 +1,10 @@
-import { SmartphoneDto } from '@demo/demo/data-model/smartphones';
 import { SortingDirection, SortingField } from '@ngdux/data-model-common';
 import { assertCorrectGetRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
 import { smartphonesListRoutes, stubSmartphones } from '../../support/smartphones/smartphones-list';
 
 describe('Smartphones list', () => {
-  let smartphones: SmartphoneDto[];
-
   beforeEach(() => {
-    smartphones = stubSmartphones();
+    stubSmartphones();
 
     cy.visit('/smartphones');
     assertCorrectGetRequested(smartphonesListRoutes.getSmartphones, 1);

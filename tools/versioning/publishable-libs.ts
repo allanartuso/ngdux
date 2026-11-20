@@ -1,5 +1,4 @@
-import { ProjectGraphProjectNode } from 'nx/src/config/project-graph';
-import { createProjectGraphAsync } from 'nx/src/project-graph/project-graph';
+import { createProjectGraphAsync, ProjectGraphProjectNode } from '@nx/devkit';
 
 export interface PackageJson {
   default: { name: string; version: string; dependencies: Object; repository: Object; homepage: string };
@@ -67,6 +66,6 @@ async function getProjectInfo(node: ProjectGraphProjectNode): Promise<ProjectInf
     packageJsonFile,
     projectJson,
     packageJson,
-    projectRoot: node.data.root
+    projectRoot: node.data.root,
   };
 }

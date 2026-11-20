@@ -1,11 +1,11 @@
-import { AfterViewInit, Directive, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, OnDestroy, inject } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
   FormArray,
   FormGroup,
   ValidationErrors,
-  Validator
+  Validator,
 } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { FormValueOf } from './form.model';
@@ -14,18 +14,20 @@ import { FormValueOf } from './form.model';
  *
  */
 @Directive()
-export abstract class AbstractFormArrayComponent<F extends AbstractControl<any>>
+export abstract class AbstractFormArrayComponent<F extends AbstractControl>
   implements AfterViewInit, OnDestroy, ControlValueAccessor, Validator
 {
   protected abstract createFormArray(): FormArray<F>;
   protected abstract createFormArrayItem(item?: FormValueOf<F>): F;
+
+  private readonly cdr = inject(ChangeDetectorRef);
 
   protected readonly destroy$ = new Subject<void>();
   protected onChange?: (value: FormValueOf<F>[]) => void;
   protected onTouched?: () => void;
 
   formGroup = new FormGroup({
-    formArray: this.createFormArray()
+    formArray: this.createFormArray(),
   });
   get formArray() {
     return this.formGroup.controls.formArray;
@@ -59,10 +61,16 @@ export abstract class AbstractFormArrayComponent<F extends AbstractControl<any>>
     } else {
       this.formArray.reset(undefined, { emitEvent: false });
     }
+    this.cdr.markForCheck();
   }
 
   setDisabledState(isDisabled: boolean): void {
-    isDisabled ? this.formGroup.disable({ emitEvent: false }) : this.formGroup.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.formGroup.disable({ emitEvent: false });
+    } else {
+      this.formGroup.enable({ emitEvent: false });
+    }
+    this.cdr.markForCheck();
   }
 
   validate(): ValidationErrors | null {

@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import {
@@ -7,7 +7,7 @@ import {
   FilteringLogic,
   FilteringOperator,
   RequestOptions,
-  SortingDirection
+  SortingDirection,
 } from '@ngdux/data-model-common';
 import { errorFixture } from '@ngdux/data-model-common/test';
 import { EMPTY } from 'rxjs';
@@ -26,14 +26,14 @@ const EXPECTED_RESOURCES: TestResource[] = [
     resourceId: '2/test/3',
     version: 0,
     name: 'name1',
-    value: 1
+    value: 1,
   },
   {
     resourceId: '2/test/5',
     version: 2,
     name: 'name2',
-    value: 2
-  }
+    value: 2,
+  },
 ];
 
 describe('RestService', () => {
@@ -47,19 +47,20 @@ describe('RestService', () => {
     const mockConfigurationService: Partial<ConfigurationService> = {
       setConfiguration: jest.fn(),
       getConfiguration: jest.fn().mockReturnValue({
-        apiBaseUrl: TEST_API_BASE_URL
-      })
+        apiBaseUrl: TEST_API_BASE_URL,
+      }),
     };
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         RestService,
         {
           provide: ConfigurationService,
-          useValue: mockConfigurationService
-        }
-      ]
+          useValue: mockConfigurationService,
+        },
+      ],
     });
 
     restService = TestBed.inject(RestService);
@@ -86,11 +87,11 @@ describe('RestService', () => {
     const defaultRequestOptions: RequestOptions = {
       requestParameters: {
         requestParameterKey1: testRequestParameter1,
-        requestParameterKey2: testRequestParameter2
+        requestParameterKey2: testRequestParameter2,
       },
       pagingOptions: {
         page: testPage,
-        pageSize: testPageSize
+        pageSize: testPageSize,
       },
       sortingOptions: [{ field: testSortingFieldName, direction: SortingDirection.DESCENDING }],
       filteringOptions: {
@@ -99,15 +100,15 @@ describe('RestService', () => {
           {
             field: testFilteringFieldName,
             value: testFilteringFieldValue,
-            operator: FilteringOperator.Contains
+            operator: FilteringOperator.Contains,
           },
           {
             field: testFilteringFieldName2,
             value: testFilteringFieldValue2,
-            operator: FilteringOperator.StartsWith
-          }
-        ]
-      }
+            operator: FilteringOperator.StartsWith,
+          },
+        ],
+      },
     };
 
     it('applies no request parameters when no request options are provided', done => {
@@ -135,8 +136,8 @@ describe('RestService', () => {
     it('applies request parameters when request options with request parameters are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
         requestParameters: {
-          ...defaultRequestOptions.requestParameters
-        }
+          ...defaultRequestOptions.requestParameters,
+        },
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -145,7 +146,7 @@ describe('RestService', () => {
       });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}`
+        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}`,
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -154,8 +155,8 @@ describe('RestService', () => {
     it('applies request parameters when request options with paging options are provided', done => {
       const expectedOptions: Partial<RequestOptions> = {
         pagingOptions: {
-          ...defaultRequestOptions.pagingOptions
-        }
+          ...defaultRequestOptions.pagingOptions,
+        },
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, expectedOptions).subscribe(actualResources => {
@@ -164,7 +165,7 @@ describe('RestService', () => {
       });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?page=${expectedOptions.pagingOptions?.page}&pageSize=${expectedOptions.pagingOptions?.pageSize}`
+        `${expectedUrl}?page=${expectedOptions.pagingOptions?.page}&pageSize=${expectedOptions.pagingOptions?.pageSize}`,
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -172,7 +173,7 @@ describe('RestService', () => {
 
     it('applies request parameters when request options with empty sorting options are provided', done => {
       const expectedRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: []
+        sortingOptions: [],
       };
 
       restService
@@ -192,9 +193,9 @@ describe('RestService', () => {
         sortingOptions: [
           {
             field: testSortingFieldName,
-            direction: SortingDirection.ASCENDING
-          }
-        ]
+            direction: SortingDirection.ASCENDING,
+          },
+        ],
       };
 
       restService
@@ -205,7 +206,7 @@ describe('RestService', () => {
         });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?_sort=${testSortingFieldName}&_order=${SortingDirection.ASCENDING}`
+        `${expectedUrl}?_sort=${testSortingFieldName}&_order=${SortingDirection.ASCENDING}`,
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -216,9 +217,9 @@ describe('RestService', () => {
         sortingOptions: [
           {
             field: testSortingFieldName,
-            direction: SortingDirection.DESCENDING
-          }
-        ]
+            direction: SortingDirection.DESCENDING,
+          },
+        ],
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -227,7 +228,7 @@ describe('RestService', () => {
       });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}`
+        `${expectedUrl}?_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}`,
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -239,13 +240,13 @@ describe('RestService', () => {
         sortingOptions: [
           {
             field: testSortingFieldName,
-            direction: SortingDirection.ASCENDING
+            direction: SortingDirection.ASCENDING,
           },
           {
             field: testSortingFieldName2,
-            direction: SortingDirection.DESCENDING
-          }
-        ]
+            direction: SortingDirection.DESCENDING,
+          },
+        ],
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -254,7 +255,7 @@ describe('RestService', () => {
       });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?_sort=${testSortingFieldName},${testSortingFieldName2}&_order=${SortingDirection.ASCENDING},${SortingDirection.DESCENDING}`
+        `${expectedUrl}?_sort=${testSortingFieldName},${testSortingFieldName2}&_order=${SortingDirection.ASCENDING},${SortingDirection.DESCENDING}`,
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -264,8 +265,8 @@ describe('RestService', () => {
       const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           logic: FilteringLogic.OR,
-          filters: []
-        }
+          filters: [],
+        },
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -282,8 +283,8 @@ describe('RestService', () => {
       const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           logic: FilteringLogic.OR,
-          filters: [defaultRequestOptions.filteringOptions.filters[0]]
-        }
+          filters: [defaultRequestOptions.filteringOptions.filters[0]],
+        },
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -292,7 +293,7 @@ describe('RestService', () => {
       });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?${testFilteringFieldName}=${testFilteringFieldValue}`
+        `${expectedUrl}?${testFilteringFieldName}=${testFilteringFieldValue}`,
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -302,8 +303,8 @@ describe('RestService', () => {
       const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           logic: FilteringLogic.OR,
-          filters: [...defaultRequestOptions.filteringOptions.filters]
-        }
+          filters: [...defaultRequestOptions.filteringOptions.filters],
+        },
       };
 
       restService.loadResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -312,7 +313,7 @@ describe('RestService', () => {
       });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`
+        `${expectedUrl}?${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`,
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
@@ -327,23 +328,23 @@ describe('RestService', () => {
         });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`
+        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`,
       );
       expect(request.request.method).toEqual('GET');
       request.flush(expectedResources);
     });
 
     it('returns errorDto', done => {
-      restService.loadResources<TestResource>(expectedResourcePath, defaultRequestOptions).subscribe(
-        () => {},
-        error => {
+      restService.loadResources<TestResource>(expectedResourcePath, defaultRequestOptions).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(
-        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`
+        `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&_sort=${testSortingFieldName}&_order=${SortingDirection.DESCENDING}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`,
       );
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
@@ -366,21 +367,21 @@ describe('RestService', () => {
     const defaultRequestOptions: RequestOptions = {
       requestParameters: {
         requestParameterKey1: testRequestParameter1,
-        requestParameterKey2: testRequestParameter2
+        requestParameterKey2: testRequestParameter2,
       },
       pagingOptions: {
         page: testPage,
-        pageSize: testPageSize
+        pageSize: testPageSize,
       },
       sortingOptions: [
         {
           field: testSortingFieldName,
-          direction: SortingDirection.DESCENDING
+          direction: SortingDirection.DESCENDING,
         },
         {
           field: testSortingFieldName2,
-          direction: SortingDirection.ASCENDING
-        }
+          direction: SortingDirection.ASCENDING,
+        },
       ],
       filteringOptions: {
         logic: FilteringLogic.OR,
@@ -391,17 +392,17 @@ describe('RestService', () => {
               {
                 field: testFilteringFieldName,
                 value: testFilteringFieldValue,
-                operator: FilteringOperator.Contains
-              }
-            ]
+                operator: FilteringOperator.Contains,
+              },
+            ],
           },
           {
             field: testFilteringFieldName2,
             value: testFilteringFieldValue2,
-            operator: FilteringOperator.StartsWith
-          }
-        ]
-      }
+            operator: FilteringOperator.StartsWith,
+          },
+        ],
+      },
     };
 
     it('applies query parameters when no request options are provided', done => {
@@ -430,7 +431,7 @@ describe('RestService', () => {
 
     it('applies query parameters when request options with request parameters are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
-        requestParameters: { ...defaultRequestOptions.requestParameters }
+        requestParameters: { ...defaultRequestOptions.requestParameters },
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -446,7 +447,7 @@ describe('RestService', () => {
 
     it('applies query parameters when request options with paging options are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
-        pagingOptions: { ...defaultRequestOptions.pagingOptions }
+        pagingOptions: { ...defaultRequestOptions.pagingOptions },
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -465,9 +466,9 @@ describe('RestService', () => {
         sortingOptions: [
           {
             field: testSortingFieldName,
-            direction: SortingDirection.ASCENDING
-          }
-        ]
+            direction: SortingDirection.ASCENDING,
+          },
+        ],
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -481,9 +482,9 @@ describe('RestService', () => {
         sort: [
           {
             field: testSortingFieldName,
-            direction: 'asc'
-          }
-        ]
+            direction: 'asc',
+          },
+        ],
       });
       request.flush(expectedResources);
     });
@@ -493,9 +494,9 @@ describe('RestService', () => {
         sortingOptions: [
           {
             field: testSortingFieldName2,
-            direction: SortingDirection.DESCENDING
-          }
-        ]
+            direction: SortingDirection.DESCENDING,
+          },
+        ],
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -509,16 +510,16 @@ describe('RestService', () => {
         sort: [
           {
             field: testSortingFieldName2,
-            direction: 'desc'
-          }
-        ]
+            direction: 'desc',
+          },
+        ],
       });
       request.flush(expectedResources);
     });
 
     it('applies query parameters when request options with multiple sorting fields are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
-        sortingOptions: [...defaultRequestOptions.sortingOptions]
+        sortingOptions: [...defaultRequestOptions.sortingOptions],
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -532,13 +533,13 @@ describe('RestService', () => {
         sort: [
           {
             field: testSortingFieldName,
-            direction: 'desc'
+            direction: 'desc',
           },
           {
             field: testSortingFieldName2,
-            direction: 'asc'
-          }
-        ]
+            direction: 'asc',
+          },
+        ],
       });
       request.flush(expectedResources);
     });
@@ -547,8 +548,8 @@ describe('RestService', () => {
       const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
           logic: FilteringLogic.AND,
-          filters: [defaultRequestOptions.filteringOptions.filters[1]]
-        }
+          filters: [defaultRequestOptions.filteringOptions.filters[1]],
+        },
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -559,7 +560,7 @@ describe('RestService', () => {
       const request = httpTestingController.expectOne(`${expectedUrl}/query`);
       expect(request.request.method).toEqual('POST');
       expect(request.request.body).toStrictEqual({
-        filter: testRequestOptions.filteringOptions
+        filter: testRequestOptions.filteringOptions,
       });
       request.flush(expectedResources);
     });
@@ -567,8 +568,8 @@ describe('RestService', () => {
     it('applies query parameters when request options with complex filtering options are provided', done => {
       const testRequestOptions: Partial<RequestOptions> = {
         filteringOptions: {
-          ...defaultRequestOptions.filteringOptions
-        }
+          ...defaultRequestOptions.filteringOptions,
+        },
       };
 
       restService.queryResources<TestResource>(expectedResourcePath, testRequestOptions).subscribe(actualResources => {
@@ -579,7 +580,7 @@ describe('RestService', () => {
       const request = httpTestingController.expectOne(`${expectedUrl}/query`);
       expect(request.request.method).toEqual('POST');
       expect(request.request.body).toStrictEqual({
-        filter: testRequestOptions.filteringOptions
+        filter: testRequestOptions.filteringOptions,
       });
       request.flush(expectedResources);
     });
@@ -600,26 +601,26 @@ describe('RestService', () => {
         sort: [
           {
             field: testSortingFieldName,
-            direction: 'desc'
+            direction: 'desc',
           },
           {
             field: testSortingFieldName2,
-            direction: 'asc'
-          }
+            direction: 'asc',
+          },
         ],
-        filter: defaultRequestOptions.filteringOptions
+        filter: defaultRequestOptions.filteringOptions,
       });
       request.flush(expectedResources);
     });
 
     it('returns errorDto', done => {
-      restService.queryResources<TestResource>(expectedResourcePath, defaultRequestOptions).subscribe(
-        () => {},
-        error => {
+      restService.queryResources<TestResource>(expectedResourcePath, defaultRequestOptions).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(`${expectedUrl}/query`);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
@@ -632,8 +633,8 @@ describe('RestService', () => {
     const bulkPatchDtos = EXPECTED_RESOURCES.map(resource => ({
       resourceId: resource.resourceId,
       patch: {
-        ...resource
-      }
+        ...resource,
+      },
     }));
 
     it('patches the given resources', done => {
@@ -651,13 +652,13 @@ describe('RestService', () => {
     });
 
     it('returns errorDto when the request fail', done => {
-      restService.patchResources<TestResource, Partial<TestResource>>(expectedResourcePath, bulkPatchDtos).subscribe(
-        () => {},
-        error => {
+      restService.patchResources<TestResource, Partial<TestResource>>(expectedResourcePath, bulkPatchDtos).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
@@ -685,16 +686,16 @@ describe('RestService', () => {
     it('returns errorDto', done => {
       const errorDtoFieldIndex: ErrorDto = {
         ...errorDto,
-        fieldErrors: [{ ...errorDto.fieldErrors[0], field: 'name[1]' }]
+        fieldErrors: [{ ...errorDto.fieldErrors[0], field: 'name[1]' }],
       };
 
-      restService.updateResource<TestResource>(expectedResourcePath, EXPECTED_RESOURCES[0]).subscribe(
-        () => {},
-        error => {
+      restService.updateResource<TestResource>(expectedResourcePath, EXPECTED_RESOURCES[0]).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDtoFieldIndex);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(expectedUrl);
       request.flush(errorDtoFieldIndex, { status: 400, statusText: 'Bad Request' });
@@ -718,13 +719,13 @@ describe('RestService', () => {
     });
 
     it('returns errorDto when the request fail', done => {
-      restService.updateResources<TestResource>(expectedResourcePath, EXPECTED_RESOURCES).subscribe(
-        () => {},
-        error => {
+      restService.updateResources<TestResource>(expectedResourcePath, EXPECTED_RESOURCES).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
@@ -750,13 +751,13 @@ describe('RestService', () => {
     });
 
     it('returns errorDto', done => {
-      restService.createResource<TestResource>(expectedResourcePath, EXPECTED_RESOURCES[0]).subscribe(
-        () => {},
-        error => {
+      restService.createResource<TestResource>(expectedResourcePath, EXPECTED_RESOURCES[0]).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(expectedUrl);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
@@ -780,13 +781,13 @@ describe('RestService', () => {
     });
 
     it('returns errorDto', done => {
-      restService.createResources<TestResource>(expectedResourcePath, EXPECTED_RESOURCES).subscribe(
-        () => {},
-        error => {
+      restService.createResources<TestResource>(expectedResourcePath, EXPECTED_RESOURCES).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
@@ -809,13 +810,13 @@ describe('RestService', () => {
     });
 
     it('returns errorDto', done => {
-      restService.loadResource<TestResource>(expectedResourcePath).subscribe(
-        () => {},
-        error => {
+      restService.loadResource<TestResource>(expectedResourcePath).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(expectedUrl);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
@@ -842,13 +843,13 @@ describe('RestService', () => {
     it('returns errorDto', done => {
       restService
         .patchResource<TestResource, Partial<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
-        .subscribe(
-          () => {},
-          error => {
+        .subscribe({
+          next: () => done(new Error('Expected the request to fail')),
+          error: error => {
             expect(error.error).toStrictEqual(errorDto);
             done();
-          }
-        );
+          },
+        });
 
       const request = httpTestingController.expectOne(expectedUrl);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
@@ -871,13 +872,13 @@ describe('RestService', () => {
     });
 
     it('returns errorDto', done => {
-      restService.deleteResource(expectedResourcePath).subscribe(
-        () => {},
-        error => {
+      restService.deleteResource(expectedResourcePath).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(expectedUrl);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
@@ -902,13 +903,13 @@ describe('RestService', () => {
     });
 
     it('returns errorDto when the request fail', done => {
-      restService.deleteResources<TestResource>(expectedResourcePath, resourceIds).subscribe(
-        () => {},
-        error => {
+      restService.deleteResources<TestResource>(expectedResourcePath, resourceIds).subscribe({
+        next: () => done(new Error('Expected the request to fail')),
+        error: error => {
           expect(error.error).toStrictEqual(errorDto);
           done();
-        }
-      );
+        },
+      });
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
       request.flush(errorDto, { status: 400, statusText: 'Bad Request' });

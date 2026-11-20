@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { PROPERTIES_RESOURCE_BASE_PATH, PropertyDto } from '@demo/demo/data-model/properties';
@@ -7,26 +7,24 @@ import { FilteringOptions, PagingOptions, SortingField } from '@ngil/list';
 import { combineLatest, filter, map } from 'rxjs';
 
 @Component({
-    selector: 'demo-properties',
-    templateUrl: './properties.component.html',
-    styleUrls: ['./properties.component.scss'],
-    standalone: false
+  selector: 'demo-properties',
+  templateUrl: './properties.component.html',
+  styleUrls: ['./properties.component.scss'],
+  standalone: false,
 })
 export class PropertiesComponent {
+  private readonly router = inject(Router);
+  private readonly propertiesFacade = inject(PropertiesFacade);
+  private readonly notificationService = inject(NotificationService);
+
   model$ = combineLatest({
     resources: this.propertiesFacade.currentPageData$,
     totalCount: this.propertiesFacade.totalCount$,
     pagingOptions: this.propertiesFacade.pagingOptions$,
     sortingOptions: this.propertiesFacade.sortingOptions$.pipe(map(sortingOptions => Object.values(sortingOptions))),
     filteringOptions: this.propertiesFacade.filteringOptions$,
-    selectedItems: this.propertiesFacade.selectedItems$
+    selectedItems: this.propertiesFacade.selectedItems$,
   });
-
-  constructor(
-    private readonly router: Router,
-    private readonly propertiesFacade: PropertiesFacade,
-    private readonly notificationService: NotificationService
-  ) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.propertiesFacade.changeFiltering({ filteringOptions });
@@ -34,7 +32,7 @@ export class PropertiesComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.propertiesFacade.changeSorting({
-      sortingOptions
+      sortingOptions,
     });
   }
 
@@ -58,7 +56,7 @@ export class PropertiesComponent {
     this.notificationService
       .openConfirmationDialog({
         title: 'Delete properties',
-        message: 'Are you sure to delete the selected properties?'
+        message: 'Are you sure to delete the selected properties?',
       })
       .pipe(filter(confirmed => confirmed))
       .subscribe(() => {

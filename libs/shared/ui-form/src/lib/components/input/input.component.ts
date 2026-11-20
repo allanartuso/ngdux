@@ -3,17 +3,17 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractInputComponent } from '@ngil/form-cva';
 
 @Component({
-    selector: 'demo-input',
-    templateUrl: './input.component.html',
-    styleUrls: ['./input.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => DemoInputComponent),
-            multi: true
-        }
-    ],
-    standalone: false
+  selector: 'demo-input',
+  templateUrl: './input.component.html',
+  styleUrls: ['./input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DemoInputComponent),
+      multi: true,
+    },
+  ],
+  standalone: false,
 })
 export class DemoInputComponent extends AbstractInputComponent {
   @Input() type = 'text';
@@ -22,6 +22,7 @@ export class DemoInputComponent extends AbstractInputComponent {
 
   writeValue(value: string): void {
     this.value = value;
+    this.cdr.markForCheck();
   }
 
   onChangeInput(event: Event): void {

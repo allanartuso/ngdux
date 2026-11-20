@@ -13,16 +13,17 @@
 
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { glob } from 'glob';
+import { relative } from 'node:path';
 const root = './apps/demo-e2e/src';
 
 async function createTestFiles() {
+  const dir = `${root}/integration-local`;
   const files = await glob(`${root}/integration/**/*.cy.ts`);
   let code = '';
   files.forEach(file => {
-    code += `require('${file.replace(root, '..').replace(/\\/g, '\\\\')}');\n`;
+    code += `import '${relative(dir, file).replace(/\\/g, '/')}';\n`;
   });
 
-  const dir = `${root}/integration-local`;
   if (!existsSync(dir)) {
     mkdirSync(dir);
   }

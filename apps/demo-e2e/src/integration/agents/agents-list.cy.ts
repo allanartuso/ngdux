@@ -1,13 +1,10 @@
-import { AgentDto } from '@demo/demo/data-model/agents';
 import { SortingDirection, SortingField } from '@ngdux/data-model-common';
 import { agentsListRoutes, stubAgents } from '../../support/agents/agents-list';
 import { assertCorrectGetRequested, assertPagingCorrectly, listSelectors } from '../../support/list/list.support';
 
 describe('Agents list', () => {
-  let agents: AgentDto[];
-
   beforeEach(() => {
-    agents = stubAgents();
+    stubAgents();
 
     cy.visit('/agents');
     assertCorrectGetRequested(agentsListRoutes.getAgents, 1);

@@ -17,7 +17,7 @@ describe('CarsService', () => {
     mockRestService = restServiceFixture.getMockRestService(car, cars);
 
     TestBed.configureTestingModule({
-      providers: [CarsService, { provide: RestService, useValue: mockRestService }]
+      providers: [CarsService, { provide: RestService, useValue: mockRestService }],
     });
 
     service = TestBed.inject(CarsService);
@@ -28,13 +28,13 @@ describe('CarsService', () => {
     const options: RequestOptions = {
       pagingOptions: {
         page: 1,
-        pageSize: 10
+        pageSize: 10,
       },
-      sortingOptions: {},
+      sortingOptions: [],
       filteringOptions: {
         filters: [],
-        logic: FilteringLogic.AND
-      }
+        logic: FilteringLogic.AND,
+      },
     };
     const expected = cold('(u|)', { u: cars });
 
@@ -68,8 +68,8 @@ describe('CarsService', () => {
       CARS_RESOURCE_BASE_PATH,
       ids.map(id => ({
         id,
-        resource: car
-      }))
+        resource: car,
+      })),
     );
   });
 });

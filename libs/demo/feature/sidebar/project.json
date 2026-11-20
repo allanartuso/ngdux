@@ -5,17 +5,6 @@
   "sourceRoot": "libs/demo/feature/sidebar/src",
   "prefix": "demo",
   "tags": ["scope:demo", "type:feature"],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/demo/feature/sidebar"],
-      "options": {
-        "jestConfig": "libs/demo/feature/sidebar/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    }
-  }
+  "// targets": "to see all targets run: nx show project demo-feature-sidebar --web",
+  "targets": {}
 }

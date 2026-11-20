@@ -32,7 +32,8 @@
   }
 
   @if (menuItem.clickAction && !menuItem.children && !menuItem.group) {
-    <a
+    <button
+      type="button"
       [attr.title]="menuItem.name"
       [class.active]="menuItem.selected"
       (click)="onMenuItemClicked(menuItem)"
@@ -45,15 +46,16 @@
       @if (expanded) {
         <span class="demo-menu-item-title">{{ menuItem.name }}</span>
       }
-    </a>
+    </button>
   }
 
   @if (menuItem.children) {
-    <a
+    <button
+      type="button"
+      [attr.aria-expanded]="menuItem.displayChildren === true"
       [attr.title]="menuItem.name"
       [class.active]="menuItem.selected"
-      (click)="$event.preventDefault(); onMenuItemToggled(menuItem)"
-      href="#"
+      (click)="onMenuItemToggled(menuItem)"
     >
       @if (menuItem.icon) {
         <mat-icon class="demo-menu-item-icon">{{ menuItem.icon }}</mat-icon>
@@ -67,7 +69,7 @@
       @if (expanded && !menuItem.displayChildren) {
         <mat-icon class="demo-menu-item-toggle-icon">chevron_right</mat-icon>
       }
-    </a>
+    </button>
   }
 
   @if (menuItem.children && menuItem.displayChildren) {

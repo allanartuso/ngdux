@@ -10,6 +10,7 @@ interface TestFormModel {
 }
 
 @Component({
+  imports: [ReactiveFormsModule],
   template: `
     <form [formGroup]="formGroup">
       <div formArrayName="formArray">
@@ -19,7 +20,7 @@ interface TestFormModel {
         </div>
       </div>
     </form>
-  `
+  `,
 })
 class MockFormArrayComponent extends AbstractFormArrayComponent<FormGroup<FlatFormControlsOf<TestFormModel>>> {
   protected createFormArray(): FormArray<FormGroup<FlatFormControlsOf<TestFormModel>>> {
@@ -29,7 +30,7 @@ class MockFormArrayComponent extends AbstractFormArrayComponent<FormGroup<FlatFo
   protected createFormArrayItem(model?: TestFormModel) {
     return new FormGroup<FlatFormControlsOf<TestFormModel>>({
       firstName: new FormControl(model?.firstName || null, [Validators.required]),
-      lastName: new FormControl(model?.firstName || null)
+      lastName: new FormControl(model?.firstName || null),
     });
   }
 }
@@ -43,8 +44,7 @@ describe('AbstractFormArrayComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [MockFormArrayComponent]
+      imports: [MockFormArrayComponent],
     }).compileComponents();
   }));
 
@@ -54,12 +54,11 @@ describe('AbstractFormArrayComponent', () => {
 
     testFormValues = [
       { firstName: 'testFirstName1', lastName: 'testLastName1' },
-      { firstName: 'testFirstName2', lastName: 'testLastName2' }
+      { firstName: 'testFirstName2', lastName: 'testLastName2' },
     ];
     component.registerOnChange(onChangeMock);
     component.registerOnTouched(onTouchedMock);
     component.writeValue(testFormValues);
-    component.ngAfterViewInit();
 
     fixture.detectChanges();
   });
@@ -114,7 +113,7 @@ describe('AbstractFormArrayComponent', () => {
 
       expect(component.formArray.at(0).controls.firstName.errors).toStrictEqual({ required: true });
       expect(component.validate()).toStrictEqual({
-        invalidFormArray: true
+        invalidFormArray: true,
       });
     });
 

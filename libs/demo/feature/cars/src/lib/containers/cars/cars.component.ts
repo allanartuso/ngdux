@@ -9,7 +9,7 @@ import { combineLatest, map } from 'rxjs';
   selector: 'demo-cars',
   templateUrl: './cars.component.html',
   styleUrls: ['./cars.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class CarsComponent {
   private readonly router = inject(Router);
@@ -21,7 +21,7 @@ export class CarsComponent {
     pagingOptions: this.carsFacade.pagingOptions$,
     sortingOptions: this.carsFacade.sortingOptions$.pipe(map(sortingOptions => Object.values(sortingOptions))),
     filteringOptions: this.carsFacade.filteringOptions$,
-    selectedItems: this.carsFacade.selectedItems$
+    selectedItems: this.carsFacade.selectedItems$,
   });
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
@@ -30,7 +30,7 @@ export class CarsComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.carsFacade.changeSorting({
-      sortingOptions
+      sortingOptions,
     });
   }
 

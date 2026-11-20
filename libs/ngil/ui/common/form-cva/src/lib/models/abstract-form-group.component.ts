@@ -8,18 +8,21 @@
 
  */
 
-import { AfterViewInit, Directive, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, OnDestroy, inject } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormGroup, ValidationErrors, Validator } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { FlatFormControlsOf, FormValueOf } from './form.model';
 
 @Directive()
 export abstract class AbstractFormGroupComponent<
-  T extends { [K in keyof T]: any },
-  F extends { [K in keyof T]: AbstractControl<any, any> } = FlatFormControlsOf<T>
-> implements ControlValueAccessor, Validator, OnDestroy, AfterViewInit
+  T extends object,
+  F extends { [K in keyof T]: AbstractControl } = FlatFormControlsOf<T>,
+>
+  implements ControlValueAccessor, Validator, OnDestroy, AfterViewInit
 {
   abstract formGroup: FormGroup<F>;
+
+  private readonly cdr = inject(ChangeDetectorRef);
 
   protected readonly destroy$ = new Subject<void>();
   protected onChange?: (value: FormValueOf<FormGroup<F>>) => void;
@@ -51,10 +54,16 @@ export abstract class AbstractFormGroupComponent<
     } else {
       this.formGroup.reset(undefined, { emitEvent: false });
     }
+    this.cdr.markForCheck();
   }
 
   setDisabledState(isDisabled: boolean): void {
-    isDisabled ? this.formGroup.disable({ emitEvent: false }) : this.formGroup.enable({ emitEvent: false });
+    if (isDisabled) {
+      this.formGroup.disable({ emitEvent: false });
+    } else {
+      this.formGroup.enable({ emitEvent: false });
+    }
+    this.cdr.markForCheck();
   }
 
   validate(): ValidationErrors | null {

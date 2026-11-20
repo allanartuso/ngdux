@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { DashboardCarsListFacade } from './cars.module';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
 import { createPersistentCars } from '@demo/demo/data-model/cars/test';
@@ -40,8 +39,11 @@ describe('CarsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [CarsComponent, { provide: DashboardCarsListFacade, useValue: facade }],
+      providers: [
+        provideRouter([{ path: '**', redirectTo: '' }]),
+        CarsComponent,
+        { provide: DashboardCarsListFacade, useValue: facade },
+      ],
     });
   });
 

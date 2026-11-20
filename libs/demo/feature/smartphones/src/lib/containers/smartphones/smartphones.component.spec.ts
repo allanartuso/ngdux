@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { SmartphonesListFacade } from '@demo/demo/data-access/smartphones';
 import { SMARTPHONES_RESOURCE_BASE_PATH, SmartphoneDto } from '@demo/demo/data-model/smartphones';
 import { createPersistentSmartphones } from '@demo/demo/data-model/smartphones/test';
@@ -39,8 +38,11 @@ describe('SmartphonesComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [SmartphonesComponent, { provide: SmartphonesListFacade, useValue: facade }],
+      providers: [
+        provideRouter([{ path: '**', redirectTo: '' }]),
+        SmartphonesComponent,
+        { provide: SmartphonesListFacade, useValue: facade },
+      ],
     });
   });
 

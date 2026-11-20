@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgentsListFacade } from '@demo/demo/data-access/agents';
 import { AgentDto, AGENTS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/agents';
@@ -6,22 +6,23 @@ import { FilteringOptions, PagingOptions, SortingField } from '@ngdux/data-model
 import { combineLatest, map } from 'rxjs';
 
 @Component({
-    selector: 'demo-agents',
-    templateUrl: './agents.component.html',
-    styleUrls: ['./agents.component.scss'],
-    standalone: false
+  selector: 'demo-agents',
+  templateUrl: './agents.component.html',
+  styleUrls: ['./agents.component.scss'],
+  standalone: false,
 })
 export class AgentsComponent {
+  private readonly router = inject(Router);
+  private readonly agentsFacade = inject(AgentsListFacade);
+
   model$ = combineLatest({
     agents: this.agentsFacade.currentPageData$,
     totalCount: this.agentsFacade.totalCount$,
     pagingOptions: this.agentsFacade.pagingOptions$,
     sortingOptions: this.agentsFacade.sortingOptions$.pipe(map(sortingOptions => Object.values(sortingOptions))),
     filteringOptions: this.agentsFacade.filteringOptions$,
-    selectedItems: this.agentsFacade.selectedItems$
+    selectedItems: this.agentsFacade.selectedItems$,
   });
-
-  constructor(private readonly router: Router, private readonly agentsFacade: AgentsListFacade) {}
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.agentsFacade.changeFiltering({ filteringOptions });
@@ -29,7 +30,7 @@ export class AgentsComponent {
 
   onSortingChanged(sortingOptions: SortingField[]): void {
     this.agentsFacade.changeSorting({
-      sortingOptions
+      sortingOptions,
     });
   }
 

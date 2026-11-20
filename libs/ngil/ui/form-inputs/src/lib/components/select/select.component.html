@@ -7,27 +7,31 @@
           class="ngil-select__input"
           [value]="displayValue"
           [disabled]="disabled"
-          (keydown)="$event.preventDefault(); overlay.toggle()"
+          readonly
+          aria-haspopup="listbox"
+          [attr.aria-expanded]="overlay.isOpened"
+          (keydown)="onKeydown($event)"
           [id]="formControlName"
           (blur)="onBlur()"
           [ngilOverlayToggle]="overlay"
-          />
-        </div>
-        <ng-content select="[suffix]"></ng-content>
+        />
       </div>
-      <small class="ngil-select__error-message">{{ model.errorMessage }}</small>
+      <ng-content select="[suffix]"></ng-content>
     </div>
-    <ngil-overlay #overlay [overwriteConfig]="{ maxHeight: 500 }">
-      <ngil-select-options
-        ngilOverlay
-        class="ngil-select__dropdown"
-        data-test="ngil-select-options"
-        [display]="overlay.isOpened"
-        [multiple]="multiple"
-        [items]="items"
-        [displayKey]="displayKey"
-        [selectedItems]="value"
-        (itemSelected)="onItemSelected($event)"
-      ></ngil-select-options>
-    </ngil-overlay>
-  }
+    <small class="ngil-select__error-message">{{ model.errorMessage }}</small>
+  </div>
+  <ngil-overlay #overlay [overwriteConfig]="{ maxHeight: 500 }">
+    <ngil-select-options
+      ngilOverlay
+      class="ngil-select__dropdown"
+      data-test="ngil-select-options"
+      [display]="overlay.isOpened"
+      [label]="label"
+      [multiple]="multiple"
+      [items]="items"
+      [displayKey]="displayKey"
+      [selectedItems]="value"
+      (itemSelected)="onItemSelected($event)"
+    ></ngil-select-options>
+  </ngil-overlay>
+}

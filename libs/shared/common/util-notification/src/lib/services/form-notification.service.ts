@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorDto, FormNotificationService, ListNotificationService } from '@ngdux/data-model-common';
@@ -7,10 +7,8 @@ import { ConfirmationDialogComponent } from '../components/confirmation-dialog/c
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService implements FormNotificationService<ErrorDto>, ListNotificationService<ErrorDto> {
-  constructor(
-    private readonly snackBar: MatSnackBar,
-    private readonly dialog: MatDialog
-  ) {}
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly dialog = inject(MatDialog);
 
   onFormErrors(errors: ErrorDto): void {
     this.snackBar.open(errors.message || errors.error);

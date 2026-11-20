@@ -1,11 +1,16 @@
 @for (item of items; track item) {
-  <input
-    [attr.data-test]="'ngil-radio-' + formControlName + '-' + item"
-    type="radio"
-    [value]="item"
-    [(ngModel)]="value"
-    (ngModelChange)="updateModel()"
-    (blur)="onBlur()"
-    (focus)="onFocus()"
-  />{{ item }}
+  <label
+    ><input
+      [attr.data-test]="'ngil-radio-' + formControlName + '-' + item"
+      type="radio"
+      [disabled]="disabled"
+      [name]="formControlName"
+      [value]="item"
+      [(ngModel)]="value"
+      [ngModelOptions]="{ standalone: true }"
+      (ngModelChange)="updateModel()"
+      (blur)="onBlur()"
+      (focus)="onFocus()"
+    />{{ item }}</label
+  >
 }

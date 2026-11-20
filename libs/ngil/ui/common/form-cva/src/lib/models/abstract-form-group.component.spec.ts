@@ -6,7 +6,7 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { AbstractFormGroupComponent } from './abstract-form-group.component';
 import { FlatFormControlsOf } from './form.model';
@@ -17,24 +17,25 @@ interface TestFormValue {
 }
 
 @Component({
+  imports: [ReactiveFormsModule],
   template: '',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => MockFormGroupComponent),
-      multi: true
+      multi: true,
     },
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => MockFormGroupComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class MockFormGroupComponent extends AbstractFormGroupComponent<TestFormValue> {
   formGroup = new FormGroup<FlatFormControlsOf<TestFormValue>>({
     firstName: new FormControl('', Validators.required),
-    lastName: new FormControl()
+    lastName: new FormControl(),
   });
 }
 
@@ -47,8 +48,7 @@ describe('AbstractFormGroupComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [MockFormGroupComponent]
+      imports: [MockFormGroupComponent],
     }).compileComponents();
   }));
 
@@ -56,11 +56,10 @@ describe('AbstractFormGroupComponent', () => {
     fixture = TestBed.createComponent(MockFormGroupComponent);
     component = fixture.componentInstance;
 
-    (testFormValue = { firstName: 'testFirstName1', lastName: 'testLastName1' }),
-      component.registerOnChange(onChangeMock);
+    testFormValue = { firstName: 'testFirstName1', lastName: 'testLastName1' };
+    component.registerOnChange(onChangeMock);
     component.registerOnTouched(onTouchedMock);
     component.writeValue(testFormValue);
-    component.ngAfterViewInit();
 
     fixture.detectChanges();
   });
@@ -100,7 +99,7 @@ describe('AbstractFormGroupComponent', () => {
 
       expect(component.formGroup.controls.firstName.errors).toStrictEqual({ required: true });
       expect(component.validate()).toStrictEqual({
-        invalidFormGroup: true
+        invalidFormGroup: true,
       });
     });
 

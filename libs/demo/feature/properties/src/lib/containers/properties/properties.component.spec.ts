@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, provideRouter } from '@angular/router';
 import { PropertiesFacade } from '@demo/demo/data-access/properties';
 import { PROPERTIES_RESOURCE_BASE_PATH, PropertyDto } from '@demo/demo/data-model/properties';
 import { createPersistentProperties } from '@demo/demo/data-model/properties/test';
@@ -12,7 +11,7 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingField
+  SortingField,
 } from '@ngdux/data-model-common';
 import { of } from 'rxjs';
 import { PropertiesComponent } from './properties.component';
@@ -29,20 +28,23 @@ describe('PropertiesComponent', () => {
       selectedItems$: of([]),
       totalCount$: of(5),
       pagingOptions$: of({ page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE }),
-      sortingOptions$: of({ name: { field: 'name', direction: DEFAULT_SORTING_ORDER } }),
+      sortingOptions$: of([{ field: 'name', direction: DEFAULT_SORTING_ORDER }]),
       filteringOptions$: of({ logic: DEFAULT_FILTERING_LOGIC, filters: [] }),
       loadPage: jest.fn(),
       changePagingOptions: jest.fn(),
       changeFiltering: jest.fn(),
       changeSorting: jest.fn(),
       changeSelectedResources: jest.fn(),
-      showRemovalsConfirmation: jest.fn()
+      delete: jest.fn(),
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
       declarations: [],
-      providers: [PropertiesComponent, { provide: PropertiesFacade, useValue: facade }]
+      providers: [
+        provideRouter([{ path: '**', redirectTo: '' }]),
+        PropertiesComponent,
+        { provide: PropertiesFacade, useValue: facade },
+      ],
     });
   });
 
@@ -75,7 +77,7 @@ describe('PropertiesComponent', () => {
   it('emits change properties filtering action when filtering', () => {
     const filteringOptions: FilteringOptions = {
       logic: DEFAULT_FILTERING_LOGIC,
-      filters: []
+      filters: [],
     };
 
     component.onFilteringChanged(filteringOptions);
@@ -89,7 +91,7 @@ describe('PropertiesComponent', () => {
     component.onSortingChanged(sortingOptions);
 
     expect(facade.changeSorting).toHaveBeenCalledWith({
-      sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] }
+      sortingOptions,
     });
   });
 

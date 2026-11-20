@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PropertyFacade } from '@demo/demo/data-access/properties';
-import { UsersFacade } from '@demo/demo/data-access/users';
+import { PropertyUsersListFacade } from '../../demo-feature-properties.module';
 import { PropertyDto } from '@demo/demo/data-model/properties';
 import { createPersistentProperty, createTransientProperty } from '@demo/demo/data-model/properties/test';
 import { RequestState } from '@ngdux/data-model-common';
@@ -13,7 +13,7 @@ describe('PropertyComponent', () => {
   let fixture: ComponentFixture<PropertyComponent>;
   let property: PropertyDto;
   let propertyFacade: Partial<PropertyFacade>;
-  let usersFacade: Partial<UsersFacade>;
+  let usersFacade: Partial<PropertyUsersListFacade>;
 
   beforeEach(waitForAsync(() => {
     property = createPersistentProperty();
@@ -21,20 +21,20 @@ describe('PropertyComponent', () => {
       resource$: of(property),
       requestState$: of(RequestState.IDLE),
       save: jest.fn(),
-      create: jest.fn()
+      create: jest.fn(),
     };
 
     usersFacade = {
-      resources$: of([])
+      resources$: of([]),
     };
 
     TestBed.configureTestingModule({
       declarations: [PropertyComponent],
       providers: [
         { provide: PropertyFacade, useValue: propertyFacade },
-        { provide: UsersFacade, useValue: usersFacade }
+        { provide: PropertyUsersListFacade, useValue: usersFacade },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

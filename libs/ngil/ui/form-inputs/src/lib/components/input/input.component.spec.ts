@@ -6,10 +6,10 @@ describe('NgilInputComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NgilInputComponent]
+      imports: [NgilInputComponent],
     });
 
-    component = TestBed.inject(NgilInputComponent);
+    component = TestBed.createComponent(NgilInputComponent).componentInstance;
     component.ngAfterViewInit();
   });
 

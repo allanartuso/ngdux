@@ -1,12 +1,14 @@
-import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, inject } from '@angular/core';
 import { NgilOverlayComponent } from './overlay.component';
 
 @Directive({
   selector: '[ngilOverlayToggle]',
   exportAs: 'ngilOverlayToggle',
-  standalone: true
+  standalone: true,
 })
 export class NgilOverlayToggleDirective implements OnInit {
+  private readonly elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
+
   @Input() set ngilOverlayToggle(overlay: NgilOverlayComponent) {
     this.overlay = overlay;
   }
@@ -17,8 +19,6 @@ export class NgilOverlayToggleDirective implements OnInit {
     this.setOverlayOrigin();
   }
   private isOrigin = true;
-
-  constructor(private readonly elementRef: ElementRef<HTMLInputElement>) {}
 
   ngOnInit(): void {
     this.setOverlayOrigin();
