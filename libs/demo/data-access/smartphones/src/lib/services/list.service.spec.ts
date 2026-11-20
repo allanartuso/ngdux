@@ -17,7 +17,7 @@ describe('SmartphonesListService', () => {
     mockRestService = restServiceFixture.getMockRestService(smartphone, smartphones);
 
     TestBed.configureTestingModule({
-      providers: [SmartphonesListService, { provide: RestService, useValue: mockRestService }]
+      providers: [SmartphonesListService, { provide: RestService, useValue: mockRestService }],
     });
 
     service = TestBed.inject(SmartphonesListService);
@@ -28,13 +28,13 @@ describe('SmartphonesListService', () => {
     const options: RequestOptions = {
       pagingOptions: {
         page: 1,
-        pageSize: 10
+        pageSize: 10,
       },
-      sortingOptions: {},
+      sortingOptions: [],
       filteringOptions: {
         filters: [],
-        logic: FilteringLogic.AND
-      }
+        logic: FilteringLogic.AND,
+      },
     };
     const expected = cold('(u|)', { u: smartphones });
 
@@ -68,8 +68,8 @@ describe('SmartphonesListService', () => {
       SMARTPHONES_RESOURCE_BASE_PATH,
       ids.map(id => ({
         id,
-        resource: smartphone
-      }))
+        resource: smartphone,
+      })),
     );
   });
 });

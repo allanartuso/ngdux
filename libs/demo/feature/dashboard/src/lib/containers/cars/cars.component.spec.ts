@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CarsListFacade } from '@demo/demo/data-access/cars';
+import { DashboardCarsListFacade } from './cars.module';
 import { CarDto, CARS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/cars';
 import { createPersistentCars } from '@demo/demo/data-model/cars/test';
 import {
@@ -12,7 +12,7 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingField
+  SortingField,
 } from '@ngdux/data-model-common';
 import { of } from 'rxjs';
 import { CarsComponent } from './cars.component';
@@ -21,7 +21,7 @@ describe('CarsComponent', () => {
   let component: CarsComponent;
   let router: Router;
   let cars: CarDto[];
-  let facade: Partial<CarsListFacade>;
+  let facade: Partial<DashboardCarsListFacade>;
 
   beforeEach(() => {
     facade = {
@@ -29,7 +29,7 @@ describe('CarsComponent', () => {
       selectedItems$: of([]),
       totalCount$: of(5),
       pagingOptions$: of({ page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE }),
-      sortingOptions$: of({ name: { field: 'name', direction: DEFAULT_SORTING_ORDER } }),
+      sortingOptions$: of([{ field: 'name', direction: DEFAULT_SORTING_ORDER }]),
       filteringOptions$: of({ logic: DEFAULT_FILTERING_LOGIC, filters: [] }),
       initialize: jest.fn(),
       loadPage: jest.fn(),
@@ -37,12 +37,11 @@ describe('CarsComponent', () => {
       changeFiltering: jest.fn(),
       changeSorting: jest.fn(),
       changeSelectedResources: jest.fn(),
-      showRemovalsConfirmation: jest.fn()
     };
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [CarsComponent, { provide: CarsListFacade, useValue: facade }]
+      providers: [CarsComponent, { provide: DashboardCarsListFacade, useValue: facade }],
     });
   });
 
@@ -75,7 +74,7 @@ describe('CarsComponent', () => {
   it('emits change cars filtering action when filtering', () => {
     const filteringOptions: FilteringOptions = {
       logic: DEFAULT_FILTERING_LOGIC,
-      filters: []
+      filters: [],
     };
 
     component.onFilteringChanged(filteringOptions);
@@ -89,7 +88,7 @@ describe('CarsComponent', () => {
     component.onSortingChanged(sortingOptions);
 
     expect(facade.changeSorting).toHaveBeenCalledWith({
-      sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] }
+      sortingOptions,
     });
   });
 

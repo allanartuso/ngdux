@@ -14,17 +14,16 @@ describe('list selectors', () => {
   const testEntityAdapter = createListEntityAdapter<TestResource>();
   const listSelectors = createListSelectors<TestResource, TestErrors>(
     testEntityAdapter,
-    createFeatureSelector('testFeature')
+    createFeatureSelector('testFeature'),
   );
 
-  const initialState = testEntityAdapter.getInitialState({
+  const initialState = testEntityAdapter.getInitialState<ListState<TestResource, TestErrors>>({
     ...requestOptions,
     lastPageNumber: undefined,
-    currentResourceId: undefined,
     selectedResourceIds: [],
     loadingState: RequestState.IDLE,
     requestState: RequestState.IDLE,
-    errors: undefined
+    errors: undefined,
   });
 
   beforeEach(() => {
@@ -97,7 +96,7 @@ describe('list selectors', () => {
       state.pagingOptions.pageSize = resources.length;
 
       expect(listSelectors.getTotalCount.projector(state.pagingOptions, false, resources)).toStrictEqual(
-        resources.length * 2
+        resources.length * 2,
       );
     });
 
@@ -106,7 +105,7 @@ describe('list selectors', () => {
       state.pagingOptions.pageSize = pageSize;
 
       expect(listSelectors.getTotalCount.projector(state.pagingOptions, true, resources)).toStrictEqual(
-        resources.length
+        resources.length,
       );
     });
 
@@ -117,7 +116,7 @@ describe('list selectors', () => {
       state.pagingOptions.page = page;
 
       expect(listSelectors.getTotalCount.projector(state.pagingOptions, true, resources)).toStrictEqual(
-        resources.length + pageSize
+        resources.length + pageSize,
       );
     });
   });
@@ -135,7 +134,7 @@ describe('list selectors', () => {
       const record = testEntityAdapter.getSelectors().selectEntities(state);
       expect(listSelectors.getSelectionRecord.projector(selectedResourceIds, record)).toStrictEqual({
         [selectedResourceIds[0]]: resources[0],
-        [selectedResourceIds[1]]: resources[2]
+        [selectedResourceIds[1]]: resources[2],
       });
     });
   });
@@ -148,7 +147,7 @@ describe('list selectors', () => {
     const allResources = testEntityAdapter.getSelectors().selectEntities(state);
 
     expect(listSelectors.getSelectedItems.projector(state.selectedResourceIds, allResources)).toStrictEqual(
-      resources.slice(0, 2)
+      resources.slice(0, 2),
     );
   });
 
@@ -178,13 +177,13 @@ describe('list selectors', () => {
       selectedResourceIds = [resources[0].id, resources[1].id];
       selectedResources = {
         [resources[0].id]: resources[0],
-        [resources[1].id]: resources[1]
+        [resources[1].id]: resources[1],
       };
     });
 
     it('returns true when the selected resources are loaded', () => {
       expect(
-        listSelectors.areSelectedReady.projector(selectedResourceIds, selectedResources, RequestState.SUCCESS)
+        listSelectors.areSelectedReady.projector(selectedResourceIds, selectedResources, RequestState.SUCCESS),
       ).toBe(true);
     });
 
@@ -192,13 +191,13 @@ describe('list selectors', () => {
       selectedResourceIds = [resources[1].id, resources[2].id];
 
       expect(
-        listSelectors.areSelectedReady.projector(selectedResourceIds, selectedResources, RequestState.SUCCESS)
+        listSelectors.areSelectedReady.projector(selectedResourceIds, selectedResources, RequestState.SUCCESS),
       ).toBe(false);
     });
 
     it('returns false when the request is in progress', () => {
       expect(
-        listSelectors.areSelectedReady.projector(selectedResourceIds, selectedResources, RequestState.IN_PROGRESS)
+        listSelectors.areSelectedReady.projector(selectedResourceIds, selectedResources, RequestState.IN_PROGRESS),
       ).toBe(false);
     });
   });

@@ -1,4 +1,4 @@
-import { inject, InjectionToken } from '@angular/core';
+import { computed, inject, InjectionToken } from '@angular/core';
 import { RequestState } from '@ngdux/data-model-common';
 import { ActionPayload } from '@ngdux/store-common';
 import { select, Store } from '@ngrx/store';
@@ -20,6 +20,23 @@ export function createListFacade<Data, Error = unknown, Summary = Data, Params =
   listSelectors: ListSelectors<Summary, Error, Params>,
   store: Store,
 ): ListFacade<Data, Error, Summary, Params> {
+  const resources = store.selectSignal(listSelectors.getAll);
+  const loadingState = store.selectSignal(listSelectors.getLoadingState);
+  const requestState = store.selectSignal(listSelectors.getRequestState);
+  const errors = store.selectSignal(listSelectors.getErrors);
+  const isReady = store.selectSignal(listSelectors.isReady);
+  const areSelectedReady = store.selectSignal(listSelectors.areSelectedReady);
+  const currentPageData = store.selectSignal(listSelectors.getCurrentPageData);
+  const currentPageNumber = store.selectSignal(listSelectors.getCurrentPageNumber);
+  const filteringOptions = store.selectSignal(listSelectors.getFilteringOptions);
+  const requestParameters = store.selectSignal(listSelectors.getRequestParameters);
+  const lastPageNumber = store.selectSignal(listSelectors.getLastPageNumber);
+  const pagingOptions = store.selectSignal(listSelectors.getPagingOptions);
+  const requestOptions = store.selectSignal(listSelectors.getRequestOptions);
+  const sortingOptions = store.selectSignal(listSelectors.getSortingOptions);
+  const selectedItems = store.selectSignal(listSelectors.getSelectedItems);
+  const totalCount = store.selectSignal(listSelectors.getTotalCount);
+  const isLoading = computed(() => loadingState() === RequestState.IN_PROGRESS);
   const resources$ = store.pipe(select(listSelectors.getAll));
   const loadingState$ = store.pipe(select(listSelectors.getLoadingState));
   const requestState$ = store.pipe(select(listSelectors.getRequestState));
@@ -39,6 +56,23 @@ export function createListFacade<Data, Error = unknown, Summary = Data, Params =
   const isLoading$ = loadingState$.pipe(select(state => state === RequestState.IN_PROGRESS));
 
   return {
+    resources,
+    loadingState,
+    requestState,
+    errors,
+    isReady,
+    areSelectedReady,
+    currentPageData,
+    currentPageNumber,
+    filteringOptions,
+    requestParameters,
+    lastPageNumber,
+    pagingOptions,
+    requestOptions,
+    sortingOptions,
+    selectedItems,
+    totalCount,
+    isLoading,
     resources$,
     loadingState$,
     requestState$,

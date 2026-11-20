@@ -1,9 +1,7 @@
-import { InjectionToken, Type } from '@angular/core';
+import { Signal } from '@angular/core';
 import {
   ErrorDto,
   FilteringOptions,
-  ListNotificationService,
-  ListService,
   PagingOptions,
   RequestOptions,
   RequestState,
@@ -13,11 +11,6 @@ import { ActionPayload, ApiRequestState, LoadingState } from '@ngdux/store-commo
 import { EntityState } from '@ngrx/entity';
 import { Action, ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-export const LIST_FEATURE_KEY = new InjectionToken<string>('LIST_FEATURE_KEY');
-export const LIST_FEATURE_KEYS = new InjectionToken<string>('LIST_FEATURE_KEYS');
-export const LIST_SERVICES = new InjectionToken<string>('LIST_SERVICES');
-export const LIST_NOTIFICATION_SERVICES = new InjectionToken<string>('LIST_NOTIFICATION_SERVICES');
 
 export interface ListState<T, E = unknown, Params = Record<string, string>>
   extends EntityState<T>, RequestOptions<Params>, ApiRequestState<E>, LoadingState {
@@ -158,17 +151,25 @@ export interface ListActions<Entity, Error = unknown, Summary = Entity, Params =
   resetRequestState: ActionCreator<string, () => Action<string>>;
 }
 
-export interface NgduxListStateModuleConfig<
-  T extends { [key: string]: any },
-  E,
-  S = T,
-  Params = Record<string, string>,
-> {
-  service: Type<ListService<T, S, Params>>;
-  notificationService?: Type<ListNotificationService<E>>;
-}
-
 export interface ListFacade<Data, Error = unknown, Summary = Data, Params = Record<string, string>> {
+  readonly resources: Signal<Summary[]>;
+  readonly loadingState: Signal<RequestState>;
+  readonly requestState: Signal<RequestState>;
+  readonly errors: Signal<Error | undefined>;
+  readonly isReady: Signal<boolean>;
+  readonly areSelectedReady: Signal<boolean>;
+  readonly currentPageData: Signal<Summary[]>;
+  readonly currentPageNumber: Signal<number>;
+  readonly filteringOptions: Signal<FilteringOptions>;
+  readonly requestParameters: Signal<Params | undefined>;
+  readonly lastPageNumber: Signal<number | undefined>;
+  readonly pagingOptions: Signal<PagingOptions>;
+  readonly requestOptions: Signal<RequestOptions<Record<string, string>>>;
+  readonly sortingOptions: Signal<SortingField[]>;
+  readonly selectedItems: Signal<Summary[]>;
+  readonly totalCount: Signal<number>;
+  readonly isLoading: Signal<boolean>;
+
   resources$: Observable<Summary[]>;
   loadingState$: Observable<RequestState>;
   requestState$: Observable<RequestState>;

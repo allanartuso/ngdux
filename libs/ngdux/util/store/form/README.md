@@ -7,6 +7,14 @@ It was created to reduce the ngrx/store boilerplate code
 
 npm install @ngdux/form
 
+## Signals and observables
+
+Every facade state property is available as both a read-only Angular signal and an observable. Read signals with `facade.resource()`, `facade.isReady()` or `facade.isLoading()`. Existing observable APIs such as `facade.resource$`, `facade.isReady$` and `facade.isLoading$` remain available.
+
+Signals use the same NgRx selectors as the observables and reflect state changes synchronously. Dispatch methods such as `load`, `create`, `save`, `delete` and `reset` work with both APIs.
+
+The deprecated `AbstractFormFacade`, `AbstractFormEffects` and `AbstractFormReducerManager` classes and `FORM_FEATURE_KEY` token have been removed. Use `provideFormState` for the full setup, or the exported `createFormState`, `createFormFacade`, `provideFormFacade` and `createFormEffects` functions for custom setups. Replace facade subclasses with a `FormFacade` type and an `InjectionToken`, as shown below.
+
 Example:
 
 ## Option 1 - Full state

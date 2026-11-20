@@ -17,7 +17,7 @@ describe('AgentsListService', () => {
     mockRestService = restServiceFixture.getMockRestService(agent, agents);
 
     TestBed.configureTestingModule({
-      providers: [AgentsListService, { provide: RestService, useValue: mockRestService }]
+      providers: [AgentsListService, { provide: RestService, useValue: mockRestService }],
     });
 
     service = TestBed.inject(AgentsListService);
@@ -28,13 +28,13 @@ describe('AgentsListService', () => {
     const options: RequestOptions = {
       pagingOptions: {
         page: 1,
-        pageSize: 10
+        pageSize: 10,
       },
-      sortingOptions: {},
+      sortingOptions: [],
       filteringOptions: {
         filters: [],
-        logic: FilteringLogic.AND
-      }
+        logic: FilteringLogic.AND,
+      },
     };
     const expected = cold('(u|)', { u: agents });
 
@@ -68,8 +68,8 @@ describe('AgentsListService', () => {
       AGENTS_RESOURCE_BASE_PATH,
       ids.map(id => ({
         id,
-        resource: agent
-      }))
+        resource: agent,
+      })),
     );
   });
 });

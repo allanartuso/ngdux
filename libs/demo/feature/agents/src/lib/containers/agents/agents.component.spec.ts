@@ -12,7 +12,7 @@ import {
   FilteringOptions,
   PagingOptions,
   SortingDirection,
-  SortingField
+  SortingField,
 } from '@ngdux/data-model-common';
 import { of } from 'rxjs';
 import { AgentsComponent } from './agents.component';
@@ -29,19 +29,18 @@ describe('AgentsComponent', () => {
       selectedItems$: of([]),
       totalCount$: of(5),
       pagingOptions$: of({ page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE }),
-      sortingOptions$: of({ name: { field: 'name', direction: DEFAULT_SORTING_ORDER } }),
+      sortingOptions$: of([{ field: 'name', direction: DEFAULT_SORTING_ORDER }]),
       filteringOptions$: of({ logic: DEFAULT_FILTERING_LOGIC, filters: [] }),
       loadPage: jest.fn(),
       changePagingOptions: jest.fn(),
       changeFiltering: jest.fn(),
       changeSorting: jest.fn(),
       changeSelectedResources: jest.fn(),
-      showRemovalsConfirmation: jest.fn()
     };
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
-      providers: [AgentsComponent, { provide: AgentsListFacade, useValue: facade }]
+      providers: [AgentsComponent, { provide: AgentsListFacade, useValue: facade }],
     });
   });
 
@@ -74,7 +73,7 @@ describe('AgentsComponent', () => {
   it('emits change agents filtering action when filtering', () => {
     const filteringOptions: FilteringOptions = {
       logic: DEFAULT_FILTERING_LOGIC,
-      filters: []
+      filters: [],
     };
 
     component.onFilteringChanged(filteringOptions);
@@ -88,7 +87,7 @@ describe('AgentsComponent', () => {
     component.onSortingChanged(sortingOptions);
 
     expect(facade.changeSorting).toHaveBeenCalledWith({
-      sortingOptions: { [sortingOptions[0].field]: sortingOptions[0] }
+      sortingOptions,
     });
   });
 

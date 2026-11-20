@@ -1,49 +1,94 @@
-const mockActions = 'mockActions';
-jest.mock('./form-actions', () => ({
-  createFormActions: jest.fn().mockReturnValue(mockActions)
-}));
+import { InjectionToken } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { FormNotificationService, RequestState } from '@ngdux/data-model-common';
+import { provideStore } from '@ngrx/store';
+import { firstValueFrom, of, Subject, throwError } from 'rxjs';
+import { FormFacade } from '../models/form.model';
+import { TestFormService } from '../models/form.fixture';
+import { createFormState, provideFormState } from './form-state';
 
-const mockReducer = 'mockReducer';
-jest.mock('./form-reducer', () => ({
-  createFormReducer: jest.fn().mockReturnValue(() => mockReducer)
-}));
+interface Resource {
+  id: string;
+  name: string;
+}
+interface CreateResource {
+  name: string;
+}
 
-const mockSelectors = 'mockSelectors';
-jest.mock('./form-selectors', () => ({
-  createFormSelectors: jest.fn().mockReturnValue(mockSelectors)
-}));
+const notificationService: FormNotificationService<string[]> = {
+  onFormErrors: jest.fn(),
+  onFormDelete: jest.fn(),
+};
+abstract class Notifications implements FormNotificationService<string[]> {
+  abstract onFormErrors(errors: string[]): void;
+  abstract onFormDelete(id: string): void;
+}
 
-const mockFeatureSelector = 'mockFeatureSelector';
-jest.mock('@ngrx/store', () => ({
-  createFeatureSelector: jest.fn().mockReturnValue(mockFeatureSelector)
-}));
+describe('form state providers', () => {
+  const token = new InjectionToken<FormFacade<Resource, string[], CreateResource>>('form');
+  const otherToken = new InjectionToken<FormFacade<Resource, string[], CreateResource>>('other form');
+  const resource = { id: 'one', name: 'Resource' };
+  let facade: FormFacade<Resource, string[], CreateResource>;
+  let service: TestFormService;
 
-import { RequestState } from '@ngdux/data-model-common';
-import { createFeatureSelector } from '@ngrx/store';
-import { createFormActions } from './form-actions';
-import { createFormReducer } from './form-reducer';
-import { createFormSelectors } from './form-selectors';
-import { createFormState } from './form-state';
-
-describe('formState', () => {
-  const featureName = 'testFeatureName';
-  const { actions, reducer, selectors } = createFormState(featureName);
-
-  it('create form actions', () => {
-    expect(createFormActions).toHaveBeenCalledWith(featureName);
-    expect(actions).toBe(mockActions);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideStore(),
+        provideFormState('form', token, TestFormService, Notifications),
+        provideFormState('otherForm', otherToken, TestFormService, Notifications),
+        { provide: Notifications, useValue: notificationService },
+      ],
+    });
+    service = TestBed.inject(TestFormService);
+    facade = TestBed.inject(token);
   });
 
-  it('create form reducer', () => {
-    expect(createFormReducer).toHaveBeenCalledWith(mockActions);
-    expect(reducer({ requestState: RequestState.IDLE, loadingState: RequestState.IDLE }, { type: '' })).toBe(
-      mockReducer
-    );
+  it('loads and resets both signals and observables through real reducers and effects', async () => {
+    const response = new Subject<Resource>();
+    service.loadResource.mockReturnValue(response);
+    expect(facade.resource()).toBeUndefined();
+    expect(facade.errors()).toBeUndefined();
+    expect(facade.isLoading()).toBe(false);
+    expect(facade.isReady()).toBe(false);
+    facade.load({ id: resource.id });
+    expect(service.loadResource).toHaveBeenCalledWith(resource.id);
+    expect(facade.isLoading()).toBe(true);
+    response.next(resource);
+    expect(facade.resource()).toEqual(resource);
+    expect(await firstValueFrom(facade.resource$)).toEqual(resource);
+    expect(facade.isLoading()).toBe(false);
+    expect(facade.isReady()).toBe(true);
+    facade.reset();
+    expect(facade.resource()).toBeUndefined();
+    expect(await firstValueFrom(facade.resource$)).toBeUndefined();
+    expect(facade.loadingState()).toBe(RequestState.IDLE);
+    response.complete();
   });
 
-  it('create form selectors', () => {
-    expect(createFeatureSelector).toHaveBeenCalledWith(featureName);
-    expect(createFormSelectors).toHaveBeenCalledWith(mockFeatureSelector);
-    expect(selectors).toStrictEqual(mockSelectors);
+  it('supports a separate create DTO and keeps feature instances isolated', () => {
+    service.createResource.mockReturnValue(of(resource));
+    facade.create({ resource: { name: resource.name } });
+    expect(service.createResource).toHaveBeenCalledWith({ name: resource.name });
+    expect(facade.resource()).toEqual(resource);
+    expect(TestBed.inject(otherToken).resource()).toBeUndefined();
+  });
+
+  it('exposes errors and notifies through the functional effects', async () => {
+    const errors = ['Save failed'];
+    service.saveResource.mockReturnValue(throwError(() => errors));
+    facade.save({ resource });
+    expect(facade.errors()).toEqual(errors);
+    expect(await firstValueFrom(facade.errors$)).toEqual(errors);
+    expect(facade.isLoading()).toBe(false);
+    expect(notificationService.onFormErrors).toHaveBeenCalledWith(errors);
+  });
+
+  it('creates a matching reducer and selectors', () => {
+    const { actions, reducer, selectors } = createFormState<Resource, string[]>('custom');
+    const initial = reducer({ loadingState: RequestState.IDLE, requestState: RequestState.IDLE }, { type: 'init' });
+    const state = reducer(initial, actions.loadSuccess({ resource }));
+    expect(selectors.getResource({ custom: state })).toEqual(resource);
+    expect(selectors.isReady({ custom: state })).toBe(true);
   });
 });

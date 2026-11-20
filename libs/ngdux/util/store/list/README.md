@@ -7,6 +7,14 @@ It was created to reduce the ngrx/store boilerplate code
 
 npm install @ngdux/list
 
+## Signals and observables
+
+Every facade state property is available as both a read-only Angular signal and an observable. For example, use `facade.resources()`, `facade.currentPageData()`, `facade.selectedItems()` and `facade.isLoading()` in signal consumers. Existing `resources$`, `currentPageData$`, `selectedItems$` and `isLoading$` observables remain available, along with all the other observable properties.
+
+Signals use the same NgRx selectors as the observables and reflect state changes synchronously. Paging, filtering, selection and other dispatch methods work with both APIs.
+
+The deprecated `AbstractListFacade`, `AbstractListEffects`, `AbstractListReducerManager` and `NgduxListStateModule` classes have been removed, together with `ListStateService` and the old `LIST_FEATURE_KEY`, `LIST_FEATURE_KEYS`, `LIST_SERVICES` and `LIST_NOTIFICATION_SERVICES` tokens. Use `provideListState` for the full setup, or the exported `createListState`, `createListFacade`, `provideListFacade` and `createListEffects` functions for custom setups. Replace facade subclasses with a `ListFacade` type and an `InjectionToken`, as shown below. Existing NgModules can include `provideListState(...)` in the providers returned by their configuration method.
+
 Example:
 
 ## Option 1 - Full state

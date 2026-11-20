@@ -7,12 +7,14 @@ import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jest-marbles';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
-import { featureKey, testFormActions, TestFormEffects, TestFormService } from '../models/form.fixture';
+import { featureKey, mockNotificationService, testFormActions, TestFormService } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
 
-describe('TestEffects', () => {
+import { createFormEffects } from './form-effects';
+
+describe('createFormEffects', () => {
   let actions: Observable<Action>;
-  let effects: TestFormEffects;
+  let effects: ReturnType<typeof createFormEffects<TestResource, string[]>>;
   let testService: TestFormService;
   const errors = ['testError'];
   let resource: TestResource;
@@ -24,33 +26,36 @@ describe('TestEffects', () => {
       deleteResource: jest.fn().mockImplementation(() => of(EMPTY)),
       createResource: jest.fn().mockImplementation(() => of(resource)),
       loadResource: jest.fn().mockImplementation(() => of(resource)),
-      saveResource: jest.fn().mockImplementation(() => of(resource))
+      saveResource: jest.fn().mockImplementation(() => of(resource)),
     };
 
     const initialState: FormState<TestResource, string[]> = {
       resource,
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      errors: undefined
+      errors: undefined,
     };
 
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        TestFormEffects,
         provideMockActions(() => actions),
         provideMockStore({
           initialState: { [featureKey]: initialState },
-          selectors: []
+          selectors: [],
         }),
         {
           provide: TestFormService,
-          useValue: mockService
-        }
-      ]
+          useValue: mockService,
+        },
+      ],
     });
 
-    effects = TestBed.inject(TestFormEffects);
+    effects = createFormEffects(
+      testFormActions,
+      () => TestBed.inject(TestFormService),
+      () => mockNotificationService,
+    );
     testService = TestBed.inject(TestFormService);
   });
 
@@ -58,24 +63,24 @@ describe('TestEffects', () => {
     it('should emit success when service call is successful', () => {
       actions = hot('a', {
         a: testFormActions.load({
-          id: resource.id
-        })
+          id: resource.id,
+        }),
       });
       const expected = hot('a', { a: testFormActions.loadSuccess({ resource }) });
 
-      expect(effects.load$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.load$())).toBeObservable(expected);
     });
 
     it('should emit failure when error is thrown', () => {
       testService.loadResource = jest.fn().mockImplementation(() => throwError(errors));
       actions = hot('a', {
-        a: testFormActions.load({ id: resource.id })
+        a: testFormActions.load({ id: resource.id }),
       });
       const expected = hot('a', {
-        a: testFormActions.loadFailure({ errors })
+        a: testFormActions.loadFailure({ errors }),
       });
 
-      expect(effects.load$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.load$())).toBeObservable(expected);
     });
   });
 
@@ -83,11 +88,11 @@ describe('TestEffects', () => {
     it('should create', () => {
       actions = hot('a', { a: testFormActions.create({ resource }) });
       const expected = hot('a', {
-        a: testFormActions.createSuccess({ resource })
+        a: testFormActions.createSuccess({ resource }),
       });
 
-      expect(effects.create$).toBeObservable(expected);
-      expect(effects.create$).toSatisfyOnFlush(() => {
+      expect(TestBed.runInInjectionContext(() => effects.create$())).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.create$())).toSatisfyOnFlush(() => {
         expect(testService.createResource).toHaveBeenCalledWith(resource);
       });
     });
@@ -96,10 +101,10 @@ describe('TestEffects', () => {
       testService.createResource = jest.fn().mockImplementation(() => throwError(errors));
       actions = hot('a', { a: testFormActions.create({ resource }) });
       const expected = hot('a', {
-        a: testFormActions.createFailure({ errors })
+        a: testFormActions.createFailure({ errors }),
       });
 
-      expect(effects.create$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.create$())).toBeObservable(expected);
     });
   });
 
@@ -107,11 +112,11 @@ describe('TestEffects', () => {
     it('should update', () => {
       actions = hot('a', { a: testFormActions.save({ resource }) });
       const expected = hot('a', {
-        a: testFormActions.saveSuccess({ resource })
+        a: testFormActions.saveSuccess({ resource }),
       });
 
-      expect(effects.update$).toBeObservable(expected);
-      expect(effects.update$).toSatisfyOnFlush(() => {
+      expect(TestBed.runInInjectionContext(() => effects.update$())).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.update$())).toSatisfyOnFlush(() => {
         expect(testService.saveResource).toHaveBeenCalledWith(resource);
       });
     });
@@ -120,35 +125,35 @@ describe('TestEffects', () => {
       testService.saveResource = jest.fn().mockImplementation(() => throwError(errors));
       actions = hot('a', { a: testFormActions.save({ resource }) });
       const expected = hot('a', {
-        a: testFormActions.saveFailure({ errors })
+        a: testFormActions.saveFailure({ errors }),
       });
 
-      expect(effects.update$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.update$())).toBeObservable(expected);
     });
   });
 
   describe('delete$', () => {
     it('should emit success when service call is successful', () => {
       actions = hot('a', {
-        a: testFormActions.delete({ id: resource.id })
+        a: testFormActions.delete({ id: resource.id }),
       });
       const expected = hot('a', {
-        a: testFormActions.deleteSuccess({ id: resource.id })
+        a: testFormActions.deleteSuccess({ id: resource.id }),
       });
 
-      expect(effects.delete$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.delete$())).toBeObservable(expected);
     });
 
     it('should emit failure when error is thrown', () => {
       testService.deleteResource = jest.fn().mockImplementation(() => throwError(errors));
       actions = hot('a', {
-        a: testFormActions.delete({ id: resource.id })
+        a: testFormActions.delete({ id: resource.id }),
       });
       const expected = hot('a', {
-        a: testFormActions.deleteFailure({ errors })
+        a: testFormActions.deleteFailure({ errors }),
       });
 
-      expect(effects.delete$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.delete$())).toBeObservable(expected);
     });
   });
 });

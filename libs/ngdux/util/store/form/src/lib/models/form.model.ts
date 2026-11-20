@@ -1,10 +1,8 @@
-import { InjectionToken } from '@angular/core';
+import { Signal } from '@angular/core';
 import { RequestState } from '@ngdux/data-model-common';
 import { ActionPayload, ApiRequestState, LoadingState } from '@ngdux/store-common';
 import { Action, ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-export const FORM_FEATURE_KEY = new InjectionToken<string>('FORM_FEATURE_KEY');
 
 export interface FormState<T, E> extends ApiRequestState<E>, LoadingState {
   resource?: T;
@@ -39,6 +37,13 @@ export interface FormActions<DTO, ERROR, CREATE_DTO = DTO> {
 }
 
 export interface FormFacade<DTO, ERROR, CREATE_DTO = DTO> {
+  readonly resource: Signal<DTO | undefined>;
+  readonly loadingState: Signal<RequestState>;
+  readonly requestState: Signal<RequestState>;
+  readonly errors: Signal<ERROR | undefined>;
+  readonly isReady: Signal<boolean>;
+  readonly isLoading: Signal<boolean>;
+
   resource$: Observable<DTO | undefined>;
   loadingState$: Observable<RequestState>;
   requestState$: Observable<RequestState>;

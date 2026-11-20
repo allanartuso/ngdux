@@ -2,7 +2,7 @@ let mockLastPageNumber: number;
 jest.mock('@ngdux/store-common', () => ({
   getLastPageNumber: jest.fn().mockImplementation(() => mockLastPageNumber),
   createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
-  createRequestStateActionHandlers: jest.fn().mockReturnValue([])
+  createRequestStateActionHandlers: jest.fn().mockReturnValue([]),
 }));
 
 import {
@@ -13,7 +13,7 @@ import {
   RequestState,
   SortingDirection,
   SortingField,
-  getDefaultRequestOptions
+  getDefaultRequestOptions,
 } from '@ngdux/data-model-common';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
 import { TestResource, createTestResource, createTestResources } from '@ngdux/store-common/test';
@@ -31,12 +31,12 @@ describe('createEntityAdapter', () => {
     const entityAdapter = createListEntityAdapter();
     const state = entityAdapter.addOne(testResource, {
       ids: [],
-      entities: {}
+      entities: {},
     });
 
     expect(state).toStrictEqual({
       ids: [testResource.id],
-      entities: { [testResource.id]: testResource }
+      entities: { [testResource.id]: testResource },
     });
   });
 });
@@ -59,7 +59,7 @@ describe('createListReducer', () => {
       selectedResourceIds: [],
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      errors: undefined
+      errors: undefined,
     });
     testReducer = createListReducer<TestResource, TestErrors>(testEntityAdapter, testListActions);
   });
@@ -78,8 +78,8 @@ describe('createListReducer', () => {
       ...testInitialState,
       pagingOptions: {
         ...testInitialState.pagingOptions,
-        page: 2
-      }
+        page: 2,
+      },
     });
     const expectedState = testInitialState;
 
@@ -98,8 +98,8 @@ describe('createListReducer', () => {
       ...testInitialState,
       pagingOptions: {
         ...testInitialState.pagingOptions,
-        pageSize
-      }
+        pageSize,
+      },
     });
   });
 
@@ -111,10 +111,7 @@ describe('createListReducer', () => {
 
     expect(state).toStrictEqual({
       ...testInitialState,
-      sortingOptions: {
-        ...state.sortingOptions,
-        ...sortingOptions
-      }
+      sortingOptions,
     });
   });
 
@@ -122,11 +119,11 @@ describe('createListReducer', () => {
     const filteringField: FilteringField = {
       field: 'name',
       value: 'abc',
-      operator: FilteringOperator.StartsWith
+      operator: FilteringOperator.StartsWith,
     };
     const filteringOptions: FilteringOptions = {
       logic: FilteringLogic.AND,
-      filters: [filteringField]
+      filters: [filteringField],
     };
     const testAction = testListActions.changeFiltering({ filteringOptions });
 
@@ -134,7 +131,7 @@ describe('createListReducer', () => {
 
     expect(state).toStrictEqual({
       ...testInitialState,
-      filteringOptions
+      filteringOptions,
     });
   });
 
@@ -146,7 +143,7 @@ describe('createListReducer', () => {
 
     expect(state).toStrictEqual({
       ...testInitialState,
-      selectedResourceIds
+      selectedResourceIds,
     });
   });
 
@@ -158,14 +155,14 @@ describe('createListReducer', () => {
 
     expect(state).toStrictEqual({
       ...testInitialState,
-      selectedResourceIds
+      selectedResourceIds,
     });
   });
 
   it('loadFirstPage sets page to 1', () => {
     testInitialState = {
       ...testInitialState,
-      pagingOptions: { ...testInitialState.pagingOptions, page: 2 }
+      pagingOptions: { ...testInitialState.pagingOptions, page: 2 },
     };
     const testAction = testListActions.loadFirstPage();
 
@@ -173,7 +170,7 @@ describe('createListReducer', () => {
 
     expect(state).toStrictEqual({
       ...testInitialState,
-      pagingOptions: { ...testInitialState.pagingOptions, page: 1 }
+      pagingOptions: { ...testInitialState.pagingOptions, page: 1 },
     });
   });
 
@@ -191,9 +188,9 @@ describe('createListReducer', () => {
       ...testInitialState,
       pagingOptions: {
         ...testInitialState.pagingOptions,
-        page: lastPageNumber
+        page: lastPageNumber,
       },
-      lastPageNumber
+      lastPageNumber,
     };
     const testAction = testListActions.loadNextPage();
 
@@ -210,15 +207,15 @@ describe('createListReducer', () => {
 
       const testAction = testListActions.loadPageSuccess({
         resources: loadedResources,
-        pagingOptions: { page, pageSize }
+        pagingOptions: { page, pageSize },
       });
 
       const state = testReducer(testInitialState, testAction);
 
       expect(state).toStrictEqual(
         testEntityAdapter.setAll(loadedResources, {
-          ...testInitialState
-        })
+          ...testInitialState,
+        }),
       );
     });
 
@@ -230,7 +227,7 @@ describe('createListReducer', () => {
 
       const testAction = testListActions.loadPageSuccess({
         resources: loadedResources,
-        pagingOptions: { page, pageSize }
+        pagingOptions: { page, pageSize },
       });
 
       const state = testReducer(testInitialState, testAction);
@@ -238,8 +235,8 @@ describe('createListReducer', () => {
       expect(state).toStrictEqual(
         testEntityAdapter.setAll(loadedResources, {
           ...testInitialState,
-          lastPageNumber: mockLastPageNumber
-        })
+          lastPageNumber: mockLastPageNumber,
+        }),
       );
     });
   });
@@ -253,7 +250,7 @@ describe('createListReducer', () => {
     expect(createLoadingStateActionHandlers).toHaveBeenCalledWith(
       testListActions.loadPage,
       testListActions.loadPageSuccess,
-      testListActions.loadPageFailure
+      testListActions.loadPageFailure,
     );
   });
 
@@ -266,13 +263,13 @@ describe('createListReducer', () => {
       undefined,
       testListActions.delete,
       testListActions.deleteSuccess,
-      testListActions.deleteFailure
+      testListActions.deleteFailure,
     );
     expect(createRequestStateActionHandlers).toHaveBeenCalledWith(
       testListActions.resetRequestState,
       testListActions.patch,
       testListActions.patchSuccess,
-      testListActions.patchFailure
+      testListActions.patchFailure,
     );
   });
 });

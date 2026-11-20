@@ -4,7 +4,7 @@ import {
   ListNotificationService,
   ListService,
   RequestOptions,
-  RequestState
+  RequestState,
 } from '@ngdux/data-model-common';
 import { createTestResources, TestResource } from '@ngdux/store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -17,15 +17,16 @@ import {
   testEntityAdapter,
   TestErrors,
   testListActions,
-  TestListEffects,
   testListSelectors,
-  TestListService
+  TestListService,
 } from '../models/list.fixture';
-import { LIST_NOTIFICATION_SERVICES, ListState } from '../models/list.model';
+import { ListState } from '../models/list.model';
 
-describe('TestEffects', () => {
+import { createListEffects } from './list-effects';
+
+describe('createListEffects', () => {
   let actions$: Observable<Action>;
-  let effects: TestListEffects;
+  let effects: ReturnType<typeof createListEffects<TestResource, string[]>>;
   let resourcesService: ListService<TestResource>;
   let store: MockStore;
   let resources: TestResource[];
@@ -46,19 +47,17 @@ describe('TestEffects', () => {
       selectedResourceIds: [],
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      errors: undefined
+      errors: undefined,
     });
     initialState = testEntityAdapter.addMany(resources, initialState);
     notificationServiceMock = {
       onListErrors: jest.fn(),
-      onListDelete: jest.fn()
+      onListDelete: jest.fn(),
     };
 
     TestBed.configureTestingModule({
       providers: [
-        TestListEffects,
         TestListService,
-        { provide: LIST_NOTIFICATION_SERVICES, useValue: notificationServiceMock },
         provideMockActions(() => actions$),
         provideMockStore({
           selectors: [
@@ -67,13 +66,18 @@ describe('TestEffects', () => {
             { selector: testListSelectors.getPagingOptions, value: requestOptions.pagingOptions },
             { selector: testListSelectors.getSortingOptions, value: requestOptions.sortingOptions },
             { selector: testListSelectors.getFilteringOptions, value: requestOptions.filteringOptions },
-            { selector: testListSelectors.getRequestParameters, value: {} }
-          ]
-        })
-      ]
+            { selector: testListSelectors.getRequestParameters, value: {} },
+          ],
+        }),
+      ],
     });
 
-    effects = TestBed.inject(TestListEffects);
+    effects = createListEffects(
+      testListActions,
+      testListSelectors,
+      () => TestBed.inject(TestListService),
+      () => notificationServiceMock as ListNotificationService<string[]>,
+    );
     resourcesService = TestBed.inject(TestListService);
     resourcesService.loadResources = jest.fn().mockImplementation(() => of(resources));
     resourcesService.patchResources = jest.fn().mockImplementation(() => of(resources));
@@ -85,10 +89,10 @@ describe('TestEffects', () => {
     it('emits load page action to the pages 1 and 2', () => {
       actions$ = hot('a', { a: testListActions.initialize() });
       const expected = hot('a', {
-        a: testListActions.loadPage()
+        a: testListActions.loadPage(),
       });
 
-      expect(effects.reload$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.reload$())).toBeObservable(expected);
     });
   });
 
@@ -96,20 +100,20 @@ describe('TestEffects', () => {
     it('should emit success when the api respond successfully', () => {
       actions$ = hot('a', { a: testListActions.loadPage() });
       const expected = hot('a', {
-        a: testListActions.loadPageSuccess({ resources, pagingOptions: initialState.pagingOptions })
+        a: testListActions.loadPageSuccess({ resources, pagingOptions: initialState.pagingOptions }),
       });
 
-      expect(effects.loadPage$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.loadPage$())).toBeObservable(expected);
     });
 
     it('should emit failure when an error is thrown', () => {
       resourcesService.loadResources = jest.fn().mockImplementation(() => throwError(testErrors));
       actions$ = hot('a', { a: testListActions.loadPage() });
       const expected = hot('a', {
-        a: testListActions.loadPageFailure({ errors: testErrors })
+        a: testListActions.loadPageFailure({ errors: testErrors }),
       });
 
-      expect(effects.loadPage$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.loadPage$())).toBeObservable(expected);
     });
   });
 
@@ -118,38 +122,38 @@ describe('TestEffects', () => {
       const currentPageNumber = 2;
       store.overrideSelector(testListSelectors.getCurrentPageNumber, currentPageNumber);
       actions$ = hot('a', {
-        a: testListActions.loadPreviousPage()
+        a: testListActions.loadPreviousPage(),
       });
       const expected = hot('a', {
         a: testListActions.changePageNumber({
-          pageNumber: currentPageNumber - 1
-        })
+          pageNumber: currentPageNumber - 1,
+        }),
       });
 
-      expect(effects.loadPreviousPage$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.loadPreviousPage$())).toBeObservable(expected);
     });
     it('does not emit load page action to the previous page if the current page is the first page', () => {
       actions$ = hot('a', {
-        a: testListActions.loadPreviousPage()
+        a: testListActions.loadPreviousPage(),
       });
       const expected = hot('-');
 
-      expect(effects.loadPreviousPage$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.loadPreviousPage$())).toBeObservable(expected);
     });
   });
 
   describe('loadNextPage$', () => {
     it('emits load page action to the next page', () => {
       actions$ = hot('a', {
-        a: testListActions.loadNextPage()
+        a: testListActions.loadNextPage(),
       });
       const expected = hot('a', {
         a: testListActions.changePageNumber({
-          pageNumber: initialState.pagingOptions.page + 1
-        })
+          pageNumber: initialState.pagingOptions.page + 1,
+        }),
       });
 
-      expect(effects.loadNextPage$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.loadNextPage$())).toBeObservable(expected);
     });
   });
 
@@ -158,7 +162,7 @@ describe('TestEffects', () => {
       actions$ = hot('a', { a: testListActions.changePageSize({ pageSize: 10 }) });
       const expected = hot('a', { a: testListActions.loadPage() });
 
-      expect(effects.reload$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.reload$())).toBeObservable(expected);
     });
   });
 
@@ -167,7 +171,7 @@ describe('TestEffects', () => {
       actions$ = hot('a', { a: testListActions.loadFirstPage() });
       const expected = hot('a', { a: testListActions.changePageNumber({ pageNumber: 1 }) });
 
-      expect(effects.loadFirstPage$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.loadFirstPage$())).toBeObservable(expected);
     });
   });
 
@@ -180,31 +184,31 @@ describe('TestEffects', () => {
 
     it('should emit success and refresh the list when service call is successful', () => {
       const expected = hot('a', {
-        a: testListActions.deleteSuccess({ resourceIds })
+        a: testListActions.deleteSuccess({ resourceIds }),
       });
       actions$ = hot('a', { a: testListActions.delete({ resourceIds }) });
 
-      expect(effects.delete$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.delete$())).toBeObservable(expected);
     });
 
     it('should refresh the list when deleting successfully', () => {
       const expected = hot('b', {
-        b: testListActions.loadPage()
+        b: testListActions.loadPage(),
       });
       actions$ = hot('a', { a: testListActions.deleteSuccess({ resourceIds }) });
 
-      expect(effects.reload$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.reload$())).toBeObservable(expected);
     });
 
     it('should emit failure when error is thrown without any successes.', () => {
       store.overrideSelector(testListSelectors.getSelectedItems, resources);
       resourcesService.deleteResources = jest.fn().mockImplementation(() => throwError(testErrors));
       const expected = hot('a', {
-        a: testListActions.deleteFailure({ errors: testErrors })
+        a: testListActions.deleteFailure({ errors: testErrors }),
       });
       actions$ = hot('a', { a: testListActions.delete({ resourceIds }) });
 
-      expect(effects.delete$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.delete$())).toBeObservable(expected);
     });
   });
 
@@ -218,7 +222,7 @@ describe('TestEffects', () => {
     it('notifies deletion', () => {
       actions$ = hot('a', { a: testListActions.deleteSuccess({ resourceIds }) });
 
-      expect(effects.deleteSuccess$).toSatisfyOnFlush(() => {
+      expect(TestBed.runInInjectionContext(() => effects.deleteSuccess$())).toSatisfyOnFlush(() => {
         expect(notificationServiceMock.onListDelete).toHaveBeenCalledWith(resourceIds);
       });
     });
@@ -229,7 +233,7 @@ describe('TestEffects', () => {
       const errors = ['errorTest'];
       actions$ = hot('a', { a: testListActions.deleteFailure({ errors }) });
 
-      expect(effects.errorsHandler$).toSatisfyOnFlush(() => {
+      expect(TestBed.runInInjectionContext(() => effects.errorsHandler$())).toSatisfyOnFlush(() => {
         expect(notificationServiceMock.onListErrors).toHaveBeenCalledWith(errors);
       });
     });
@@ -242,34 +246,34 @@ describe('TestEffects', () => {
     beforeEach(() => {
       resourceIds = ['testId1'];
       resource = {
-        name: 'testName'
+        name: 'testName',
       };
     });
 
     it('emits an info notification when receiving patch success action', () => {
       const expectedActions = hot('a', {
-        a: testListActions.patchSuccess({ resources })
+        a: testListActions.patchSuccess({ resources }),
       });
       actions$ = hot('a', {
         a: testListActions.patch({
           resourceIds,
-          resource
-        })
+          resource,
+        }),
       });
 
-      expect(effects.patch$).toBeObservable(expectedActions);
-      expect(effects.patch$).toSatisfyOnFlush(() => {
+      expect(TestBed.runInInjectionContext(() => effects.patch$())).toBeObservable(expectedActions);
+      expect(TestBed.runInInjectionContext(() => effects.patch$())).toSatisfyOnFlush(() => {
         expect(resourcesService.patchResources).toHaveBeenCalledWith(resourceIds, resource);
       });
     });
 
     it('should refresh the list when patching successfully', () => {
       const expected = hot('b', {
-        b: testListActions.loadPage()
+        b: testListActions.loadPage(),
       });
       actions$ = hot('a', { a: testListActions.patchSuccess({ resources }) });
 
-      expect(effects.reload$).toBeObservable(expected);
+      expect(TestBed.runInInjectionContext(() => effects.reload$())).toBeObservable(expected);
     });
   });
 });
