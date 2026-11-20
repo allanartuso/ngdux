@@ -76,7 +76,7 @@ export class DatasetController {
   private async generateDatasetForFileAndBlocks(body: GenerateDatasetDto) {
     const fileContent: string = this.getFileContent(body);
     const items = await this.datasetService.generateDescription(fileContent);
-    return items;
+    return items.map(item => item.finalTrainingItem);
     const { generatedItems } = await this.datasetService.generateFromSplitFile(body.filePath);
 
     return [...items, ...generatedItems];

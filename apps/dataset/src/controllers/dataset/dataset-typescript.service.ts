@@ -32,8 +32,9 @@ Output ONLY a raw JSON object matching this schema:
 }
 Do not include markdown code blocks. Output pure JSON.`,
   ];
+  private retries = 0;
 
-  async generateDescription(fileContent: string) {
+  async generateDescription(fileContent: string): Promise<DatasetItem[]> {
     // 3. Craft the prompt for fine-tuning formats
 
     const userPrompt = `Analyze this code file:
@@ -42,41 +43,17 @@ Do not include markdown code blocks. Output pure JSON.`,
     ${fileContent}`;
 
     try {
-      let items: DatasetItem[] = [];
-      for (const systemPrompt of this.systemPrompts) {
-        // 4. Send request to LM Studio
-        // Note: "model" can be any string, LM Studio defaults to whichever model you currently have loaded in the UI.
-        const response = await axios.post(this.lmStudioUrl, {
-          model: 'local-model',
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: userPrompt },
-          ],
-          temperature: 0.2, // Low temperature for more structured, predictable output
-        });
+      const responses = await this.getFileResponses(userPrompt, fileContent);
+      this.retries = 0;
 
-        const rawText = response.data.choices[0].message.content.trim();
-
-        // 5. Parse local LLM text output into JSON dataset format
-        const datasetItem = JSON.parse(rawText);
-
-        const finalTrainingItem: TrainingItem = {
-          messages: [
-            { role: 'system', content: 'You are a first-class Angular dev coding like MyGuy-260621' },
-            { role: 'user', content: datasetItem.instruction },
-            { role: 'assistant', content: `\`\`\`typescript\n${fileContent}\n\`\`\`` }, // Your real code!
-          ],
-        };
-
-        items.push({
-          success: true,
-          dataset: datasetItem,
-          finalTrainingItem,
-        });
+      return responses;
+    } catch (error: any) {
+      if (this.retries < 3) {
+        this.retries++;
+        console.warn(`Retrying request to LM Studio. Attempt ${this.retries} of 3.`);
+        return this.generateDescription(fileContent);
       }
 
-      return items;
-    } catch (error: any) {
       if (error instanceof SyntaxError) {
         throw new InternalServerErrorException(`LLM failed to output valid JSON. Raw response was: ${error.message}`);
       }
@@ -84,6 +61,44 @@ Do not include markdown code blocks. Output pure JSON.`,
         `LM Studio connection failed. Is the server running? Error: ${error.message}`,
       );
     }
+  }
+
+  private async getFileResponses(userPrompt: string, fileContent: string): Promise<DatasetItem[]> {
+    let items: DatasetItem[] = [];
+    for (const systemPrompt of this.systemPrompts) {
+      // 4. Send request to LM Studio
+      // Note: "model" can be any string, LM Studio defaults to whichever model you currently have loaded in the UI.
+      const response = await axios.post(this.lmStudioUrl, {
+        model: 'local-model',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        temperature: 0.2, // Low temperature for more structured, predictable output
+      });
+
+      const rawText = response.data.choices[0].message.content.trim();
+
+      // 5. Parse local LLM text output into JSON dataset format
+      const datasetItem = JSON.parse(rawText);
+      const sanitizedText = fileContent.replace(/\r/g, '');
+
+      const finalTrainingItem: TrainingItem = {
+        messages: [
+          { role: 'system', content: 'You are a first-class Angular dev coding like MyGuy-260621' },
+          { role: 'user', content: datasetItem.instruction },
+          { role: 'assistant', content: `\`\`\`typescript\n${sanitizedText}\n\`\`\`` }, // Your real code!
+        ],
+      };
+
+      items.push({
+        success: true,
+        dataset: datasetItem,
+        finalTrainingItem,
+      });
+    }
+
+    return items;
   }
 
   async generateFromSplitFile(filePath: string) {
