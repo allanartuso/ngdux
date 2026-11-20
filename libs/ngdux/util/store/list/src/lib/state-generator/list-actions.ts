@@ -108,6 +108,10 @@ export function createListActions<T, E, S = T, Params = Record<string, string>>(
     patch,
     patchSuccess,
     patchFailure,
+    mutationUnavailable: createAction(
+      `[${featureName} API] ${featureName} Mutation Unavailable`,
+      props<{ operation: 'patch' | 'delete' }>()
+    ),
     resetRequestState
   };
 }

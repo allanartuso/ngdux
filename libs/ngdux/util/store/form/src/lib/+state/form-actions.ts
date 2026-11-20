@@ -35,6 +35,10 @@ export function createFormActions<DTO, ERROR, CREATE_DTO = DTO>(
     create,
     createSuccess,
     createFailure,
-    reset
+    reset,
+    mutationUnavailable: createAction(
+      `[${featureName} API] ${featureName} Mutation Unavailable`,
+      props<{ operation: 'create' | 'save' | 'delete' }>()
+    )
   };
 }

@@ -33,6 +33,10 @@ export interface FormActions<DTO, ERROR, CREATE_DTO = DTO> {
   createSuccess: ActionCreator<string, (props: { resource: DTO }) => { resource: DTO } & Action<string>>;
   createFailure: ActionCreator<string, (props: { errors: ERROR }) => { errors: ERROR } & Action<string>>;
 
+  mutationUnavailable: ActionCreator<
+    string,
+    (props: { operation: 'create' | 'save' | 'delete' }) => typeof props & Action<string>
+  >;
   reset: ActionCreator<string, () => Action<string>>;
 }
 

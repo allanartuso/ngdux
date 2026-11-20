@@ -44,13 +44,8 @@ export class NgilTimePickerComponent extends AbstractInputComponent<TimePickerVa
     });
   }
 
-  override setDisabledState(isDisabled: boolean): void {
-    super.setDisabledState(isDisabled);
-    if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
-    } else {
-      this.formGroup.enable({ emitEvent: false });
-    }
+  protected override get disabledStateControl() {
+    return this.formGroup;
   }
 
   writeValue(value: TimePickerValue): void {

@@ -65,6 +65,7 @@
     "unitTestRunner": {
       "type": "string",
       "description": "Unit test runner",
+      "enum": ["jest", "none", "vitest-angular", "vitest-analog"],
       "$default": {
         "$source": "argv",
         "index": 3

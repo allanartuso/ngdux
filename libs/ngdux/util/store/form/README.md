@@ -13,6 +13,8 @@ Every facade state property is available as both a read-only Angular signal and 
 
 Signals use the same NgRx selectors as the observables and reflect state changes synchronously. Dispatch methods such as `load`, `create`, `save`, `delete` and `reset` work with both APIs.
 
+Reset clears the form and unsubscribes from pending requests. Calling a mutation that the service does not implement sets the request state to `FAILURE` and emits a `mutationUnavailable` action with the operation name.
+
 The deprecated `AbstractFormFacade`, `AbstractFormEffects` and `AbstractFormReducerManager` classes and `FORM_FEATURE_KEY` token have been removed. Use `provideFormState` for the full setup, or the exported `createFormState`, `createFormFacade`, `provideFormFacade` and `createFormEffects` functions for custom setups. Replace facade subclasses with a `FormFacade` type and an `InjectionToken`, as shown below.
 
 Example:

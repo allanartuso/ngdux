@@ -128,6 +128,7 @@ function createListActionHandlers<T, E, S, Params>(
       ...state,
       selectedResourceIds: [] as string[],
     })),
+    on(actions.mutationUnavailable, state => ({ ...state, requestState: RequestState.FAILURE })),
     ...createLoadingStateActionHandlers<ListState<S, E, Params>>(
       actions.loadPage,
       actions.loadPageSuccess,

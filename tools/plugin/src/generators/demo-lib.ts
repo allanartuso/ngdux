@@ -1,21 +1,19 @@
 import { libraryGenerator, UnitTestRunner } from '@nx/angular/generators';
-import { formatFiles, generateFiles, Tree } from '@nx/devkit';
+import { names, Tree } from '@nx/devkit';
 import { DemoLibGeneratorSchema } from './schema';
-import path = require('path');
 
 export async function demoLibGenerator(tree: Tree, options: DemoLibGeneratorSchema) {
-  const angularLibOptions = {
+  const buildable = options.unitTestRunner === 'vitest-angular' && !options.publishable;
+  return libraryGenerator(tree, {
     name: options.name,
     directory: getDirectory(options),
     publishable: options.publishable,
-    importPath: getImportPath(options),
+    buildable,
+    importPath: getImportPath(options, buildable || !!options.publishable),
     changeDetection: 'OnPush' as const,
     style: 'scss' as const,
     unitTestRunner: options.unitTestRunner as UnitTestRunner,
-  };
-
-  await libraryGenerator(tree, angularLibOptions);
-  await createIndexFile(tree, angularLibOptions.directory, options);
+  });
 }
 
 export default demoLibGenerator;
@@ -30,25 +28,20 @@ function getDirectory(options: DemoLibGeneratorSchema): string {
   return libPath;
 }
 
-function getImportPath(options: DemoLibGeneratorSchema): string {
-  let importPath = `${options.importPrefix ?? '@demo'}/${options.scope}`;
+function getImportPath(options: DemoLibGeneratorSchema, usePackageName: boolean): string {
+  const prefix = options.importPrefix ?? '@demo';
+  const segments = [options.scope];
   if (options.isCommon) {
-    importPath = `${importPath}/common`;
+    segments.push('common');
   }
-  importPath = `${importPath}/${options.type}/${options.name}`;
-
-  return importPath;
-}
-
-async function createIndexFile(tree: Tree, projectRoot: string, options: DemoLibGeneratorSchema) {
-  const rootOffset = projectRoot
-    .split('/')
-    .map(() => '..')
-    .join('/');
-  generateFiles(tree, path.join(__dirname, 'files'), projectRoot, {
-    ...options,
-    template: '',
-    rootOffset,
-  });
-  await formatFiles(tree);
+  segments.push(options.type, options.name);
+  if (!usePackageName) {
+    return [prefix, ...segments].join('/');
+  }
+  const name = names(segments.join('-').replaceAll('/', '-')).fileName;
+  const packageName = prefix.startsWith('@') ? `${prefix}/${name}` : names(`${prefix}-${name}`).fileName;
+  if (packageName.length > 214 || !/^(@[a-z0-9][a-z0-9._-]*\/)?[a-z0-9][a-z0-9._-]*$/.test(packageName)) {
+    throw new Error(`Invalid npm package name "${packageName}". Check the import prefix, scope and library name.`);
+  }
+  return packageName;
 }

@@ -20,7 +20,7 @@ export interface ListState<T, E = unknown, Params = Record<string, string>>
 
 export interface ListSelectors<Summary, E = unknown, Params = Record<string, string>> {
   getAll: MemoizedSelector<object, Summary[]>;
-  getRequestOptions: MemoizedSelector<object, RequestOptions>;
+  getRequestOptions: MemoizedSelector<object, RequestOptions<Params>>;
   isLastPage: MemoizedSelector<object, boolean>;
   getCurrentPageData: MemoizedSelector<object, Summary[]>;
   getPagingOptions: MemoizedSelector<object, PagingOptions>;
@@ -132,6 +132,10 @@ export interface ListActions<Entity, Error = unknown, Summary = Entity, Params =
     (props: { resources: (Entity | ErrorDto)[] }) => { resources: (Entity | ErrorDto)[] } & Action<string>
   >;
   patchFailure: ActionCreator<string, (props: { errors: Error }) => { errors: Error } & Action<string>>;
+  mutationUnavailable: ActionCreator<
+    string,
+    (props: { operation: 'patch' | 'delete' }) => typeof props & Action<string>
+  >;
   loadNextPage: ActionCreator<string, () => Action<string>>;
 
   /**
@@ -164,7 +168,7 @@ export interface ListFacade<Data, Error = unknown, Summary = Data, Params = Reco
   readonly requestParameters: Signal<Params | undefined>;
   readonly lastPageNumber: Signal<number | undefined>;
   readonly pagingOptions: Signal<PagingOptions>;
-  readonly requestOptions: Signal<RequestOptions<Record<string, string>>>;
+  readonly requestOptions: Signal<RequestOptions<Params>>;
   readonly sortingOptions: Signal<SortingField[]>;
   readonly selectedItems: Signal<Summary[]>;
   readonly totalCount: Signal<number>;
@@ -182,7 +186,7 @@ export interface ListFacade<Data, Error = unknown, Summary = Data, Params = Reco
   requestParameters$: Observable<Params | undefined>;
   lastPageNumber$: Observable<number | undefined>;
   pagingOptions$: Observable<PagingOptions>;
-  requestOptions$: Observable<RequestOptions<Record<string, string>>>;
+  requestOptions$: Observable<RequestOptions<Params>>;
   sortingOptions$: Observable<SortingField[]>;
   selectedItems$: Observable<Summary[]>;
   totalCount$: Observable<number>;

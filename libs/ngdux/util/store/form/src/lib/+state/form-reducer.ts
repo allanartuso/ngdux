@@ -31,6 +31,7 @@ function createFormActionHandlers<DTO, ERROR, CREATE_DTO = DTO>(
 ): ReducerTypes<FormState<DTO, ERROR>, ActionCreator[]>[] {
   return [
     on(actions.reset, (): FormState<DTO, ERROR> => initialFormState),
+    on(actions.mutationUnavailable, state => ({ ...state, requestState: RequestState.FAILURE })),
     on(
       actions.loadSuccess,
       actions.createSuccess,

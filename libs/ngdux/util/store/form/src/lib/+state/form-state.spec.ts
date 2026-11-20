@@ -74,6 +74,41 @@ describe('form state providers', () => {
     expect(TestBed.inject(otherToken).resource()).toBeUndefined();
   });
 
+  it('ignores responses from requests that started before reset', () => {
+    const response = new Subject<Resource>();
+    service.loadResource.mockReturnValue(response);
+    service.saveResource.mockReturnValue(response);
+    service.createResource.mockReturnValue(response);
+    service.deleteResource.mockReturnValue(response);
+    facade.load({ id: resource.id });
+    facade.save({ resource });
+    facade.create({ resource });
+    facade.delete({ id: resource.id });
+
+    facade.reset();
+    response.next(resource);
+
+    expect(facade.resource()).toBeUndefined();
+    expect(facade.loadingState()).toBe(RequestState.IDLE);
+    expect(facade.requestState()).toBe(RequestState.IDLE);
+    service.loadResource.mockReturnValue(of(resource));
+    facade.load({ id: resource.id });
+    expect(facade.resource()).toEqual(resource);
+  });
+
+  it('marks unsupported writes as failed without fabricating service errors', () => {
+    Object.assign(service, { createResource: undefined, saveResource: undefined, deleteResource: undefined });
+    facade.create({ resource });
+    expect(facade.requestState()).toBe(RequestState.FAILURE);
+    facade.reset();
+    facade.save({ resource });
+    expect(facade.requestState()).toBe(RequestState.FAILURE);
+    facade.reset();
+    facade.delete({ id: resource.id });
+    expect(facade.requestState()).toBe(RequestState.FAILURE);
+    expect(facade.errors()).toBeUndefined();
+  });
+
   it('exposes errors and notifies through the functional effects', async () => {
     const errors = ['Save failed'];
     service.saveResource.mockReturnValue(throwError(() => errors));

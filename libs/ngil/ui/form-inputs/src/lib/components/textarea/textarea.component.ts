@@ -25,13 +25,8 @@ export class NgilTextareaComponent extends AbstractInputComponent<string> implem
     });
   }
 
-  override setDisabledState(isDisabled: boolean): void {
-    super.setDisabledState(isDisabled);
-    if (isDisabled) {
-      this.control.disable({ emitEvent: false });
-    } else {
-      this.control.enable({ emitEvent: false });
-    }
+  protected override get disabledStateControl() {
+    return this.control;
   }
 
   writeValue(value: string): void {

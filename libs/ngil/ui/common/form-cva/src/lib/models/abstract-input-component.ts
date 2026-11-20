@@ -68,7 +68,20 @@ export abstract class AbstractInputComponent<T = string> implements OnInit, Cont
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    const control = this.disabledStateControl;
+    if (control) {
+      if (isDisabled) {
+        control.disable({ emitEvent: false });
+      } else {
+        control.enable({ emitEvent: false });
+      }
+    }
     this.cdr.markForCheck();
+  }
+
+  /** The internal form control or group managed by this value accessor, if it has one. */
+  protected get disabledStateControl(): AbstractControl | undefined {
+    return undefined;
   }
 
   abstract writeValue(value: T): void;

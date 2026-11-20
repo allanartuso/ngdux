@@ -11,12 +11,6 @@ export function createListSelectors<T, E, Params = Record<string, string>>(
 
   const getPagingOptions = createSelector(getListState, state => state.pagingOptions);
 
-  const getRequestOptions = createSelector(getListState, (state): RequestOptions => ({
-    pagingOptions: state.pagingOptions,
-    sortingOptions: state.sortingOptions,
-    filteringOptions: state.filteringOptions,
-  }));
-
   const getLastPageNumber = createSelector(getListState, state => state.lastPageNumber);
 
   const isLastPage = createSelector(getPagingOptions, getLastPageNumber, ({ page }, lastPageNumber) => {
@@ -32,6 +26,19 @@ export function createListSelectors<T, E, Params = Record<string, string>>(
   const getRequestParameters = createSelector(getListState, state => state.requestParameters);
 
   const getFilteringOptions = createSelector(getListState, state => state.filteringOptions);
+
+  const getRequestOptions = createSelector(
+    getPagingOptions,
+    getSortingOptions,
+    getFilteringOptions,
+    getRequestParameters,
+    (pagingOptions, sortingOptions, filteringOptions, requestParameters): RequestOptions<Params> => ({
+      pagingOptions,
+      sortingOptions,
+      filteringOptions,
+      requestParameters,
+    }),
+  );
 
   const getCurrentPageNumber = createSelector(getPagingOptions, options => options?.page);
 

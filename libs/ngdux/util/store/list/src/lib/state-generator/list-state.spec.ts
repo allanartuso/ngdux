@@ -59,14 +59,30 @@ describe('list state providers', () => {
     response.complete();
   });
 
-  it('sets typed request parameters without loading and reloads when changed', () => {
+  it('sets typed request parameters without loading and reloads when changed', async () => {
     service.loadResources.mockReturnValue(of(resources));
     facade.setRequestParameters({ params: { tenantId: 1 } });
     expect(facade.requestParameters()).toEqual({ tenantId: 1 });
     expect(service.loadResources).not.toHaveBeenCalled();
     facade.changeRequestParams({ params: { tenantId: 2 } });
     expect(facade.requestParameters()).toEqual({ tenantId: 2 });
+    expect(facade.requestOptions().requestParameters?.tenantId).toBe(2);
+    expect((await firstValueFrom(facade.requestOptions$)).requestParameters?.tenantId).toBe(2);
     expect(service.loadResources).toHaveBeenCalledWith(expect.objectContaining({ requestParameters: { tenantId: 2 } }));
+  });
+
+  it('marks unsupported writes as failed and can handle subsequent requests', () => {
+    Object.assign(service, { patchResources: undefined, deleteResources: undefined });
+    facade.patch({ resourceIds: ['one'], resource: { name: 'new' } });
+    expect(facade.requestState()).toBe(RequestState.FAILURE);
+    expect(facade.errors()).toBeUndefined();
+    facade.resetRequestState();
+    facade.delete({ resourceIds: ['one'] });
+    expect(facade.requestState()).toBe(RequestState.FAILURE);
+
+    service.loadResources.mockReturnValue(of(resources));
+    facade.loadPage();
+    expect(facade.currentPageData()).toEqual(resources);
   });
 
   it('resets and reloads when reinitialized, with an optional notification service', () => {
@@ -79,6 +95,31 @@ describe('list state providers', () => {
     expect(facade.pagingOptions().pageSize).toBe(10);
     expect(facade.selectedItems()).toEqual([]);
     expect(facade.isReady()).toBe(true);
+  });
+
+  it('drops pending patch and delete responses when reinitialized', () => {
+    const patchResponse = new Subject<Resource[]>();
+    const deleteResponse = new Subject<void>();
+    service.patchResources.mockReturnValue(patchResponse);
+    service.deleteResources.mockReturnValue(deleteResponse);
+    service.loadResources.mockReturnValue(of(resources));
+
+    facade.patch({ resourceIds: ['one'], resource: { name: 'Updated' } });
+    facade.delete({ resourceIds: ['one'] });
+    expect(facade.requestState()).toBe(RequestState.IN_PROGRESS);
+
+    facade.reinitialize();
+    patchResponse.next([]);
+    deleteResponse.error(['Late delete error']);
+
+    expect(facade.requestState()).toBe(RequestState.IDLE);
+    expect(facade.errors()).toBeUndefined();
+    expect(service.loadResources).toHaveBeenCalledTimes(1);
+
+    service.deleteResources.mockReturnValue(of(undefined));
+    facade.delete({ resourceIds: ['one'] });
+    expect(facade.requestState()).toBe(RequestState.SUCCESS);
+    expect(service.loadResources).toHaveBeenCalledTimes(2);
   });
 
   it('creates a reducer and selectors with a custom entity ID', () => {
