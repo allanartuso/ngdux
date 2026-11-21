@@ -1,7 +1,10 @@
-import { createProjectGraphAsync, ProjectGraphProjectNode } from '@nx/devkit';
+import { createProjectGraphAsync, ProjectGraphProjectNode, readJsonFile, workspaceRoot } from '@nx/devkit';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
 export interface PackageJson {
-  default: { name: string; version: string; dependencies: Object; repository: Object; homepage: string };
+  name: string;
+  version: string;
 }
 
 export interface ProjectJson {
@@ -55,12 +58,9 @@ async function getProjectInfo(node: ProjectGraphProjectNode): Promise<ProjectInf
   const packageJsonFile = node.data.root + '/package.json';
   const projectJsonFile = node.data.root + '/project.json';
 
-  const projectJson: ProjectJson = await import(`'../../${projectJsonFile}`);
-  let packageJson: PackageJson | undefined = undefined;
-
-  try {
-    packageJson = await import(`'../../${packageJsonFile}`);
-  } catch (e) {}
+  const projectJson = readJsonFile<ProjectJson>(join(workspaceRoot, projectJsonFile));
+  const packageJsonPath = join(workspaceRoot, packageJsonFile);
+  const packageJson = existsSync(packageJsonPath) ? readJsonFile<PackageJson>(packageJsonPath) : undefined;
 
   return {
     packageJsonFile,

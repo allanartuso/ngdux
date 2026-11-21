@@ -1,5 +1,7 @@
+import { readJsonFile, workspaceRoot } from '@nx/devkit';
 import { execSync } from 'child_process';
 import * as fs from 'fs';
+import { join } from 'node:path';
 import standardVersion from 'standard-version';
 import { ProjectInfo, getPublishableLibs } from './publishable-libs';
 
@@ -13,7 +15,7 @@ async function updatePublishableLibsVersions() {
       commit: true
     }
   });
-  const nextVersion = await getNextVersion();
+  const { version: nextVersion } = readJsonFile<{ version: string }>(join(workspaceRoot, 'package.json'));
 
   await updatePubLibsVersion(publishableLibs, nextVersion);
   execSync('git add .', { stdio: 'inherit' });
@@ -30,16 +32,9 @@ async function updatePublishableLibsVersions() {
   process.exit(0);
 }
 
-async function getNextVersion(): Promise<string> {
-  const packageJsonFile = '../../package.json';
-  const packageJson = await import(packageJsonFile);
-
-  return packageJson.version;
-}
-
 async function updatePubLibsVersion(publishableLibs: ProjectInfo[], nextVersion: string) {
   for (const lib of publishableLibs) {
-    const newPackageJson = { ...lib.packageJson?.default, version: nextVersion };
+    const newPackageJson = { ...lib.packageJson, version: nextVersion };
 
     await fs.promises.writeFile(lib.packageJsonFile, JSON.stringify(newPackageJson));
     console.log(`${lib.projectJson.name} version updated to ${nextVersion}`);
