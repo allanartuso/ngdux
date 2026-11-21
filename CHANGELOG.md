@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/allanartuso/ngdux/compare/v5.4.0...v6.0.0) (2026-11-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* update to angular 22
+* **ngdux:** support signals, remove deprecated classes
+
+### Features
+
+* **lib-generator:** add unit test runner field ([36ba551](https://github.com/allanartuso/ngdux/commit/36ba5519323dc4812d86953fc2fcc3adfed8e505))
+* **lib-generator:** allow custom import prefix ([e5dea8b](https://github.com/allanartuso/ngdux/commit/e5dea8bfb468146bc8747bf98d9c09be368d9dfb))
+* **ngdux:** support signals, remove deprecated classes ([44b24e7](https://github.com/allanartuso/ngdux/commit/44b24e714b69f4483e119f74200a48a036c3b434))
+
+
+### Bug Fixes
+
+* add missing material dependency on ngil components package json ([06d078f](https://github.com/allanartuso/ngdux/commit/06d078fee533969d9e5afa5f56cae9fd474e9bcb))
+* **lib-generator:**  scope ([37ef8fc](https://github.com/allanartuso/ngdux/commit/37ef8fc7d8789b50fd2bf41d771a9a4fe1bc2762))
+* publish scripts ([b6e5966](https://github.com/allanartuso/ngdux/commit/b6e596683e5a5b98003ec667c29ce9a29fd3006f))
+* status after call unsupported action ([13c4286](https://github.com/allanartuso/ngdux/commit/13c4286c7feaeae30b54b539d44c6f7e020d5e6d))
+
+
+* update to angular 22 ([ee197d8](https://github.com/allanartuso/ngdux/commit/ee197d8ae36f64efce8ebdc3d10a323fcd80bf29))
+
 ## [5.4.0](https://github.com/allanartuso/ngdux/compare/v5.3.0...v5.4.0) (2026-02-18)
 
 
