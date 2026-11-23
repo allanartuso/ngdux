@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.1](https://github.com/allanartuso/ngdux/compare/v6.0.0...v6.0.1) (2026-11-23)
+
+
+### Bug Fixes
+
+* **ngil:** lib generator ([20dfd50](https://github.com/allanartuso/ngdux/commit/20dfd50c82655fb374adbd373c13141e42339bcd))
+
 ## [6.0.0](https://github.com/allanartuso/ngdux/compare/v5.4.0...v6.0.0) (2026-11-21)
 
 

@@ -1,1 +1,1 @@
-{"name":"@ngdux/data-model-common","version":"6.0.0","peerDependencies":{"@angular/forms":">=22.0.0","rxjs":""}}
+{"name":"@ngdux/data-model-common","version":"6.0.1","peerDependencies":{"@angular/forms":">=22.0.0","rxjs":""}}
