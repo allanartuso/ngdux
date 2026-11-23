@@ -5,8 +5,9 @@ import { DemoLibGeneratorSchema } from './schema';
 export async function demoLibGenerator(tree: Tree, options: DemoLibGeneratorSchema) {
   const buildable = options.unitTestRunner === 'vitest-angular' && !options.publishable;
   return libraryGenerator(tree, {
-    name: options.name,
+    name: getProjectName(options),
     directory: getDirectory(options),
+    prefix: options.scope,
     publishable: options.publishable,
     buildable,
     importPath: getImportPath(options, buildable || !!options.publishable),
@@ -17,6 +18,11 @@ export async function demoLibGenerator(tree: Tree, options: DemoLibGeneratorSche
 }
 
 export default demoLibGenerator;
+
+function getProjectName(options: DemoLibGeneratorSchema): string {
+  const segments = [options.scope, ...(options.isCommon ? ['common'] : []), options.type, options.name];
+  return names(segments.join('-').replaceAll('/', '-')).fileName;
+}
 
 function getDirectory(options: DemoLibGeneratorSchema): string {
   let libPath = `libs/${options.scope}`;
