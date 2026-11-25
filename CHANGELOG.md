@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/allanartuso/ngdux/compare/v6.0.1...v6.1.0) (2026-11-25)
+
+
+### Features
+
+* **ngdux:** accept generic state type ([8b4ab06](https://github.com/allanartuso/ngdux/commit/8b4ab06c6dffb0cf3809719c7a1fad351d395845))
+
 ### [6.0.1](https://github.com/allanartuso/ngdux/compare/v6.0.0...v6.0.1) (2026-11-23)
 
 
