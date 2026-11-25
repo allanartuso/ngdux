@@ -108,6 +108,27 @@ export function provideFormState<DTO, ERROR, CREATE_DTO = DTO>(
 
 ```
 
+## Extending the state
+
+Add your own properties to the form state: declare the extended state, type the custom handlers with it and pass
+the initial values of the added properties (required, and type-checked against the extended state).
+`createFormReducer` infers the state from the handlers, so no cast is needed; the ngdux handlers keep the added properties and `reset` restores their initial values.
+
+```ts
+interface UserFormState extends FormState<User, string> {
+  checked: boolean;
+}
+
+const actions = {
+  ...createFormActions<User, string>(featureKey),
+  checkSuccess: createAction(`[${featureKey} API] Check success`),
+};
+const handlers: ReducerTypes<UserFormState, ActionCreator[]>[] = [
+  on(actions.checkSuccess, state => ({ ...state, checked: true })),
+];
+const reducer = createFormReducer(actions, handlers, { checked: false }); // ActionReducer<UserFormState>
+```
+
 ## Service
 
 ```

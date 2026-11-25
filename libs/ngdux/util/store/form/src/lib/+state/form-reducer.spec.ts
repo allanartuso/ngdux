@@ -1,13 +1,14 @@
 import { RequestState } from '@ngdux/data-model-common';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
 import { createTestResource, TestResource } from '@ngdux/store-common/test';
+import { ActionCreator, createAction, on, props, ReducerTypes } from '@ngrx/store';
 import { FormState } from '../models/form.model';
 import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';
 
 jest.mock('@ngdux/store-common', () => ({
   createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
-  createRequestStateActionHandlers: jest.fn().mockReturnValue([])
+  createRequestStateActionHandlers: jest.fn().mockReturnValue([]),
 }));
 
 describe('createFormReducer', () => {
@@ -23,7 +24,7 @@ describe('createFormReducer', () => {
       resource: undefined,
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      errors: undefined
+      errors: undefined,
     };
   });
 
@@ -37,19 +38,19 @@ describe('createFormReducer', () => {
       testFormActions.load,
       testFormActions.save,
       testFormActions.saveSuccess,
-      testFormActions.saveFailure
+      testFormActions.saveFailure,
     );
     expect(createRequestStateActionHandlers).toHaveBeenCalledWith(
       undefined,
       testFormActions.delete,
       testFormActions.deleteSuccess,
-      testFormActions.deleteFailure
+      testFormActions.deleteFailure,
     );
     expect(createRequestStateActionHandlers).toHaveBeenCalledWith(
       undefined,
       testFormActions.create,
       testFormActions.createSuccess,
-      testFormActions.createFailure
+      testFormActions.createFailure,
     );
   });
 
@@ -62,7 +63,7 @@ describe('createFormReducer', () => {
     expect(createLoadingStateActionHandlers).toHaveBeenCalledWith(
       testFormActions.load,
       testFormActions.loadSuccess,
-      testFormActions.loadFailure
+      testFormActions.loadFailure,
     );
   });
 
@@ -91,7 +92,7 @@ describe('createFormReducer', () => {
       const action = testFormActions.deleteSuccess({ id: resource.id });
       const initialState: FormState<TestResource, string[]> = {
         ...testInitialState,
-        resource
+        resource,
       };
 
       const state: FormState<TestResource, string[]> = testReducer(initialState, action);
@@ -107,12 +108,42 @@ describe('createFormReducer', () => {
       const state: FormState<TestResource, string[]> = testReducer(
         {
           ...testInitialState,
-          resource
+          resource,
         },
-        action
+        action,
       );
 
       expect(state).toStrictEqual(testInitialState);
     });
+  });
+});
+
+describe('createFormReducer with an extended state', () => {
+  interface ExtendedFormState extends FormState<TestResource, string[]> {
+    checked: boolean;
+  }
+
+  const actions = createFormActions<TestResource, string[]>('extendedFeature');
+  const checked = createAction('[extendedFeature] Checked', props<{ checked: boolean }>());
+  const handlers: ReducerTypes<ExtendedFormState, ActionCreator[]>[] = [
+    on(checked, (state, { checked }) => ({ ...state, checked })),
+  ];
+  const createReducer = () => createFormReducer(actions, handlers, { checked: false });
+
+  it('adds the extra initial state and handlers', () => {
+    const reducer = createReducer();
+    const state = reducer(undefined, checked({ checked: true }));
+
+    expect(state.checked).toBe(true);
+    expect(state.requestState).toBe(RequestState.IDLE);
+  });
+
+  it('keeps the extra state in the ngdux handlers and resets it', () => {
+    const reducer = createReducer();
+    const resource = createTestResource();
+    const state = reducer(undefined, checked({ checked: true }));
+
+    expect(reducer(state, actions.loadSuccess({ resource })).checked).toBe(true);
+    expect(reducer(state, actions.reset()).checked).toBe(false);
   });
 });

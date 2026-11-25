@@ -18,7 +18,7 @@ import {
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
 import { TestResource, createTestResource, createTestResources } from '@ngdux/store-common/test';
 import { EntityAdapter } from '@ngrx/entity';
-import { ActionReducer } from '@ngrx/store';
+import { ActionCreator, ActionReducer, createAction, on, props, ReducerTypes } from '@ngrx/store';
 import { TestErrors } from '../models/list.fixture';
 import { ListActions, ListState } from '../models/list.model';
 import { createListActions } from './list-actions';
@@ -271,5 +271,35 @@ describe('createListReducer', () => {
       testListActions.patchSuccess,
       testListActions.patchFailure,
     );
+  });
+});
+
+describe('createListReducer with an extended state', () => {
+  interface ExtendedListState extends ListState<TestResource, TestErrors> {
+    total: number | null;
+  }
+
+  const actions = createListActions<TestResource, TestErrors>('extendedFeature');
+  const totalLoaded = createAction('[extendedFeature] Total loaded', props<{ total: number }>());
+  const handlers: ReducerTypes<ExtendedListState, ActionCreator[]>[] = [
+    on(totalLoaded, (state, { total }) => ({ ...state, total })),
+  ];
+  const createReducer = () =>
+    createListReducer(createListEntityAdapter<TestResource>(), actions, handlers, { total: null });
+
+  it('adds the extra initial state and handlers', () => {
+    const reducer = createReducer();
+    const state = reducer(undefined, totalLoaded({ total: 42 }));
+
+    expect(state.total).toBe(42);
+    expect(state.selectedResourceIds).toStrictEqual([]);
+  });
+
+  it('keeps the extra state in the ngdux handlers and resets it', () => {
+    const reducer = createReducer();
+    const loaded = reducer(undefined, totalLoaded({ total: 42 }));
+
+    expect(reducer(loaded, actions.changePageNumber({ pageNumber: 2 })).total).toBe(42);
+    expect(reducer(loaded, actions.reset()).total).toBeNull();
   });
 });

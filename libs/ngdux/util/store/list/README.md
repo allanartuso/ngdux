@@ -141,6 +141,27 @@ export function provideListState<
 }
 ```
 
+## Extending the state
+
+Add your own properties to the list state: declare the extended state, type the custom handlers with it and pass
+the initial values of the added properties (required, and type-checked against the extended state).
+`createListReducer` infers the state from the handlers, so no cast is needed; the ngdux handlers keep the added properties and `reset` restores their initial values.
+
+```ts
+interface UsersState extends ListState<User, string> {
+  total: number | null;
+}
+
+const actions = {
+  ...createListActions<User, string>(featureKey),
+  totalLoaded: createAction(`[${featureKey} API] Total loaded`, props<{ total: number }>()),
+};
+const handlers: ReducerTypes<UsersState, ActionCreator[]>[] = [
+  on(actions.totalLoaded, (state, { total }) => ({ ...state, total })),
+];
+const reducer = createListReducer(entityAdapter, actions, handlers, { total: null }); // ActionReducer<UsersState>
+```
+
 ## Service
 
 ```
